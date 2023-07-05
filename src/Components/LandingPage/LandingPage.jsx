@@ -31,7 +31,7 @@ const Landing = () => {
       <div className="header">
         <img src={logo1} alt="" />
         <div className="buttons">
-          <button id="register" onClick={handleLogin}>Registrarse</button>
+          <button id="register" onClick={handleRegister}>Registrarse</button>
           <button id="login" >Entrar</button>
         </div>
       </div>
