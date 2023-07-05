@@ -11,8 +11,9 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/login" element={<Form />} />
-        <Route path="/landing" element={<Landing />} />
         <Route path="/detail" element={<DetailCourses />} />
+        <Route path="/register" element={<Form />} />
+        <Route path="/presentation" element={<Landing />} />
       </Routes>
       <h1 className="text-3xl font-bold underline">Hello world!</h1>
     </div>
