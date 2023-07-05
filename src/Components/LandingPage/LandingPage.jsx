@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 
 import "./style.css";
 import logo1 from "./imgs/logo1.jpg";
@@ -7,6 +8,7 @@ import empresas from "./imgs/empresas.jpg";
 
 const Landing = () => {
   const [activeButton, setActiveButton] = useState("idiomas");
+  const navigate = useNavigate();
 
   const renderContent = () => {
     if (activeButton === "idiomas") {
@@ -20,13 +22,17 @@ const Landing = () => {
     setActiveButton(button);
   };
 
+  const handleRegister = () => {
+    navigate('/register')
+  }
+    
   return (
     <div className="landing">
       <div className="header">
         <img src={logo1} alt="" />
         <div className="buttons">
-          <button id="register">Registrarse</button>
-          <button id="login">Entrar</button>
+          <button id="register" onClick={handleLogin}>Registrarse</button>
+          <button id="login" >Entrar</button>
         </div>
       </div>
 
