@@ -1,0 +1,173 @@
+body{
+    background: #7C38CD;
+}
+
+/* HEADER */
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header img{
+    width: 300px;
+    margin: 10px;
+}
+
+.buttons{
+    margin: 10px;
+}
+.header button{
+    padding: 10px;
+    border-radius: 20px ;
+    background: #7C38CD;
+    color: white;
+    margin: 10px;
+}
+
+.header #register{
+    border: 2px #AA6FFF solid;
+}
+
+.header #login{
+    border: none;
+    background: white;
+    color: #7C38CD;
+}
+
+/* PRESENTATION */
+
+.presentation{
+    color: #AA6FFF;
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+}
+.presentation img{
+    width: 300px;
+}
+
+.presentation .presentationContainer{
+    padding: 10px;
+    background: white;
+    border-radius: 50px;
+    width: 500px;
+    border: 20px;
+    padding: 40px;
+}
+
+.presentation button{
+    border: 2px #AA6FFF solid;
+    padding: 10px;
+    border-radius: 20px ;
+    background: #4c2877;
+    color: white;
+    margin: 10px;
+}
+
+/* whiteBack */
+
+.whiteBack{
+    background: white;
+    border-radius: 45px;
+    padding: 0 20px 20px 0;
+}
+
+.selector{
+    padding: 20px;
+    justify-content: space-between;
+}
+.selector h2 {
+    text-align: center;
+}
+.selector .botones{
+    display: flex;
+    justify-content: center;
+}
+
+.selector button{
+    padding: 20px;
+    border: none;
+    color: #684991;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.selector #idiomas{
+    border-radius: 25px 0px 0px 25px;
+}
+.selector #programacion{
+    border-radius: 0px 250px 250px 0px;
+}
+
+button.active{
+    background-color: #AA6FFF;
+    color: white;
+}
+
+/* MENTORES */
+
+.mentores h2{
+    text-align: center;
+    background: #AA6FFF;
+    padding: 20px;
+}
+
+/* EMPRESAS */
+.empresas h2{
+    background: #AA6FFF;
+    text-align: center;
+    padding: 20px;
+}
+
+.empresas .container {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px
+}
+
+
+.empresas img{
+    width: 300px;
+    border-radius: 100px 100px 0 0px;
+}
+
+.empresas .infoContainer{
+    background: #7C38CD;
+    border-radius:25px;
+}
+
+.empresas h3{
+    padding: 20px;
+}
+/* FOOTER */
+
+.footer{
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    color: white;
+}
+
+
+.footer .logo-redes{
+    text-align: center;
+}
+
+.footer .redes{
+    display: flex;
+}
+
+.redes a{
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.logo-redes img{
+    width: 300px;
+}
+
+.footer .about{
+    width: 200px;
+}
