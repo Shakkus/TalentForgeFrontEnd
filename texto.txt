@@ -1,1 +1,8 @@
+<<<<<<< HEAD
 Este es una prubea numero 2asdasas
+=======
+Este es una prubea numero 2
+
+
+muchachos ahora nos volvimos a ilusionar
+>>>>>>> 911922cabd40ed6f0e2a9c8aa6ad76bf10994150
