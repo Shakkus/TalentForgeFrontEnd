@@ -25,17 +25,13 @@ const Landing = () => {
   const handleRegister = () => {
     navigate('/register')
   }
-    
+  
+  const handleLogin = () => {
+    console.log('entra a login');
+  }
+
   return (
     <div className="landing">
-      <div className="header">
-        <img src={logo1} alt="" />
-        <div className="buttons">
-          <button id="register" onClick={handleLogin}>Registrarse</button>
-          <button id="login" >Entrar</button>
-        </div>
-      </div>
-
       <div className="presentation">
         <div className="presentationContainer">
           <h3>Habla un idioma en tan solo 10 minutos al dia!</h3>
@@ -80,55 +76,13 @@ const Landing = () => {
 
         <div className="empresas">
           <h2>Talent Forge para empresas</h2>
-          <div className="container">
+          <div className="info-container">
             <img src={empresas} alt="" />
             <div className="infoContainer">
               <h3>Buscas soluciones de idiomas para tu empresa?</h3>
               <h3 id="textoVioleta">Averigua como podemos ayudarte</h3>
             </div>
           </div>
-        </div>
-      </div>
-
-      <div className="footer">
-        <div className="contact-home">
-          <h3>Contact</h3>
-          <h3>Home</h3>
-          <h3>Ubication</h3>
-        </div>
-        <div className="logo-redes">
-          <img
-            src="src/Components/LandingPage/imgs/opcion4.jpg"
-            alt=""
-            srcset=""
-          />
-          <div className="logo-redes">
-            <img src={logo1} alt="" />
-            <div className="redes">
-              <h3>
-                <a href="#">Instagram</a>
-              </h3>
-              <h3>
-                <a href="#">Facebook</a>
-              </h3>
-              <h3>
-                <a href="#">YouTube</a>
-              </h3>
-              <h3>
-                <a href="#">Linkedin</a>
-              </h3>
-              <h3>
-                <a href="#">Whatsapp</a>
-              </h3>
-            </div>
-          </div>
-        </div>
-        <div className="about">
-          <h3>About Us</h3>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nostrum
-            eligendi illo, ducimus accusantium quidem{" "}
-          </p>
         </div>
       </div>
     </div>

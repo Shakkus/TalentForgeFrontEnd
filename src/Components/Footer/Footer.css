@@ -1,0 +1,33 @@
+
+/* FOOTER */
+
+.footer{
+    background-color: #7C38CD;
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    color: white;
+}
+
+
+.footer .logo-redes{
+    text-align: center;
+}
+
+.footer .redes{
+    display: flex;
+}
+
+.redes a{
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.logo-redes img{
+    width: 300px;
+}
+
+.footer .about{
+    width: 200px;
+}
