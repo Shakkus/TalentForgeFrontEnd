@@ -100,7 +100,6 @@ input[type="text"] {
 }
 
 .submenu-container {
-  margin-top: 5px;
   position: absolute;
   top: 100%;
   left: 0;
@@ -157,6 +156,24 @@ input[type="text"] {
   top: 0;
   left: 100%;
   margin-left: 10px;
+}
+
+.register, .login{
+  padding: 10px;
+    border-radius: 20px ;
+    background: #7C38CD;
+    color: white;
+    margin-right: 20px;
+}
+
+.register{
+  border: 2px #AA6FFF solid;
+}
+
+.login{
+  border: none;
+  background: white;
+  color: #7C38CD;
 }
 
 
