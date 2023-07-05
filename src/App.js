@@ -2,7 +2,7 @@ import "./App.css";
 
 import { Route, Routes } from "react-router-dom";
 import Landing from "./Components/LandingPage/LandingPage";
-import Form from "./Components/Form/Form";
+import Form from "./Components/Form/Register";
 
 function App() {
   return (

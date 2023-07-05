@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./Form.css";
+import "./Register.css";
 import { useForm } from "react-hook-form";
 
 const Form = () => {
@@ -13,6 +13,25 @@ const Form = () => {
     handleSubmit,
     getValues,
   } = useForm();
+
+  const countrys = [
+    "Argentina",
+    "Chile",
+    "Brasil",
+    "Venezuela",
+    "Bolivia",
+    "Perú",
+    "Colombia",
+    "Ecuador",
+    "México",
+    "El Salvador",
+    "Honduras",
+    "España",
+    "Panamá",
+    "Cuba",
+    "Costa Rica",
+    "Uruguay",
+  ];
 
   const daysInMonth = {
     Enero: 31,
@@ -135,6 +154,22 @@ const Form = () => {
               <p>El formato del email no es válido</p>
             )}
           </div>
+          <div className="inputCountry">
+            <label htmlFor="">Country</label>
+            <select
+              name=""
+              className="inputSelect"
+              {...register("Country", {
+                required: true,
+              })}
+            >
+              {countrys.map((country) => (
+                <option className="optionCountry" value={country}>
+                  {country}
+                </option>
+              ))}
+            </select>
+          </div>
           <label htmlFor="">Date of birth</label> <br />
           <div className="inputDateOfBorn">
             <div>
@@ -142,7 +177,7 @@ const Form = () => {
                 Month
               </label>
               <select
-                className="inputDateOfBorn-month"
+                className="inputSelect"
                 name="month"
                 id="month"
                 onChange={handleMonthChange}
@@ -165,7 +200,7 @@ const Form = () => {
               <select
                 name="day"
                 id="day"
-                className="inputDateOfBorn-day"
+                className="inputSelect"
                 {...register("Date of birth day", {
                   required: true,
                 })}
@@ -184,7 +219,7 @@ const Form = () => {
                 Year
               </label>
               <select
-                className="inputDateOfBorn-year"
+                className="inputSelect"
                 name="year"
                 id="year"
                 {...register("Date of birth year", {
