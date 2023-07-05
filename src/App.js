@@ -5,7 +5,6 @@ import Landing from "./Components/LandingPage/LandingPage";
 import Form from "./Components/Form/Register";
 import DetailCourses from "./Components/DetailCoursesProgramation/DetailCoursesProgramation";
 import SearchBar from "./Components/SearchBar/SearchBar";
-import Footer from "./Components/Footer/Footer.jsx";
 
 function App() {
   return (
@@ -17,7 +16,6 @@ function App() {
         <Route path="/register" element={<Form />} />
         <Route path="/" element={<Landing />} />
       </Routes>
-      <Footer />
     </div>
   );
 }

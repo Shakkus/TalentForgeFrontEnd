@@ -5,7 +5,7 @@ const DetailCourses = () => {
   return (
     <div>
       <h1>pitón</h1> <img src="image 66.png" alt="" />
-      {/* <img src="image 66.png" alt="" /> */}
+      <img src={logo1} alt="" />
       <div className="description">
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde quidem
@@ -30,7 +30,7 @@ const DetailCourses = () => {
         </p>
       </div>
       <div className="companies">
-        <img src={logo1} alt="" />
+        <img src="" alt="" />
         <img src="" alt="" />
         <img src="" alt="" />
         <img src="" alt="" />
@@ -42,7 +42,7 @@ const DetailCourses = () => {
       </div>
       <div className="toCourse">
         <NavLink>
-          <button>Comenzar con el primer video</button>
+          <button className="btn #ef4444">Comenzar con el primer video</button>
         </NavLink>
         <div className="nameProfessor">
           <p>Lorem, ipsum dolor.</p>
