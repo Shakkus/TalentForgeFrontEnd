@@ -1,5 +1,6 @@
 import React from "react";
 import "./BrowsedCourses.css"
+import { Link } from "react-router-dom";
 
 function BrowsedCourses({ courses }) {
   return (
@@ -7,7 +8,9 @@ function BrowsedCourses({ courses }) {
       {courses.map((course) => (
         <div key={course.id} className="course-item">
           <div className="thumbnail">
+            <Link to={`/view`}>
             <img src={course.thumbnail} alt="Course Thumbnail" />
+            </Link>
           </div>
           <div className="details">
             <h2 className="title">{course.title}</h2>
