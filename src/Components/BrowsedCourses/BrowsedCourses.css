@@ -28,6 +28,7 @@
 
 .details {
   flex-grow: 1;
+  font-family: 'Lato', sans-serif;
 }
 
 .title {
@@ -55,5 +56,6 @@
 .price {
   font-size: 16px;
   color: #5b2e92;
-  margin-left: auto;
+  margin-left: 20px;
+  font-family: 'Lato', sans-serif;
 }

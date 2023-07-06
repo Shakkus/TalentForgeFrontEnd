@@ -1,6 +1,7 @@
 .landing{
     padding-top: 100px;
     background: #7C38CD;
+    width: 100%;
 }
 
 /* HEADER */
@@ -42,7 +43,7 @@
     color: #AA6FFF;
     display: flex;
     justify-content: space-around;
-    margin: 20px;
+    margin: 20px; 
 }
 .presentation img{
     width: 300px;
@@ -67,6 +68,21 @@
 }
 
 /* whiteBack */
+
+.flagsName {
+}
+
+.flagsLanding { 
+    margin-top: 20px;
+    display: flex;
+    border: 1px solid black;
+}
+
+.flagsLanding img {
+    margin: 35px;
+    display: flex;
+    border: 1px solid black;
+}
 
 .whiteBack{
     background: white;
