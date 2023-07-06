@@ -22,14 +22,6 @@ const Landing = () => {
     setActiveButton(button);
   };
 
-  const handleRegister = () => {
-    navigate('/register')
-  }
-  
-  const handleLogin = () => {
-    console.log('entra a login');
-  }
-
   return (
     <div className="landing">
       <div className="presentation">
