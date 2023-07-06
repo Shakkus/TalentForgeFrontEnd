@@ -1,13 +1,30 @@
-import logo1 from "../LandingPage/imgs/logo1.jpg"
-import "./Footer.css"
+import logo1 from "../LandingPage/imgs/logo1.jpg";
+import "./Footer.css";
+import whatsappImg from "./imgs/Vector-1.png";
+import facebookImg from "./imgs/Vector-2.png";
+import instagramImg from "./imgs/Vector-3.png";
+import linkedinImg from "./imgs/Vector-4.png";
+import ytImg from "./imgs/Vector.png";
+import home from "./imgs/house-solid 1.png";
+import phone from "./imgs/square-phone-solid 1.png";
+import dot from "./imgs/location-dot-solid 1.png";
 
 const Footer = () => {
   return (
     <div className="footer">
-      <div className="contact-home">
-        <h3>Contact</h3>
-        <h3>Home</h3>
-        <h3>Ubication</h3>
+      <div className="contact">
+        <div className="contact-contact">
+          <img className="contact-img" src={phone} alt="" />
+          <h3 className="footerInfo">Contact</h3>
+        </div>
+        <div className="contact-info">
+          <img className="contact-img" src={home} alt="" />
+          <h3 className="footerInfo">Home</h3>
+        </div>
+        <div className="contact-ubication">
+          <img className="contact-img" src={dot} alt="" />
+          <h3 className="footerInfo">Ubication</h3>
+        </div>
       </div>
       <div className="logo-redes">
         <img
@@ -18,27 +35,17 @@ const Footer = () => {
         <div className="logo-redes">
           <img src={logo1} alt="" />
           <div className="redes">
-            <h3>
-              <a href="#">Instagram</a>
-            </h3>
-            <h3>
-              <a href="#">Facebook</a>
-            </h3>
-            <h3>
-              <a href="#">YouTube</a>
-            </h3>
-            <h3>
-              <a href="#">Linkedin</a>
-            </h3>
-            <h3>
-              <a href="#">Whatsapp</a>
-            </h3>
+            <img src={instagramImg} alt="" className="footerImg" />
+            <img src={facebookImg} alt="" className="footerImg" />
+            <img src={ytImg} alt="" className="footerImg" />
+            <img src={linkedinImg} alt="" className="footerImg" />
+            <img src={whatsappImg} alt="" className="footerImg" />
           </div>
         </div>
       </div>
       <div className="about">
-        <h3>About Us</h3>
-        <p>
+        <h3 className="footerInfo">About Us</h3>
+        <p className="aboutInfo">
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nostrum
           eligendi illo, ducimus accusantium quidem{" "}
         </p>
