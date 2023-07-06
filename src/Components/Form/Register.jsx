@@ -87,8 +87,6 @@ const Form = () => {
 
   return (
     <div className="form">
-      <img className="imgForm" src="talentForgeImg.png" alt="" />
-
       <h1 className="formTitle">Account Registration</h1>
       <div className="continueWith">
         <div className="continueWithGoogle">
