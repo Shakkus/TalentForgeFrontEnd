@@ -15,22 +15,22 @@ const Form = () => {
   } = useForm();
 
   const countrys = [
-    "Argentina",
-    "Chile",
-    "Brasil",
-    "Venezuela",
-    "Bolivia",
-    "Perú",
-    "Colombia",
-    "Ecuador",
-    "México",
-    "El Salvador",
-    "Honduras",
-    "España",
-    "Panamá",
-    "Cuba",
-    "Costa Rica",
-    "Uruguay",
+    "Argentina  🇦🇷",
+    "Chile 🇨🇱",
+    "Brasil 🇧🇷",
+    "Venezuela 🇻🇪",
+    "Bolivia 🇧🇴",
+    "Perú 🇵🇪",
+    "Colombia 🇨🇴",
+    "Ecuador 🇪🇨",
+    "México 🇲🇽",
+    "El Salvador 🇸🇻",
+    "Honduras 🇭🇳",
+    "España 🇪🇸",
+    "Panamá 🇵🇦",
+    "Cuba 🇨🇺",
+    "Costa Rica 🇨🇷",
+    "Uruguay 🇺🇾",
   ];
 
   const daysInMonth = {

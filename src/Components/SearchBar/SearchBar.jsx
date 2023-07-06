@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../../Recourses/CarpinchoLogo.png";
 import hearth from "../../Recourses/hearth.png";
 import shopcar from "../../Recourses/shop-car.png";
@@ -6,17 +6,10 @@ import social from "../../Recourses/social.png";
 import searchIcon from "../../Recourses/searchIcon.png";
 import profile from "../../Recourses/profile.png";
 import "./SearchBar.css";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { Link } from "react-router-dom";
 
 const SearchBar = () => {
-  //    filtrosStates
-  const [showFilters, setShowFilters] = useState(false);
-  const [showDateFilter, setShowDateFilter] = useState(false);
-  const [showRatingFilter, setShowRatingFilter] = useState(false);
-  const [showLanguageFilter, setShowLanguageFilter] = useState(false);
-  const [showTopicFilter, setShowTopicFilter] = useState(false);
-  const [showDurationFilter, setShowDurationFilter] = useState(false);
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   //    CursosStates
   const [showSubMenu, setShowSubMenu] = useState(false);
   const [showProgrammingLanguages, setShowProgrammingLanguages] =
@@ -25,16 +18,19 @@ const SearchBar = () => {
 
   const [showResults, setShowResults] = useState(false); // BrowsedCoursesState
 
-  const handleSubMenuToggle = () => { // CursosStates
+  const handleSubMenuToggle = () => {
+    // CursosStates
     setShowSubMenu(!showSubMenu);
   };
 
-  const handleProgrammingLanguagesToggle = () => { //CursosStates submenu
+  const handleProgrammingLanguagesToggle = () => {
+    //CursosStates submenu
     setShowProgrammingLanguages(!showProgrammingLanguages);
     setShowLanguages(false);
   };
 
-  const handleLanguagesToggle = () => {   //CursosStates submenu
+  const handleLanguagesToggle = () => {
+    //CursosStates submenu
     setShowLanguages(!showLanguages);
     setShowProgrammingLanguages(false);
   };
@@ -43,46 +39,16 @@ const SearchBar = () => {
     setShowResults(true); // Mostrar los resultados al hacer clic en el botón de búsqueda
   };
 
-// Submenú controller
-  const handleDateFilterToggle = () => {
-    setShowDateFilter(!showDateFilter);
-    setShowRatingFilter(false);
-    setShowLanguageFilter(false);
-    setShowTopicFilter(false);
-    setShowDurationFilter(false);
-  };
+  // useEffect(() => {
+  //   // Lógica para comprobar el estado de inicio de sesión aquí
+  //   // Por ejemplo, puedes llamar a una API para verificar si el usuario está autenticado
+  //   // y luego actualizar el estado en consecuencia
 
-  const handleRatingFilterToggle = () => {
-    setShowRatingFilter(!showRatingFilter);
-    setShowDateFilter(false);
-    setShowLanguageFilter(false);
-    setShowTopicFilter(false);
-    setShowDurationFilter(false);
-  };
-
-  const handleLanguageFilterToggle = () => {
-    setShowLanguageFilter(!showLanguageFilter);
-    setShowDateFilter(false);
-    setShowRatingFilter(false);
-    setShowTopicFilter(false);
-    setShowDurationFilter(false);
-  };
-
-  const handleTopicFilterToggle = () => {
-    setShowTopicFilter(!showTopicFilter);
-    setShowDateFilter(false);
-    setShowRatingFilter(false);
-    setShowLanguageFilter(false);
-    setShowDurationFilter(false);
-  };
-
-  const handleDurationFilterToggle = () => {
-    setShowDurationFilter(!showDurationFilter);
-    setShowDateFilter(false);
-    setShowRatingFilter(false);
-    setShowLanguageFilter(false);
-    setShowTopicFilter(false);
-  };
+  //   // Ejemplo: Simulación de inicio de sesión exitoso después de 2 segundos
+  //   setTimeout(() => {
+  //     setIsLoggedIn(true);
+  //   }, 10000);
+  // }, []);
 
   return (
     <divPrincipal className="all">
@@ -189,111 +155,48 @@ const SearchBar = () => {
         </div>
         <div className="Nav-center">
           <input type="text" placeholder="Buscar..." />
-          <img
-            className="search-icon"
-            src={searchIcon}
-            alt="search"
-            onClick={handleSearch}
-          />
+          <Link to="search">
+            <img
+              className="search-icon"
+              src={searchIcon}
+              alt="search"
+              onClick={handleSearch}
+            />
+          </Link>
         </div>
-        <div className="Nav-right">
-          <div className="nav-dropdown">
-            <p className="inventory">
-              <Link to="/inventory" className="custom-link">
-                Mis cursos
-              </Link>
-            </p>
+        {isLoggedIn ? (
+          <div className="Nav-right">
+            <div className="nav-dropdown">
+              <p className="inventory">
+                <Link to="/inventory" className="custom-link">
+                  Mis cursos
+                </Link>
+              </p>
+            </div>
+            <Link to="/wishlist" className="custom-link">
+              <img className="hearth" src={hearth} alt="hearth" />
+            </Link>
+            <Link to="/shopcar" className="custom-link">
+              <img className="shopcar" src={shopcar} alt="shopcar" />
+            </Link>
+            <Link to="/social" className="custom-link">
+              <img className="social" src={social} alt="social" />
+            </Link>
+            <Link to="/profile/:id" className="custom-link">
+              <img className="profile-img" src={profile} alt="profile" />
+            </Link>
           </div>
-          <Link to="/wishlist" className="custom-link">
-            <img className="hearth" src={hearth} alt="hearth" />
-          </Link>
-          <Link to="/shopcar" className="custom-link">
-            <img className="shopcar" src={shopcar} alt="shopcar" />
-          </Link>
-          <Link to="/social" className="custom-link">
-            <img className="social" src={social} alt="social" />
-          </Link>
-          <Link to="/profile/:id" className="custom-link">
-            <img className="profile-img" src={profile} alt="profile" />
-          </Link>
-        </div>
+        ) : (
+          <div className="buttons">
+            <Link to="/register">
+              <button className="register">Registrarse</button>
+            </Link>
+            <Link to="/login">
+              <button className="login">Entrar</button>
+            </Link>
+          </div>
+        )}
       </container>
-
-      {showResults && (
-  <div className="new-container">
-    <div>
-      <h2 className="new-searched-results">X resultados encontrados</h2>
-    </div>
-
-    <div className="new-orders">
-      <div
-        className={`new-order ${showDateFilter ? "selected" : ""}`}
-        onClick={handleDateFilterToggle}
-      >
-        <h2>FECHA DE SUBIDO</h2>
-        {showDateFilter && (
-          <ul className="new-filter-list">
-            <li>Esta semana</li>
-            <li>Este mes</li>
-            <li>Este año</li>
-            <li>Más antiguo</li>
-          </ul>
-        )}
-      </div>
-      <div
-        className={`new-order ${showRatingFilter ? "selected" : ""}`}
-        onClick={handleRatingFilterToggle}
-      >
-        <h2>VALORACION</h2>
-        {showRatingFilter && (
-          <ul className="new-filter-list">
-            <li>Excelente</li>
-            <li>Buena</li>
-            <li>Regular</li>
-          </ul>
-        )}
-      </div>
-      <div
-        className={`new-order ${showLanguageFilter ? "selected" : ""}`}
-        onClick={handleLanguageFilterToggle}
-      >
-        <h2>IDIOMA</h2>
-        {showLanguageFilter && (
-          <ul className="new-filter-list">
-            <li>Español</li>
-            <li>Inglés</li>
-          </ul>
-        )}
-      </div>
-      <div
-        className={`new-order ${showTopicFilter ? "selected" : ""}`}
-        onClick={handleTopicFilterToggle}
-      >
-        <h2>TEMA</h2>
-        {showTopicFilter && (
-          <ul className="new-filter-list">
-            <li>Programación</li>
-            <li>Idiomas</li>
-          </ul>
-        )}
-      </div>
-      <div
-        className={`new-order ${showDurationFilter ? "selected" : ""}`}
-        onClick={handleDurationFilterToggle}
-      >
-        <h2>DURACION</h2>
-        {showDurationFilter && (
-          <ul className="new-filter-list">
-            <li>+10 horas</li>
-            <li>5 - 10 horas</li>
-            <li>-5 horas</li>
-          </ul>
-        )}
-      </div>
-    </div>
-  </div>
-)}
-
     </divPrincipal>
   );
 };
