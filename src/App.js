@@ -14,8 +14,8 @@ function App() {
     <div className="App">
       <SearchBar />
       <Routes>
-        <Route path="/search" element={<CourseResults/>}/>
-        <Route path="/view" element={<CourseViewer/>}/>
+        <Route path="/search" element={<CourseResults />} />
+        <Route path="/view" element={<CourseViewer />} />
         <Route path="/detail" element={<DetailCourses />} />
         <Route path="/login" element={<Form />} />
         <Route path="/register" element={<Form />} />
