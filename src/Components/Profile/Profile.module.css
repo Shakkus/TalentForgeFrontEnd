@@ -1,0 +1,25 @@
+.mainContainer {
+    background-color: white ;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row;
+    /* justify-content: center; */
+    width: 100%;
+    height: 100vh;
+    justify-content:flex-start;
+    /* border: 2px solid red; */
+}
+
+.sideBar {
+    background-color: #7c38cd;
+    display: block;
+    /* align-items: center; */
+}
+
+.sideBar:hover {
+    background-color: red;
+}
+
+.block{
+    display: block;
+}
