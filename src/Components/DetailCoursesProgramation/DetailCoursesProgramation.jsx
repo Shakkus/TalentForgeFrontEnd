@@ -1,13 +1,17 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import logo1 from "./imgs/image 66.png";
+import "./DetailCoursesProgramation.css";
+
 const DetailCourses = () => {
   return (
-    <div>
-      <h1>pitón</h1> <img src="image 66.png" alt="" />
-      <img src={logo1} alt="" />
+    <div className="detailContainer">
+      <div className="detailHeader">
+        <h1 className="titleDetail">Python</h1>
+        <img src={logo1} alt="" />
+      </div>
       <div className="description">
-        <p>
+        <p className="detailDescription">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde quidem
           veniam facilis, beatae corporis cum magnam nulla nesciunt perferendis
           nam dicta quaerat asperiores ratione praesentium sed labore non,
@@ -23,7 +27,7 @@ const DetailCourses = () => {
         </p>
       </div>
       <div className="description">
-        <p>
+        <p className="detailDescription">
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore
           quidem illum velit incidunt placeat vero laborum necessitatibus hic
           fugiat nam.
