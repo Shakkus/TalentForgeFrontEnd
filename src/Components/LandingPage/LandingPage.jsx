@@ -1,46 +1,13 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
 
 import "./LandingPage.css";
-import logo1 from "./imgs/logo1.jpg";
-import gb from './imgs/image 8.png'
-import kr from './imgs/image 9.png'
-import fr from './imgs/image 10.png'
-import ita from './imgs/image 11.png'
-import br from './imgs/image 12.png'
-import ch from './imgs/image 13.png'
-import sa from  './imgs/image 14.png'
+import CodeCourse from "./CodeCourses/CodeCourse";
 import imgpres from "./imgs/_34feeb5f-5418-4f15-ae5b-a0e6f9cd7285-removebg-preview.png";
 import empresas from "./imgs/empresas.jpg";
+import LenCourse from "./LanguajeCourses/LenCourses";
 
 const Landing = () => {
   const [activeButton, setActiveButton] = useState("idiomas");
-  const navigate = useNavigate();
-
-  const renderContent = () => {
-    if (activeButton === "idiomas") {
-      return (
-        <div className="flagsLanding">
-        <img src={gb} alt="" /><br />
-        <p className="flagsName">Inglés</p>
-        <img src={kr} alt="" /><br /> 
-        <p className="flagsName">Coreano</p>
-        <img src={fr} alt="" /><br />
-        <p className="flagsName">Francés</p>
-        <img src={ita} alt="" /><br />
-        <p className="flagsName">Italiano</p>
-        <img src={br} alt="" /><br />
-        <p className="flagsName">Portugés</p>
-        <img src={ch} alt="" /><br />
-        <p className="flagsName">Chino</p>
-        <img src={sa} alt="" /><br />
-        <p className="flagsName">Árabe</p>
-      </div>
-      );
-    } else {
-      return <div> ACA VAN LOS LENGUAJES DE PROGRAMACION</div>;
-    }
-  };
 
   const handleButtonClick = (button) => {
     setActiveButton(button);
@@ -82,8 +49,10 @@ const Landing = () => {
               Programacion
             </button>
           </div>
-
-          {renderContent() /*ESTO DEBERIA RENDERIZAR CIERTO CONTENIDO */}
+          <div className="containerCourses">
+            {activeButton === 'idiomas' && <LenCourse/>}
+            {activeButton === 'programacion' && <CodeCourse/>}
+          </div>
         </div>
         <div className="mentores">
           <h2>Mentores</h2>
