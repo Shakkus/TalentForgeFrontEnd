@@ -18,9 +18,10 @@
   padding: 20px;
 }
 
-.thumbnail img {
-  width: 120px;
-  height: 90px;
+.thumbnail {
+  border: 1px solid red;
+  min-width: 200px;
+  min-height: 125px;
   object-fit: cover;
   margin-right: 20px;
 }
