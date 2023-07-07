@@ -11,6 +11,7 @@ import CourseViewer from "./Components/CourseViewer/CourseViewer.jsx";
 import CourseForm from "./Components/CourseCreationForm/CourseCreationForm";
 import Login from './Components/Login/Login'
 import NotFoundPage from './Components/NotFoundPage/NotFoundPage'
+import Profile from './Components/Profile/Profile';
 
 function App() {
   return (
