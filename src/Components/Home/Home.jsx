@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CourseFilter from './Filter';
 import './Home.css'
+import { NavLink } from 'react-router-dom';
 
 const Home = () => {
   const [courses, setCourses] = useState([]);
@@ -37,7 +38,8 @@ const Home = () => {
                         <h2>{course.title}</h2>
                         <p>{course.description}</p>
                     </div>
-                <a href='#' className="courseBtn"> Ingresar al curso </a>
+
+                <a className="courseBtn"> <NavLink to={`http://localhost:3000/course/${course._id}`}> Ingresar al curso </NavLink> </a>
             </div>
         ))}
       </div>
