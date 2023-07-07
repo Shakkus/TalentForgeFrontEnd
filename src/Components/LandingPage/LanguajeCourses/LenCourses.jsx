@@ -20,7 +20,7 @@ const LenCourse = () => {
     return(
         <>
             {courses.map((course) => (
-                <div key={course._id}>
+                <div key={course._id} className='courseContainer'>
                 <img src={course.image} alt="Imagen del curso" />
                 <h2>{course.title}</h2>
                 <p>{course.description}</p>

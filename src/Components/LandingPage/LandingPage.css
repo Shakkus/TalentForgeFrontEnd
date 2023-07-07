@@ -69,21 +69,9 @@
 
 /* whiteBack */
 
-.flagsName {
-}
-
-.flagsLanding { 
-    margin-top: 20px;
+.containerCourses{
     display: flex;
-    border: 1px solid black;
 }
-
-.flagsLanding img {
-    margin: 35px;
-    display: flex;
-    border: 1px solid black;
-}
-
 .whiteBack{
     background: white;
     border-radius: 45px;
@@ -124,11 +112,17 @@ button.active{
 
 /* MENTORES */
 
-.mentores h2{
+#titleMentors{
     text-align: center;
     background: #AA6FFF;
     padding: 20px;
 }
+
+.mentoresContainer{
+    display:flex;
+}
+
+
 
 /* EMPRESAS */
 .empresas h2{
