@@ -1,15 +1,13 @@
-import React from 'react';
-import './App.css';
-import { Route, Routes } from 'react-router-dom';
-import Landing from './Components/LandingPage/LandingPage';
-import Form from './Components/Form/Register';
-import Login from './Components/Login/Login';
-import DetailCourses from './Components/DetailCoursesProgramation/DetailCoursesProgramation';
-import SearchBar from './Components/SearchBar/SearchBar';
-import Footer from './Components/Footer/Footer.jsx';
-import CourseResults from './Components/CourseResults/CourseResults';
-import CourseViewer from './Components/CourseViewer/CourseViewer.jsx';
-import NotFoundPage from './Components/NotFoundPage/NotFoundPage';
+import "./App.css";
+
+import { Route, Routes } from "react-router-dom";
+import Landing from "./Components/LandingPage/LandingPage";
+import Form from "./Components/Form/Register";
+import DetailCourses from "./Components/DetailCoursesProgramation/DetailCoursesProgramation";
+import SearchBar from "./Components/SearchBar/SearchBar";
+import Footer from "./Components/Footer/Footer.jsx";
+import CourseResults from "./Components/CourseResults/CourseResults";
+import CourseViewer from "./Components/CourseViewer/CourseViewer.jsx";
 
 function App() {
   return (

@@ -5,7 +5,7 @@
 .container {
   top: 0px;
   position: fixed;
-  width: 100%;
+  width: 96.66%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -50,6 +50,12 @@ input[type="text"] {
   padding: 0 15px;
   font-size: 16px;
   border: none;
+}
+
+.seacrchBar-CoursesTitle {
+  font-family: 'Lato', sans-serif;
+  font-size: 20px;
+  margin-bottom: 0;
 }
 
 .search-icon {
@@ -114,6 +120,12 @@ input[type="text"] {
   padding: 0;
   margin: 0;
 }
+
+.liProgramation, .liLanguaje, .liProgramationOption, .liLanguajeOption  {
+  font-family: 'Montserrat', sans-serif;
+}
+
+
 
 .submenu-item {
   background-color: #7c38cd;
