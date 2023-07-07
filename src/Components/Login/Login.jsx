@@ -1,5 +1,5 @@
 import {useForm} from 'react-hook-form'
-
+import { Link } from 'react-router-dom';
 import "./Login.css";
 
 const Login = () => {
@@ -46,7 +46,9 @@ const Login = () => {
                         (<p className='passwordError'>Campo requerido</p>)}
                     </div>
                     <div>
-                        <input type="submit" value="Submit" className="buttonSubmit" />
+                        <Link to='/home'>
+                            <input type="submit" value="Submit" className="buttonSubmit" />
+                        </Link>
                     </div>
                 </div>
             </form>
