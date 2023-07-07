@@ -1,22 +1,14 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
 
-import "./style.css";
-import logo1 from "./imgs/logo1.jpg";
+import "./LandingPage.css";
+import CodeCourse from "./CodeCourses/CodeCourse";
 import imgpres from "./imgs/_34feeb5f-5418-4f15-ae5b-a0e6f9cd7285-removebg-preview.png";
 import empresas from "./imgs/empresas.jpg";
+import LenCourse from "./LanguajeCourses/LenCourses";
+import Teachers from "./Teachers/Teachers";
 
 const Landing = () => {
   const [activeButton, setActiveButton] = useState("idiomas");
-  const navigate = useNavigate();
-
-  const renderContent = () => {
-    if (activeButton === "idiomas") {
-      return <div> ACA VAN LOS IDIOMAS</div>;
-    } else {
-      return <div> ACA VAN LOS LENGUAJES DE PROGRAMACION</div>;
-    }
-  };
 
   const handleButtonClick = (button) => {
     setActiveButton(button);
@@ -58,12 +50,14 @@ const Landing = () => {
               Programacion
             </button>
           </div>
-
-          {renderContent() /*ESTO DEBERIA RENDERIZAR CIERTO CONTENIDO */}
+          <div className="containerCourses">
+            {activeButton === 'idiomas' && <LenCourse/>}
+            {activeButton === 'programacion' && <CodeCourse/>}
+          </div>
         </div>
-        <div className="mentores">
-          <h2>Mentores</h2>
-          {/* COMPONENTE DE RENDERIZADO DE PROFESORES */}
+        <h2 id="titleMentors">Mentores</h2>
+        <div className="mentoresContainer">
+          {<Teachers/>}
         </div>
 
         <div className="empresas">

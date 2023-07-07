@@ -1,6 +1,7 @@
 .landing{
     padding-top: 100px;
     background: #7C38CD;
+    width: 100%;
 }
 
 /* HEADER */
@@ -42,7 +43,7 @@
     color: #AA6FFF;
     display: flex;
     justify-content: space-around;
-    margin: 20px;
+    margin: 20px; 
 }
 .presentation img{
     width: 300px;
@@ -68,6 +69,9 @@
 
 /* whiteBack */
 
+.containerCourses{
+    display: flex;
+}
 .whiteBack{
     background: white;
     border-radius: 45px;
@@ -108,11 +112,17 @@ button.active{
 
 /* MENTORES */
 
-.mentores h2{
+#titleMentors{
     text-align: center;
     background: #AA6FFF;
     padding: 20px;
 }
+
+.mentoresContainer{
+    display:flex;
+}
+
+
 
 /* EMPRESAS */
 .empresas h2{

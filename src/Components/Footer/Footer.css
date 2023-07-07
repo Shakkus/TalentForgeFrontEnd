@@ -5,8 +5,8 @@
     background-color: #7C38CD;
     display: flex;
     justify-content: space-around;
-    padding: 20px;
     color: white;
+    margin: 0 auto;
 }
 
 
@@ -17,17 +17,36 @@
 .footer .redes{
     display: flex;
 }
-
-.redes a{
-    color: white;
-    padding: 10px;
-    text-decoration: none;
-}
-
 .logo-redes img{
     width: 300px;
 }
 
 .footer .about{
     width: 200px;
+}
+
+.footerInfo, .aboutInfo {
+    font-family: 'Lato', sans-serif;
+    margin-left: 10px;
+}
+
+.redes img {
+    width: 50px;
+    aspect-ratio: 3/2;
+    object-fit: contain;
+    padding: 10px;
+}
+
+.contact {
+    width: 200px;
+}
+
+.contact-contact, .contact-info, .contact-ubication{
+    display: flex;
+}
+
+.contact-img {
+    aspect-ratio: 3/2;
+    object-fit: contain;
+    width: 30px;
 }

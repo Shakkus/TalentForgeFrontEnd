@@ -50,7 +50,7 @@ const SearchBar = () => {
   //   }, 10000);
   // }, []);
 
-  return (
+ return (
     <divPrincipal className="all">
       <container className="container">
         <div className="Nav-left">
@@ -59,11 +59,11 @@ const SearchBar = () => {
           </Link>
           <div className="menu-container">
             <div className="menu-item" onClick={handleSubMenuToggle}>
-              Cursos
+              <h2 className="seacrchBar-CoursesTitle">Cursos</h2>
               {showSubMenu ? (
-                <span className="arrow">&#9650;</span>
+                <span className=""><img src="Arrow 12.png" alt="" /></span>
               ) : (
-                <span className="arrow">&#9660;</span>
+                <span className=""><img src="Arrow 13.png" alt="" /></span>
               )}
             </div>
 
@@ -74,7 +74,7 @@ const SearchBar = () => {
                     className="submenu-item"
                     onClick={handleProgrammingLanguagesToggle}
                   >
-                    Lenguajes de Programación
+                    <p className="liProgramation">Lenguajes de Programación</p>
                     {showProgrammingLanguages ? (
                       <span className="arrow-right">&#9654;</span>
                     ) : (
@@ -82,7 +82,7 @@ const SearchBar = () => {
                     )}
                   </li>
                   <li className="submenu-item" onClick={handleLanguagesToggle}>
-                    Idiomas del Mundo
+                    <p className="liLanguaje">Idiomas del Mundo</p>
                     {showLanguages ? (
                       <span className="arrow-right">&#9654;</span>
                     ) : (
@@ -98,22 +98,22 @@ const SearchBar = () => {
                         to="/searchbar?shearch=python"
                         className="custom-link"
                       >
-                        <li>Python</li>
+                        <li className="liProgramationOption">Python</li>
                       </Link>
                       <Link
                         to="/searchbar?shearch=Java"
                         className="custom-link"
                       >
-                        <li>Java</li>
+                        <li className="liProgramationOption">Java</li>
                       </Link>
                       <Link
                         to="/searchbar?shearch=Javascript"
                         className="custom-link"
                       >
-                        <li>Javascript</li>
+                        <li className="liProgramationOption">Javascript</li>
                       </Link>
                       <Link to="/searchbar?shearch=Go" className="custom-link">
-                        <li>Go</li>
+                        <li className="liProgramationOption">Go</li>
                       </Link>
                     </ul>
                   </div>
@@ -126,25 +126,25 @@ const SearchBar = () => {
                         to="/searchbar?shearch=Inglés"
                         className="custom-link"
                       >
-                        <li>Inglés</li>
+                        <li className="liLanguajeOption">Inglés</li>
                       </Link>
                       <Link
                         to="/searchbar?shearch=Alemán"
                         className="custom-link"
                       >
-                        <li>Alemán</li>
+                        <li className="liLanguajeOption">Alemán</li>
                       </Link>
                       <Link
                         to="/searchbar?shearch=Español"
                         className="custom-link"
                       >
-                        <li>Español</li>
+                        <li className="liLanguajeOption">Español</li>
                       </Link>
                       <Link
                         to="/searchbar?shearch=Italiano"
                         className="custom-link"
                       >
-                        <li>Italiano</li>
+                        <li className="liLanguajeOption">Italiano</li>
                       </Link>
                     </ul>
                   </div>
@@ -197,7 +197,7 @@ const SearchBar = () => {
           </div>
         )}
       </container>
-    </divPrincipal>
+    </divPrincipal> 
   );
 };
 
