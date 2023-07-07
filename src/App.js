@@ -13,6 +13,7 @@ import Login from './Components/Login/Login'
 import NotFoundPage from './Components/NotFoundPage/NotFoundPage'
 import Profile from './Components/Profile/Profile';
 import Home from "./Components/Home/Home";
+import CourseDetail from "./Components/Course-Detail/CourseDetail";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Form />} />
         <Route path="/course/create" element={<CourseForm />} />
+        <Route path="/course/:id" element={<CourseDetail/>}/>
         <Route path="/presentation" element={<Landing />} />
         <Route path="/profile" element={< Profile/>}/>
         <Route path="/" element={<Landing />} />
