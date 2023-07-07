@@ -195,3 +195,65 @@ input[type="text"] {
   text-decoration: none;
   color: white
 }
+
+
+/* Course SearchBar */
+.course {
+  margin-top: 20px;
+  border: 1px solid #5b2e92;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #fff;
+}
+
+.course-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.course-category,
+.course-teacher {
+  font-size: 14px;
+  margin-bottom: 3px;
+}
+
+.course-image {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  max-width: 200px; /* Ajusta el tamaño máximo de la imagen */
+}
+
+.course-price,
+.course-rating {
+  font-size: 14px;
+  color: #888;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .course {
+    padding: 5px;
+  }
+
+  .course-title {
+    font-size: 16px;
+  }
+
+  .course-category,
+  .course-teacher {
+    font-size: 12px;
+  }
+
+  .course-image {
+    margin-bottom: 3px;
+    max-width: 150px; /* Ajusta el tamaño máximo de la imagen en dispositivos más pequeños */
+  }
+
+  .course-price,
+  .course-rating {
+    font-size: 12px;
+  }
+}
