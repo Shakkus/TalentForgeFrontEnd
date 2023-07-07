@@ -12,6 +12,7 @@ import CourseForm from "./Components/CourseCreationForm/CourseCreationForm";
 import Login from './Components/Login/Login'
 import NotFoundPage from './Components/NotFoundPage/NotFoundPage'
 import Profile from './Components/Profile/Profile';
+import Home from "./Components/Home/Home";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/profile" element={< Profile/>}/>
         <Route path="/" element={<Landing />} />
         <Route path="*" element={<NotFoundPage />} />
+        <Route path="/home" element={<Home/>}/>
       </Routes>
       <Footer />
     </div>
