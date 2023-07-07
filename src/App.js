@@ -8,7 +8,8 @@ import SearchBar from "./Components/SearchBar/SearchBar";
 import Footer from "./Components/Footer/Footer.jsx";
 import CourseResults from "./Components/CourseResults/CourseResults";
 import CourseViewer from "./Components/CourseViewer/CourseViewer.jsx";
-import Login from './Components/Login/Login';
+import CourseForm from "./Components/CourseCreationForm/CourseCreationForm";
+import Login from './Components/Login/Login'
 import NotFoundPage from './Components/NotFoundPage/NotFoundPage'
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/detail" element={<DetailCourses />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Form />} />
+        <Route path="/course/create" element={<CourseForm />} />
         <Route path="/" element={<Landing />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
