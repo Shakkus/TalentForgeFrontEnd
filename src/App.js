@@ -9,6 +9,7 @@ import SearchBar from "./Components/SearchBar/SearchBar";
 import Footer from "./Components/Footer/Footer.jsx";
 import CourseResults from "./Components/CourseResults/CourseResults";
 import CourseViewer from "./Components/CourseViewer/CourseViewer.jsx";
+import CourseForm from "./Components/CourseCreationForm/CourseCreationForm";
 
 function App() {
   return (
@@ -20,7 +21,9 @@ function App() {
         <Route path="/detail" element={<DetailCourses />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Form />} />
+        <Route path="/course/create" element={<CourseForm />} />
         <Route path="/" element={<Landing />} />
+
       </Routes>
       <Footer />
     </div>
