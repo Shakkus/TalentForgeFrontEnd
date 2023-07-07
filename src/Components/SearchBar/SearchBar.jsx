@@ -235,20 +235,26 @@ const SearchBar = () => {
       {showResults && (
         <div>
           <h3>Resultados de Búsqueda:</h3>
-          {searchReults.map(course => {
-            return (
-              <div key={course.id} className="course">
-                <h4 className="course-title">{course.title}</h4>
-                <p className="course-category">{course.cathegoty}</p>
-                <p className="course-teacher">{course.teacher}</p>
-                <img src={course.image} alt="Course Image" className="course-image" />
-                <p className="course-duration">{course.duration}</p>
-                <p className="course-price">{course.prize}</p>
-                <p className="course-rating">{course.rating}</p>
-              </div>
-            )
-          })}
+          <div className="course-container">
+
+
+            {searchReults.map(course => {
+              return (
+                <div key={course.id} className="course">
+                  <img src={course.image} alt="Course Image" className="course-image" />
+                  <h4 className="course-title">Title: {course.title}</h4>
+                  <p className="course-category">category: {course.cathegory}</p>
+                  <p className="course-teacher">Teacher: {course.teacher}</p>
+                  <p className="course-duration">Duration: {course.duration}</p>
+                  <p className="course-price">Price: {course.prize}</p>
+                  <p className="course-rating">Rating: {course.rating}</p>
+                </div>
+              )
+            })}
+          </div>
         </div>
+
+
       )}
 
     </divPrincipal>

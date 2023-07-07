@@ -14,10 +14,14 @@
   padding: 5px 20px;
   z-index: 100;
   margin: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .Nav-center{
   width: 50%;
+ flex-grow: 1; /* Ocupa el espacio disponible */
+  margin-left: 20px;
 }
 
 .Nav-left,
@@ -68,6 +72,7 @@ input[type="text"] {
 .Nav-right p {
   margin: 0 10px;
   font-size: 16px;
+margin-left: auto
 }
 .hearth,
 .shopcar,
@@ -197,63 +202,76 @@ input[type="text"] {
 }
 
 
-/* Course SearchBar */
+
+
+
 .course {
-  margin-top: 20px;
-  border: 1px solid #5b2e92;
-  border-radius: 5px;
-  padding: 10px;
+  display: flex;
   background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 20px; /* Aumenta el espacio entre los cursos */
+  margin-right: 20px; /* Añade espacio a la derecha */
+ transition: box-shadow 0.3s, transform 0.3s;
+}
+
+/* Resto del código CSS sigue igual */
+
+.course-image {
+  width: 200px;
+  height: auto;
+  object-fit: cover;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.course-details {
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .course-title {
   font-size: 18px;
   font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.course-category {
+  font-size: 14px;
+  color: #888;
   margin-bottom: 5px;
 }
 
-.course-category,
 .course-teacher {
   font-size: 14px;
-  margin-bottom: 3px;
+  color: #888;
+  margin-bottom: 10px;
 }
 
-.course-image {
-  width: 100%;
-  height: auto;
-  border-radius: 5px;
-  margin-bottom: 5px;
-  max-width: 200px; /* Ajusta el tamaño máximo de la imagen */
-}
-
+.course-duration,
 .course-price,
 .course-rating {
   font-size: 14px;
   color: #888;
+  margin-bottom: 5px;
 }
 
-/* Responsive Styles */
-@media (max-width: 768px) {
-  .course {
-    padding: 5px;
-  }
+/* Hover effect */
+.course:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
 
-  .course-title {
-    font-size: 16px;
-  }
-
-  .course-category,
-  .course-teacher {
-    font-size: 12px;
-  }
-
-  .course-image {
-    margin-bottom: 3px;
-    max-width: 150px; /* Ajusta el tamaño máximo de la imagen en dispositivos más pequeños */
-  }
-
-  .course-price,
-  .course-rating {
-    font-size: 12px;
-  }
 }
+
+.course:hover .course-image {
+  opacity: 0.8;
+}
+
+.course:hover .course-title {
+  color: #7c38cd;
+}
+
