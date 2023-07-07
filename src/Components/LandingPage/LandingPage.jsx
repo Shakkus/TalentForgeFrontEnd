@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom'
 
 import "./LandingPage.css";
 import CodeCourse from "./CodeCourses/CodeCourse";
@@ -25,7 +26,9 @@ const Landing = () => {
             maxime sapiente sequi eum earum veniam architecto iure quaerat
             repellat!
           </p>
-          <button id="aprende-Gratis">Aprende Gratis</button>
+          <Link to='/register'>
+            <button>Aprende gratis</button>
+          </Link>
         </div>
         <img src={imgpres} alt="" />
       </div>
