@@ -8,6 +8,8 @@ import SearchBar from "./Components/SearchBar/SearchBar";
 import Footer from "./Components/Footer/Footer.jsx";
 import CourseResults from "./Components/CourseResults/CourseResults";
 import CourseViewer from "./Components/CourseViewer/CourseViewer.jsx";
+import Login from './Components/Login/Login';
+import NotFoundPage from './Components/NotFoundPage/NotFoundPage'
 
 function App() {
   return (
