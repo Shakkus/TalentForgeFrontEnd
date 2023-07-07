@@ -4,17 +4,18 @@ import axios from 'axios';
 
 const CourseForm = () => {
   const [errors, setErrors] = useState({});
-
   const [input, setInput] = useState({
     title: '',
     cathegory: '',
-    theme: '',
+    theme: [],
     link: '',
     teacher: '',
     description: '',
-    image: ''
+    image: '',
+    rating: '',
+    prize: '',
+    duration: ''
   });
-
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -24,26 +25,32 @@ const CourseForm = () => {
       return;
     }
     await axios.post('https://talent-forge-data.cyclic.app/courses/', input);
-      setInput({
-        title: '',
-        cathegory: '',
-        theme: '',
-        link: '',
-        teacher: '',
-        description: '',
-        image: ''
-      });
+    setInput({
+      title: '',
+      cathegory: '',
+      theme: [],
+      link: '',
+      teacher: '',
+      description: '',
+      image: '',
+      rating: '',
+      prize: '',
+      duration: ''
+    });
   };
 
   const handleChange = (event) => {
-    setInput({
-      ...input,
-      [event.target.name]: event.target.value
-    });
+    const { name, value } = event.target;
+    if (name === 'theme') {
+      const themeArray = value.split(',').map((item) => item.trim());
+      setInput({ ...input, [name]: themeArray });
+    } else {
+      setInput({ ...input, [name]: value });
+    }
 
     setErrors({
       ...errors,
-      [event.target.name]: validate({ ...input, [event.target.name]: event.target.value })[event.target.name],
+      [name]: validate({ ...input, [name]: value })[name],
     });
   };
 
@@ -96,6 +103,22 @@ const CourseForm = () => {
         <input type="text" name="image" value={input.image} onChange={handleChange}/>
         {errors.image && <span style={{ color: 'red' }}> {errors.image}</span>}
 
+        <br />
+        <label> Rating: </label>
+        <input type="number" name="rating" value={input.rating} onChange={handleChange}/>
+        {errors.rating && <span style={{ color: 'red' }}> {errors.rating}</span>}
+
+        <br />
+        <label> Prize: </label>
+        <input type="number" name="prize" value={input.prize} onChange={handleChange}/>
+        {errors.prize && <span style={{ color: 'red' }}> {errors.prize}</span>}
+
+        <br />
+        <label> Duration: </label>
+        <input type="text" name="duration" value={input.duration} onChange={handleChange}/>
+        {errors.duration && <span style={{ color: 'red' }}> {errors.duration}</span>}
+        
+        <br />
         <br />
         <button type="submit" disabled={!input.title || !input.cathegory || !input.theme || !input.link || !input.teacher || !input.description || !input.image}>Create Course</button>
       </form>
