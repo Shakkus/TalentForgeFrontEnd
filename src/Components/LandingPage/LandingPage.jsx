@@ -24,11 +24,6 @@ const Landing = () => {
 
   return (
     <div className="landing">
-{/* <<<<<<< HEAD */}
-
-
-=======
-{/* >>>>>>> 895cd548a04199ddf08223ed9d1d57975e33fde2 */}
       <div className="presentation">
         <div className="presentationContainer">
           <h3>Habla un idioma en tan solo 10 minutos al dia!</h3>

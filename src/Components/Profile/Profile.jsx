@@ -9,7 +9,7 @@ import styles from "./Profile.module.css";
 const Profile = () => {
 	return (
 		<div className={styles.mainContainer}>
-            < SideBar/>
+            {/* < SideBar/> */}
             <div className={styles.block}>
             < NavBar/>
             </div>
