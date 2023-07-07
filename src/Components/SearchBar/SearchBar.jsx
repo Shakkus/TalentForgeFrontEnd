@@ -247,7 +247,7 @@ const SearchBar = () => {
                 <p className="course-rating">{course.rating}</p>
               </div>
             )
-          })} //when hacer tud momos en el codigo
+          })}
         </div>
       )}
 
