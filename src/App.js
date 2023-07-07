@@ -3,7 +3,6 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Landing from "./Components/LandingPage/LandingPage";
 import Form from "./Components/Form/Register";
-import Login from './Components/Login/Login';
 import DetailCourses from "./Components/DetailCoursesProgramation/DetailCoursesProgramation";
 import SearchBar from "./Components/SearchBar/SearchBar";
 import Footer from "./Components/Footer/Footer.jsx";
@@ -23,7 +22,7 @@ function App() {
         <Route path="/register" element={<Form />} />
         <Route path="/course/create" element={<CourseForm />} />
         <Route path="/" element={<Landing />} />
-
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
     </div>

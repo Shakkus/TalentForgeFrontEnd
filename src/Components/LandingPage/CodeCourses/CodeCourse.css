@@ -1,0 +1,11 @@
+.courseContainer{
+    width: 300px;
+    border-radius: 25px;
+    border: 2px black solid;
+    margin: 10px;
+}
+.courseContainer img{
+    width: 300px;
+    border-radius: 25px;
+}
+
