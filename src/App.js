@@ -18,11 +18,13 @@ function App() {
       <SearchBar />
       <Routes>
         <Route path="/search" element={<CourseResults />} />
-        <Route path="/view" element={<CourseViewer />} />
+        <Route path="/view/:id" element={<CourseViewer />} />
         <Route path="/detail" element={<DetailCourses />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Form />} />
         <Route path="/course/create" element={<CourseForm />} />
+        <Route path="/presentation" element={<Landing />} />
+        <Route path="/profile" element={< Profile/>}/>
         <Route path="/" element={<Landing />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

@@ -1,0 +1,33 @@
+.sideBar {
+    background-color: #7c38cd;
+    display: block;
+    align-items: center;
+    /* border: 2px solid green; */
+    height: 100vh;
+    justify-content: center;
+    /* padding-top: 200px; */
+    width: 8vw;
+}
+
+.mainContainer {
+    justify-content: left;
+    /* border: 1px solid yellow */
+}
+
+.button {
+    margin: 3vh 0 3vh 0;
+    height: 5vh;
+    width: 5vw;
+}
+
+.logo {
+    height: 90px;
+    width: 90px;
+    margin: 6vh 0 6vh 0;
+}
+
+.profile {
+    padding-top: 0px;
+    height: 70px;
+    width: 90px;
+}
