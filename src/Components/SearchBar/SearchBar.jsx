@@ -81,12 +81,17 @@ const SearchBar = () => {
   // }, []);
 
   return (
-    <divPrincipal className="all">
-      <container className="container">
+    <div className="all">
+      <div className="container">
         <div className="Nav-left">
           <Link to="/">
             <img className="logo" src={logo} alt="logo" />
           </Link>
+          <div>
+            <p className="bg-blue-300 font-bold text-red-600 ">
+              Hola
+            </p>
+          </div>
           <div className="menu-container">
             <div className="menu-item" onClick={handleSubMenuToggle}>
               <h2 className="seacrchBar-CoursesTitle">Cursos</h2>
@@ -229,7 +234,7 @@ const SearchBar = () => {
             </Link>
           </div>
         )}
-      </container>
+      </div>
 
 
       {showResults && (
@@ -257,7 +262,7 @@ const SearchBar = () => {
 
       )}
 
-    </divPrincipal>
+    </div>
   );
 };
 
