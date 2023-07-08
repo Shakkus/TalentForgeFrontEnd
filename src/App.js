@@ -10,7 +10,8 @@ import Footer from "./Components/Footer/Footer.jsx";
 import CourseResults from "./Components/CourseResults/CourseResults";
 import CourseViewer from "./Components/CourseViewer/CourseViewer.jsx";
 import CourseForm from "./Components/CourseCreationForm/CourseCreationForm";
-
+import Profile from "./Components/Profile/Profile";
+import NotFoundPage from './Components/NotFoundPage/NotFoundPage'
 function App() {
   return (
     <div className="App">
