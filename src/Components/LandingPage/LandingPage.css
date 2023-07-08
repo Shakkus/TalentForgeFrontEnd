@@ -1,3 +1,7 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
 .landing{
     padding-top: 100px;
     background: #7C38CD;
@@ -140,12 +144,12 @@ button.active{
 
 .empresas img{
     width: 300px;
-    border-radius: 100px 100px 0 0px;
+    /* border-radius: 100px 100px 0 0px; */
 }
 
 .empresas .infoContainer{
-    background: #7C38CD;
-    border-radius:25px;
+    /* background: #7C38CD;
+    border-radius:25px; */
 }
 
 .empresas h3{

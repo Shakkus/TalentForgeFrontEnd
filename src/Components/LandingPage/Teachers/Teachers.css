@@ -1,11 +1,3 @@
-.teachersContainer{
-    width: 300px;
-    border-radius: 25px;
-    border: 2px black solid;
-    margin: 10px;
-}
-
-.teachersContainer img{
-    width: 200px;
-    border-radius: 25px;
-}
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';

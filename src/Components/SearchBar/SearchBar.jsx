@@ -88,9 +88,10 @@ const SearchBar = () => {
             <img className="logo" src={logo} alt="logo" />
           </Link>
           <div>
-            <p className="bg-blue-300 font-bold text-red-600 ">
+            {/* <p className="bg-blue-300 font-bold text-red-600">
               Hola
-            </p>
+            </p> */}
+            
           </div>
           <div className="menu-container">
             <div className="menu-item" onClick={handleSubMenuToggle}>
@@ -195,13 +196,15 @@ const SearchBar = () => {
           />
           <Link to="search">
             <img
-              className="search-icon"
+              className="search-icon text-black"
               src={searchIcon}
               alt="search"
               onClick={handleSearch}
             />
           </Link>
+          
         </div>
+        
         {isLoggedIn ? (
           <div className="Nav-right">
             <div className="nav-dropdown">
