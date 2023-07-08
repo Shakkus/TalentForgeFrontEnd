@@ -93,9 +93,9 @@ const SearchBar = () => {
             <div className="menu-item" onClick={handleSubMenuToggle}>
               <h2 className="seacrchBar-CoursesTitle">Cursos</h2>
               {showSubMenu ? (
-                <span className=""><img src="Arrow 12.png" alt="" /></span>
+                <span className=""><div className="triangle-up"></div></span>
               ) : (
-                <span className=""><img src="Arrow 13.png" alt="" /></span>
+                <span className=""><div className="triangle-down"></div></span>
               )}
             </div>
 
@@ -127,16 +127,16 @@ const SearchBar = () => {
                   <div className="submenu-right programming-languages">
                     <ul className="language-container">
                       <Link
-                        to="/searchbar?search=python"
+                        to="/course/64a829f5435d4fe72524052b"
                         className="custom-link"
                       >
                         <li className="liProgramationOption">Python</li>
                       </Link>
                       <Link
-                        to="/searchbar?search=Java"
+                        to="/course/64a829ef435d4fe725240529"
                         className="custom-link"
                       >
-                        <li className="liProgramationOption">Java</li>
+                        <li className="liProgramationOption">NodeJS</li>
                       </Link>
                       <Link
                         to="/searchbar?search=Javascript"
@@ -144,8 +144,11 @@ const SearchBar = () => {
                       >
                         <li className="liProgramationOption">Javascript</li>
                       </Link>
-                      <Link to="/searchbar?search=Go" className="custom-link">
-                        <li className="liProgramationOption">Go</li>
+                      <Link to="course/64a82a01435d4fe72524052d" className="custom-link">
+                        <li className="liProgramationOption">ReactJS</li>
+                      </Link>
+                      <Link to="/course/64a82a07435d4fe72524052f" className="custom-link">
+                        <li className="liProgramationOption">TypeScript</li>
                       </Link>
                     </ul>
                   </div>
@@ -155,28 +158,34 @@ const SearchBar = () => {
                   <div className="submenu-right languages">
                     <ul className="language-container">
                       <Link
-                        to="/searchbar?search=Inglés"
+                        to="course/64a829e5435d4fe725240525"
                         className="custom-link"
                       >
                         <li className="liLanguajeOption">Inglés</li>
                       </Link>
                       <Link
-                        to="/searchbar?search=Alemán"
+                        to="/course/64a829cf435d4fe72524051f"
                         className="custom-link"
                       >
                         <li className="liLanguajeOption">Alemán</li>
                       </Link>
                       <Link
-                        to="/searchbar?search=Español"
-                        className="custom-link"
-                      >
-                        <li className="liLanguajeOption">Español</li>
-                      </Link>
-                      <Link
-                        to="/searchbar?search=Italiano"
+                        to="/course/64a829df435d4fe725240523"
                         className="custom-link"
                       >
                         <li className="liLanguajeOption">Italiano</li>
+                      </Link>
+                      <Link
+                        to="/course/64a829ea435d4fe725240527"
+                        className="custom-link"
+                      >
+                        <li className="liLanguajeOption">Coreano</li>
+                      </Link>
+                      <Link
+                        to="/course/64a829d9435d4fe725240521"
+                        className="custom-link"
+                      >
+                        <li className="liLanguajeOption">Japonés</li>
                       </Link>
                     </ul>
                   </div>
@@ -186,20 +195,22 @@ const SearchBar = () => {
           </div>
         </div>
         <div className="Nav-center">
-          <input type="text" placeholder="Buscar..."
-            value={searchTerm}
-            onChange={(event) => setSearchTerm(event.target.value)}
-          />
-          <Link to="search">
-            <img
-              className="search-icon text-black"
-              src={searchIcon}
-              alt="search"
-              onClick={handleSearch}
-            />
-          </Link>
-
-        </div>
+  <input
+    type="text"
+    placeholder="Buscar..."
+    value={searchTerm}
+    onChange={(event) => setSearchTerm(event.target.value)}
+    className="w-full" // Agregar la clase w-full para ocupar el 100% del ancho
+  />
+  <Link to="search">
+    <img
+      className="search-icon text-black"
+      src={searchIcon}
+      alt="search"
+      onClick={handleSearch}
+    />
+  </Link>
+</div>
 
         {isLoggedIn ? (
           <div className="Nav-right">
