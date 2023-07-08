@@ -85,7 +85,8 @@ const CourseDetail = () => {
               />
               <NavLink
                 style={{ textDecoration: "none" }}
-                className="detailTeacherName">
+                className="detailTeacherName"
+                to={`/teacher/${teacherInfo._id}`}>
                 {chamba()}
               </NavLink>
               <h2 className="detailTeacherCountry mt-4">{flag()}</h2>

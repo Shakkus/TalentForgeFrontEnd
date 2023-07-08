@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import './Teachers.css';
+import { NavLink } from 'react-router-dom';
+
 
 const Teachers = () => {
   const [teachers, setTeachers] = useState([]);
@@ -33,10 +35,14 @@ const Teachers = () => {
           <img src={teacher.profileImage} alt="" className="w-200px rounded-t-lg my-0 mx-auto" />
           <h2 className="flex my-2 font-semibold">{teacher.name}</h2>
           <p className="p-4 text-start">{truncateDescription(teacher.description, 205)}</p>
+          <div className="mt-auto"> {/* Utilizamos un contenedor div para colocar el NavLink en el pie */}
+            <NavLink to={`/teacher/${teacher._id}`} className="m-3 w-2"><h1 className="relative text-white bg-gray-400 p-3 w-40 mt-0 mx-auto rounded-xl mb-0 customHoverShadow">Ver más →</h1></NavLink>
+          </div>
         </div>
       ))}
     </>
   );
+  
 };
 
 export default Teachers;
