@@ -192,13 +192,15 @@ const SearchBar = () => {
           />
           <Link to="search">
             <img
-              className="search-icon"
+              className="search-icon text-black"
               src={searchIcon}
               alt="search"
               onClick={handleSearch}
             />
           </Link>
+
         </div>
+
         {isLoggedIn ? (
           <div className="Nav-right">
             <div className="nav-dropdown">
