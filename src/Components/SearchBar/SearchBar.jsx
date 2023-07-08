@@ -88,9 +88,6 @@ const SearchBar = () => {
             <img className="logo" src={logo} alt="logo" />
           </Link>
           <div>
-            <p className="bg-blue-300 font-bold text-red-600 ">
-              Hola
-            </p>
           </div>
           <div className="menu-container">
             <div className="menu-item" onClick={handleSubMenuToggle}>
