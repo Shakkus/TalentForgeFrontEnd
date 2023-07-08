@@ -29,10 +29,10 @@ const Teachers = () => {
   return (
     <>
       {teachers.map((teacher) => (
-        <div key={teacher._id} className="w-80 m-10 border h-auto bg-gray-300 rounded-3xl mx-5">
+        <div key={teacher._id} className="teachersContainer w-80 m-10 border h-auto bg-gray-300 rounded-3xl mx-5">
           <img src={teacher.profileImage} alt="" className="w-200px rounded-t-lg my-0 mx-auto" />
           <h2 className="flex my-2 font-semibold">{teacher.name}</h2>
-          <p className="p-4">{truncateDescription(teacher.description, 205)}</p>
+          <p className="p-4 text-start">{truncateDescription(teacher.description, 205)}</p>
         </div>
       ))}
     </>
