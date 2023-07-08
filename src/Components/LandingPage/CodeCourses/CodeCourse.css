@@ -1,11 +1,20 @@
 .courseContainer{
     width: 300px;
     border-radius: 25px;
-    border: 2px black solid;
     margin: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 .courseContainer img{
     width: 300px;
     border-radius: 25px;
+    object-fit: contain;
+    aspect-ratio: 3/2;
 }
 
+.courseContainer * {
+    font-family: 'Lato';
+}
+
+.customHoverShadow:hover {
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  }
