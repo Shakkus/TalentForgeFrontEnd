@@ -295,3 +295,22 @@ margin-left: auto
   color: #7c38cd;
 }
 
+
+
+.triangle-down {
+  width: 0;
+  height: 0;
+  border-left: 6.25px solid transparent;
+  border-right: 6.25px solid transparent;
+  border-top: 12.5px solid #ffffff;
+  margin: 0 auto;
+}
+
+.triangle-up {
+  width: 0;
+  height: 0;
+  border-left: 6.25px solid transparent;
+  border-right: 6.25px solid transparent;
+  border-bottom: 12.5px solid #ffffff;
+  margin: 0 auto;
+}
