@@ -8,7 +8,7 @@ const LenCourse = () => {
         const fetchCourses = async() => {
             try {
                 const response = await axios.get('https://talent-forge-data.cyclic.app/courses/');
-                const filteredCourses = response.data.filter(course => course.cathegory === 'Idioma');
+                const filteredCourses = response.data.filter(course => course.cathegory === 'Idiom');
                 setCourses(filteredCourses);
             } catch (error) {
                 console.error('Error al obtener los cursos: ', error);

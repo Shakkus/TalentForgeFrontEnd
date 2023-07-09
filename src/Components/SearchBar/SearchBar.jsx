@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import logo from "../../Recourses/CarpinchoLogo.png";
 import hearth from "../../Recourses/hearth.png";
 import shopcar from "../../Recourses/shop-car.png";
@@ -12,11 +13,18 @@ const SearchBar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   //    CursosStates
   const [showSubMenu, setShowSubMenu] = useState(false);
-  const [showProgrammingLanguages, setShowProgrammingLanguages] =
-    useState(false);
+  const [showProgrammingLanguages, setShowProgrammingLanguages] = useState(false);
   const [showLanguages, setShowLanguages] = useState(false);
 
+  const [courses, setCourses] = useState([])
+
   const [showResults, setShowResults] = useState(false); // BrowsedCoursesState
+
+  const [searchTerm, setSearchTerm] = useState("")
+
+  const [redirectCourse, setRedirectCourse] = useState(null)
+
+  const [searchReults, setSearchReults] = useState([])
 
   const handleSubMenuToggle = () => {
     // CursosStates
@@ -36,8 +44,30 @@ const SearchBar = () => {
   };
 
   const handleSearch = () => {
+    const foundCourse = courses.filter(course =>
+      course.title.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    if (foundCourse) {
+      setSearchReults(foundCourse)
+    } else {
+      setSearchReults([])
+    }
+
     setShowResults(true); // Mostrar los resultados al hacer clic en el botón de búsqueda
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await axios.get(`https://talent-forge-data.cyclic.app/courses`)
+        setCourses(data)
+      } catch (error) {
+        throw new Error(`Error fetching courses ${error}`)
+      }
+    }
+    fetchData()
+  }, [])
+
 
   // useEffect(() => {
   //   // Lógica para comprobar el estado de inicio de sesión aquí
@@ -50,7 +80,7 @@ const SearchBar = () => {
   //   }, 10000);
   // }, []);
 
- return (
+  return (
     <divPrincipal className="all">
       <container className="container">
         <div className="Nav-left">
@@ -95,24 +125,24 @@ const SearchBar = () => {
                   <div className="submenu-right programming-languages">
                     <ul className="language-container">
                       <Link
-                        to="/searchbar?shearch=python"
+                        to="/searchbar?search=python"
                         className="custom-link"
                       >
                         <li className="liProgramationOption">Python</li>
                       </Link>
                       <Link
-                        to="/searchbar?shearch=Java"
+                        to="/searchbar?search=Java"
                         className="custom-link"
                       >
                         <li className="liProgramationOption">Java</li>
                       </Link>
                       <Link
-                        to="/searchbar?shearch=Javascript"
+                        to="/searchbar?search=Javascript"
                         className="custom-link"
                       >
                         <li className="liProgramationOption">Javascript</li>
                       </Link>
-                      <Link to="/searchbar?shearch=Go" className="custom-link">
+                      <Link to="/searchbar?search=Go" className="custom-link">
                         <li className="liProgramationOption">Go</li>
                       </Link>
                     </ul>
@@ -123,25 +153,25 @@ const SearchBar = () => {
                   <div className="submenu-right languages">
                     <ul className="language-container">
                       <Link
-                        to="/searchbar?shearch=Inglés"
+                        to="/searchbar?search=Inglés"
                         className="custom-link"
                       >
                         <li className="liLanguajeOption">Inglés</li>
                       </Link>
                       <Link
-                        to="/searchbar?shearch=Alemán"
+                        to="/searchbar?search=Alemán"
                         className="custom-link"
                       >
                         <li className="liLanguajeOption">Alemán</li>
                       </Link>
                       <Link
-                        to="/searchbar?shearch=Español"
+                        to="/searchbar?search=Español"
                         className="custom-link"
                       >
                         <li className="liLanguajeOption">Español</li>
                       </Link>
                       <Link
-                        to="/searchbar?shearch=Italiano"
+                        to="/searchbar?search=Italiano"
                         className="custom-link"
                       >
                         <li className="liLanguajeOption">Italiano</li>
@@ -154,7 +184,10 @@ const SearchBar = () => {
           </div>
         </div>
         <div className="Nav-center">
-          <input type="text" placeholder="Buscar..." />
+          <input type="text" placeholder="Buscar..."
+            value={searchTerm}
+            onChange={(event) => setSearchTerm(event.target.value)}
+          />
           <Link to="search">
             <img
               className="search-icon"
@@ -197,7 +230,34 @@ const SearchBar = () => {
           </div>
         )}
       </container>
-    </divPrincipal> 
+
+
+      {showResults && (
+        <div>
+          <h3>Resultados de Búsqueda:</h3>
+          <div className="course-container">
+
+
+            {searchReults.map(course => {
+              return (
+                <div key={course.id} className="course">
+                  <img src={course.image} alt="Course Image" className="course-image" />
+                  <h4 className="course-title">Title: {course.title}</h4>
+                  <p className="course-category">category: {course.cathegory}</p>
+                  <p className="course-teacher">Teacher: {course.teacher}</p>
+                  <p className="course-duration">Duration: {course.duration}</p>
+                  <p className="course-price">Price: {course.prize}</p>
+                  <p className="course-rating">Rating: {course.rating}</p>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+
+
+      )}
+
+    </divPrincipal>
   );
 };
 

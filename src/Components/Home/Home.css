@@ -1,0 +1,24 @@
+.homeCourse{
+    display: flex;
+    margin: 10px;
+    border: 1px solid black;
+    border-radius: 25px;
+    justify-content: space-between;
+}
+.homeCourse img{
+    width: 200px;
+    border-radius: 25px;
+}
+
+.courseBtn{
+    text-decoration: none;
+    display: flex;
+    color: white;
+    background: black;
+    justify-content: center;
+    align-items: center;
+    border-radius:  0 25px 25px 0;
+    width: 200px;
+    
+}
+

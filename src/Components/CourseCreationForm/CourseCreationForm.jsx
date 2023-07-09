@@ -1,88 +1,86 @@
 import React, { useState, useEffect, useRef } from "react";
 import { validate } from "./validation";
-import { FormGroup, Label, FormText, Input } from "reactstrap";
 import axios from "axios";
 
 const CourseForm = () => {
-	// CONFIG PARA SUBIR FOTOS A CLOUDINARY
 
-	const cloudinaryRef = useRef();
-	const widgetRef = useRef();
+// CONFIG PARA SUBIR FOTOS A CLOUDINARY
+
+const cloudinaryRef = useRef();
+const widgetRef = useRef();
 
 
-  const [selectedImage, setSelectedImage] = useState('')
+const [selectedImage, setSelectedImage] = useState('')
 
-	useEffect(() => {
-		cloudinaryRef.current = window.cloudinary;
-		widgetRef.current = cloudinaryRef.current.createUploadWidget(
-			{
-				cloudName: "dal385dkc",
-				uploadPreset: "q3fewzvu",
-			},
-			function (error, result) {
-        if (result && result.event === "success") {
-          const imageUrl = result.info.secure_url;
-          setSelectedImage(imageUrl);
-          console.log(imageUrl);
-        }
+useEffect(() => {
+  cloudinaryRef.current = window.cloudinary;
+  widgetRef.current = cloudinaryRef.current.createUploadWidget(
+    {
+      cloudName: "dal385dkc",
+      uploadPreset: "q3fewzvu",
+    },
+    function (error, result) {
+      if (result && result.event === "success") {
+        const imageUrl = result.info.secure_url;
+        setSelectedImage(imageUrl);
       }
-		);
-	}, []);
+    }
+  );
+}, []);
 
-  
+// ---------------
 
-	const [errors, setErrors] = useState({});
+const [errors, setErrors] = useState({});
 
-	const [input, setInput] = useState({
-		title: "",
-		cathegory: "",
-		theme: "",
-		link: "",
-		teacher: "",
-		description: "",
-		image: '',
-	});
+const [input, setInput] = useState({
+  title: "",
+  cathegory: "",
+  theme: "",
+  link: "",
+  teacher: "",
+  description: "",
+  image: '',
+});
 
-	const handleSubmit = async (event) => {
-		event.preventDefault();
-		const formErrors = validate(input);
-		if (Object.keys(formErrors).length > 0) {
-			setErrors(formErrors);
-			return;
-		}
-		await axios.post(
-			"https://talent-forge-data.cyclic.app/courses/",
-			input
-		);
-		setInput({
-			title: "",
-			cathegory: "",
-			theme: "",
-			link: "",
-			teacher: "",
-			description: "",
-			image: selectedImage,
-		});
-	};
 
-	const handleChange = (event) => {
-		setInput({
-			...input,
-			[event.target.name]: event.target.value,
-      // image: selectedImage
-		});
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formErrors = validate(input);
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+      return;
+    }
 
-		setErrors({
-			...errors,
-			[event.target.name]: validate({
-				...input,
-				[event.target.name]: event.target.value,
-			})[event.target.name],
-		});
+    await axios.post('https://talent-forge-data.cyclic.app/courses/', input);
+      setInput({
+        title: '',
+        cathegory: '',
+        theme: '',
+        link: '',
+        teacher: '',
+        description: '',
+        image: ''
+      });
+  };
 
-    console.log(input);
-    console.log(selectedImage);
-	};
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    if (name === 'theme') {
+      const themeArray = value.split(',').map((item) => item.trim());
+      setInput({ 
+        ...input, 
+        [name]: themeArray ,
+        image: selectedImage
+      });
+    } else {
+      setInput({ ...input, [name]: value });
+    }
+
+    setErrors({
+      ...errors,
+      [name]: validate({ ...input, [name]: value })[name],
+    });
+  };
 
 	return (
 		<div>
@@ -169,30 +167,36 @@ const CourseForm = () => {
 
 				<br />
 				<label> Image</label>
-				<input type="text" name="image" value={input.image} onChange={handleChange}/>
-				{/* <button type='button' name='image' onClick={() => widgetRef.current.open()}>Upload Image</button> */}
-				{errors.image && (
+				{/* <input type="text" name="image" value={input.image} onChange={handleChange}/> */}
+				<button type='button' name='image' onClick={() => widgetRef.current.open()}>Upload Image</button>
+				{!selectedImage && (
 					<span style={{ color: "red" }}> {errors.image}</span>
 				)}
 
-				<br />
-				<button
-					type="submit"
-					disabled={
-						!input.title ||
-						!input.cathegory ||
-						!input.theme ||
-						!input.link ||
-						!input.teacher ||
-						!input.description 
-						// !input.image
-					}
-				>
-					Create Course
-				</button>
-			</form>
-		</div>
-	);
+<br />
+        <label> Rating: </label>
+        <input type="number" name="rating" value={input.rating} onChange={handleChange}/>
+        {errors.rating && <span style={{ color: 'red' }}> {errors.rating}</span>}
+
+        <br />
+        <label> Prize: </label>
+        <input type="number" name="prize" value={input.prize} onChange={handleChange}/>
+        {errors.prize && <span style={{ color: 'red' }}> {errors.prize}</span>}
+
+        <br />
+        <label> Duration: </label>
+        <input type="text" name="duration" value={input.duration} onChange={handleChange}/>
+        {errors.duration && <span style={{ color: 'red' }}> {errors.duration}</span>}
+        
+        <br />
+
+        <br />
+        <button type="submit" disabled={!input.title || !input.cathegory || !input.theme || !input.link || !input.teacher || !input.description ||
+          !input.image
+          }>Create Course</button>
+      </form>
+    </div>
+  );
 };
 
 export default CourseForm;

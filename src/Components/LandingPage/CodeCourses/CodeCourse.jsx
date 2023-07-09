@@ -8,8 +8,7 @@ const CodeCourse = () => {
         const fetchCourses = async() => {
             try {
                 const response = await axios.get('https://talent-forge-data.cyclic.app/courses/');
-                console.log(response);
-                const filteredCourses = response.data.filter(course => course.cathegory === 'Programacion');
+                const filteredCourses = response.data.filter(course => course.cathegory === 'Programming');
                 
                 console.log();
                 setCourses(filteredCourses);
