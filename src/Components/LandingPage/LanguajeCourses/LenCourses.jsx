@@ -25,7 +25,7 @@ const LenCourse = () => {
                 <img src={course.image} alt="Imagen del curso" />
                 <h2>{course.title}</h2>
                 <p className="justify-center">{course.description}</p>
-                <NavLink to={``} className="bg-gray-300 text-black w-40 mt-2 mx-auto rounded p-2">{course.teacher}</NavLink>
+                <NavLink to={`/teacher/$`} className="bg-gray-300 text-black w-40 mt-2 mx-auto rounded p-2">{course.teacher}</NavLink>
                { /* <a href={course.link} target="_blank" rel="noopener noreferrer">Ver Curso</a> */}
                 <div className="mt-auto">
                 <NavLink to={`/course/${course._id}`} className="m-3 w-2"><h1 className="relative text-white bg-purple-500 p-3 w-40 mt-0 mx-auto rounded-xl mb-0 customHoverShadow">Ver Curso</h1></NavLink>

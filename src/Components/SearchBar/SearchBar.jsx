@@ -7,7 +7,8 @@ import social from "../../Recourses/social.png";
 import searchIcon from "../../Recourses/searchIcon.png";
 import profile from "../../Recourses/profile.png";
 import "./SearchBar.css";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+
 
 const SearchBar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -257,7 +258,7 @@ const SearchBar = () => {
               return (
                 <div key={course.id} className="course">
                   <img src={course.image} alt="Course Image" className="course-image" />
-                  <h4 className="course-title">Title: {course.title}</h4>
+                  <NavLink to={`/course/${course._id}`}><h4 className="course-title">Title: {course.title}</h4></NavLink>
                   <p className="course-category">category: {course.cathegory}</p>
                   <p className="course-teacher">Teacher: {course.teacher}</p>
                   <p className="course-duration">Duration: {course.duration}</p>
