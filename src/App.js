@@ -23,7 +23,7 @@ function App() {
       <Routes>
         <Route path="/search" element={<CourseResults />} />
         <Route path="/view/:id" element={<CourseViewer />} />
-        {/* <Route path="/detail" element={<DetailCourses />} /> */}
+        <Route path="/detail" element={<DetailCourses />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Form />} />
         <Route path="/course/create" element={<CourseForm />} />
