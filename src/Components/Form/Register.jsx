@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Register.css";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 const Form = () => {
   const [days, setDays] = useState([]);
@@ -277,7 +278,9 @@ const Form = () => {
             )}
           </div>
           <div>
-            <input type="submit" value="Submit" className="buttonSubmit" />
+            <Link to='/home'>
+              <input type="submit" value="Submit" className="buttonSubmit" />
+            </Link>
           </div>
         </div>
       </form>

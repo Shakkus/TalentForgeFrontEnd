@@ -11,7 +11,7 @@ export const validate = (input) => {
     if (!input.cathegory) {
         errors.cathegory = "You must choose a category";
     }
-    if (!input.theme || input.theme.length < 3) {
+    if (!input.theme || input.theme.length < 1) {
         errors.theme = "Theme must be at least 3 characters long";
     }
     if (!input.link || !isValidUrl(input.link)) {
@@ -22,6 +22,15 @@ export const validate = (input) => {
     }
     if (!input.description || input.description.length < 10) {
         errors.description = "Description must be at least 10 characters long";
+    }
+    if (!input.rating || input.rating > 5) {
+        errors.rating = "The rating must be less than or equal to 5";
+    }
+    if (!input.prize || input.prize > 30) {
+        errors.prize = "The maximum price is 30";
+    }
+    if (!input.duration || input.duration.length > 8) {
+        errors.duration = "Its too much time!";
     }
     return errors;
 }

@@ -13,15 +13,15 @@ const Footer = () => {
   return (
     <div className="footer">
       <div className="contact">
-        <div className="contact-contact">
+        <div className="contact-contact p-3">
           <img className="contact-img" src={phone} alt="" />
           <h3 className="footerInfo">Contact</h3>
         </div>
-        <div className="contact-info">
+        <div className="contact-info p-3">
           <img className="contact-img" src={home} alt="" />
           <h3 className="footerInfo">Home</h3>
         </div>
-        <div className="contact-ubication">
+        <div className="contact-ubication p-3">
           <img className="contact-img" src={dot} alt="" />
           <h3 className="footerInfo">Ubication</h3>
         </div>
@@ -35,11 +35,11 @@ const Footer = () => {
         <div className="logo-redes">
           <img src={logo1} alt="" />
           <div className="redes">
-            <img src={instagramImg} alt="" className="footerImg" />
-            <img src={facebookImg} alt="" className="footerImg" />
-            <img src={ytImg} alt="" className="footerImg" />
-            <img src={linkedinImg} alt="" className="footerImg" />
-            <img src={whatsappImg} alt="" className="footerImg" />
+            <img src={instagramImg} alt="" className="footerImg w-9" />
+            <img src={facebookImg} alt="" className="footerImg w-9" />
+            <img src={ytImg} alt="" className="footerImg w-9" />
+            <img src={linkedinImg} alt="" className="footerImg w-9" />
+            <img src={whatsappImg} alt="" className="footerImg w-9" />
           </div>
         </div>
       </div>

@@ -1,3 +1,11 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Resto de tu código CSS aquí */
+
+
+
 .all{
   z-index: 20;
 }
@@ -14,11 +22,20 @@
   padding: 5px 20px;
   z-index: 100;
   margin: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
-.Nav-center{
+
+.Nav-center {
   width: 50%;
+  flex-grow: 1;
+  margin-left: 20px;
+  display: flex; /* Agregado */
+  align-items: center; /* Agregado */
+  position: relative;
 }
+
 
 .Nav-left,
 .Nav-right {
@@ -58,16 +75,24 @@ input[type="text"] {
   margin-bottom: 0;
 }
 
+
+
+
 .search-icon {
-  width: 15px;
-  height: 15px;
-  margin-left: -30px;
-  cursor: pointer;
+  position: absolute;
+  top: auto;
+  left: 560px;
+  transform: translate(100%, -50%);
+  width: 20px; /* Ajusta el valor según sea necesario */
+  height: 20px; /* Ajusta el valor según sea necesario */
 }
+
+
 
 .Nav-right p {
   margin: 0 10px;
   font-size: 16px;
+margin-left: auto
 }
 .hearth,
 .shopcar,
@@ -194,4 +219,98 @@ input[type="text"] {
 .custom-link {
   text-decoration: none;
   color: white
+}
+
+
+
+
+
+.course {
+  display: flex;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 20px; /* Aumenta el espacio entre los cursos */
+  margin-right: 20px; /* Añade espacio a la derecha */
+ transition: box-shadow 0.3s, transform 0.3s;
+}
+
+/* Resto del código CSS sigue igual */
+
+.course-image {
+  width: 200px;
+  height: auto;
+  object-fit: cover;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.course-details {
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.course-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.course-category {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 5px;
+}
+
+.course-teacher {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.course-duration,
+.course-price,
+.course-rating {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 5px;
+}
+
+/* Hover effect */
+.course:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+
+}
+
+.course:hover .course-image {
+  opacity: 0.8;
+}
+
+.course:hover .course-title {
+  color: #7c38cd;
+}
+
+
+
+.triangle-down {
+  width: 0;
+  height: 0;
+  border-left: 6.25px solid transparent;
+  border-right: 6.25px solid transparent;
+  border-top: 12.5px solid #ffffff;
+  margin: 0 auto;
+}
+
+.triangle-up {
+  width: 0;
+  height: 0;
+  border-left: 6.25px solid transparent;
+  border-right: 6.25px solid transparent;
+  border-bottom: 12.5px solid #ffffff;
+  margin: 0 auto;
 }

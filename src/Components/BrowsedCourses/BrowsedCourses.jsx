@@ -8,7 +8,7 @@ function BrowsedCourses({ courses }) {
       {courses.map((course) => (
         <div key={course.id} className="course-item">
           <div className="thumbnail">
-            <Link to={`/view`}>
+            <Link to={`/course/${course.id}`}>
             <img src={course.thumbnail} alt="Course Thumbnail" />
             </Link>
           </div>

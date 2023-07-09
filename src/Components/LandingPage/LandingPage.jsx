@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom'
 
 import "./LandingPage.css";
 import CodeCourse from "./CodeCourses/CodeCourse";
@@ -25,14 +26,16 @@ const Landing = () => {
             maxime sapiente sequi eum earum veniam architecto iure quaerat
             repellat!
           </p>
-          <button id="aprende-Gratis">Aprende Gratis</button>
+          <Link to='/register'>
+            <button>Aprende gratis</button>
+          </Link>
         </div>
         <img src={imgpres} alt="" />
       </div>
 
       <div className="whiteBack">
         <div className="selector">
-          <h2>Quiero Aprender</h2>
+          <h2 className="text-3xl my-6">Cursos al alcance de un click!</h2>
           <div className="botones">
             <button
               id="idiomas"
@@ -55,21 +58,23 @@ const Landing = () => {
             {activeButton === 'programacion' && <CodeCourse/>}
           </div>
         </div>
-        <h2 id="titleMentors">Mentores</h2>
+        <h2 id="titleMentors" className="text-white text-2xl">Mentores</h2>
         <div className="mentoresContainer">
           {<Teachers/>}
         </div>
 
         <div className="empresas">
-          <h2>Talent Forge para empresas</h2>
-          <div className="info-container">
-            <img src={empresas} alt="" />
-            <div className="infoContainer">
-              <h3>Buscas soluciones de idiomas para tu empresa?</h3>
-              <h3 id="textoVioleta">Averigua como podemos ayudarte</h3>
-            </div>
-          </div>
-        </div>
+  <h2 className="text-white text-2xl">Talent Forge para empresas</h2>
+  <div className="info-container flex items-center justify-center my-20">
+  <img src={empresas} alt="" className="mr-4 rounded-tl-3xl rounded-br-3xl" />
+  <div className="infoContainer">
+    <h3 className="text-2xl">Buscas soluciones de idiomas para tu empresa?</h3>
+    <h3 id="textoVioleta" className="text-2xl">Averigua cómo podemos ayudarte</h3>
+  </div>
+</div>
+
+</div>
+
       </div>
     </div>
   );
