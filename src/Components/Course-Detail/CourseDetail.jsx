@@ -42,6 +42,11 @@ const CourseDetail = () => {
     }
   };
 
+  const chamba = () => {
+    if(teacherInfo.name === "Gian Ruiz") return "Chambeador"
+    else return teacherInfo.name
+  }
+
   return (
     <div className="courseDetail">
       <div className="courseDetailContainer">
@@ -61,8 +66,8 @@ const CourseDetail = () => {
               Category: {detailInfo.cathegory}
             </h2>
             <h2 className="detailTheme">Theme: {detailInfo.theme}</h2>
-            <NavLink to={detailInfo.link} style={{ textDecoration: "none" }}>
-              <button className="detailLink">Comenzar con el curso!</button>
+            <NavLink to={detailInfo.link} style={{ textDecoration: "none" }} className="w-5 bg-purple-600 p-3 rounded">
+              <button className="text-white m-3">Comenzar con el curso!</button>
             </NavLink>
             <p className="detailPrize">
               ${detailInfo.prize} <b style={{ color: "green" }}>USD</b>
@@ -80,10 +85,11 @@ const CourseDetail = () => {
               />
               <NavLink
                 style={{ textDecoration: "none" }}
-                className="detailTeacherName">
-                {teacherInfo.name}
+                className="detailTeacherName"
+                to={`/teacher/${teacherInfo._id}`}>
+                {chamba()}
               </NavLink>
-              <h2 className="detailTeacherCountry">{flag()}</h2>
+              <h2 className="detailTeacherCountry mt-4">{flag()}</h2>
             </div>
             <div className="teacherInfoDescriptionContainer">
               <h2 className="detailTeacherDescription">

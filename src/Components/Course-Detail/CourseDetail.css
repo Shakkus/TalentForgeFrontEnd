@@ -1,3 +1,7 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
 .courseDetail {
     height: 1250px
 }
@@ -6,6 +10,7 @@
     /* border: 1px solid black; */
     border-radius: 8px;
 box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+margin-left: 10%;
 }
 
 .detailInfo, .detailTeacherTitle {
@@ -59,7 +64,7 @@ box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2p
 
 .detailInfo2 {
     /* border: 1px solid #c9c9c9; */
-    margin-left: 500px;
+    margin-left: 15%;
     width: max-content;
     margin-top: 100px;
 }
@@ -109,4 +114,9 @@ box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2p
     background-color: #e0e0e0;
     border-radius: 12px;
     box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+}
+
+.detailTeacherImage {
+    object-fit: contain;
+    aspect-ratio: 3/2;
 }

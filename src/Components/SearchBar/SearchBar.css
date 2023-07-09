@@ -1,3 +1,11 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Resto de tu código CSS aquí */
+
+
+
 .all{
   z-index: 20;
 }
@@ -18,11 +26,16 @@
   padding-right: 20px;
 }
 
-.Nav-center{
+
+.Nav-center {
   width: 50%;
- flex-grow: 1; /* Ocupa el espacio disponible */
+  flex-grow: 1;
   margin-left: 20px;
+  display: flex; /* Agregado */
+  align-items: center; /* Agregado */
+  position: relative;
 }
+
 
 .Nav-left,
 .Nav-right {
@@ -62,12 +75,19 @@ input[type="text"] {
   margin-bottom: 0;
 }
 
+
+
+
 .search-icon {
-  width: 15px;
-  height: 15px;
-  margin-left: -30px;
-  cursor: pointer;
+  position: absolute;
+  top: auto;
+  left: 560px;
+  transform: translate(100%, -50%);
+  width: 20px; /* Ajusta el valor según sea necesario */
+  height: 20px; /* Ajusta el valor según sea necesario */
 }
+
+
 
 .Nav-right p {
   margin: 0 10px;
@@ -275,3 +295,22 @@ margin-left: auto
   color: #7c38cd;
 }
 
+
+
+.triangle-down {
+  width: 0;
+  height: 0;
+  border-left: 6.25px solid transparent;
+  border-right: 6.25px solid transparent;
+  border-top: 12.5px solid #ffffff;
+  margin: 0 auto;
+}
+
+.triangle-up {
+  width: 0;
+  height: 0;
+  border-left: 6.25px solid transparent;
+  border-right: 6.25px solid transparent;
+  border-bottom: 12.5px solid #ffffff;
+  margin: 0 auto;
+}
