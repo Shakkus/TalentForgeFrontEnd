@@ -1,0 +1,36 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Estilos para el contenedor principal del componente */
+.course-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px
+  }
+  
+  /* Estilos para la imagen del curso */
+  .course-image {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+  }
+  
+  /* Estilos para el texto del curso */
+  .course-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .course-details {
+    font-size: 14px;
+    margin: 0;
+  }
+  
+  .course-category,
+  .course-description {
+    font-size: 12px;
+    margin: 0;
+  }

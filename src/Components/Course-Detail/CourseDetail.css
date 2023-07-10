@@ -1,0 +1,122 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+.courseDetail {
+    height: 1250px
+}
+
+.detailInfo1 {
+    /* border: 1px solid black; */
+    border-radius: 8px;
+box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+margin-left: 10%;
+}
+
+.detailInfo, .detailTeacherTitle {
+    font-family: 'Lato';
+    display: flex;
+    font-size: 20px;
+    color: #000000;
+}
+
+.courseDetailContainer {
+    margin: 100px;
+    /* border: 1px solid black; */
+    border-radius: 18px;
+    background-color: white;
+    padding: 20px 20px 10px 20px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+
+.detailTitle {
+    font-family: 'Montserrat';
+    font-size: 30px;
+}
+
+.courseInfo {
+    /* border: 1px solid black; */
+        display: flex;
+        width: 1500px;
+        margin: 100px auto;
+        font-family: 'Montserrat';
+
+}
+
+.detailImage {
+    width: 500px;
+}
+
+.detailLink {
+/* border: 1px solid black; */
+text-decoration: none;
+border: none;
+font-family: 'Montserrat';
+font-size: 18px;
+width: 400px;
+height: 60px;
+background-color: #aa6fff;
+color: white;
+border-radius: 12px;
+margin: 0 auto;
+box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+.detailInfo2 {
+    /* border: 1px solid #c9c9c9; */
+    margin-left: 15%;
+    width: max-content;
+    margin-top: 100px;
+}
+
+.detailTeacherName{
+    background-color: #c9c9c9;
+    border-radius: 8px;
+    width: max-content;
+    margin: 0 auto;
+    padding: 10px;
+    color: rgb(80, 80, 80);
+}
+
+.teacherInfo2 {
+    /* border: 1px solid black; */
+    width: 200px;
+
+}
+
+.detailTeacherDescription {
+    font-size: 18px;
+    margin: 10% 50px;
+}
+
+.teacherInfo {
+    display: flex;
+    flex-wrap: wrap;
+    /* border: 1px solid black; */
+    width: max-content;
+    margin: 0 auto;
+    font-family: 'Montserrat';
+    padding: 50px;
+}
+
+.teacherInfoDescriptionContainer {
+    margin-left: 20px;
+    width: 400px;
+}
+
+.detailPrize {
+    font-size: 18px;
+}
+
+
+.teacherInfoContainer {
+    /* border: 1px solid black; */
+    background-color: #e0e0e0;
+    border-radius: 12px;
+    box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+}
+
+.detailTeacherImage {
+    object-fit: contain;
+    aspect-ratio: 3/2;
+}
