@@ -26,20 +26,20 @@ const CourseFilter = ({ courses, onFilter }) => {
   };
 
   return (
-    <div>
-      <h1>Filtrar cursos</h1>
-      <div>
-        <label>Categoría:</label>
-        <select value={category} onChange={event => setCategory(event.target.value)}>
+    <div className='filters-box'>
+    <div className='filters'>
+      <div className='select-box'>
+        <label className='select-title'>Categoría:</label>
+        <select className='select-filters-courses' value={category} onChange={event => setCategory(event.target.value)}>
           <option value="">Todas</option>
           <option value="idiom">Idioma</option>
           <option value="programming">Programación</option>
         </select>
       </div>
 
-      <div>
-        <label>Tema:</label>
-        <select value={theme} onChange={event => setTheme(event.target.value)}>
+      <div className='select-box'>
+        <label className='select-title'>Tema:</label>
+        <select className='select-filters-courses' value={theme} onChange={event => setTheme(event.target.value)}>
           <option value="">Todos</option>
           <option value="German">German</option>
           <option value="Italian">Italian</option>
@@ -60,25 +60,25 @@ const CourseFilter = ({ courses, onFilter }) => {
           <option value="Nodejs">Nodejs</option>
         </select>
       </div>
-      <div>
-        <label>Duración:</label>
-        <select value={duration} onChange={event => setDuration(event.target.value)}>
+      <div className='select-box'>
+        <label className='select-title'>Duración:</label>
+        <select className='select-filters-courses' value={duration} onChange={event => setDuration(event.target.value)}>
           <option value="">Todas</option>
           <option value="greaterThan10">Más de 10 minutos</option>
           <option value="lessThan10">Menos de 10 minutos</option>
         </select>
       </div>
-      <div>
-        <label>Precio:</label>
-        <select value={price} onChange={event => setPrice(event.target.value)}>
+      <div className='select-box'>
+        <label className='select-title'>Precio:</label>
+        <select className='select-filters-courses' value={price} onChange={event => setPrice(event.target.value)}>
           <option value="">Todos</option>
           <option value="lessThan15">Menor a $15</option>
           <option value="greaterThan15">Mayor a $15</option>
         </select>
       </div>
-      <div>
-        <label>Rating:</label>
-        <select value={rating} onChange={event => setRating(event.target.value)}>
+      <div className='select-box'>
+        <label className='select-title'>Rating:</label>
+        <select className='select-filters-courses' value={rating} onChange={event => setRating(event.target.value)}>
           <option value="">Todos</option>
           <option value="1">1 punto</option>
           <option value="2">2 puntos</option>
@@ -87,7 +87,8 @@ const CourseFilter = ({ courses, onFilter }) => {
           <option value="5">5 puntos</option>
         </select>
       </div>
-      <button onClick={handleFilter}>Filtrar</button>
+      <button className='filter-btn' onClick={handleFilter}>Filtrar</button>
+    </div>
     </div>
   );
 };

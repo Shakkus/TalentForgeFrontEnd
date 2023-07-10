@@ -44,10 +44,8 @@ const Footer = () => {
         </div>
       </div>
       <div className="about">
-        <h3 className="footerInfo">About Us</h3>
         <p className="aboutInfo">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nostrum
-          eligendi illo, ducimus accusantium quidem{" "}
+        TALENT FORGE©. Educating since 2023{" "}
         </p>
       </div>
     </div>
