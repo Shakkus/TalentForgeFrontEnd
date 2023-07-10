@@ -38,6 +38,7 @@ const Home = () => {
                     <div className="infoCourse">
                         <h2 className='course-title'>{course.title}</h2>
                         <p className='course-desc'>{course.description}</p>
+                        <p className='course-prize'>{course.prize}</p>
                     </div>
 
                 <a className="courseBtn"> <NavLink to={`http://localhost:3000/course/${course._id}`}> View Course </NavLink> </a>
