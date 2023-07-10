@@ -18,31 +18,24 @@ const Landing = () => {
   return (
     <div className="landing">
       <div className="presentation">
-        <div className="presentationContainer">
-          <h3>Habla un idioma en tan solo 10 minutos al dia!</h3>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta esse
-            amet modi. Dignissimos, beatae autem quisquam nobis esse vel atque
-            maxime sapiente sequi eum earum veniam architecto iure quaerat
-            repellat!
-          </p>
-          <Link to='/register'>
-            <button>Aprende gratis</button>
-          </Link>
-        </div>
+          <div className="presentationContainer">
+            <h3 className="presentation-title">Speak a language in just 10 minutes per day!</h3>
+            <p> With our expertly certified language courses, by investing just a fraction of your day you can speak any language to perfection in as little as 6 months! Available at any time and schedule for your convenience. Talent forge adapts to you and builds your knowledge.</p>
+            <Link to='/register'> <button>Learn for free!</button> </Link>
+          </div>
         <img src={imgpres} alt="" />
       </div>
 
       <div className="whiteBack">
         <div className="selector">
-          <h2 className="text-3xl my-6">Cursos al alcance de un click!</h2>
+          <h2 className="text-3xl my-6">Courses just a click away!</h2>
           <div className="botones">
             <button
               id="idiomas"
               className={activeButton === "idiomas" ? "active" : ""}
               onClick={() => handleButtonClick("idiomas")}
             >
-              Idiomas
+              Lenguages
             </button>
 
             <button
@@ -50,7 +43,7 @@ const Landing = () => {
               className={activeButton === "programacion" ? "active" : ""}
               onClick={() => handleButtonClick("programacion")}
             >
-              Programacion
+              Programming
             </button>
           </div>
           <div className="containerCourses">
@@ -58,18 +51,19 @@ const Landing = () => {
             {activeButton === 'programacion' && <CodeCourse/>}
           </div>
         </div>
-        <h2 id="titleMentors" className="text-white text-2xl">Mentores</h2>
+        <h2 id="titleMentors" className="text-white text-2xl">Mentors</h2>
         <div className="mentoresContainer">
           {<Teachers/>}
         </div>
 
         <div className="empresas">
-  <h2 className="text-white text-2xl">Talent Forge para empresas</h2>
+  <h2 className="text-white text-2xl">Talent Forge for companies</h2>
   <div className="info-container flex items-center justify-center my-20">
   <img src={empresas} alt="" className="mr-4 rounded-tl-3xl rounded-br-3xl" />
   <div className="infoContainer">
-    <h3 className="text-2xl">Buscas soluciones de idiomas para tu empresa?</h3>
-    <h3 id="textoVioleta" className="text-2xl">Averigua cómo podemos ayudarte</h3>
+    <h3 className="text-2xl">Looking for language solutions for your company?</h3>
+    <h3 id="textoVioleta" className="text-2xl">We can help you</h3>
+    <Link to='' className="m-3 w-2"><h1 className="relative text-white bg-purple-500 p-3 w-40 mt-0 mx-auto rounded-xl mb-0 customHoverShadow">Contact Us</h1></Link>
   </div>
 </div>
 

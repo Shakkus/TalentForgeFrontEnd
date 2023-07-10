@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router'
+import './teachersDetail.css'
 
 const TeachersDetail = () => {
 
@@ -41,18 +42,22 @@ const TeachersDetail = () => {
 
          <div  className="mt-44">
       <h1 className="flex ml-7 font-bold text-xl">Cursos a cargo de {teacher.name}</h1>
-         {Array.isArray(teacher.courses) ? (
-            teacher.courses.map((course) => {
-              return  (
-                <div key={course.id} className="my-6">
-                  <h1>{course.title}</h1>
-                  <p>{course.cathegory}</p>
-                  <p>{course.theme}</p>
-                  <p>{course.description}</p>
-                </div>
-              )
-            })
-          ) : null}
+      {Array.isArray(teacher.courses) ? (
+  teacher.courses.map((course) => {
+    return (
+      <div key={course.id} className="course-container">
+        <img src={course.image} alt="" className="course-image" />
+        <div>
+          <h1 className="course-title">{course.title}</h1>
+          <h6 className="course-details">{course.duration}</h6>
+          <h6 className="course-details">{course.rating}</h6>
+          <p className="course-category">{course.category}</p>
+          <p className="course-description">{course.description}</p>
+        </div>
+      </div>
+    );
+  })
+) : null}
          </div>
         </div>
     )

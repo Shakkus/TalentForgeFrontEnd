@@ -28,18 +28,19 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div className='home'>
       <CourseFilter courses={courses} onFilter={handleFilter} />
       <div>
         {filteredCourses.map(course => (
             <div key={course._id} className="homeCourse" >
                 <img src={course.image} alt="imagenDeCurso" />
+                <div className="course-duration"> {course.duration} </div>
                     <div className="infoCourse">
-                        <h2>{course.title}</h2>
-                        <p>{course.description}</p>
+                        <h2 className='course-title'>{course.title}</h2>
+                        <p className='course-desc'>{course.description}</p>
                     </div>
 
-                <a className="courseBtn"> <NavLink to={`http://localhost:3000/course/${course._id}`}> Ingresar al curso </NavLink> </a>
+                <a className="courseBtn"> <NavLink to={`http://localhost:3000/course/${course._id}`}> View Course </NavLink> </a>
             </div>
         ))}
       </div>
