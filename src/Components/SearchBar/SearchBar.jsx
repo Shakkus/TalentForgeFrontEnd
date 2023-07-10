@@ -8,9 +8,11 @@ import searchIcon from "../../Recourses/searchIcon.png";
 import profile from "../../Recourses/profile.png";
 import "./SearchBar.css";
 import { Link, NavLink } from "react-router-dom";
+import { data } from "autoprefixer";
 
 
 const SearchBar = () => {
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   //    CursosStates
   const [showSubMenu, setShowSubMenu] = useState(false);
@@ -127,7 +129,7 @@ const SearchBar = () => {
                 {showProgrammingLanguages && (
                   <div className="submenu-right programming-languages">
                     <ul className="language-container">
-                      <Link
+                      {/* <Link
                         to="/course/64a829f5435d4fe72524052b"
                         className="custom-link"
                       >
@@ -150,7 +152,12 @@ const SearchBar = () => {
                       </Link>
                       <Link to="/course/64a82a07435d4fe72524052f" className="custom-link">
                         <li className="liProgramationOption">TypeScript</li>
-                      </Link>
+                      </Link> */}
+                      {courses.map((course) => {
+                      return (  <Link to={`/course/${course._id}`}>
+                        <li className='liProgramationOption' >{course.title}</li>
+                        </Link> ) 
+                      })}
                     </ul>
                   </div>
                 )}
