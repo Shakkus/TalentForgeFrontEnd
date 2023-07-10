@@ -186,3 +186,9 @@ button.active{
 .footer .about{
     width: 200px;
 }
+
+.presentation-title{
+    font-size: 20px;
+    color: #650ece;
+    font-weight: 500;
+}
