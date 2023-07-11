@@ -22,6 +22,8 @@ const SearchBar = () => {
   const [redirectCourse, setRedirectCourse] = useState(null);
   const [searchResults, setSearchResults] = useState([]);
 
+  const [isCartOpen, setCartOpen] = useState(false);
+  
   const handleSubMenuToggle = () => {
     setShowSubMenu(!showSubMenu);
   };
@@ -65,6 +67,20 @@ const SearchBar = () => {
   }, []);
 
   const location = useLocation();
+
+  /* LOGICA DE CARRITO */
+  const [CartCourses,setCartCourses] = useState([]);
+  
+  const cartCourses = JSON.parse(localStorage.getItem('cartCourses')) || [];
+
+  const deleteFromCart = (course) => {
+    const updatedCartCourses = cartCourses.filter(
+      (item)=> item.id !== course.id
+    );
+
+    localStorage.setItem('cartCourses',JSON.stringify(updatedCartCourses))
+    console.log('Se elimino curso');
+  }
 
   useEffect(() => {
     if (location.pathname !== "/search") {
@@ -128,20 +144,28 @@ const SearchBar = () => {
           </div>
         ) : (
           <div className="buttons">
-              <button className="cart" id="cart" >Carrito </button>
-              <div id="cartMenu" className="cart-menu" >
-
-              </div>
             <Link to="/register">
               <button className="register">Register</button>
             </Link>
             <Link to="/login">
               <button className="login">Log In</button>
             </Link>
+            <button className="cart" id="cart" onClick={() => setCartOpen(!isCartOpen)}>Carrito </button>
+            {isCartOpen && (
+              <div id="cartMenu" className="cart-menu">
+                {/* Contenido del menú de cursos */}
+                {cartCourses.map((course, index) => (
+                  <div key={index} className="courseOnCart">
+                    <p>{course.title}</p>
+                    <p>{course.prize}</p>
+                    <button onClick={deleteFromCart}> X </button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </div>
-
       {showResults && (
         <div search-mapper>
           <h3>Search...</h3>
