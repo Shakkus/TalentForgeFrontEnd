@@ -158,6 +158,189 @@ input[type="text"] {
 	margin-left: 10px;
 }
 
+.arrow {
+  margin-left: 5px;
+}
+
+.submenu-container {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #7c38cd;
+  border: 1px solid #5b2e92;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.submenu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.liProgramation, .liLanguaje, .liProgramationOption, .liLanguajeOption  {
+  font-family: 'Montserrat', sans-serif;
+}
+
+
+
+.submenu-item {
+  background-color: #7c38cd;
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid #5b2e92;
+  display: flex;
+  align-items: center;
+}
+
+.arrow-right {
+  margin-left: 5px;
+}
+
+.submenu-right {
+  padding: 10px;
+}
+
+.language-container {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.language-container li {
+  padding: 5px 0;
+}
+
+.programming-languages,
+.languages {
+  padding: 10px;
+}
+
+.show-submenu-right {
+  display: block;
+}
+
+.languages-container {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  margin-left: 10px;
+}
+
+.cart, .register, .login{
+  cursor: pointer;
+  padding: 10px;
+    border-radius: 20px ;
+    background: #7C38CD;
+    color: white;
+    margin-right: 20px;
+}
+
+.cart,.register{
+  border: 2px #AA6FFF solid;
+}
+
+.cart-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: black;
+}
+
+.cart-menu .courseOnCart {
+  display: flex;
+  justify-content: space-between;
+}
+
+.login{
+  border: none;
+  background: white;
+  color: #7C38CD;
+}
+
+
+/* Links */
+.custom-link {
+  text-decoration: none;
+  color: white
+}
+
+
+
+
+
+.course {
+  display: flex;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 20px; /* Aumenta el espacio entre los cursos */
+  margin-right: 20px; /* Añade espacio a la derecha */
+ transition: box-shadow 0.3s, transform 0.3s;
+}
+
+/* Resto del código CSS sigue igual */
+
+.course-image {
+  width: 200px;
+  height: auto;
+  object-fit: cover;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.course-details {
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.course-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.course-category {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 5px;
+}
+
+.course-teacher {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.course-duration,
+.course-price,
+.course-rating {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 5px;
+}
+
+/* Hover effect */
+.course:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+
+}
+
+.course:hover .course-image {
+  opacity: 0.8;
+}
+
+.course:hover .course-title {
+  color: #7c38cd;
+}
+
+
+
 .triangle-down {
   width: 0;
   height: 0;
