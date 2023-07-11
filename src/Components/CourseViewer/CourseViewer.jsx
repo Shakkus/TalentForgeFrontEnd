@@ -1,11 +1,14 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "./CourseViewer.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 const CourseViewer = () => {
+
+	const navigate = useNavigate();
+
 	// ESTADO CON LOS DATOS DEL CURSO TRAIDO DE API
 
 	const [courseData, setCourseData] = useState({
@@ -23,12 +26,15 @@ const CourseViewer = () => {
 		description: "",
 		image: "",
 	});
+	// -----------------------------------------------
 
 	// ESTADO CON LOS TODOS LOS CURSOS
 	const [courses, setAllCourses] = useState([]);
+	// -------------------------------
 
 	// ESTADO CON CURSOS FILTRADOS POR CATEGORIA (RELACIONADOS)
 	const [relatedVideo, setRelatedVideo] = useState([]);
+	// --------------------------------------------------------
 
 	// FILTRO DE VIDEOS RELACIONADOS DEPENDIENDO DE CATEGORIA
 
@@ -45,34 +51,39 @@ const CourseViewer = () => {
 		};
 
 		allCourses();
-
 		return clean;
 	}, []);
 
 	useEffect(() => {
-		if (courseData.cathegory === "Programacion") {
+		if (courseData.cathegory === "Programming") {
 			const video = courses.filter(
-				(video) => video.cathegory !== "Idioma"
+				(video) => video.cathegory !== "Idiom"
 			);
 			setRelatedVideo(video);
 			console.log(relatedVideo);
-		} else if (courseData.cathegory === "Idioma") {
+		} else if (courseData.cathegory === "Idiom") {
 			const video = courses.filter(
-				(video) => video.cathegory !== "Programacion"
+				(video) => video.cathegory !== "Programming"
 			);
 			setRelatedVideo(video);
 			console.log(relatedVideo);
 		}
 	}, [courseData, courses]);
 
+	// --------------------------------------------------
+
+
 	// LIMPIEZA DEL ESTADO RELATEDVIDEO
 
 	const clean = () => {
 		setAllCourses([]);
 	};
+	// --------------------------------
 
 	// USO DE HOOKS
 	const { id } = useParams();
+	// ------------
+
 
 	// RESPUESTA API DE CURSO CUANDO SE CARGUE EL COMPONENTE
 
@@ -91,11 +102,10 @@ const CourseViewer = () => {
 		};
 
 		course();
-
-		// return clean
 	}, [id]);
+	// ------------------------------------------------------
 
-	// ID DEL VIDEO
+	// ID DEL VIDEO (GOOGLE DRIVE)
 	const videoUrl = courseData.link;
 
 	const getDriveVideoId = (url) => {
@@ -104,6 +114,17 @@ const CourseViewer = () => {
 	};
 
 	const driveVideoId = getDriveVideoId(videoUrl);
+
+	// -----------
+
+	// VERIFICACION SESION INICIADA
+
+	useEffect(() => {
+		const loggedUser = localStorage.getItem("loggedUser");
+		if (!loggedUser) navigate("/login");
+	}, []);
+
+	// --------------
 
 	return (
 		<div className="course-viewer">
@@ -138,7 +159,7 @@ const CourseViewer = () => {
 					<details className="course-details">
 						<p>Rating: {courseData.rating}</p>
 						<p>Duration: {courseData.duration}</p>
-						<p>Price: {courseData.price}</p>
+						<p>Price: {courseData.prize}</p>
 					</details>
 				</div>
 				{/* ------- */}
@@ -146,22 +167,24 @@ const CourseViewer = () => {
 
 			{/* VIDEOS RELACIONADOS */}
 
-			<div className="course-viewer-related-videos">
-      <h3>Related Videos:</h3>
-				<div className="related-video-container">
-					{relatedVideo.map((video) => (
-						<Link to={`/view/${video._id}`}>
-            <div key={video.id}>
-							<h4>{video.title}</h4>
+			{/* <div className="course-viewer-related-videos">
+					<h3>Related Videos:</h3> */}
+			<div className="related-video-container">
+				<h2>Related Videos</h2>
+				{relatedVideo.map((video) => (
+					<Link to={`/view/${video._id}`}>
+						<div key={video.id} className="video-name-container">
 							<img
-								className="related-video"
+								className="video"
 								src={video.image}
-								alt=""
+								alt={video.title}
 							/>
-						</div></Link>
-					))}
-				</div>
+							<h4>{video.title}</h4>
+						</div>
+					</Link>
+				))}
 			</div>
+			{/* </div> */}
 
 			{/* -------- */}
 		</div>

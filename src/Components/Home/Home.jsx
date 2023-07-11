@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CourseFilter from './Filter';
@@ -9,28 +10,49 @@ const Home = () => {
   const [courses, setCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
   const navigate = useNavigate()
+=======
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import CourseFilter from "./Filter";
+import "./Home.css";
+import { NavLink, useNavigate } from "react-router-dom";
 
-  const getCourses = async () => {
-    try {
-      const { data } = await axios.get('https://talent-forge-data.cyclic.app/courses');
-      console.log(data);
-      setCourses(data);
-      setFilteredCourses(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+const Home = () => {
+	const navigate = useNavigate();
+>>>>>>> 701fc25cde67d0e45c554b973b760528eb910947
 
+	const [courses, setCourses] = useState([]);
+	const [filteredCourses, setFilteredCourses] = useState([]);
+
+<<<<<<< HEAD
   const { user, logOut, loading } = useAuth()
   console.log(user)
 
   useEffect(() => {
     getCourses();
   }, []);
+=======
+	const getCourses = async () => {
+		try {
+			const { data } = await axios.get(
+				"https://talent-forge-data.cyclic.app/courses"
+			);
+			setCourses(data);
+			setFilteredCourses(data);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	useEffect(() => {
+		getCourses();
+	}, []);
+>>>>>>> 701fc25cde67d0e45c554b973b760528eb910947
 
   const handleFilter = (filteredCourses) => {
     setFilteredCourses(filteredCourses);
   };
+<<<<<<< HEAD
 
   const handleLogOut = async () => {
     try {
@@ -45,6 +67,31 @@ const Home = () => {
 
   if (loading === true) return <h1>loading</h1>
 
+=======
+   /*LOGICA PARA LLEVAR CURSOS AL LOCALSTORAGE*/
+   let cartCourses = [];
+   const addCourseToCart = (course) => {
+ 
+     const existingCourses = localStorage.getItem('cartCourses') ;
+     
+     
+     if (existingCourses){
+       cartCourses = JSON.parse(existingCourses);
+       
+       const isCourseInCart = cartCourses.some((cartCourse) => cartCourse._id === course._id)
+ 
+       if (isCourseInCart) {
+         console.log('Curso ya en carrito');
+         return;
+       }
+     } 
+     cartCourses.push(course);
+ 
+     localStorage.setItem('cartCourses', JSON.stringify(cartCourses));
+ 
+     console.log(cartCourses);
+   }
+>>>>>>> 701fc25cde67d0e45c554b973b760528eb910947
   return (
     <div className='home'>
       <CourseFilter courses={courses} onFilter={handleFilter} />

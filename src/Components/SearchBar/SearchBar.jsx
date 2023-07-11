@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import axios from "axios";
 import logo from "../../Recourses/CarpinchoLogo.png";
@@ -8,14 +8,13 @@ import social from "../../Recourses/social.png";
 import searchIcon from "../../Recourses/searchIcon.png";
 import profile from "../../Recourses/profile.png";
 import "./SearchBar.css";
+import { Link, NavLink } from "react-router-dom";
 
 const SearchBar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   // CursosStates
   const [showSubMenu, setShowSubMenu] = useState(false);
-  const [showProgrammingLanguages, setShowProgrammingLanguages] = useState(
-    false
-  );
+  const [showProgrammingLanguages, setShowProgrammingLanguages] = useState(false);
   const [showLanguages, setShowLanguages] = useState(false);
 
   const [courses, setCourses] = useState([]);
@@ -24,33 +23,36 @@ const SearchBar = () => {
   const [redirectCourse, setRedirectCourse] = useState(null);
   const [searchResults, setSearchResults] = useState([]);
 
+  const [isCartOpen, setCartOpen] = useState(false);
+  
   const handleSubMenuToggle = () => {
     setShowSubMenu(!showSubMenu);
   };
 
-  const handleProgrammingLanguagesToggle = () => {
-    setShowProgrammingLanguages(!showProgrammingLanguages);
-    setShowLanguages(false);
-  };
+	const handleProgrammingLanguagesToggle = () => {
+		//CursosStates submenu
+		setShowProgrammingLanguages(!showProgrammingLanguages);
+		setShowLanguages(false);
+	};
 
-  const handleLanguagesToggle = () => {
-    setShowLanguages(!showLanguages);
-    setShowProgrammingLanguages(false);
-  };
+	const handleLanguagesToggle = () => {
+		//CursosStates submenu
+		setShowLanguages(!showLanguages);
+		setShowProgrammingLanguages(false);
+	};
 
-  const handleSearch = () => {
-    const foundCourse = courses.filter(
-      (course) =>
-        course.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    if (foundCourse.length > 0) {
-      setSearchResults(foundCourse);
-    } else {
-      setSearchResults([]);
-    }
+	const handleSearch = () => {
+		const foundCourse = courses.filter((course) =>
+			course.title.toLowerCase().includes(searchTerm.toLowerCase())
+		);
+		if (foundCourse) {
+			setSearchReults(foundCourse);
+		} else {
+			setSearchReults([]);
+		}
 
-    setShowResults(true);
-  };
+		setShowResults(true); // Mostrar los resultados al hacer clic en el botón de búsqueda
+	};
 
   useEffect(() => {
     const fetchData = async () => {
@@ -68,13 +70,25 @@ const SearchBar = () => {
 
   const location = useLocation();
 
-  useEffect(() => {
-    if (location.pathname !== "/search") {
-      setShowResults(false);
-      setSearchResults([]);
-    }
-  }, [location]);
+  /* LOGICA DE CARRITO */
+  const [CartCourses,setCartCourses] = useState([]);
+  
+  const cartCourses = JSON.parse(localStorage.getItem('cartCourses')) || [];
 
+  const deleteFromCart = (course) => {
+    const updatedCartCourses = cartCourses.filter(
+      (item)=> item.id !== course.id
+    );
+
+    localStorage.setItem('cartCourses',JSON.stringify(updatedCartCourses))
+    console.log('Se elimino curso');
+  }
+
+	useEffect(() => {
+		if (location.pathname !== "/search") {
+			setSearchTerm("");
+		}
+	}, [location]);
 
   return (
     <nav className="all">
@@ -229,11 +243,22 @@ const SearchBar = () => {
             <Link to="/login">
               <button className="login">Log In</button>
             </Link>
+            <button className="cart" id="cart" onClick={() => setCartOpen(!isCartOpen)}>Carrito </button>
+            {isCartOpen && (
+              <div id="cartMenu" className="cart-menu">
+                {/* Contenido del menú de cursos */}
+                {cartCourses.map((course, index) => (
+                  <div key={index} className="courseOnCart">
+                    <p>{course.title}</p>
+                    <p>{course.prize}</p>
+                    <button onClick={deleteFromCart}> X </button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </div>
-
-
       {showResults && (
         <div search-mapper>
           <h3>Search...</h3>
@@ -281,10 +306,7 @@ const SearchBar = () => {
             })}
           </div>
         </div>
-
-
       )}
-
     </nav>
   );
 };

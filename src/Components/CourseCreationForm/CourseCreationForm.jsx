@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { validate } from "./validation";
+import { useNavigate  } from "react-router-dom";
 import axios from "axios";
 import './CourseCreation.css'
 
 const CourseForm = () => {
+
+const navigate = useNavigate()	;
 
 // CONFIG PARA SUBIR FOTOS A CLOUDINARY
 
@@ -92,6 +95,16 @@ const handleSubmit = async (event) => {
       [name]: validate({ ...input, [name]: value })[name],
     });
   };
+
+
+  // VERIFICACION SESION INICIADA
+
+	useEffect(() => {
+		const loggedUser = localStorage.getItem("loggedUser");
+		if (!loggedUser) navigate("/login");
+	}, []);
+
+	// --------------
 
 	return (
 		<div className="course-form-container">
