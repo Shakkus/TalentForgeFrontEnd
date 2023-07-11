@@ -61,7 +61,7 @@ const CourseDetail = () => {
               Category: {detailInfo.cathegory}
             </h2>
             <h2 className="detailTheme">Theme: {detailInfo.theme}</h2>
-            <NavLink to={detailInfo.link} style={{ textDecoration: "none" }} className="w-5 bg-purple-600 p-3 rounded">
+            <NavLink to={`/view/${id}`} style={{ textDecoration: "none" }} className="w-5 bg-purple-600 p-3 rounded">
               <button className="text-white m-3">Comenzar con el curso!</button>
             </NavLink>
             <p className="detailPrize">

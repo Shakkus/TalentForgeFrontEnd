@@ -8,6 +8,7 @@ import social from "../../Recourses/social.png";
 import searchIcon from "../../Recourses/searchIcon.png";
 import profile from "../../Recourses/profile.png";
 import "./SearchBar.css";
+import { Link, NavLink } from "react-router-dom";
 
 const SearchBar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -28,29 +29,30 @@ const SearchBar = () => {
     setShowSubMenu(!showSubMenu);
   };
 
-  const handleProgrammingLanguagesToggle = () => {
-    setShowProgrammingLanguages(!showProgrammingLanguages);
-    setShowLanguages(false);
-  };
+	const handleProgrammingLanguagesToggle = () => {
+		//CursosStates submenu
+		setShowProgrammingLanguages(!showProgrammingLanguages);
+		setShowLanguages(false);
+	};
 
-  const handleLanguagesToggle = () => {
-    setShowLanguages(!showLanguages);
-    setShowProgrammingLanguages(false);
-  };
+	const handleLanguagesToggle = () => {
+		//CursosStates submenu
+		setShowLanguages(!showLanguages);
+		setShowProgrammingLanguages(false);
+	};
 
-  const handleSearch = () => {
-    const foundCourse = courses.filter(
-      (course) =>
-        course.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    if (foundCourse.length > 0) {
-      setSearchResults(foundCourse);
-    } else {
-      setSearchResults([]);
-    }
+	const handleSearch = () => {
+		const foundCourse = courses.filter((course) =>
+			course.title.toLowerCase().includes(searchTerm.toLowerCase())
+		);
+		if (foundCourse) {
+			setSearchReults(foundCourse);
+		} else {
+			setSearchReults([]);
+		}
 
-    setShowResults(true);
-  };
+		setShowResults(true); // Mostrar los resultados al hacer clic en el botón de búsqueda
+	};
 
   useEffect(() => {
     const fetchData = async () => {
@@ -82,12 +84,11 @@ const SearchBar = () => {
     console.log('Se elimino curso');
   }
 
-  useEffect(() => {
-    if (location.pathname !== "/search") {
-      setShowResults(false);
-      setSearchResults([]);
-    }
-  }, [location]);
+	useEffect(() => {
+		if (location.pathname !== "/search") {
+			setSearchTerm("");
+		}
+	}, [location]);
 
   return (
     <nav className="all">
@@ -105,12 +106,104 @@ const SearchBar = () => {
                 <span className=""><div className="triangle-down"></div></span>
               )}
             </div>
+
              {showSubMenu && (
               <div className="submenu-container">
                 <ul className="submenu">
+
                   <li className="submenu-item" onClick={handleLanguagesToggle}> <NavLink to='/course/create'> Create your Course </NavLink> </li>
+
                   <li className="submenu-item" onClick={handleLanguagesToggle}> <NavLink to='/home'> Home </NavLink> </li>
+
+                  {/* <li
+                    className="submenu-item"
+                    onClick={handleProgrammingLanguagesToggle}
+                  >
+                    <p className="liProgramation">Programming</p>
+                    {showProgrammingLanguages ? (
+                      <span className="arrow-right">&#9654;</span>
+                    ) : (
+                      <span className="arrow-right">&#x25c0;</span>
+                    )}
+                  </li>
+                  <li className="submenu-item" onClick={handleLanguagesToggle}>
+                    <p className="liLanguaje">Languages</p>
+                    {showLanguages ? (
+                      <span className="arrow-right">&#9654;</span>
+                    ) : (
+                      <span className="arrow-right">&#x25c0;</span>
+                    )}
+                  </li> */}
+
                 </ul>
+
+                {/* {showProgrammingLanguages && (
+                  <div className="submenu-right programming-languages">
+                    <ul className="language-container">
+                      <Link
+                        to="/course/64a829f5435d4fe72524052b"
+                        className="custom-link"
+                      >
+                        <li className="liProgramationOption">Python</li>
+                      </Link>
+                      <Link
+                        to="/course/64a829ef435d4fe725240529"
+                        className="custom-link"
+                      >
+                        <li className="liProgramationOption">NodeJS</li>
+                      </Link>
+                      <Link
+                        to="/searchbar?search=Javascript"
+                        className="custom-link"
+                      >
+                        <li className="liProgramationOption">Javascript</li>
+                      </Link>
+                      <Link to="course/64a82a01435d4fe72524052d" className="custom-link">
+                        <li className="liProgramationOption">ReactJS</li>
+                      </Link>
+                      <Link to="/course/64a82a07435d4fe72524052f" className="custom-link">
+                        <li className="liProgramationOption">TypeScript</li>
+                      </Link>
+                    </ul>
+                  </div>
+                )} */}
+
+                {/* {showLanguages && (
+                  <div className="submenu-right languages">
+                    <ul className="language-container">
+                      <Link
+                        to="course/64a829e5435d4fe725240525"
+                        className="custom-link"
+                      >
+                        <li className="liLanguajeOption">Inglés</li>
+                      </Link>
+                      <Link
+                        to="/course/64a829cf435d4fe72524051f"
+                        className="custom-link"
+                      >
+                        <li className="liLanguajeOption">Alemán</li>
+                      </Link>
+                      <Link
+                        to="/course/64a829df435d4fe725240523"
+                        className="custom-link"
+                      >
+                        <li className="liLanguajeOption">Italiano</li>
+                      </Link>
+                      <Link
+                        to="/course/64a829ea435d4fe725240527"
+                        className="custom-link"
+                      >
+                        <li className="liLanguajeOption">Coreano</li>
+                      </Link>
+                      <Link
+                        to="/course/64a829d9435d4fe725240521"
+                        className="custom-link"
+                      >
+                        <li className="liLanguajeOption">Japonés</li>
+                      </Link>
+                    </ul>
+                  </div>
+                )} */}
               </div>
             )} 
           </div>
