@@ -1,5 +1,6 @@
 import "./App.css";
 
+import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Landing from "./Components/LandingPage/LandingPage";
 import Form from "./Components/Form/Register";
@@ -18,11 +19,12 @@ import TeachersDetail from "./Components/TeachersDetail/teachersDetail";
 import CartPage from "./Components/CartPage/CartPage";
 
 function App() {
+  const [searchResults, setSearchResults] = useState([]);
+
   return (
     <div className="App">
-      <SearchBar />
+      <SearchBar setSearchResults={setSearchResults} />
       <Routes>
-        <Route path="/search" element={<CourseResults />} />
         <Route path="/view/:id" element={<CourseViewer />} />
         <Route path="/detail" element={<DetailCourses />} />
         <Route path="/login" element={<Login />} />
@@ -36,6 +38,10 @@ function App() {
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/home" element={<Home />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route
+          path="/search"
+          element={<CourseResults searchResults={searchResults} />}
+        />
       </Routes>
       <Footer />
     </div>
