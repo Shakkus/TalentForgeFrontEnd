@@ -30,7 +30,7 @@ const Home = () => {
 		setFilteredCourses(filteredCourses);
 	};
 
-	// VERIFICACION SESION INICIADA
+  // VERIFICACION SESION INICIADA
 
 	useEffect(() => {
 		const loggedUser = localStorage.getItem("loggedUser");
@@ -55,21 +55,14 @@ const Home = () => {
 							<p className="course-desc">{course.description}</p>
 							<p className="course-prize">{course.prize}</p>
 						</div>
+  
 
-						<a className="courseBtn">
-							{" "}
-							<NavLink
-								to={`http://localhost:3000/course/${course._id}`}
-							>
-								{" "}
-								View Course{" "}
-							</NavLink>{" "}
-						</a>
-					</div>
-				))}
-			</div>
-		</div>
-	);
+                <a className="courseBtn"> <NavLink to={`http://localhost:3000/course/${course._id}`}> Ingresar al curso </NavLink> </a>
+            </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default Home;

@@ -1,5 +1,5 @@
 .home{
-    background-color: #9f73d4b2;
+    background-color: #ffffffb2;
     padding-bottom: 50px;
     min-height: 100vh;
 }
@@ -11,7 +11,7 @@
     border: 2px solid #5b249e;
     border-radius: 15px;
     justify-content: space-between;
-    background-color: #ffffffb2;
+    background-color: #AA6FFF;
 }
 .homeCourse img{
     width: 220px;
@@ -31,9 +31,11 @@
     width: 200px;
     font-size: 17px;
     font-weight: 500;
+    
 }
 
 .info-course{
+    background-color: #7C38CD;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -106,3 +108,8 @@
 .course-prize{
     color: green;
 }
+
+#filter-button{
+    margin-top: 45px;
+}
+
