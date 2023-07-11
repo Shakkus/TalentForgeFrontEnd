@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
-// import { useFireBase } from "reactfire";
+import { useFireBase } from "reactfire";
 
 
 const Login = () => {
