@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import axios from "axios";
 import logo from "../../Recourses/CarpinchoLogo.png";
@@ -13,9 +13,7 @@ const SearchBar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   // CursosStates
   const [showSubMenu, setShowSubMenu] = useState(false);
-  const [showProgrammingLanguages, setShowProgrammingLanguages] = useState(
-    false
-  );
+  const [showProgrammingLanguages, setShowProgrammingLanguages] = useState(false);
   const [showLanguages, setShowLanguages] = useState(false);
 
   const [courses, setCourses] = useState([]);
@@ -75,7 +73,6 @@ const SearchBar = () => {
     }
   }, [location]);
 
-
   return (
     <nav className="all">
       <div className="nav">
@@ -92,104 +89,12 @@ const SearchBar = () => {
                 <span className=""><div className="triangle-down"></div></span>
               )}
             </div>
-
              {showSubMenu && (
               <div className="submenu-container">
                 <ul className="submenu">
-
                   <li className="submenu-item" onClick={handleLanguagesToggle}> <NavLink to='/course/create'> Create your Course </NavLink> </li>
-
                   <li className="submenu-item" onClick={handleLanguagesToggle}> <NavLink to='/home'> Home </NavLink> </li>
-
-                  {/* <li
-                    className="submenu-item"
-                    onClick={handleProgrammingLanguagesToggle}
-                  >
-                    <p className="liProgramation">Programming</p>
-                    {showProgrammingLanguages ? (
-                      <span className="arrow-right">&#9654;</span>
-                    ) : (
-                      <span className="arrow-right">&#x25c0;</span>
-                    )}
-                  </li>
-                  <li className="submenu-item" onClick={handleLanguagesToggle}>
-                    <p className="liLanguaje">Languages</p>
-                    {showLanguages ? (
-                      <span className="arrow-right">&#9654;</span>
-                    ) : (
-                      <span className="arrow-right">&#x25c0;</span>
-                    )}
-                  </li> */}
-
                 </ul>
-
-                {/* {showProgrammingLanguages && (
-                  <div className="submenu-right programming-languages">
-                    <ul className="language-container">
-                      <Link
-                        to="/course/64a829f5435d4fe72524052b"
-                        className="custom-link"
-                      >
-                        <li className="liProgramationOption">Python</li>
-                      </Link>
-                      <Link
-                        to="/course/64a829ef435d4fe725240529"
-                        className="custom-link"
-                      >
-                        <li className="liProgramationOption">NodeJS</li>
-                      </Link>
-                      <Link
-                        to="/searchbar?search=Javascript"
-                        className="custom-link"
-                      >
-                        <li className="liProgramationOption">Javascript</li>
-                      </Link>
-                      <Link to="course/64a82a01435d4fe72524052d" className="custom-link">
-                        <li className="liProgramationOption">ReactJS</li>
-                      </Link>
-                      <Link to="/course/64a82a07435d4fe72524052f" className="custom-link">
-                        <li className="liProgramationOption">TypeScript</li>
-                      </Link>
-                    </ul>
-                  </div>
-                )} */}
-
-                {/* {showLanguages && (
-                  <div className="submenu-right languages">
-                    <ul className="language-container">
-                      <Link
-                        to="course/64a829e5435d4fe725240525"
-                        className="custom-link"
-                      >
-                        <li className="liLanguajeOption">Inglés</li>
-                      </Link>
-                      <Link
-                        to="/course/64a829cf435d4fe72524051f"
-                        className="custom-link"
-                      >
-                        <li className="liLanguajeOption">Alemán</li>
-                      </Link>
-                      <Link
-                        to="/course/64a829df435d4fe725240523"
-                        className="custom-link"
-                      >
-                        <li className="liLanguajeOption">Italiano</li>
-                      </Link>
-                      <Link
-                        to="/course/64a829ea435d4fe725240527"
-                        className="custom-link"
-                      >
-                        <li className="liLanguajeOption">Coreano</li>
-                      </Link>
-                      <Link
-                        to="/course/64a829d9435d4fe725240521"
-                        className="custom-link"
-                      >
-                        <li className="liLanguajeOption">Japonés</li>
-                      </Link>
-                    </ul>
-                  </div>
-                )} */}
               </div>
             )} 
           </div>
@@ -223,6 +128,10 @@ const SearchBar = () => {
           </div>
         ) : (
           <div className="buttons">
+              <button className="cart" id="cart" >Carrito </button>
+              <div id="cartMenu" className="cart-menu" >
+
+              </div>
             <Link to="/register">
               <button className="register">Register</button>
             </Link>
@@ -232,7 +141,6 @@ const SearchBar = () => {
           </div>
         )}
       </div>
-
 
       {showResults && (
         <div search-mapper>
@@ -281,10 +189,7 @@ const SearchBar = () => {
             })}
           </div>
         </div>
-
-
       )}
-
     </nav>
   );
 };

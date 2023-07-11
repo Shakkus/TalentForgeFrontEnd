@@ -218,7 +218,7 @@ margin-left: auto
   margin-left: 10px;
 }
 
-.register, .login{
+.cart, .register, .login{
   cursor: pointer;
   padding: 10px;
     border-radius: 20px ;
@@ -227,8 +227,15 @@ margin-left: auto
     margin-right: 20px;
 }
 
-.register{
+.cart, .register{
   border: 2px #AA6FFF solid;
+}
+
+.cart-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
 }
 
 .login{

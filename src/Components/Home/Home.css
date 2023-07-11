@@ -4,20 +4,59 @@
     min-height: 100vh;
 }
 
-.homeCourse{
+.courses{
     display: flex;
+    flex-wrap: wrap;
+}
+
+.courseIndividual{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 10px;
+    background: #ffffffb2;
+    border-radius: 25px;
+    width: 300px;
+    text-overflow: ellipsis;
+}
+
+.courseIndividual img {
+    border-radius: 20px 20px 0 0 ;
+    width: 300px;
+}
+
+.btn-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid black;
+    height: 50px;
+}
+
+.btn-container .courseBtn{
+    border-right: 1px solid black ;
+    background: #f79d9db2;
+    border-radius: 0px 0px 0 25px ;
+    flex-grow: 1;
+    height: 100%;
+}
+
+.btn-container .addCourseCart{
+    flex-grow: 1;
+    height: 100%;
+}
+/*
+.homeCourse{
     margin: 15px 50px;
     height: 120px;
     border: 2px solid #5b249e;
     border-radius: 15px;
-    justify-content: space-between;
     background-color: #ffffffb2;
 }
 .homeCourse img{
     width: 220px;
     overflow: hidden;
-    border-radius: 10px 0 0 10px;
-    border-right: 2px solid #7C38CD;
+    border-radius: 10px 10px 0 0px;
 }
 
 .courseBtn{
@@ -27,7 +66,6 @@
     background: #5b249e;
     justify-content: center;
     align-items: center;
-    border-radius:  0 10px 10px 0;
     width: 200px;
     font-size: 17px;
     font-weight: 500;
@@ -101,4 +139,4 @@
     color: #fff;
     width: 80px;
     height: 30px;
-}
+} */
