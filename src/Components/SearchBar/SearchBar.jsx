@@ -39,6 +39,7 @@ const SearchBar = ({ setSearchResults }) => {
         course.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setSearchResults(foundCourse);
+    setSearchTerm("")
   };
 
   useEffect(() => {
