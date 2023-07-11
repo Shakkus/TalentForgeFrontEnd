@@ -15,27 +15,29 @@ import Profile from "./Components/Profile/Profile";
 import Home from "./Components/Home/Home";
 import CourseDetail from "./Components/Course-Detail/CourseDetail";
 import TeachersDetail from "./Components/TeachersDetail/teachersDetail";
-
+import { AuthProvider } from "./context/authContext.js";
 function App() {
   return (
     <div className="App">
-      <SearchBar />
-      <Routes>
-        <Route path="/search" element={<CourseResults />} />
-        <Route path="/view/:id" element={<CourseViewer />} />
-        <Route path="/detail" element={<DetailCourses />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Form />} />
-        <Route path="/course/create" element={<CourseForm />} />
-        <Route path="/course/:id" element={<CourseDetail />} />
-        <Route path="/teacher/:id" element={<TeachersDetail/>} />
-        <Route path="/presentation" element={<Landing />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/" element={<Landing />} />
-        <Route path="*" element={<NotFoundPage />} />
-        <Route path="/home" element={<Home />} />
-      </Routes>
-      <Footer />
+      <AuthProvider>
+        <SearchBar />
+        <Routes>
+          <Route path="/search" element={<CourseResults />} />
+          <Route path="/view/:id" element={<CourseViewer />} />
+          <Route path="/detail" element={<DetailCourses />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Form />} />
+          <Route path="/course/create" element={<CourseForm />} />
+          <Route path="/course/:id" element={<CourseDetail />} />
+          <Route path="/teacher/:id" element={<TeachersDetail />} />
+          <Route path="/presentation" element={<Landing />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/" element={<Landing />} />
+          <Route path="*" element={<NotFoundPage />} />
+          <Route path="/home" element={<Home />} />
+        </Routes>
+        <Footer />
+      </AuthProvider>
     </div>
   );
 }
