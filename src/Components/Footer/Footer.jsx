@@ -8,6 +8,7 @@ import ytImg from "./imgs/Vector.png";
 import home from "./imgs/house-solid 1.png";
 import phone from "./imgs/square-phone-solid 1.png";
 import dot from "./imgs/location-dot-solid 1.png";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -17,10 +18,12 @@ const Footer = () => {
           <img className="contact-img" src={phone} alt="" />
           <h3 className="footerInfo">Contact</h3>
         </div>
+        <Link to="/home">
         <div className="contact-info p-3">
           <img className="contact-img" src={home} alt="" />
           <h3 className="footerInfo">Home</h3>
         </div>
+        </Link>
         <div className="contact-ubication p-3">
           <img className="contact-img" src={dot} alt="" />
           <h3 className="footerInfo">Ubication</h3>
