@@ -12,8 +12,7 @@ const CourseDetail = () => {
     const { data } = await axios.get(
       `https://talent-forge-data.cyclic.app/teacher/name/${detailInfo.teacher}`
     );
-    setTeacherInfo(data[0]);
-    console.log(data);
+    if(data) setTeacherInfo(data[0]);
   };
 
   const getDetail = async () => {
@@ -34,18 +33,14 @@ const CourseDetail = () => {
   }, [detailInfo]);
 
   const flag = () => {
-    if (teacherInfo.country === "Colombia") {
+    if (teacherInfo?.country === "Colombia") {
       return "Colombia 🇨🇴";
     }
-    if (teacherInfo.country === "Argentina") {
+    if (teacherInfo?.country === "Argentina") {
       return "Argentina 🇦🇷";
     }
   };
 
-  const chamba = () => {
-    if(teacherInfo.name === "Gian Ruiz") return "Chambeador"
-    else return teacherInfo.name
-  }
 
   return (
     <div className="courseDetail">
@@ -66,7 +61,7 @@ const CourseDetail = () => {
               Category: {detailInfo.cathegory}
             </h2>
             <h2 className="detailTheme">Theme: {detailInfo.theme}</h2>
-            <NavLink to={detailInfo.link} style={{ textDecoration: "none" }} className="w-5 bg-purple-600 p-3 rounded">
+            <NavLink to={`/view/${id}`} style={{ textDecoration: "none" }} className="w-5 bg-purple-600 p-3 rounded">
               <button className="text-white m-3">Comenzar con el curso!</button>
             </NavLink>
             <p className="detailPrize">
@@ -78,22 +73,22 @@ const CourseDetail = () => {
           {/* <h1 className="detailTeacherTitle">INFORMACION DEL PROFESOR</h1> */}
           <div className="teacherInfo">
             <div className="teacherInfo2">
+              <h1 className="name-teacher"> {teacherInfo?.name ? teacherInfo.name : 'Community'}</h1>
               <img
                 className="detailTeacherImage"
-                src={teacherInfo.profileImage}
+                src={teacherInfo?.profileImage ? teacherInfo.profileImage : 'https://play-lh.googleusercontent.com/8ddL1kuoNUB5vUvgDVjYY3_6HwQcrg1K2fd_R8soD-e2QYj8fT9cfhfh3G0hnSruLKec'}
                 alt=""
               />
-              <NavLink
+              {teacherInfo?.name && <NavLink
                 style={{ textDecoration: "none" }}
                 className="detailTeacherName"
-                to={`/teacher/${teacherInfo._id}`}>
-                {chamba()}
-              </NavLink>
+                to={`/teacher/${teacherInfo?._id ? teacherInfo._id : '64a637218f0d799012be25b2'}`}> {teacherInfo?.name && 'View profile'}
+              </NavLink>}
               <h2 className="detailTeacherCountry mt-4">{flag()}</h2>
             </div>
             <div className="teacherInfoDescriptionContainer">
               <h2 className="detailTeacherDescription">
-                {teacherInfo.description}
+                {teacherInfo?.description ? teacherInfo.description : 'This course was created by the talent forge community'}
               </h2>
             </div>
           </div>
