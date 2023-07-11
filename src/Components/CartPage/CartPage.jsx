@@ -7,10 +7,23 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import { useNavigate  } from "react-router-dom";
+import { useEffect } from "react";
 import React from "react";
 
 const CartPage = () => {
+
+  const navigate = useNavigate();
+
+  // VERIFICACION SESION INICIADA
+
+	useEffect(() => {
+		const loggedUser = localStorage.getItem("loggedUser");
+		if (!loggedUser) navigate("/login");
+	}, []);
+
+	// --------------
+
   return (
     <div className="">
       <h1 className="mt-32 font-semibold text-4xl CarritodeCompras">
