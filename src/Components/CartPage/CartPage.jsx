@@ -8,12 +8,21 @@ import {
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
 const CartPage = () => {
   const [originalPrice, setOriginalPrice] = useState(20);
   const [price, setPrice] = useState(20);
   const [discountCode, setDiscountCode] = useState("");
+
+  const navigate = useNavigate();
+  // VERIFICACION SESION INICIADA
+
+  useEffect(() => {
+    const loggedUser = localStorage.getItem("loggedUser");
+    if (!loggedUser) navigate("/login");
+  }, []);
 
   const applyDiscount = () => {
     const discount = obtainDiscount(discountCode);
