@@ -17,6 +17,10 @@ const CartPage = () => {
 
   const applyDiscount = () => {
     const discount = obtainDiscount(discountCode);
+    if (discount === null) {
+      alert("Lamentablemente tu cupón no es válido");
+      return; // Salir de la función sin actualizar el estado price
+    }
     const discountedPrice = originalPrice * (1 - discount);
     setPrice(discountedPrice);
   };
@@ -27,8 +31,13 @@ const CartPage = () => {
       "1C72y4bCdxC8EDQtUZ": 0.15,
       K095IVlE4AkuZ9JXPp: 0.3,
       tiago: 1,
+      gordobarril: 41238,
     };
-    return codes[discountCode] || 0;
+    if (codes.hasOwnProperty(discountCode)) {
+      alert("¡Ingresaste tu cupón de descuento con éxito!");
+      return codes[discountCode];
+    }
+    return null;
   };
 
   return (
@@ -110,7 +119,7 @@ const CartPage = () => {
               <hr class="border-t-2 border-purple-700 my-4" />
               <div className="space-x-20">
                 <label htmlFor="Price" className="">
-                  Precio
+                  Precio $
                 </label>
                 <input
                   type="number"
