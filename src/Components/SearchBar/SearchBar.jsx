@@ -9,19 +9,15 @@ import searchIcon from "../../Recourses/searchIcon.png";
 import profile from "../../Recourses/profile.png";
 import "./SearchBar.css";
 
-
-const SearchBar = () => {
+const SearchBar = ({ setSearchResults }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // CursosStates
   const [showSubMenu, setShowSubMenu] = useState(false);
-  const [showProgrammingLanguages, setShowProgrammingLanguages] = useState(false);
   const [showLanguages, setShowLanguages] = useState(false);
 
   const [courses, setCourses] = useState([]);
   const [showResults, setShowResults] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [redirectCourse, setRedirectCourse] = useState(null);
-  const [searchResults, setSearchResults] = useState([]);
 
   const [isCartOpen, setCartOpen] = useState(false);
 
@@ -29,29 +25,22 @@ const SearchBar = () => {
     setShowSubMenu(!showSubMenu);
   };
 
-  const handleProgrammingLanguagesToggle = () => {
-    //CursosStates submenu
-    setShowProgrammingLanguages(!showProgrammingLanguages);
-    setShowLanguages(false);
-  };
-
   const handleLanguagesToggle = () => {
-    //CursosStates submenu
     setShowLanguages(!showLanguages);
-    setShowProgrammingLanguages(false);
+    setShowSubMenu(false);
   };
 
   const handleSearch = () => {
-    const foundCourse = courses.filter((course) =>
+    const foundCourses = courses.filter((course) =>
       course.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    if (foundCourse) {
-      setSearchReults(foundCourse);
+    if (foundCourses.length > 0) {
+      setSearchResults(foundCourses);
     } else {
-      setSearchReults([]);
+      setSearchResults([]);
     }
 
-    setShowResults(true); // Mostrar los resultados al hacer clic en el botón de búsqueda
+    setShowResults(true);
   };
 
   useEffect(() => {
@@ -70,19 +59,16 @@ const SearchBar = () => {
 
   const location = useLocation();
 
-  /* LOGICA DE CARRITO */
-  const [CartCourses, setCartCourses] = useState([]);
-
-  const cartCourses = JSON.parse(localStorage.getItem('cartCourses')) || [];
+  const [cartCourses, setCartCourses] = useState([]);
 
   const deleteFromCart = (course) => {
     const updatedCartCourses = cartCourses.filter(
       (item) => item.id !== course.id
     );
 
-    localStorage.setItem('cartCourses', JSON.stringify(updatedCartCourses))
-    console.log('Se elimino curso');
-  }
+    localStorage.setItem("cartCourses", JSON.stringify(updatedCartCourses));
+    console.log("Se eliminó el curso");
+  };
 
   useEffect(() => {
     if (location.pathname !== "/search") {
@@ -110,107 +96,35 @@ const SearchBar = () => {
             {showSubMenu && (
               <div className="submenu-container">
                 <ul className="submenu">
-
-                  <li className="submenu-item" onClick={handleLanguagesToggle}> <NavLink to='/course/create'> Create your Course </NavLink> </li>
-
-                  <li className="submenu-item" onClick={handleLanguagesToggle}> <NavLink to='/home'> Home </NavLink> </li>
-
-                  {/* <li
-                    className="submenu-item"
-                    onClick={handleProgrammingLanguagesToggle}
-                  >
-                    <p className="liProgramation">Programming</p>
-                    {showProgrammingLanguages ? (
-                      <span className="arrow-right">&#9654;</span>
-                    ) : (
-                      <span className="arrow-right">&#x25c0;</span>
-                    )}
+                  <li className="submenu-item">
+                    <NavLink to="/course/create">Create your Course</NavLink>
                   </li>
-                  <li className="submenu-item" onClick={handleLanguagesToggle}>
-                    <p className="liLanguaje">Languages</p>
-                    {showLanguages ? (
-                      <span className="arrow-right">&#9654;</span>
-                    ) : (
-                      <span className="arrow-right">&#x25c0;</span>
-                    )}
-                  </li> */}
-
+                  <li className="submenu-item">
+                    <NavLink to="/home">Home</NavLink>
+                  </li>
                 </ul>
-
-                {/* {showProgrammingLanguages && (
-                  <div className="submenu-right programming-languages">
-                    <ul className="language-container">
-                      <Link
-                        to="/course/64a829f5435d4fe72524052b"
-                        className="custom-link"
-                      >
-                        <li className="liProgramationOption">Python</li>
-                      </Link>
-                      <Link
-                        to="/course/64a829ef435d4fe725240529"
-                        className="custom-link"
-                      >
-                        <li className="liProgramationOption">NodeJS</li>
-                      </Link>
-                      <Link
-                        to="/searchbar?search=Javascript"
-                        className="custom-link"
-                      >
-                        <li className="liProgramationOption">Javascript</li>
-                      </Link>
-                      <Link to="course/64a82a01435d4fe72524052d" className="custom-link">
-                        <li className="liProgramationOption">ReactJS</li>
-                      </Link>
-                      <Link to="/course/64a82a07435d4fe72524052f" className="custom-link">
-                        <li className="liProgramationOption">TypeScript</li>
-                      </Link>
-                    </ul>
-                  </div>
-                )} */}
-
-                {/* {showLanguages && (
-                  <div className="submenu-right languages">
-                    <ul className="language-container">
-                      <Link
-                        to="course/64a829e5435d4fe725240525"
-                        className="custom-link"
-                      >
-                        <li className="liLanguajeOption">Inglés</li>
-                      </Link>
-                      <Link
-                        to="/course/64a829cf435d4fe72524051f"
-                        className="custom-link"
-                      >
-                        <li className="liLanguajeOption">Alemán</li>
-                      </Link>
-                      <Link
-                        to="/course/64a829df435d4fe725240523"
-                        className="custom-link"
-                      >
-                        <li className="liLanguajeOption">Italiano</li>
-                      </Link>
-                      <Link
-                        to="/course/64a829ea435d4fe725240527"
-                        className="custom-link"
-                      >
-                        <li className="liLanguajeOption">Coreano</li>
-                      </Link>
-                      <Link
-                        to="/course/64a829d9435d4fe725240521"
-                        className="custom-link"
-                      >
-                        <li className="liLanguajeOption">Japonés</li>
-                      </Link>
-                    </ul>
-                  </div>
-                )} */}
               </div>
             )}
           </div>
         </div>
         <div className="searchbar-container">
-          <input type="text" placeholder="Buscar..." value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} className="searchbar-class" />
-          <div className="busqueda-box"> <Link to="search"> <img className="busqueda" src={searchIcon} alt="search" onClick={handleSearch} /> </Link></div>
+          <input
+            type="text"
+            placeholder="Buscar..."
+            value={searchTerm}
+            onChange={(event) => setSearchTerm(event.target.value)}
+            className="searchbar-class"
+          />
+          <div className="busqueda-box">
+            <Link to="search">
+              <img
+                className="busqueda"
+                src={searchIcon}
+                alt="search"
+                onClick={handleSearch}
+              />
+            </Link>
+          </div>
         </div>
 
         {isLoggedIn ? (
@@ -243,15 +157,20 @@ const SearchBar = () => {
             <Link to="/login">
               <button className="login">Log In</button>
             </Link>
-            <button className="cart" id="cart" onClick={() => setCartOpen(!isCartOpen)}>Carrito </button>
+            <button
+              className="cart"
+              id="cart"
+              onClick={() => setCartOpen(!isCartOpen)}
+            >
+              Carrito
+            </button>
             {isCartOpen && (
               <div id="cartMenu" className="cart-menu">
-                {/* Contenido del menú de cursos */}
                 {cartCourses.map((course, index) => (
                   <div key={index} className="courseOnCart">
                     <p>{course.title}</p>
                     <p>{course.prize}</p>
-                    <button onClick={deleteFromCart}> X </button>
+                    <button onClick={() => deleteFromCart(course)}>X</button>
                   </div>
                 ))}
               </div>
@@ -259,54 +178,6 @@ const SearchBar = () => {
           </div>
         )}
       </div>
-      {showResults && (
-        <div search-mapper>
-          <h3>Search...</h3>
-          <div className="course-container">
-            {searchResults.map(course => {
-              return (
-                <div key={course.id} className="course">
-                  <img src={course.image} alt="Course Image" className="course-form-image" />
-
-                  <div className="course-presentation">
-                    <div className="course-form-title-box">
-                      <NavLink to={`/course/${course._id}`}><h4 className="course-form-title">{course.title}</h4></NavLink>
-                    </div>
-
-                    <div className="course-form-teacher-box">
-                      <p className="course-form-teacher">{course.teacher}</p>
-                    </div>
-                  </div>
-
-                  <div className="course-box">
-                    <div className="course-form-info-box">
-                      <div className="label">
-                        <h6 className="label-text"> category </h6>
-                        <p className="course-form-category"> {course.cathegory}</p>
-                      </div>
-
-                      <div className="label">
-                        <h6 className="label-text"> duration </h6>
-                        <p className="course-form-duration"> {course.duration}</p>
-                      </div>
-
-                      <div className="label">
-                        <h6 className="label-text"> price </h6>
-                        <p className="course-form-price">{course.prize}</p>
-                      </div>
-
-                      <div className="label">
-                        <h6 className="label-text"> rating </h6>
-                        <p className="course-form-rating">{course.rating}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        </div>
-      )}
     </nav>
   );
 };
