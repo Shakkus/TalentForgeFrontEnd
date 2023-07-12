@@ -13,42 +13,52 @@ const Login = () => {
 	} = useForm();
 
 	const navigate = useNavigate();
-	const firebase = useFireBase();
+	// const firebase = useFireBase();
 
 	// LOGOUT DEL USUARIO
-	useEffect(() => {
-		localStorage.removeItem("loggedUser");
+	// useEffect(() => {
+	// 	localStorage.removeItem("loggedUser");
 
-		const logOut = firebase.auth().onAuthStateChanged((user) => {
-			if (user) {
-				navigate("/home");
-			}
-		});
+	// 	const logOut = firebase.auth().onAuthStateChanged((user) => {
+	// 		if (user) {
+	// 			navigate("/home");
+	// 		}
+	// 	});
 
-		return () => logOut();
-	}, []);
+	// 	return () => logOut();
+	// }, []);
 	// ------------------
 
 
 	// VALIDACION USUARIO LOGEADO
 
 	const onSubmit = async (data) => {
-		try {
-			const currentUser = firebase.auth().currentUser;
+		// try {
+		// 	const currentUser = firebase.auth().currentUser;
 
-			if (currentUser) {
-				const idToken = await currentUser.getIdToken();
-				localStorage.setItem("loggedUser", idToken);
-				console.log("Token almacenado en localStorage", idToken);
-				navigate("/home");
-			} else {
-				console.log("No hay usuario autenticado");
-			}
-		} catch (error) {
-			console.log("Hubo un error" + error.message);
-		}
+		// 	if (currentUser) {
+		// 		const idToken = await currentUser.getIdToken();
+		// 		localStorage.setItem("loggedUser", idToken);
+		// 		console.log("Token almacenado en localStorage", idToken);
+		// 		navigate("/home");
+		// 	} else {
+		// 		console.log("No hay usuario autenticado");
+		// 	}
+		// } catch (error) {
+		// 	console.log("Hubo un error" + error.message);
+		// }
 	};
     // ------------------------
+
+
+
+    const curso = () => {
+
+    }
+
+
+
+
 
 	return (
 		<div className="login mt-48">
