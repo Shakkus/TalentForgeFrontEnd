@@ -114,7 +114,7 @@ const Form = () => {
     setError("")
     try {
       await singUp(user.Email, user.Password)
-      navigate("/home")
+      navigate("/welcome")
     } catch (error) {
       //  console.log(error.code)
       setError(error.code)
@@ -133,7 +133,7 @@ const Form = () => {
   const handleAuthGoogle = async () => {
     try {
       await logginWhitGoogle()
-      navigate("/home")
+      navigate("/welcome")
 
     } catch (error) {
       setError(error.code)
@@ -147,7 +147,7 @@ const Form = () => {
   const handleAuthTwitter = async () => {
     try {
       await logginWhitTwitter()
-      navigate("/home")
+      navigate("/welcome")
     } catch (error) {
       setError(error.code)
       if (error.code === "auth/popup-closed-by-user"
