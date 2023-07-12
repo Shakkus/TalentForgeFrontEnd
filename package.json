@@ -16,7 +16,6 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
     "cloudinary": "^1.37.3",
-    "firebase": "^9.23.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.45.1",

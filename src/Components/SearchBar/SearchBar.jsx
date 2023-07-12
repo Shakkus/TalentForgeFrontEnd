@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import axios from "axios";
 import logo from "../../Recourses/CarpinchoLogo.png";
@@ -8,6 +8,7 @@ import social from "../../Recourses/social.png";
 import searchIcon from "../../Recourses/searchIcon.png";
 import profile from "../../Recourses/profile.png";
 import "./SearchBar.css";
+import { Link, NavLink } from "react-router-dom";
 
 const SearchBar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -23,35 +24,35 @@ const SearchBar = () => {
   const [searchResults, setSearchResults] = useState([]);
 
   const [isCartOpen, setCartOpen] = useState(false);
-  
+
   const handleSubMenuToggle = () => {
     setShowSubMenu(!showSubMenu);
   };
 
-	const handleProgrammingLanguagesToggle = () => {
-		//CursosStates submenu
-		setShowProgrammingLanguages(!showProgrammingLanguages);
-		setShowLanguages(false);
-	};
+  const handleProgrammingLanguagesToggle = () => {
+    //CursosStates submenu
+    setShowProgrammingLanguages(!showProgrammingLanguages);
+    setShowLanguages(false);
+  };
 
-	const handleLanguagesToggle = () => {
-		//CursosStates submenu
-		setShowLanguages(!showLanguages);
-		setShowProgrammingLanguages(false);
-	};
+  const handleLanguagesToggle = () => {
+    //CursosStates submenu
+    setShowLanguages(!showLanguages);
+    setShowProgrammingLanguages(false);
+  };
 
-	const handleSearch = () => {
-		const foundCourse = courses.filter((course) =>
-			course.title.toLowerCase().includes(searchTerm.toLowerCase())
-		);
-		if (foundCourse) {
-			setSearchReults(foundCourse);
-		} else {
-			setSearchReults([]);
-		}
+  const handleSearch = () => {
+    const foundCourse = courses.filter((course) =>
+      course.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    if (foundCourse) {
+      setSearchReults(foundCourse);
+    } else {
+      setSearchReults([]);
+    }
 
-		setShowResults(true); // Mostrar los resultados al hacer clic en el botón de búsqueda
-	};
+    setShowResults(true); // Mostrar los resultados al hacer clic en el botón de búsqueda
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,24 +71,24 @@ const SearchBar = () => {
   const location = useLocation();
 
   /* LOGICA DE CARRITO */
-  const [CartCourses,setCartCourses] = useState([]);
-  
+  const [CartCourses, setCartCourses] = useState([]);
+
   const cartCourses = JSON.parse(localStorage.getItem('cartCourses')) || [];
 
   const deleteFromCart = (course) => {
     const updatedCartCourses = cartCourses.filter(
-      (item)=> item.id !== course.id
+      (item) => item.id !== course.id
     );
 
-    localStorage.setItem('cartCourses',JSON.stringify(updatedCartCourses))
+    localStorage.setItem('cartCourses', JSON.stringify(updatedCartCourses))
     console.log('Se elimino curso');
   }
 
-	useEffect(() => {
-		if (location.pathname !== "/search") {
-			setSearchTerm("");
-		}
-	}, [location]);
+  useEffect(() => {
+    if (location.pathname !== "/search") {
+      setSearchTerm("");
+    }
+  }, [location]);
 
   return (
     <nav className="all">
@@ -106,7 +107,7 @@ const SearchBar = () => {
               )}
             </div>
 
-             {showSubMenu && (
+            {showSubMenu && (
               <div className="submenu-container">
                 <ul className="submenu">
 
@@ -204,11 +205,11 @@ const SearchBar = () => {
                   </div>
                 )} */}
               </div>
-            )} 
+            )}
           </div>
         </div>
         <div className="searchbar-container">
-          <input type="text" placeholder="Buscar..." value={searchTerm}  onChange={(event) => setSearchTerm(event.target.value)} className="searchbar-class" />
+          <input type="text" placeholder="Buscar..." value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} className="searchbar-class" />
           <div className="busqueda-box"> <Link to="search"> <img className="busqueda" src={searchIcon} alt="search" onClick={handleSearch} /> </Link></div>
         </div>
 
@@ -281,22 +282,22 @@ const SearchBar = () => {
                     <div className="course-form-info-box">
                       <div className="label">
                         <h6 className="label-text"> category </h6>
-                        <p className="course-form-category"> {course.cathegory}</p> 
+                        <p className="course-form-category"> {course.cathegory}</p>
                       </div>
 
                       <div className="label">
                         <h6 className="label-text"> duration </h6>
-                        <p className="course-form-duration"> {course.duration}</p> 
+                        <p className="course-form-duration"> {course.duration}</p>
                       </div>
 
                       <div className="label">
                         <h6 className="label-text"> price </h6>
-                        <p className="course-form-price">{course.prize}</p> 
+                        <p className="course-form-price">{course.prize}</p>
                       </div>
 
                       <div className="label">
                         <h6 className="label-text"> rating </h6>
-                        <p className="course-form-rating">{course.rating}</p> 
+                        <p className="course-form-rating">{course.rating}</p>
                       </div>
                     </div>
                   </div>
