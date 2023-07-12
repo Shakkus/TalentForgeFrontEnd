@@ -16,22 +16,20 @@ import Profile from "./Components/Profile/Profile";
 import Home from "./Components/Home/Home";
 import CourseDetail from "./Components/Course-Detail/CourseDetail";
 import TeachersDetail from "./Components/TeachersDetail/teachersDetail";
-<<<<<<< HEAD
+
 import { AuthProvider } from "./context/authContext.js";
-=======
+
 import CartPage from "./Components/CartPage/CartPage";
 
->>>>>>> 701fc25cde67d0e45c554b973b760528eb910947
+
 function App() {
   const [searchResults, setSearchResults] = useState([]);
 
   return (
     <div className="App">
-<<<<<<< HEAD
       <AuthProvider>
-        <SearchBar />
+        <SearchBar setSearchResults={setSearchResults} />
         <Routes>
-          <Route path="/search" element={<CourseResults />} />
           <Route path="/view/:id" element={<CourseViewer />} />
           <Route path="/detail" element={<DetailCourses />} />
           <Route path="/login" element={<Login />} />
@@ -44,32 +42,14 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route
+            path="/search"
+            element={<CourseResults searchResults={searchResults} />}
+          />
         </Routes>
         <Footer />
       </AuthProvider>
-=======
-      <SearchBar setSearchResults={setSearchResults} />
-      <Routes>
-        <Route path="/view/:id" element={<CourseViewer />} />
-        <Route path="/detail" element={<DetailCourses />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Form />} />
-        <Route path="/course/create" element={<CourseForm />} />
-        <Route path="/course/:id" element={<CourseDetail />} />
-        <Route path="/teacher/:id" element={<TeachersDetail />} />
-        <Route path="/presentation" element={<Landing />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/" element={<Landing />} />
-        <Route path="*" element={<NotFoundPage />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/cart" element={<CartPage />} />
-        <Route
-          path="/search"
-          element={<CourseResults searchResults={searchResults} />}
-        />
-      </Routes>
-      <Footer />
->>>>>>> 701fc25cde67d0e45c554b973b760528eb910947
     </div>
   );
 }
