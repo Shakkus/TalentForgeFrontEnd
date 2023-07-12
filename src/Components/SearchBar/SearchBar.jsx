@@ -8,7 +8,6 @@ import social from "../../Recourses/social.png";
 import searchIcon from "../../Recourses/searchIcon.png";
 import profile from "../../Recourses/profile.png";
 import "./SearchBar.css";
-import { Link, NavLink } from "react-router-dom";
 
 const SearchBar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
