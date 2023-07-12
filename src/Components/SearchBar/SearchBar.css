@@ -1,6 +1,41 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* Resto de tu código CSS aquí */
+
+.dropDown {
+	height: auto;
+	width: 10vw;
+	color: white;
+  position: fixed;
+  align-items: right;
+  padding: 8vh 20px 7px 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  margin-left: 90vw;
+	background-color: #7c38cd;
+	border: 1px solid #5b2e92;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-bottom-left-radius: 8px;
+  border: none;
+  box-shadow: 0pc 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+.hr {
+  opacity: 50%;
+}
+
+
+.profileImg {
+justify-content: right;
+align-items: right;
+width: 5vw;
+}
+
 .all {
-  z-index: 20;
-  width: 100vw;
+	z-index: 20;
+	width: 100vw;
 }
 
 .nav {
@@ -53,35 +88,35 @@
 
 .Nav-left,
 .Nav-right {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
+	display: flex;
+	align-items: center;
+	text-decoration: none;
 }
 
 .logo {
-  width: 45px;
-  height: 45px;
+	width: 45px;
+	height: 45px;
 }
 
 .nav-dropdown {
-  position: relative;
+	position: relative;
 }
 
 input[type="text"] {
-  width: 70%;
-  height: 40px;
-  flex-shrink: 0;
-  border-radius: 15px;
-  background: #fff;
-  padding: 0 15px;
-  font-size: 16px;
-  border: none;
+	width: 70%;
+	height: 40px;
+	flex-shrink: 0;
+	border-radius: 15px;
+	background: #fff;
+	padding: 0 15px;
+	font-size: 16px;
+	border: none;
 }
 
 .seacrchBar-CoursesTitle {
-  font-family: 'Lato', sans-serif;
-  font-size: 20px;
-  margin-bottom: 0;
+	font-family: "Lato", sans-serif;
+	font-size: 20px;
+	margin-bottom: 0;
 }
 
 .Nav-right p {
@@ -93,10 +128,10 @@ input[type="text"] {
 .hearth,
 .shopcar,
 .social {
-  width: 25px;
-  height: 25px;
-  margin-left: 0px;
-  margin-right: 20px;
+	width: 25px;
+	height: 25px;
+	margin-left: 0px;
+	margin-right: 20px;
 }
 
 .inventory {
@@ -104,21 +139,207 @@ input[type="text"] {
 }
 
 .profile-img {
-  margin-right: 50px;
-  width: 40px;
-  height: 40px;
-  border-radius: 45%;
+	margin-right: 50px;
+	width: 40px;
+	height: 40px;
+	border-radius: 45%;
 }
 
+
+/* menú */
+
 .menu-container {
+	display: flex;
+	align-items: center;
+}
+
+.menu-item {
+	cursor: pointer;
+	margin-left: 10px;
+}
+
+.arrow {
+  margin-left: 5px;
+}
+
+.submenu-container {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #7c38cd;
+  border: 1px solid #5b2e92;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.submenu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.liProgramation, .liLanguaje, .liProgramationOption, .liLanguajeOption  {
+  font-family: 'Montserrat', sans-serif;
+}
+
+
+
+.submenu-item {
+  background-color: #7c38cd;
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid #5b2e92;
   display: flex;
   align-items: center;
 }
 
-.menu-item {
-  cursor: pointer;
+.arrow-right {
+  margin-left: 5px;
+}
+
+.submenu-right {
+  padding: 10px;
+}
+
+.language-container {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.language-container li {
+  padding: 5px 0;
+}
+
+.programming-languages,
+.languages {
+  padding: 10px;
+}
+
+.show-submenu-right {
+  display: block;
+}
+
+.languages-container {
+  position: absolute;
+  top: 0;
+  left: 100%;
   margin-left: 10px;
 }
+
+.cart, .register, .login{
+  cursor: pointer;
+  padding: 10px;
+    border-radius: 20px ;
+    background: #7C38CD;
+    color: white;
+    margin-right: 20px;
+}
+
+.cart,.register{
+  border: 2px #AA6FFF solid;
+}
+
+.cart-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: black;
+}
+
+.cart-menu .courseOnCart {
+  display: flex;
+  justify-content: space-between;
+}
+
+.login{
+  border: none;
+  background: white;
+  color: #7C38CD;
+}
+
+
+/* Links */
+.custom-link {
+  text-decoration: none;
+  color: white
+}
+
+
+
+
+
+.course {
+  display: flex;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 20px; /* Aumenta el espacio entre los cursos */
+  margin-right: 20px; /* Añade espacio a la derecha */
+ transition: box-shadow 0.3s, transform 0.3s;
+}
+
+/* Resto del código CSS sigue igual */
+
+.course-image {
+  width: 200px;
+  height: auto;
+  object-fit: cover;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.course-details {
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.course-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.course-category {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 5px;
+}
+
+.course-teacher {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.course-duration,
+.course-price,
+.course-rating {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 5px;
+}
+
+/* Hover effect */
+.course:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+
+}
+
+.course:hover .course-image {
+  opacity: 0.8;
+}
+
+.course:hover .course-title {
+  color: #7c38cd;
+}
+
+
 
 .triangle-down {
   width: 0;
@@ -139,28 +360,29 @@ input[type="text"] {
 }
 
 .submenu-container {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: #7c38cd;
-  border: 1px solid #5b2e92;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 1;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	background-color: #7c38cd;
+	border: none;
+	/* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+	z-index: 1;
+  border-bottom-right-radius: 8px;
 }
 
 .submenu {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+	list-style: none;
+	padding: 0;
+	margin: 0;
 }
 
 .submenu-item {
-  background-color: #7c38cd;
-  cursor: pointer;
-  padding: 10px;
-  border: 1px solid #5b2e92;
-  display: flex;
-  align-items: center;
+	background-color: #7c38cd;
+	cursor: pointer;
+	padding: 10px;
+	display: flex;
+	align-items: center;
+  border-bottom-right-radius: 8px;
 }
 
 .register,

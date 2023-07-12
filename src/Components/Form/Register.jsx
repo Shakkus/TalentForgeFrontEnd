@@ -1,19 +1,30 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, } from "react";
 import "./Register.css";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/authContext.js";
+
 
 const Form = () => {
   const [days, setDays] = useState([]);
   const [months, setMonths] = useState([]);
   const [years, setYears] = useState([]);
+  const [user, setUser] = useState({
+    nameLastname: "",
+    Email: "",
+    Password: ""
 
+  })
+
+
+  const navigate = useNavigate()
   const {
     register,
     formState: { errors },
     handleSubmit,
     getValues,
   } = useForm();
+
 
   const countrys = [
     "Argentina  🇦🇷",
@@ -49,6 +60,8 @@ const Form = () => {
     Diciembre: 31,
   };
 
+  const [error, setError] = useState()
+
   useEffect(() => {
     const monthsArray = Object.keys(daysInMonth);
     setMonths(monthsArray);
@@ -64,6 +77,9 @@ const Form = () => {
     generateDays(currentMonth); // Agregar esta línea para establecer los días correspondientes al mes actual
   }, []);
 
+  const { singUp, logginWhitGoogle, logginWhitTwitter } = useAuth()
+
+
   const generateDays = (selectedMonth) => {
     const daysCount = daysInMonth[selectedMonth];
     const daysArray = Array.from(
@@ -78,45 +94,108 @@ const Form = () => {
     generateDays(selectedMonth);
   };
 
+  const handleChange = ({ target: { name, value } }) => {
+
+    setUser({ ...user, [name]: value })
+    //console.log(event.target.nameLastname)
+  }
+
+
+
   const onSubmit = (data) => {
     const { Password, Confirmpassword } = data;
     if (Password !== Confirmpassword) {
       return; // No se envía el formulario si la confirmación no coincide
     }
-    console.log(data);
+
   };
+  const handleSubmitAuth = async (event) => {
+    event.preventDefault();
+    setError("")
+    try {
+      await singUp(user.Email, user.Password)
+      navigate("/home")
+    } catch (error) {
+      //  console.log(error.code)
+      setError(error.code)
+      if (error.code === "auth/weak-password") {
+        setError("Invalid password")
+      } else if (error.code === "auth/invalid-email") {
+        setError("Invalid Email")
+      } else if (error.code === "auth/email-already-in-use") {
+        setError("Email already in use")
+      }
+    }
+
+    console.log(user)
+  }
+
+  const handleAuthGoogle = async () => {
+    try {
+      await logginWhitGoogle()
+      navigate("/home")
+
+    } catch (error) {
+      setError(error.code)
+      if (error.code === "auth/popup-closed-by-user"
+        || error.code === "auth/cancelled-popup-request") {
+        setError("Login cancelled")
+      }
+    }
+  }
+
+  const handleAuthTwitter = async () => {
+    try {
+      await logginWhitTwitter()
+      navigate("/home")
+    } catch (error) {
+      setError(error.code)
+      if (error.code === "auth/popup-closed-by-user"
+        || error.code === "auth/cancelled-popup-request") {
+        setError("Login cancelled")
+      }
+
+    }
+  }
+
+
 
   return (
     <div className="form">
       <h1 className="formTitle">Account Registration</h1>
       <div className="continueWith">
         <div className="continueWithGoogle">
-          <p>Continue with</p>
+          <button onClick={handleAuthGoogle}>Continue with</button>
           <img src="image 109.png" alt="" />
         </div>
 
         <div className="continueWithGmail">
-          <p>Continue with</p>
+          <button onClick={handleAuthGoogle}>Continue with</button>
           <img src="image 87.png" alt="" />
         </div>
 
         <div className="continueWithTwitter">
-          <p>Continue with</p>
+          <button onClick={handleAuthTwitter}>Continue with</button>
           <img src="image 88.png" alt="" />
         </div>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+
+
+      {error && <p>{error}</p>}
+      <form onSubmit={handleSubmitAuth}>
         <div className="formContainer">
           <div className="inputNameLastname">
             <label htmlFor="">Name & lastname</label>
             <input
               className="inputText"
+              name="nameLastname"
               type="text"
               {...register("nameLastname", {
                 required: true,
                 maxLength: 40,
                 minLength: 8,
               })}
+              onChange={handleChange}
             />
             {errors.nameLastname?.type === "required" && (
               <p>Este campo es requerido</p>
@@ -132,13 +211,16 @@ const Form = () => {
             <label htmlFor="">Email</label>
             <input
               className="inputText"
+              name="Email"
               type="text"
-              {...register("email", {
+              {...register("Email", {
                 required: true,
                 maxLength: 35,
                 minLength: 10,
                 pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/i,
               })}
+
+              onChange={handleChange}
             />
             {errors.email?.type === "required" && (
               <p>Este campo es requerido</p>
@@ -238,6 +320,7 @@ const Form = () => {
             <label htmlFor="">Password</label>
             <input
               className="inputText"
+              name="Password"
               type="password"
               {...register("Password", {
                 required: true,
@@ -245,6 +328,7 @@ const Form = () => {
                 minLength: 5,
                 pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{5,20}$/,
               })}
+              onChange={handleChange}
             />
             {errors.Password?.type === "required" && (
               <p>Este campo es requerido</p>
@@ -265,10 +349,12 @@ const Form = () => {
             <label htmlFor="">Confirm Password</label>
             <input
               className="inputText"
+              name="Password"
               type="password"
               {...register("Confirmpassword", {
                 required: true,
               })}
+              onChange={handleChange}
             />
             {errors.Confirmpassword?.type === "required" && (
               <p>Este campo es requerido</p>
@@ -278,9 +364,8 @@ const Form = () => {
             )}
           </div>
           <div>
-            <Link to='/home'>
-              <input type="submit" value="Submit" className="buttonSubmit" />
-            </Link>
+            <input type="submit" value="Submit" className="buttonSubmit" />
+
           </div>
         </div>
       </form>

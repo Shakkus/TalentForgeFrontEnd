@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import axios from "axios";
 import logo from "../../Recourses/CarpinchoLogo.png";
@@ -12,34 +12,35 @@ import "./SearchBar.css";
 const SearchBar = ({ setSearchResults }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showSubMenu, setShowSubMenu] = useState(false);
-  const [showProgrammingLanguages, setShowProgrammingLanguages] = useState(
-    false
-  );
   const [showLanguages, setShowLanguages] = useState(false);
+
   const [courses, setCourses] = useState([]);
+  const [showResults, setShowResults] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [redirectCourse, setRedirectCourse] = useState(null);
+
+  const [isCartOpen, setCartOpen] = useState(false);
 
   const handleSubMenuToggle = () => {
     setShowSubMenu(!showSubMenu);
   };
 
-  const handleProgrammingLanguagesToggle = () => {
-    setShowProgrammingLanguages(!showProgrammingLanguages);
-    setShowLanguages(false);
-  };
-
   const handleLanguagesToggle = () => {
     setShowLanguages(!showLanguages);
-    setShowProgrammingLanguages(false);
+    setShowSubMenu(false);
   };
 
   const handleSearch = () => {
-    const foundCourse = courses.filter(
-      (course) =>
-        course.title.toLowerCase().includes(searchTerm.toLowerCase())
+    const foundCourses = courses.filter((course) =>
+      course.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    setSearchResults(foundCourse);
-    setSearchTerm("")
+    if (foundCourses.length > 0) {
+      setSearchResults(foundCourses);
+    } else {
+      setSearchResults([]);
+    }
+
+    setShowResults(true);
   };
 
   useEffect(() => {
@@ -58,6 +59,17 @@ const SearchBar = ({ setSearchResults }) => {
 
   const location = useLocation();
 
+  const [cartCourses, setCartCourses] = useState([]);
+
+  const deleteFromCart = (course) => {
+    const updatedCartCourses = cartCourses.filter(
+      (item) => item.id !== course.id
+    );
+
+    localStorage.setItem("cartCourses", JSON.stringify(updatedCartCourses));
+    console.log("Se eliminó el curso");
+  };
+
   useEffect(() => {
     if (location.pathname !== "/search") {
       setSearchTerm("");
@@ -75,23 +87,19 @@ const SearchBar = ({ setSearchResults }) => {
             <div className="menu-item" onClick={handleSubMenuToggle}>
               <h2 className="seacrchBar-CoursesTitle">Courses</h2>
               {showSubMenu ? (
-                <span className="">
-                  <div className="triangle-up"></div>
-                </span>
+                <span className=""><div className="triangle-up"></div></span>
               ) : (
-                <span className="">
-                  <div className="triangle-down"></div>
-                </span>
+                <span className=""><div className="triangle-down"></div></span>
               )}
             </div>
 
             {showSubMenu && (
               <div className="submenu-container">
                 <ul className="submenu">
-                  <li className="submenu-item" onClick={handleLanguagesToggle}>
+                  <li className="submenu-item">
                     <NavLink to="/course/create">Create your Course</NavLink>
                   </li>
-                  <li className="submenu-item" onClick={handleLanguagesToggle}>
+                  <li className="submenu-item">
                     <NavLink to="/home">Home</NavLink>
                   </li>
                 </ul>
@@ -149,6 +157,24 @@ const SearchBar = ({ setSearchResults }) => {
             <Link to="/login">
               <button className="login">Log In</button>
             </Link>
+            <button
+              className="cart"
+              id="cart"
+              onClick={() => setCartOpen(!isCartOpen)}
+            >
+              Carrito
+            </button>
+            {isCartOpen && (
+              <div id="cartMenu" className="cart-menu">
+                {cartCourses.map((course, index) => (
+                  <div key={index} className="courseOnCart">
+                    <p>{course.title}</p>
+                    <p>{course.prize}</p>
+                    <button onClick={() => deleteFromCart(course)}>X</button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </div>
