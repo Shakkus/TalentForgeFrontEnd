@@ -1,3 +1,7 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
 .imgForm {
     margin-top: 90px;
 }
@@ -55,6 +59,11 @@ label {
     margin-top: 81px;
     margin: 81px 170px;
     font-family: 'Montserrat', sans-serif;
+}
+
+.buttonSubmit:hover {
+  cursor: pointer;
+filter: brightness(90%);
 }
 
 .continueWith {
@@ -136,4 +145,8 @@ label {
     width: 200px;
     font-size: 15px;
     font-family: 'Lato';
+}
+
+.submit:hover {
+  cursor: pointer;
 }

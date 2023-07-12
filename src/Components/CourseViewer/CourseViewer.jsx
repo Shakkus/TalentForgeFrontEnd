@@ -91,7 +91,7 @@ const CourseViewer = () => {
 					.get(`https://talent-forge-data.cyclic.app/courses/${id}`)
 					.then((response) => {
 						setCourseData(response.data);
-						// console.log(response.data);
+						console.log(response.data);
 					});
 			} catch (error) {
 				console.log(`Hay error ${error.message}`);
