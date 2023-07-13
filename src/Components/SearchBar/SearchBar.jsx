@@ -10,6 +10,7 @@ import profile from "../../Recourses/profile.png";
 import "./SearchBar.css";
 
 const SearchBar = ({ setSearchResults }) => {
+  const [cartCount, setCartCount] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showSubMenu, setShowSubMenu] = useState(false);
   const [showLanguages, setShowLanguages] = useState(false);
@@ -18,8 +19,6 @@ const SearchBar = ({ setSearchResults }) => {
   const [showResults, setShowResults] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [redirectCourse, setRedirectCourse] = useState(null);
-
-  const [isCartOpen, setCartOpen] = useState(false);
 
   const handleSubMenuToggle = () => {
     setShowSubMenu(!showSubMenu);
@@ -59,22 +58,23 @@ const SearchBar = ({ setSearchResults }) => {
 
   const location = useLocation();
 
-  const [cartCourses, setCartCourses] = useState([]);
-
-  const deleteFromCart = (course) => {
-    const updatedCartCourses = cartCourses.filter(
-      (item) => item.id !== course.id
-    );
-
-    localStorage.setItem("cartCourses", JSON.stringify(updatedCartCourses));
-    console.log("Se eliminó el curso");
-  };
-
+  
+  useEffect(()=> {
+    const coursesInCart = localStorage.getItem('cartCourses');
+    if (coursesInCart) {
+      const parsedCourses = JSON.parse(coursesInCart);
+      setCartCount(parsedCourses.length);
+    }else{
+      setCartCount(0);
+    }
+  }, [])
   useEffect(() => {
     if (location.pathname !== "/search") {
       setSearchTerm("");
     }
   }, [location]);
+
+  
 
   return (
     <nav className="all">
@@ -157,24 +157,7 @@ const SearchBar = ({ setSearchResults }) => {
             <Link to="/login">
               <button className="login">Log In</button>
             </Link>
-            <button
-              className="cart"
-              id="cart"
-              onClick={() => setCartOpen(!isCartOpen)}
-            >
-              Carrito
-            </button>
-            {isCartOpen && (
-              <div id="cartMenu" className="cart-menu">
-                {cartCourses.map((course, index) => (
-                  <div key={index} className="courseOnCart">
-                    <p>{course.title}</p>
-                    <p>{course.prize}</p>
-                    <button onClick={() => deleteFromCart(course)}>X</button>
-                  </div>
-                ))}
-              </div>
-            )}
+            <Link to= '/cart'>Carrito ({cartCount})</Link>
           </div>
         )}
       </div>
