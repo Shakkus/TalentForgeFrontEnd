@@ -194,11 +194,6 @@ const SearchBar = ({ setSearchResults }) => {
                     alt="social"
                   />
                 </Link>
-                <button onClick={handleLogOut} className="logout" >
-							    <svg width="35px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-								    <path d="M14 4L17.5 4C20.5577 4 20.5 8 20.5 12C20.5 16 20.5577 20 17.5 20H14M3 12L15 12M3 12L7 8M3 12L7 16" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-							    </svg>
-						    </button>
                 <div className="relative">
                   <img
                     className="h-6 filter-invert cursor-pointer"
@@ -208,14 +203,14 @@ const SearchBar = ({ setSearchResults }) => {
                   />
                   {showProfileMenu && (
                     <div className="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 absolute right-0">
-                      <div className="px-4 py-3">
+                      {user && <div className="px-4 py-3">
                         <span className="block text-sm text-gray-900 dark:text-white">
                           {user.displayName}
                         </span>
                         <span className="block text-sm text-gray-500 truncate dark:text-gray-400">
                           {user.email}
                         </span>
-                      </div>
+                      </div>}
                       <ul className="py-2" aria-labelledby="user-menu-button">
                         <li>
                           <a
