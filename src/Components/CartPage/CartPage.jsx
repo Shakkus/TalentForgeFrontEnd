@@ -7,22 +7,47 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useNavigate  } from "react-router-dom";
-import { useEffect } from "react";
-import React from "react";
+
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
 const CartPage = () => {
+  const [originalPrice, setOriginalPrice] = useState(20);
+  const [price, setPrice] = useState(20);
+  const [discountCode, setDiscountCode] = useState("");
 
   const navigate = useNavigate();
-
   // VERIFICACION SESION INICIADA
 
-	useEffect(() => {
-		const loggedUser = localStorage.getItem("loggedUser");
-		if (!loggedUser) navigate("/login");
-	}, []);
+  useEffect(() => {
+    const loggedUser = localStorage.getItem("loggedUser");
+    if (!loggedUser) navigate("/login");
+  }, []);
 
-	// --------------
+  const applyDiscount = () => {
+    const discount = obtainDiscount(discountCode);
+    if (discount === null) {
+      alert("Lamentablemente tu cupón no es válido");
+      return; // Salir de la función sin actualizar el estado price
+    }
+    const discountedPrice = originalPrice * (1 - discount);
+    setPrice(discountedPrice);
+  };
+
+  const obtainDiscount = (discountCode) => {
+    const codes = {
+      ss62Zq6QnNkATBfuk9: 0.2,
+      "1C72y4bCdxC8EDQtUZ": 0.15,
+      K095IVlE4AkuZ9JXPp: 0.3,
+      tiago: 1,
+      gordobarril: 41238,
+    };
+    if (codes.hasOwnProperty(discountCode)) {
+      alert("¡Ingresaste tu cupón de descuento con éxito!");
+      return codes[discountCode];
+    }
+    return null;
+  };
 
   return (
     <div className="">
@@ -101,15 +126,50 @@ const CartPage = () => {
 
             <div className="">
               <hr class="border-t-2 border-purple-700 my-4" />
-
+              <div className="space-x-20">
+                <label htmlFor="Price" className="">
+                  Precio $
+                </label>
+                <input
+                  type="number"
+                  id="price"
+                  value={originalPrice}
+                  onChange={(e) => setOriginalPrice(e.target.value)}
+                  className="text-black text-center bg-gray-700 text-white font-bold text-2xl disabledInput"
+                  disabled
+                />
+              </div>
               <div className="ml-46 block my-10">
-                <h1 className="text-2xl font-bold">Precio total: 2 US$</h1>
+                <h1 className="text-2xl font-bold">
+                  Precio final: {price} US$
+                </h1>
               </div>
               <div className="buttonBuy block bottom-7 mx-32">
                 <button className="bg-purple-700 rounded-lg">
-                  <h1 className="px-8 py-3 text-white font-semibold">Buy $2</h1>
+                  <h1 className="px-8 py-3 text-white font-semibold">
+                    Buy ${price} USD
+                  </h1>
                 </button>
               </div>
+              <div className="flex text-center align-middle mt-10">
+                <label htmlFor="discountCode">
+                  Ingresar cupón de descuento
+                </label>
+                <input
+                  type="text"
+                  id="discountCode"
+                  value={discountCode}
+                  onChange={(e) => setDiscountCode(e.target.value)}
+                  className="text-black text-center"
+                />
+              </div>
+              <button
+                className="bg-purple-700 rounded-lg"
+                onClick={applyDiscount}>
+                <h1 className="px-8 py-3 font-semibold">Aplicar</h1>
+              </button>
+              {/* <h2>Price {Math.floor(price)}</h2>
+              {console.log(price)} */}
             </div>
           </div>
         </div>

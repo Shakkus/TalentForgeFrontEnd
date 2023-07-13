@@ -114,14 +114,7 @@ const Form = () => {
     setError("")
     try {
       await singUp(user.Email, user.Password)
-      const currentUser = user.accessToken;
-
-			if (currentUser) {
-				const idToken = await currentUser;
-				localStorage.setItem("loggedUser", idToken);
-				console.log("Token almacenado en localStorage", idToken);
-                navigate("/home");
-			}
+      navigate("/welcome")
     } catch (error) {
       //  console.log(error.code)
       setError(error.code)
@@ -139,9 +132,9 @@ const Form = () => {
 
   const handleAuthGoogle = async () => {
     try {
-      const res = await logginWhitGoogle()
-      navigate("/home")
-      console.log(res);
+      await logginWhitGoogle()
+      navigate("/welcome")
+
     } catch (error) {
       setError(error.code)
       if (error.code === "auth/popup-closed-by-user"
@@ -154,7 +147,7 @@ const Form = () => {
   const handleAuthTwitter = async () => {
     try {
       await logginWhitTwitter()
-      navigate("/home")
+      navigate("/welcome")
     } catch (error) {
       setError(error.code)
       if (error.code === "auth/popup-closed-by-user"

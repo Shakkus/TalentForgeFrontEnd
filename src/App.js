@@ -16,6 +16,8 @@ import Profile from "./Components/Profile/Profile";
 import Home from "./Components/Home/Home";
 import CourseDetail from "./Components/Course-Detail/CourseDetail";
 import TeachersDetail from "./Components/TeachersDetail/teachersDetail";
+import SucessRegister from "./Components/SucessRegister/SucessRegister";
+
 
 import { AuthProvider } from "./context/authContext.js";
 
@@ -43,6 +45,7 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/home" element={<Home />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/welcome" element={<SucessRegister />} />
           <Route
             path="/search"
             element={<CourseResults searchResults={searchResults} />}

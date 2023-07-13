@@ -1,5 +1,4 @@
-.home{
-    background-color: #ffffffb2;
+.home {
     padding-bottom: 50px;
     min-height: 100vh;
 }
@@ -103,9 +102,9 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-}
-
-.filters{
+  }
+  
+  .filters {
     padding-top: 80px;
     padding-bottom: 20px;
     width: 60%;
@@ -113,7 +112,7 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-}
+  }
 
 .select-box{
     display: flex;
@@ -142,3 +141,12 @@
     width: 80px;
     height: 30px;
 }
+
+.course-prize{
+    color: green;
+}
+
+#filter-button{
+    margin-top: 45px;
+}
+
