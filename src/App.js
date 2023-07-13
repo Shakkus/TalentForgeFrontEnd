@@ -45,7 +45,7 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/home" element={<Home />} />
           <Route path="/cart" element={<CartPage />} />
-          <Route path="/test" element={<SucessRegister />} />
+          <Route path="/welcome" element={<SucessRegister />} />
           <Route
             path="/search"
             element={<CourseResults searchResults={searchResults} />}
