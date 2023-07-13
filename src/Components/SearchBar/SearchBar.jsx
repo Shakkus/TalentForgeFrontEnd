@@ -10,15 +10,48 @@ import profile from "../../Recourses/profile.png";
 import { useAuth } from "../../context/authContext.js";
 import homeIcon from "../../Recourses/homeIcon.png";
 // import menuIcon from "../../Recourses/menuIcon.png"
-
+import { useNavigate } from "react-router-dom";
 import "./SearchBar.css";
 
 const SearchBar = ({ setSearchResults }) => {
-  const { user, logOut } = useAuth();
-
+  const { logOut, loading, user } = useAuth();
+	const navigate = useNavigate();
   const [cartCount, setCartCount] = useState(0);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+
+	// LOGOUT DEL USUARIO
+
+	const handleLogOut = async () => {
+		try {
+			await logOut();
+			localStorage.setItem("loggedUser", "");
+			navigate("/");
+		} catch (error) {
+			console.error(error);
+		}
+	};
+	// ------------------
+
+	// VALIDACION LOGIN
+
+	const loggedUser = localStorage.getItem("loggedUser");
+
+	// --------
+
+	// DROPDOWN PERFIL
+	const [isOpen, setIsOpen] = useState(false);
+
+	const handleOpen = () => {
+		setIsOpen(!isOpen);
+	};
+	// ----------------
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+	//    CursosStates
+	const [showSubMenu, setShowSubMenu] = useState(false);
+	const [showProgrammingLanguages, setShowProgrammingLanguages] =
+		useState(false);
+	const [showLanguages, setShowLanguages] = useState(false);
 
   const [courses, setCourses] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -34,9 +67,7 @@ const SearchBar = ({ setSearchResults }) => {
     }
   };
 
-  const handleLogout = () => {
-    logOut();
-  };
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -163,6 +194,11 @@ const SearchBar = ({ setSearchResults }) => {
                     alt="social"
                   />
                 </Link>
+                <button onClick={handleLogOut} className="logout" >
+							    <svg width="35px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								    <path d="M14 4L17.5 4C20.5577 4 20.5 8 20.5 12C20.5 16 20.5577 20 17.5 20H14M3 12L15 12M3 12L7 8M3 12L7 16" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+							    </svg>
+						    </button>
                 <div className="relative">
                   <img
                     className="h-6 filter-invert cursor-pointer"
@@ -201,7 +237,7 @@ const SearchBar = ({ setSearchResults }) => {
                           <a
                             href="#"
                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                            onClick={handleLogout}
+                            onClick={handleLogOut}
                           >
                             Sign out
                           </a>

@@ -6,6 +6,14 @@ import './CourseCreation.css'
 
 const CourseForm = () => {
 
+  // VALIDACION DE USUARIO LOGEADO
+	  useEffect(() => {
+		const loggedUser = localStorage.getItem("loggedUser");
+		if (!loggedUser) navigate("/login");
+	}, []);
+  // -----------------------------
+  
+
 const navigate = useNavigate()	;
 
 // CONFIG PARA SUBIR FOTOS A CLOUDINARY

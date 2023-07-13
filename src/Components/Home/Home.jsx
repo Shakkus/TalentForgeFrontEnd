@@ -6,6 +6,8 @@ import Loading from "../../Loading/Loading";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext.js";
 
+
+
 const Home = () => {
   const navigate = useNavigate();
 
@@ -20,7 +22,15 @@ const Home = () => {
     getCourses();
   }, []);
 
-  const getCourses = async () => {
+
+  // VALIDACION DE USUARIO LOGEADO
+  useEffect(() => {
+		const loggedUser = localStorage.getItem("loggedUser");
+		if (!loggedUser) navigate("/login");
+	}, []);
+  // -----------------------------
+
+	const getCourses = async () => {
     try {
       const { data } = await axios.get(
         "https://talent-forge-data.cyclic.app/courses"
@@ -33,11 +43,29 @@ const Home = () => {
     }
   };
 
-  const handleFilter = (filteredCourses) => {
-    setFilteredCourses(filteredCourses);
+
+	const handleFilter = (filteredCourses) => {
+		setFilteredCourses(filteredCourses);
+	};
+
+  const handleLogOut = async () => {
+    try {
+      await logOut();
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  /*LOGICA PARA LLEVAR CURSOS AL LOCALSTORAGE*/
+  // VERIFICACION SESION INICIADA
+
+	useEffect(() => {
+		const loggedUser = localStorage.getItem("loggedUser");
+		if (!loggedUser) navigate("/login");
+	}, []);
+
+	// --------------
+
   let cartCourses = [];
   const addCourseToCart = (course) => {
      const existingCourses = localStorage.getItem('cartCourses') ;
