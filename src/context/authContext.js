@@ -5,6 +5,7 @@ import {
   onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup, TwitterAuthProvider
 } from "firebase/auth";
 import { auth } from "../firebase";
+import axios from 'axios'
 
 export const authcontext = createContext();
 
@@ -17,8 +18,9 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
 
   const [user, setUser] = useState(null)
-
   const [loading, setLoading] = useState(true)
+  
+
   const singUp = async (email, password) => {
 
     await createUserWithEmailAndPassword(auth, email, password)
@@ -43,12 +45,11 @@ export const AuthProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    onAuthStateChanged(auth, currentUser => {
-      setUser(currentUser)
-      setLoading(false)
-      console.log(currentUser)
+    onAuthStateChanged(auth, async currentUser => {
+      setUser(currentUser);
+      setLoading(false);
     })
-  }, [])
+  }, []);
 
   return (
     <authcontext.Provider value={{ singUp, logIn, user, logOut, loading, logginWhitGoogle, logginWhitTwitter }}>
