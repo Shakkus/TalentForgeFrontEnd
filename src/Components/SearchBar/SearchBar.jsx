@@ -10,15 +10,48 @@ import profile from "../../Recourses/profile.png";
 import { useAuth } from "../../context/authContext.js";
 import homeIcon from "../../Recourses/homeIcon.png";
 // import menuIcon from "../../Recourses/menuIcon.png"
-
+import { useNavigate } from "react-router-dom";
 import "./SearchBar.css";
 
 const SearchBar = ({ setSearchResults }) => {
-  const { user, logOut } = useAuth();
-
+  const { logOut, loading, user } = useAuth();
+	const navigate = useNavigate();
   const [cartCount, setCartCount] = useState(0);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+
+	// LOGOUT DEL USUARIO
+
+	const handleLogOut = async () => {
+		try {
+			await logOut();
+			localStorage.setItem("loggedUser", "");
+			navigate("/");
+		} catch (error) {
+			console.error(error);
+		}
+	};
+	// ------------------
+
+	// VALIDACION LOGIN
+
+	const loggedUser = localStorage.getItem("loggedUser");
+
+	// --------
+
+	// DROPDOWN PERFIL
+	const [isOpen, setIsOpen] = useState(false);
+
+	const handleOpen = () => {
+		setIsOpen(!isOpen);
+	};
+	// ----------------
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+	//    CursosStates
+	const [showSubMenu, setShowSubMenu] = useState(false);
+	const [showProgrammingLanguages, setShowProgrammingLanguages] =
+		useState(false);
+	const [showLanguages, setShowLanguages] = useState(false);
 
   const [courses, setCourses] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -34,9 +67,7 @@ const SearchBar = ({ setSearchResults }) => {
     }
   };
 
-  const handleLogout = () => {
-    logOut();
-  };
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -172,14 +203,14 @@ const SearchBar = ({ setSearchResults }) => {
                   />
                   {showProfileMenu && (
                     <div className="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 absolute right-0">
-                      <div className="px-4 py-3">
+                      {user && <div className="px-4 py-3">
                         <span className="block text-sm text-gray-900 dark:text-white">
                           {user.displayName}
                         </span>
                         <span className="block text-sm text-gray-500 truncate dark:text-gray-400">
                           {user.email}
                         </span>
-                      </div>
+                      </div>}
                       <ul className="py-2" aria-labelledby="user-menu-button">
                         <li>
                           <a
@@ -201,7 +232,7 @@ const SearchBar = ({ setSearchResults }) => {
                           <a
                             href="#"
                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                            onClick={handleLogout}
+                            onClick={handleLogOut}
                           >
                             Sign out
                           </a>
