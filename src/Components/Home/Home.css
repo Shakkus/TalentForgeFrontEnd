@@ -20,7 +20,31 @@
     align-items: center;
   }
 
-  
-#filter-button{
-    margin-top: 45px;
+.select-box{
+    display: flex;
+    flex-direction: column;
 }
+
+.select-title{
+    font-weight: 600;
+    color: #481488;
+}
+
+.select-filters-courses{
+    border: 1px solid #5b249e;
+    text-align: center;
+    cursor: pointer;
+    background-color: #ffffffb2;
+}
+
+.select-filters-courses option{
+    background-color: #ffffffb2;
+}
+
+.filter-btn{
+    background-color: #481488;
+    color: #fff;
+    width: 80px;
+    height: 30px;
+}
+
