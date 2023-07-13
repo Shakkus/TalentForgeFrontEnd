@@ -11,11 +11,14 @@
     "@fortawesome/free-regular-svg-icons": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@mercadopago/sdk-react": "^0.0.12",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
+    "classnames": "^2.3.2",
     "cloudinary": "^1.37.3",
+    "mercadopago": "^1.5.16",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.45.1",
@@ -23,6 +26,7 @@
     "react-router": "^6.14.1",
     "react-router-dom": "^6.14.1",
     "react-scripts": "5.0.1",
+    "spinners-react": "^1.0.7",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

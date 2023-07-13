@@ -17,6 +17,7 @@ import Home from "./Components/Home/Home";
 import CourseDetail from "./Components/Course-Detail/CourseDetail";
 import TeachersDetail from "./Components/TeachersDetail/teachersDetail";
 import CartPage from "./Components/CartPage/CartPage";
+import SuccessPayment from "./Components/CartPage/MercadoPago/SuccessPayment";
 
 function App() {
   const [searchResults, setSearchResults] = useState([]);
@@ -38,6 +39,7 @@ function App() {
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/home" element={<Home />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/cart/success" element={<SuccessPayment />} />
         <Route
           path="/search"
           element={<CourseResults searchResults={searchResults} />}
