@@ -1,33 +1,27 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import logo from "../../Recourses/CarpinchoLogo.png";
 import hearth from "../../Recourses/hearth.png";
-import shopcar from "../../Recourses/shop-car.png";
+import shopcar from "../../Recourses/shopcar-car.png";
 import social from "../../Recourses/social.png";
 import searchIcon from "../../Recourses/searchIcon.png";
 import profile from "../../Recourses/profile.png";
+import { useAuth } from "../../context/authContext.js";
+import homeIcon from "../../Recourses/homeIcon.png";
+// import menuIcon from "../../Recourses/menuIcon.png"
+
 import "./SearchBar.css";
 
 const SearchBar = ({ setSearchResults }) => {
+  const { user, logOut } = useAuth();
+
   const [cartCount, setCartCount] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showSubMenu, setShowSubMenu] = useState(false);
-  const [showLanguages, setShowLanguages] = useState(false);
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
 
   const [courses, setCourses] = useState([]);
-  const [showResults, setShowResults] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [redirectCourse, setRedirectCourse] = useState(null);
-
-  const handleSubMenuToggle = () => {
-    setShowSubMenu(!showSubMenu);
-  };
-
-  const handleLanguagesToggle = () => {
-    setShowLanguages(!showLanguages);
-    setShowSubMenu(false);
-  };
 
   const handleSearch = () => {
     const foundCourses = courses.filter((course) =>
@@ -38,8 +32,10 @@ const SearchBar = ({ setSearchResults }) => {
     } else {
       setSearchResults([]);
     }
+  };
 
-    setShowResults(true);
+  const handleLogout = () => {
+    logOut();
   };
 
   useEffect(() => {
@@ -58,108 +54,181 @@ const SearchBar = ({ setSearchResults }) => {
 
   const location = useLocation();
 
-  
-  useEffect(()=> {
-    const coursesInCart = localStorage.getItem('cartCourses');
+  useEffect(() => {
+    const coursesInCart = localStorage.getItem("cartCourses");
     if (coursesInCart) {
       const parsedCourses = JSON.parse(coursesInCart);
       setCartCount(parsedCourses.length);
-    }else{
+    } else {
       setCartCount(0);
     }
-  }, [])
+  }, []);
+
   useEffect(() => {
     if (location.pathname !== "/search") {
       setSearchTerm("");
     }
   }, [location]);
 
-  
+  useEffect(() => {
+    if (user) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, [user]);
+
+  const handleProfileMenuToggle = () => {
+    setShowProfileMenu(!showProfileMenu);
+  };
 
   return (
-    <nav className="all">
-      <div className="nav">
-        <div className="Nav-left">
-          <Link to="/">
-            <img className="logo" src={logo} alt="logo" />
-          </Link>
-          <div className="menu-container">
-            <div className="menu-item" onClick={handleSubMenuToggle}>
-              <h2 className="seacrchBar-CoursesTitle">Courses</h2>
-              {showSubMenu ? (
-                <span className=""><div className="triangle-up"></div></span>
-              ) : (
-                <span className=""><div className="triangle-down"></div></span>
-              )}
+    <nav className="bg-[#7c38cd]">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between py-4">
+          <div className="flex items-center">
+            <Link to="/">
+              <img className="h-8" src={logo} alt="logo" />
+            </Link>
+            <Link to="/home" className="ml-4">
+              <img
+                className="h-6 filter-invert"
+                id="icon"
+                src={homeIcon}
+                alt="home"
+              />
+            </Link>
+            <div className="ml-4">
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Buscar..."
+                  value={searchTerm}
+                  onChange={(event) => setSearchTerm(event.target.value)}
+                  className="bg-white text-black rounded-md pl-10 pr-4 py-2"
+                />
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
+                  <Link to="search">
+                    <img
+                      className="h-4 text-gray-500 filter-invert"
+                      src={searchIcon}
+                      alt="search"
+                      onClick={handleSearch}
+                    />
+                  </Link>
+                </div>
+              </div>
             </div>
-
-            {showSubMenu && (
-              <div className="submenu-container">
-                <ul className="submenu">
-                  <li className="submenu-item">
-                    <NavLink to="/course/create">Create your Course</NavLink>
-                  </li>
-                  <li className="submenu-item">
-                    <NavLink to="/home">Home</NavLink>
-                  </li>
-                </ul>
+          </div>
+          <div className="flex items-center">
+            {isLoggedIn ? (
+              <>
+                <Link
+                  to="/wishlist"
+                  className="text-white hover:text-gray-300 ml-6"
+                >
+                  <img
+                    className="h-6 filter-invert"
+                    id="icon"
+                    src={hearth}
+                    alt="hearth"
+                  />
+                </Link>
+                <Link
+                  to="/cart"
+                  className="text-white hover:text-gray-300 ml-6 relative"
+                >
+                  <div className="flex items-center">
+                    <img
+                      className="h-6 filter-invert"
+                      id="icon"
+                      src={shopcar}
+                      alt="shopcar"
+                    />
+                    {cartCount > 0 && (
+                      <div className="bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center absolute -top-1 -right-1">
+                        {cartCount}
+                      </div>
+                    )}
+                  </div>
+                </Link>
+                <Link
+                  to="/social"
+                  className="text-white hover:text-gray-300 ml-6"
+                >
+                  <img
+                    className="h-6 filter-invert"
+                    id="icon"
+                    src={social}
+                    alt="social"
+                  />
+                </Link>
+                <div className="relative">
+                  <img
+                    className="h-6 filter-invert cursor-pointer"
+                    src={profile}
+                    alt="profile"
+                    onClick={handleProfileMenuToggle}
+                  />
+                  {showProfileMenu && (
+                    <div className="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 absolute right-0">
+                      <div className="px-4 py-3">
+                        <span className="block text-sm text-gray-900 dark:text-white">
+                          {user.displayName}
+                        </span>
+                        <span className="block text-sm text-gray-500 truncate dark:text-gray-400">
+                          {user.email}
+                        </span>
+                      </div>
+                      <ul className="py-2" aria-labelledby="user-menu-button">
+                        <li>
+                          <a
+                            href="/profile"
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                          >
+                            Profile
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="/course/create"
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                          >
+                            Create course
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="#"
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                            onClick={handleLogout}
+                          >
+                            Sign out
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </>
+            ) : (
+              <div className="hidden lg:flex items-center">
+                <Link
+                  to="/register"
+                  className="text-white hover:text-gray-300 px-3 py-2"
+                >
+                  Register
+                </Link>
+                <Link
+                  to="/login"
+                  className="text-white hover:text-gray-300 px-3 py-2"
+                >
+                  Log In
+                </Link>
               </div>
             )}
           </div>
         </div>
-        <div className="searchbar-container">
-          <input
-            type="text"
-            placeholder="Buscar..."
-            value={searchTerm}
-            onChange={(event) => setSearchTerm(event.target.value)}
-            className="searchbar-class"
-          />
-          <div className="busqueda-box">
-            <Link to="search">
-              <img
-                className="busqueda"
-                src={searchIcon}
-                alt="search"
-                onClick={handleSearch}
-              />
-            </Link>
-          </div>
-        </div>
-
-        {isLoggedIn ? (
-          <div className="Nav-right">
-            <div className="nav-dropdown">
-              <p className="inventory">
-                <Link to="/inventory" className="custom-link">
-                  Mis cursos
-                </Link>
-              </p>
-            </div>
-            <Link to="/wishlist" className="custom-link">
-              <img className="hearth" src={hearth} alt="hearth" />
-            </Link>
-            <Link to="/shopcar" className="custom-link">
-              <img className="shopcar" src={shopcar} alt="shopcar" />
-            </Link>
-            <Link to="/social" className="custom-link">
-              <img className="social" src={social} alt="social" />
-            </Link>
-            <Link to="/profile/:id" className="custom-link">
-              <img className="profile-img" src={profile} alt="profile" />
-            </Link>
-          </div>
-        ) : (
-          <div className="buttons">
-            <Link to="/register">
-              <button className="register">Register</button>
-            </Link>
-            <Link to="/login">
-              <button className="login">Log In</button>
-            </Link>
-            <Link to= '/cart'>Carrito ({cartCount})</Link>
-          </div>
-        )}
       </div>
     </nav>
   );

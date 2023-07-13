@@ -37,15 +37,6 @@ const Home = () => {
     setFilteredCourses(filteredCourses);
   };
 
-  const handleLogOut = async () => {
-    try {
-      await logOut();
-      navigate("/");
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   /*LOGICA PARA LLEVAR CURSOS AL LOCALSTORAGE*/
   let cartCourses = [];
   const addCourseToCart = (course) => {
@@ -68,18 +59,6 @@ const Home = () => {
 return (
     <div className="home">
       <CourseFilter courses={courses} onFilter={handleFilter} />
-      {user && (
-        <>
-          <button
-            className="bg-[#7c38cd] hover:bg-[#AA6FFF] text-white font-bold py-2 px-4 rounded m-5"
-            onClick={handleLogOut}
-          >
-            LogOut
-          </button>
-          <h1>welcome {user.displayName}</h1>
-        </>
-      )}
-
       <div className="container mx-auto px-5 py-2 lg:px-32 lg:pt-12">
         <div className="-mx-2 flex flex-wrap">
           {filteredCourses.map((course) => (

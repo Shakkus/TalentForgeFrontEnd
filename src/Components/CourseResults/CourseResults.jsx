@@ -42,7 +42,6 @@ const CourseResults = ({ searchResults }) => {
 
   return (
     <div id="search-mapper">
-      <h3>Search...</h3>
       <div id="course-container">
         <strong className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Results found: {searchResults.length}</strong>
         {currentResults.map((course) => {
