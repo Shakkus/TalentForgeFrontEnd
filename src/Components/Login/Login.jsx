@@ -1,143 +1,126 @@
-
-import { useForm } from 'react-hook-form'
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import "./Login.css";
 import { useAuth } from "../../context/authContext.js";
-import { useEffect } from "react";
-
-
+import axios from "axios";
+import "./Login.css";
 
 
 const Login = () => {
-    const { user } = useAuth();
 
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-	} = useForm();
+  const navigate = useNavigate()
+  const { logginWhitGoogle, logginWhitTwitter } = useAuth()
+  const [errors, setErrors] = useState()
+  const [loginInfo, setLoginInfo] = useState({
+    username: "",
+    password: "",
+  });
 
-	const [userData, setUserData] = useState({
-		nameLastname: "",
-		Email: "",
-		Password: "",
-	});
 
-	const navigate = useNavigate();
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setLoginInfo({ ...loginInfo, [name]: value });
+    // setErrors({
+    //   ...errors,
+    //   [name]: validate({ ...loginInfo, [name]: value })[name],
+    // });
+  };
 
-    const [error, setError] = useState();
+  const tokenInfoSetter = (data) => {
+    localStorage.setItem('userAccountType',data.accountType)
+    localStorage.setItem('userCountry',data.country)
+    localStorage.setItem('userDate',data.dateOfBirth)
+    localStorage.setItem('userDesc',data.description)
+    localStorage.setItem('userEmail',data.email)
+    localStorage.setItem('userfullName',data.fullName)
+    localStorage.setItem('userImage',data.profileImage)
+    localStorage.setItem('userId',data.userId)
+    localStorage.setItem('username',data.username)
+  }
 
-	const { logIn, logginWhitGoogle, logginWhitTwitter } = useAuth();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    //const formErrors = validate(input);
+    //if (Object.keys(formErrors).length > 0) {
+      //setErrors(formErrors);
+      //return;
+    //}
+    const { data } = await axios.post('https://talent-forge-data.cyclic.app/login/', loginInfo);
+    tokenInfoSetter(data)
+    console.log(localStorage)
+    setLoginInfo({
+      username: "",
+      password: "",
+      });
+    navigate("/home")
+    }
+  
 
-	const handleChange = ({ target: { name, value } }) => {
-		setUserData({ ...userData, [name]: value });
-		//console.log(event.target.nameLastname)
-	};
+  const handleAuthGoogle = async () => {
+    try {
+      await logginWhitGoogle()
+      navigate("/home")
+      } catch (error) {
+        setErrors(error.code)
+        if (error.code === "auth/popup-closed-by-user"
+          || error.code === "auth/cancelled-popup-request") {
+          setErrors("Login cancelled")
+        }
+    }
+  }
 
-	const handleSubmitAuth = async (event) => {
-		event.preventDefault();
-		setError("");
-		try {
-			await logIn(userData.Email, userData.Password);
-			const currentUser = user.accessToken;
+  const handleAuthTwitter = async () => {
+    try {
+      await logginWhitTwitter()
+      navigate("/home")
+      } catch (error) {
+        setErrors(error.code)
+        if (error.code === "auth/popup-closed-by-user"
+          || error.code === "auth/cancelled-popup-request") {
+          setErrors("Login cancelled")
+        }
+    }
+  }
 
-			if (currentUser) {
-				const idToken = await currentUser;
-				localStorage.setItem("loggedUser", idToken);
-				console.log("Token almacenado en localStorage", idToken);
-                navigate("/home");
-			}
-		} catch (error) {
-			//  console.log(error.code)
-			setError(error.code);
-			if (
-				error.code === "auth/user-not-found" ||
-				error.code === "auth/invalid-email"
-			) {
-				setError("Invalid Email");
-			} else if (error.code === "auth/wrong-password") {
-				setError("Invalid password");
-			}
-		}
-		console.log(user);
-	};
+  return (
+    <div className="login mt-48">
+      <h1>Account Login</h1>
+      <div className="continueWith">
+        <div className="continueWithGoogle">
+          <button className="text-black" onClick={handleAuthGoogle} >Continue with</button>
 
-	const handleAuthGoogle = async () => {
-		try {
-			await logginWhitGoogle();
-			navigate("/home");
-		} catch (error) {
-			setError(error.code);
-			if (
-				error.code === "auth/popup-closed-by-user" ||
-				error.code === "auth/cancelled-popup-request"
-			) {
-				setError("Login cancelled");
-			}
-		}
-	};
-
-	const handleAuthTwitter = async () => {
-		try {
-			await logginWhitTwitter();
-			navigate("/home");
-		} catch (error) {
-			setError(error.code);
-			if (
-				error.code === "auth/popup-closed-by-user" ||
-				error.code === "auth/cancelled-popup-request"
-			) {
-				setError("Login cancelled");
-			}
-		}
-	};
-
-    return (
-        <div className="login mt-48">
-          <h1>Account Login</h1>
-          <div className="continueWith">
-            <div className="continueWithGoogle">
-              <button className="text-black" onClick={handleAuthGoogle} >Continue with</button>
-    
-              <img src="image 109.png" alt="" />
-            </div>
-            <div className="continueWithGmail">
-              <button className="text-black" onClick={handleAuthGoogle} >Continue with</button>
-              <img src="image 87.png" alt="" />
-            </div>
-    
-            <div className="continueWithTwitter">
-              <button onClick={handleAuthTwitter} className="text-black">Continue with</button>
-              <img src="image 88.png" alt="" />
-            </div>
-          </div>
-    
-          {error && <p>{error}</p>}
-          <form onSubmit={handleSubmitAuth}>
-            <div className="formContainer">
-              <div className="inputName">
-                <label htmlFor="">Email</label>
-                <input type="text" id='email' className='inputText text-black' name="Email"
-                  {...register('Email', { required: true })} onChange={handleChange} />
-                {errors.email?.type === 'required' &&
-                  (<p className='emailError'>Campo requerido</p>)}
-              </div>
-              <div className="inputPassword">
-                <label htmlFor="">Password</label>
-                <input type="text" id='password' className='inputText text-black' name="Name"
-                  {...register('Password', { required: true })} onChange={handleChange} />
-                {errors.password?.type === 'required' &&
-                  (<p className='passwordError'>Campo requerido</p>)}
-              </div>
-              <div>
-    
-                <input type="submit" value="Submit" className="buttonSubmit bg-violet-500" />
-    
-              </div>
-            </div>
-          </form>
+          <img src="image 109.png" alt="" />
         </div>
-      );
+        <div className="continueWithGmail">
+          <button className="text-black" onClick={handleAuthGoogle} >Continue with</button>
+          <img src="image 87.png" alt="" />
+        </div>
+
+        <div className="continueWithTwitter">
+          <button onClick={handleAuthTwitter} className="text-black">Continue with</button>
+          <img src="image 88.png" alt="" />
+        </div>
+      </div>
+
+      
+      <form onSubmit={handleSubmit}>
+        <div className="formContainer">
+
+          <div className="inputName">
+            <label htmlFor="">Username</label>
+            <input type="text" className='inputText text-black'  name="username" value={loginInfo.username} onChange={handleChange}/>
+          </div>
+
+          <div className="inputPassword">
+            <label htmlFor="">Password</label>
+            <input type="password" className='inputText text-black'name="password" value={loginInfo.password} onChange={handleChange}/>
+          </div>
+
+            <input type="submit" value="Submit" className="buttonSubmit bg-violet-500" />
+
+        </div>
+      </form>
+    </div>
+  );
 }
 export default Login;
+
