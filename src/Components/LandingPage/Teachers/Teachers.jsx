@@ -1,8 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import './Teachers.css';
 import { NavLink } from 'react-router-dom';
-
+import "./Teachers.css"
 
 const Teachers = () => {
   const [teachers, setTeachers] = useState([]);
@@ -29,30 +28,21 @@ const Teachers = () => {
   };
 
   return (
-    <>
+    <div className="flex overflow-x-scroll space-x-4 p-4">
       {teachers.map((teacher) => (
-        <div key={teacher._id} className="teachersContainer w-80 m-10 border h-auto bg-gray-300 rounded-3xl mx-5">
-
-          <div className='container-img'> 
-            <img src={teacher.profileImage} alt="" className="fix-img w-200px rounded-t-lg my-0 mx-auto" />
-            <h2 className="fix-center flex my-2 font-semibold">{teacher.name}</h2>
-          </div>
-
-          <div className='container-desc'> 
-            <p className="p-4 text-start">{truncateDescription(teacher.description, 100)}</p>
-          </div>
-
-          <div className='container-btn'> 
-            <div className="mt-auto">
-              <NavLink to={`/teacher/${teacher._id}`} className="m-3 w-2"><h1 className="relative text-white bg-gray-400 p-3 w-40 mt-0 mx-auto rounded-xl mb-0 customHoverShadow">See more →</h1></NavLink>
+        <div key={teacher._id} className="flex-shrink-0 w-64 bg-gray-200 rounded-lg overflow-hidden teacher-card">
+          <img src={teacher.profileImage} alt="" className="w-full h-40 object-cover" />
+          <div className="p-4">
+            <h2 className="text-lg font-semibold mb-2">{teacher.name}</h2>
+            <p className="text-sm">{truncateDescription(teacher.description, 100)}</p>
+            <div className="mt-4">
+              <NavLink to={`/teacher/${teacher._id}`} className="inline-block px-4 py-2 bg-blue-500 text-white rounded-lg">See more →</NavLink>
             </div>
           </div>
-
         </div>
       ))}
-    </>
+    </div>
   );
-  
 };
 
 export default Teachers;

@@ -22,6 +22,7 @@ import SucessRegister from "./Components/SucessRegister/SucessRegister";
 import { AuthProvider } from "./context/authContext.js";
 
 import CartPage from "./Components/CartPage/CartPage";
+import SuccessPayment from "./Components/CartPage/MercadoPago/SuccessPayment";
 
 
 function App() {
@@ -46,10 +47,8 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/welcome" element={<SucessRegister />} />
-          <Route
-            path="/search"
-            element={<CourseResults searchResults={searchResults} />}
-          />
+          <Route path="/cart/success" element={<SuccessPayment />} />
+        <Route path="/search" element={<CourseResults searchResults={searchResults} />} />
         </Routes>
         <Footer />
       </AuthProvider>

@@ -1,6 +1,6 @@
 /* COMENTARIOS */
 .mainContainer {
-	border: 2px solid red;
+	/* border: 2px solid red; */
 	width: 60vw;
 	padding-bottom: 20px;
 	margin-left: 2vw;
@@ -35,7 +35,7 @@ input[type=radio] {
 /* RATING */
 
 .rating-container {
-	border: 2px solid red;
+	/* border: 2px solid red; */
 	display: flex;
 	flex-direction: row;
 	width:200px;
@@ -130,7 +130,7 @@ iframe {
 }
 
 .buttons-container {
-	border: 1px solid rgb(15, 90, 37);
+	/* border: 1px solid rgb(15, 90, 37); */
 	align-items: center;
 	width: auto;
 	height: 62px;

@@ -1,373 +1,339 @@
-import { useEffect, useState, } from "react";
-import "./Register.css";
-import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext.js";
-
+import { useState } from "react";
+import axios from "axios";
+import { validate } from "./validate";
+import "./Register.css"
 
 const Form = () => {
-  const [days, setDays] = useState([]);
-  const [months, setMonths] = useState([]);
-  const [years, setYears] = useState([]);
-  const [user, setUser] = useState({
-    nameLastname: "",
-    Email: "",
-    Password: ""
+  const navigate = useNavigate();
 
-  })
-
-
-  const navigate = useNavigate()
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    getValues,
-  } = useForm();
-
+  const { logginWhitGoogle, logginWhitTwitter } = useAuth();
+  const [errors, setErrors] = useState({});
+  const [input, setInput] = useState({
+    fullName: "",
+    username: "",
+    email: "",
+    country: "",
+    dateOfBirth: "",
+    password: "",
+    confirmPass: "",
+    accountType: "",
+    registerWith: ""
+  });
 
   const countrys = [
-    "Argentina  🇦🇷",
-    "Chile 🇨🇱",
-    "Brasil 🇧🇷",
-    "Venezuela 🇻🇪",
-    "Bolivia 🇧🇴",
-    "Perú 🇵🇪",
-    "Colombia 🇨🇴",
-    "Ecuador 🇪🇨",
-    "México 🇲🇽",
-    "El Salvador 🇸🇻",
-    "Honduras 🇭🇳",
-    "España 🇪🇸",
-    "Panamá 🇵🇦",
-    "Cuba 🇨🇺",
-    "Costa Rica 🇨🇷",
-    "Uruguay 🇺🇾",
+    "Argentina",
+    "Chile",
+    "Brasil",
+    "Venezuela",
+    "Bolivia",
+    "Perú",
+    "Colombia",
+    "Ecuador",
+    "México",
+    "El Salvador",
+    "Honduras",
+    "España",
+    "Panamá",
+    "Cuba",
+    "Costa Rica",
+    "Uruguay",
+    "Estados Unidos",
+    "España",
+    "Alemania",
+    "Reino Unido",
+    "Alemania",
+    "Francia",
+    "Italia",
+    "Canadá",
+    "Rusia"
   ];
 
-  const daysInMonth = {
-    Enero: 31,
-    Febrero: 28,
-    Marzo: 31,
-    Abril: 30,
-    Mayo: 31,
-    Junio: 30,
-    Julio: 31,
-    Agosto: 31,
-    Septiembre: 30,
-    Octubre: 31,
-    Noviembre: 30,
-    Diciembre: 31,
-  };
-
-  const [error, setError] = useState()
-
-  useEffect(() => {
-    const monthsArray = Object.keys(daysInMonth);
-    setMonths(monthsArray);
-
-    const currentYear = new Date().getFullYear();
-    const yearsArray = Array.from(
-      { length: currentYear - 1900 + 1 },
-      (_, index) => currentYear - index
-    );
-    setYears(yearsArray);
-
-    const currentMonth = monthsArray[new Date().getMonth()];
-    generateDays(currentMonth); // Agregar esta línea para establecer los días correspondientes al mes actual
-  }, []);
-
-  const { singUp, logginWhitGoogle, logginWhitTwitter } = useAuth()
-
-
-  const generateDays = (selectedMonth) => {
-    const daysCount = daysInMonth[selectedMonth];
-    const daysArray = Array.from(
-      { length: daysCount },
-      (_, index) => index + 1
-    );
-    setDays(daysArray);
-  };
-
-  const handleMonthChange = (event) => {
-    const selectedMonth = event.target.value;
-    generateDays(selectedMonth);
-  };
-
-  const handleChange = ({ target: { name, value } }) => {
-
-    setUser({ ...user, [name]: value })
-    //console.log(event.target.nameLastname)
-  }
-
-
-
-  const onSubmit = (data) => {
-    const { Password, Confirmpassword } = data;
-    if (Password !== Confirmpassword) {
-      return; // No se envía el formulario si la confirmación no coincide
-    }
-
-  };
-  const handleSubmitAuth = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    setError("")
-    try {
-      await singUp(user.Email, user.Password)
-      navigate("/welcome")
-    } catch (error) {
-      //  console.log(error.code)
-      setError(error.code)
-      if (error.code === "auth/weak-password") {
-        setError("Invalid password")
-      } else if (error.code === "auth/invalid-email") {
-        setError("Invalid Email")
-      } else if (error.code === "auth/email-already-in-use") {
-        setError("Email already in use")
-      }
+    const formErrors = validate(input);
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+      return;
     }
 
-    console.log(user)
-  }
+    await axios.post("https://talent-forge-data.cyclic.app/user/", input);
+    navigate("/welcome");
+    setInput({
+      fullName: "",
+      username: "",
+      email: "",
+      country: "",
+      dateOfBirth: "",
+      password: "",
+      confirmPass: "",
+      accountType: "",
+      registerWith: ""
+    });
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setInput({ ...input, [name]: value });
+    setErrors({
+      ...errors,
+      [name]: validate({ ...input, [name]: value })[name]
+    });
+    console.log(event)
+  };
 
   const handleAuthGoogle = async () => {
     try {
-      await logginWhitGoogle()
-      navigate("/welcome")
-
+      await logginWhitGoogle();
+      navigate("/welcome");
     } catch (error) {
-      setError(error.code)
-      if (error.code === "auth/popup-closed-by-user"
-        || error.code === "auth/cancelled-popup-request") {
-        setError("Login cancelled")
+      setErrors(error.code);
+      if (
+        error.code === "auth/popup-closed-by-user" ||
+        error.code === "auth/cancelled-popup-request"
+      ) {
+        setErrors("Login cancelled");
       }
     }
-  }
+  };
 
   const handleAuthTwitter = async () => {
     try {
-      await logginWhitTwitter()
-      navigate("/welcome")
+      await logginWhitTwitter();
+      navigate("/welcome");
     } catch (error) {
-      setError(error.code)
-      if (error.code === "auth/popup-closed-by-user"
-        || error.code === "auth/cancelled-popup-request") {
-        setError("Login cancelled")
+      setErrors(error.code);
+      if (
+        error.code === "auth/popup-closed-by-user" ||
+        error.code === "auth/cancelled-popup-request"
+      ) {
+        setErrors("Login cancelled");
       }
-
     }
-  }
-
-
+  };
 
   return (
-    <div className="form">
-      <h1 className="formTitle">Account Registration</h1>
-      <div className="continueWith">
-        <div className="continueWithGoogle">
-          <button onClick={handleAuthGoogle}>Continue with</button>
-          <img src="image 109.png" alt="" />
-        </div>
-
-        <div className="continueWithGmail">
-          <button onClick={handleAuthGoogle}>Continue with</button>
-          <img src="image 87.png" alt="" />
-        </div>
-
-        <div className="continueWithTwitter">
-          <button onClick={handleAuthTwitter}>Continue with</button>
-          <img src="image 88.png" alt="" />
+    <div id="form-register">
+      <div className="flex flex-col items-center">
+        <h2 className="text-2xl font-bold mb-4 text-[#7c38cd]">
+          Register account with:
+        </h2>
+        <div className="flex justify-center space-x-10">
+          <img
+            src="image 109.png"
+            alt="Google"
+            className="h-8 cursor-pointer icon"
+            onClick={handleAuthGoogle}
+          />
+          <img
+            src="image 88.png"
+            alt="Twitter"
+            className="h-8 cursor-pointer icon" 
+            onClick={handleAuthTwitter}
+          />
+          <img
+            src="image 87.png"
+            alt="Gmail"
+            className="h-8 cursor-pointer icon"
+            onClick={handleAuthGoogle}
+          />
         </div>
       </div>
-
-
-      {error && <p>{error}</p>}
-      <form onSubmit={handleSubmitAuth}>
-        <div className="formContainer">
-          <div className="inputNameLastname">
-            <label htmlFor="">Name & lastname</label>
-            <input
-              className="inputText"
-              name="nameLastname"
-              type="text"
-              {...register("nameLastname", {
-                required: true,
-                maxLength: 40,
-                minLength: 8,
-              })}
-              onChange={handleChange}
-            />
-            {errors.nameLastname?.type === "required" && (
-              <p>Este campo es requerido</p>
-            )}
-            {errors.nameLastname?.type === "maxLength" && (
-              <p>El nombre y apellido no puede tener mas de 40 caracteres</p>
-            )}
-            {errors.nameLastname?.type === "minLength" && (
-              <p>El nombre y apellido no puede tener menos de 8 caracteres</p>
-            )}
-          </div>
-          <div className="inputEmail">
-            <label htmlFor="">Email</label>
-            <input
-              className="inputText"
-              name="Email"
-              type="text"
-              {...register("Email", {
-                required: true,
-                maxLength: 35,
-                minLength: 10,
-                pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/i,
-              })}
-
-              onChange={handleChange}
-            />
-            {errors.email?.type === "required" && (
-              <p>Este campo es requerido</p>
-            )}
-            {errors.email?.type === "maxLength" && (
-              <p>El email no debe tener menos de 35 caracteres</p>
-            )}
-            {errors.email?.type === "minLength" && (
-              <p>El email debe tener mas de 10 caracteres</p>
-            )}
-            {errors.email?.type === "pattern" && (
-              <p>El formato del email no es válido</p>
-            )}
-          </div>
-          <div className="inputCountry">
-            <label htmlFor="">Country</label>
-            <select
-              name=""
-              className="inputSelect"
-              {...register("Country", {
-                required: true,
-              })}
+      <form class="w-full max-w-lg" onSubmit={handleSubmit}>
+        <div class="flex flex-wrap -mx-3 mb-6">
+          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label
+              class="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2"
+              for="grid-first-name"
             >
-              {countrys.map((country) => (
-                <option className="optionCountry" value={country}>
-                  {country}
-                </option>
-              ))}
-            </select>
-          </div>
-          <label htmlFor="">Date of birth</label> <br />
-          <div className="inputDateOfBorn">
-            <div>
-              <label className="inputDateOfBornLabel" htmlFor="month">
-                Month
-              </label>
-              <select
-                className="inputSelect"
-                name="month"
-                id="month"
-                onChange={handleMonthChange}
-                {...register("Date of birth month", {
-                  required: true,
-                })}
-              >
-                {months.map((month) => (
-                  <option key={month} value={month}>
-                    {month}
-                  </option>
-                ))}
-              </select>
-              {errors.month?.type === "required" && <p>El mes es requerido</p>}
-            </div>
-            <div>
-              <label className="inputDateOfBornLabel" htmlFor="day">
-                Day
-              </label>
-              <select
-                name="day"
-                id="day"
-                className="inputSelect"
-                {...register("Date of birth day", {
-                  required: true,
-                })}
-              >
-                {days.map((day) => (
-                  <option key={day} value={day}>
-                    {day}
-                  </option>
-                ))}
-              </select>
-              {errors.day?.type === "required" && <p>El día es requerido</p>}
-            </div>
-
-            <div>
-              <label className="inputDateOfBornLabel" htmlFor="year">
-                Year
-              </label>
-              <select
-                className="inputSelect"
-                name="year"
-                id="year"
-                {...register("Date of birth year", {
-                  required: true,
-                })}
-              >
-                {years.map((year) => (
-                  <option key={year} value={year}>
-                    {year}
-                  </option>
-                ))}
-              </select>
-              {errors.year?.type === "required" && <p>El año es requerido</p>}
-            </div>
-          </div>
-          <div className="inputPassword">
-            <label htmlFor="">Password</label>
+              Full Name
+            </label>
             <input
-              className="inputText"
-              name="Password"
-              type="password"
-              {...register("Password", {
-                required: true,
-                maxLength: 20,
-                minLength: 5,
-                pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{5,20}$/,
-              })}
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              id="grid-first-name"
+              type="text"
+              name="fullName"
+              value={input.fullName}
               onChange={handleChange}
+              placeholder="Jane Monrow"
             />
-            {errors.Password?.type === "required" && (
-              <p>Este campo es requerido</p>
-            )}
-            {errors.Password?.type === "maxLength" && (
-              <p>La contraseña debe tener menos de 20 caracteres</p>
-            )}
-            {errors.Password?.type === "minLength" && (
-              <p>La contraseña debe tener mas de 5 caracteres</p>
-            )}
-            {errors.Password?.type === "pattern" && (
-              <p>
-                Debe contener al menos una mayúscula, una minúscula y un número
-              </p>
+            {errors.fullName && (
+              <p class="text-red-500 text-xs italic">{errors.fullName}</p>
             )}
           </div>
-          <div className="inputConfirmPassword">
-            <label htmlFor="">Confirm Password</label>
+          <div class="w-full md:w-1/2 px-3">
+            <label
+              class="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2"
+              for="grid-last-name"
+            >
+              username
+            </label>
             <input
-              className="inputText"
-              name="Password"
-              type="password"
-              {...register("Confirmpassword", {
-                required: true,
-              })}
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              id="grid-last-name"
+              type="text"
+              name="username"
+              value={input.username}
               onChange={handleChange}
+              placeholder="Doe"
             />
-            {errors.Confirmpassword?.type === "required" && (
-              <p>Este campo es requerido</p>
+            {errors.username && (
+              <p class="text-red-500 text-xs italic">{errors.username}</p>
             )}
-            {getValues("Password") !== getValues("Confirmpassword") && (
-              <p>La confirmación de contraseña no coincide</p>
-            )}
-          </div>
-          <div>
-            <input type="submit" value="Submit" className="buttonSubmit" />
-
           </div>
         </div>
+        <div class="flex flex-wrap -mx-3 mb-6">
+          <div class="w-full px-3">
+            <label
+              class="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2"
+              for="grid-password"
+            >
+              email adress
+            </label>
+            <input
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              id="grid-password"
+              type="email"
+              name="email"
+              value={input.email}
+              onChange={handleChange}
+              placeholder="example@example.com"
+            />
+            {errors.email && (
+              <p class="text-red-500 text-xs italic">{errors.email}</p>
+            )}
+          </div>
+          <div class="w-full px-3">
+            <label
+              class="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2"
+              for="grid-password"
+            >
+              Password
+            </label>
+            <input
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              id="grid-password"
+              type="password"
+              name="password"
+              value={input.password}
+              onChange={handleChange}
+              placeholder="******************"
+            />
+            {errors.password && (
+              <p class="text-red-500 text-xs italic">{errors.password}</p>
+            )}
+          </div>
+          <div class="w-full px-3">
+            <label
+              class="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2"
+              for="grid-password"
+            >
+              repeat Password
+            </label>
+            <input
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              id="grid-password"
+              type="password"
+              name="confirmPass"
+              value={input.confirmPass}
+              onChange={handleChange}
+              placeholder="******************"
+            />
+            {errors.confirmPass && (
+              <p class="text-red-500 text-xs italic">{errors.confirmPass}</p>
+            )}
+          </div>
+        </div>
+        <div class="flex flex-wrap -mx-3 mb-2">
+          <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <label
+              class="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2"
+              for="grid-city"
+            >
+              birthdate
+            </label>
+            <input
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              id="grid-city"
+              type="text"
+              name="dateOfBirth"
+              value={input.dateOfBirth}
+              onChange={handleChange}
+              placeholder="dd-mm-yyyy"
+            />
+            {errors.dateOfBirth && (
+              <p class="text-red-500 text-xs italic">{errors.dateOfBirth}</p>
+            )}
+          </div>
+          <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <label
+              class="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2"
+              for="grid-state"
+            >
+              State
+            </label>
+            <div class="relative">
+              <select
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 appearance-none"
+                id="grid-state"
+                name="country"
+                value={input.country}
+                onChange={handleChange}
+              >
+                <option value="">SELECT</option>
+                {countrys.map((country) => (
+                  <option className="optionCountry" value={country}>
+                    {country}
+                  </option>
+                ))}
+              </select>
+              {errors.country && (
+                <p class="text-red-500 text-xs italic">{errors.country}</p>
+              )}
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg
+                  class="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <label
+              class="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2"
+              for="grid-zip"
+            >
+              Account type
+            </label>
+            <select
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              id="grid-zip"
+              name="accountType"
+              value={input.accountType}
+              onChange={handleChange}
+            >
+              <option value="">SELECT</option>
+              <option value="user">User</option>
+              <option value="teacher">Teacher</option>
+            </select>
+            {errors.accountType && (
+              <p class="text-red-500 text-xs italic">{errors.accountType}</p>
+            )}
+          </div>
+        </div>
+        <div>
+        <button
+          type="submit"
+          className="text-white bg-[#7c38cd] hover:bg-[#8244cf] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Register
+        </button>
+        </div>
+        
       </form>
     </div>
   );

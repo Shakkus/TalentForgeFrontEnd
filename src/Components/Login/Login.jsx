@@ -1,86 +1,64 @@
-
-import { useForm } from 'react-hook-form'
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import "./Login.css";
 import { useAuth } from "../../context/authContext.js";
-import { useEffect } from "react";
-
-
-
+import axios from "axios";
+import "./Login.css"
 
 const Login = () => {
-    const { user } = useAuth();
+  const navigate = useNavigate();
+  const { logginWhitGoogle, logginWhitTwitter, user } = useAuth();
+  const [errors, setErrors] = useState();
+  const [loginInfo, setLoginInfo] = useState({
+    username: "",
+    password: "",
+  });
 
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-	} = useForm();
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setLoginInfo({ ...loginInfo, [name]: value });
+  };
 
-	const [userData, setUserData] = useState({
-		nameLastname: "",
-		Email: "",
-		Password: "",
-	});
+  const tokenInfoSetter = (data) => {
+    localStorage.setItem('userAccountType', data.accountType);
+    localStorage.setItem('userCountry', data.country);
+    localStorage.setItem('userDate', data.dateOfBirth);
+    localStorage.setItem('userDesc', data.description);
+    localStorage.setItem('userEmail', data.email);
+    localStorage.setItem('userfullName', data.fullName);
+    localStorage.setItem('userImage', data.profileImage);
+    localStorage.setItem('userId', data.userId);
+    localStorage.setItem('username', data.username);
+  };
 
-	const navigate = useNavigate();
-
-    const [error, setError] = useState();
-
-	const { logIn, logginWhitGoogle, logginWhitTwitter } = useAuth();
-
-	const handleChange = ({ target: { name, value } }) => {
-		setUserData({ ...userData, [name]: value });
-		//console.log(event.target.nameLastname)
-	};
-
-	const handleSubmitAuth = async (event) => {
-		event.preventDefault();
-		setError("");
-		try {
-			await logIn(userData.Email, userData.Password);
-			const currentUser = user.accessToken;
-
-			if (user && currentUser) {
-				const idToken = await currentUser;
-				localStorage.setItem("loggedUser", idToken);
-				console.log("Token almacenado en localStorage", idToken);
-                navigate("/home");
-			}
-		} catch (error) {
-			//  console.log(error.code)
-			setError(error.code);
-			if (
-				error.code === "auth/user-not-found" ||
-				error.code === "auth/invalid-email"
-			) {
-				setError("Invalid Email");
-			} else if (error.code === "auth/wrong-password") {
-				setError("Invalid password");
-			}
-		}
-		console.log(user);
-	};
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const { data } = await axios.post('https://talent-forge-data.cyclic.app/login/', loginInfo);
+    tokenInfoSetter(data);
+    setLoginInfo({
+      username: "",
+      password: "",
+    });
+    navigate("/home");
+  };
 
 	const handleAuthGoogle = async () => {
-		try {
-			await logginWhitGoogle();
-			const currentUser = user.accessToken;
-
-			if (user && currentUser) {
-				const idToken = await currentUser;
+    try {
+      await logginWhitGoogle();
+      if (user) {
+        const currentUser = user.accessToken;
+        console.log(currentUser);
+        const idToken = user.accessToken;
 				localStorage.setItem("loggedUser", idToken);
-				console.log("Token almacenado en localStorage", idToken);
-                navigate("/home");
-            } 
+				console.log("Token almacenado en localStorage");
+            }
+      navigate("/home"); 
 		} catch (error) {
-			setError(error.code);
+			setErrors(error.code);
 			if (
 				error.code === "auth/popup-closed-by-user" ||
 				error.code === "auth/cancelled-popup-request"
 			) {
-				setError("Login cancelled");
+				setErrors("Login cancelled");
 			}
 		}
 	};
@@ -97,61 +75,110 @@ const Login = () => {
                 navigate("/home");
             }
 		} catch (error) {
-			setError(error.code);
+			setErrors(error.code);
 			if (
 				error.code === "auth/popup-closed-by-user" ||
 				error.code === "auth/cancelled-popup-request"
 			) {
-				setError("Login cancelled");
+				setErrors("Login cancelled");
 			}
 		}
 	};
 
-    return (
-        <div className="login mt-48">
-          <h1>Account Login</h1>
-          <div className="continueWith">
-            <div className="continueWithGoogle">
-              <button className="text-black" onClick={handleAuthGoogle} >Continue with</button>
-    
-              <img src="image 109.png" alt="" />
-            </div>
-            <div className="continueWithGmail">
-              <button className="text-black" onClick={handleAuthGoogle} >Continue with</button>
-              <img src="image 87.png" alt="" />
-            </div>
-    
-            <div className="continueWithTwitter">
-              <button onClick={handleAuthTwitter} className="text-black">Continue with</button>
-              <img src="image 88.png" alt="" />
-            </div>
-          </div>
-    
-          {error && <p>{error}</p>}
-          <form onSubmit={handleSubmitAuth}>
-            <div className="formContainer">
-              <div className="inputName">
-                <label htmlFor="">Email</label>
-                <input type="text" id='email' className='inputText text-black' name="Email"
-                  {...register('Email', { required: true })} onChange={handleChange} />
-                {errors.email?.type === 'required' &&
-                  (<p className='emailError'>Campo requerido</p>)}
-              </div>
-              <div className="inputPassword">
-                <label htmlFor="">Password</label>
-                <input type="text" id='password' className='inputText text-black' name="Name"
-                  {...register('Password', { required: true })} onChange={handleChange} />
-                {errors.password?.type === 'required' &&
-                  (<p className='passwordError'>Campo requerido</p>)}
-              </div>
-              <div>
-    
-                <input type="submit" value="Submit" className="buttonSubmit bg-violet-500" />
-    
-              </div>
-            </div>
-          </form>
+  return (
+    <div id="form">
+      <div className="flex flex-col items-center">
+        <h2 className="text-2xl font-bold mb-4 text-[#7c38cd]">
+          Sign in with:
+        </h2>
+        <div className="flex justify-center space-x-4">
+          <img
+            src="image 109.png"
+            alt="Google"
+            className="h-8 cursor-pointer"
+            onClick={handleAuthGoogle}
+          />
+          <img
+            src="image 88.png"
+            alt="Twitter"
+            className="h-8 cursor-pointer"
+            onClick={handleAuthTwitter}
+          />
+          <img
+            src="image 87.png"
+            alt="Gmail"
+            className="h-8 cursor-pointer"
+            onClick={handleAuthGoogle}
+          />
         </div>
-      );
-}
+      </div>
+
+      {errors && <p className="text-red-500">{errors}</p>}
+
+      <form onSubmit={handleSubmit}>
+        <div className="mb-6" id="login">
+          <label
+            htmlFor="username"
+            className="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2"
+          >
+            Your username
+          </label>
+          <input
+            type="text"
+            id="username"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Username"
+            required
+            name="username"
+            value={loginInfo.username}
+            onChange={handleChange}
+          />
+          {errors && <p className="text-red-500">Campo requerido</p>}
+        </div>
+        <div className="mb-6">
+          <label
+            htmlFor="password"
+            className="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2"
+          >
+            Your password
+          </label>
+          <input
+            placeholder="Password123"
+            type="password"
+            id="password"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            required
+            name="password"
+            value={loginInfo.password}
+            onChange={handleChange}
+          />
+          {errors && <p className="text-red-500">Campo requerido</p>}
+        </div>
+        <div className="flex items-start mb-6">
+          <div className="flex items-center h-5">
+            <input
+              id="remember"
+              type="checkbox"
+              value=""
+              className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+            />
+          </div>
+          <label
+            htmlFor="remember"
+            className="ml-2 text-sm font-medium text-[#7c38cd] dark:text-gray-300"
+          >
+            Remember me
+          </label>
+        </div>
+        <button
+          type="submit"
+          className="text-white bg-[#7c38cd] hover:bg-[#8244cf] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Login
+        </button>
+      </form>
+    </div>
+  );
+};
+
 export default Login;
