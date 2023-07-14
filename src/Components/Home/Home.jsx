@@ -20,6 +20,13 @@ const Home = () => {
     getCourses();
   }, []);
 
+  // VALIDACION DE USUARIO LOGEADO
+  useEffect(() => {
+    const loggedUser = localStorage.getItem("loggedUser");
+    if (!loggedUser) navigate("/login");
+  }, []);
+  // -----------------------------
+
   const getCourses = async () => {
     try {
       const { data } = await axios.get(
@@ -37,9 +44,26 @@ const Home = () => {
     setFilteredCourses(filteredCourses);
   };
 
-  /*LOGICA PARA LLEVAR CURSOS AL LOCALSTORAGE*/
+  const handleLogOut = async () => {
+    try {
+      await logOut();
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // VERIFICACION SESION INICIADA
+
+  useEffect(() => {
+    const loggedUser = localStorage.getItem("loggedUser");
+    if (!loggedUser) navigate("/login");
+  }, []);
+
+  // --------------
+
+  let cartCourses = [];
   const addCourseToCart = (course) => {
-    let cartCourses = [];
     const existingCourses = localStorage.getItem("cartCourses");
     if (existingCourses) {
       cartCourses = JSON.parse(existingCourses);
@@ -60,6 +84,7 @@ const Home = () => {
   }
   return (
     <div className="home">
+      <img src={localStorage.getItem("userImage")} alt="" />
       <CourseFilter courses={courses} onFilter={handleFilter} />
       <div className="container mx-auto px-5 py-2 lg:px-32 lg:pt-12">
         <div className="-mx-2 flex flex-wrap">
