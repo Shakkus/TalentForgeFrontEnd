@@ -16,36 +16,45 @@ import Profile from "./Components/Profile/Profile";
 import Home from "./Components/Home/Home";
 import CourseDetail from "./Components/Course-Detail/CourseDetail";
 import TeachersDetail from "./Components/TeachersDetail/teachersDetail";
+import SucessRegister from "./Components/SucessRegister/SucessRegister";
+
+
+import { AuthProvider } from "./context/authContext.js";
+
 import CartPage from "./Components/CartPage/CartPage";
 import SuccessPayment from "./Components/CartPage/MercadoPago/SuccessPayment";
+
 
 function App() {
   const [searchResults, setSearchResults] = useState([]);
 
   return (
     <div className="App">
-      <SearchBar setSearchResults={setSearchResults} />
-      <Routes>
-        <Route path="/view/:id" element={<CourseViewer />} />
-        <Route path="/detail" element={<DetailCourses />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Form />} />
-        <Route path="/course/create" element={<CourseForm />} />
-        <Route path="/course/:id" element={<CourseDetail />} />
-        <Route path="/teacher/:id" element={<TeachersDetail />} />
-        <Route path="/presentation" element={<Landing />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/" element={<Landing />} />
-        <Route path="*" element={<NotFoundPage />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/cart" element={<CartPage />} />
-        <Route path="/cart/success" element={<SuccessPayment />} />
+      <AuthProvider>
+        <SearchBar setSearchResults={setSearchResults} />
+        <Routes>
+          <Route path="/view/:id" element={<CourseViewer />} />
+          <Route path="/detail" element={<DetailCourses />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Form />} />
+          <Route path="/course/create" element={<CourseForm />} />
+          <Route path="/course/:id" element={<CourseDetail />} />
+          <Route path="/teacher/:id" element={<TeachersDetail />} />
+          <Route path="/presentation" element={<Landing />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/" element={<Landing />} />
+          <Route path="*" element={<NotFoundPage />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/welcome" element={<SucessRegister />} />
+          <Route path="/cart/success" element={<SuccessPayment />} />
         <Route
-          path="/search"
-          element={<CourseResults searchResults={searchResults} />}
-        />
-      </Routes>
-      <Footer />
+            path="/search"
+            element={<CourseResults searchResults={searchResults} />}
+          />
+        </Routes>
+        <Footer />
+      </AuthProvider>
     </div>
   );
 }
