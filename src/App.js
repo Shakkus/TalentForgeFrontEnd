@@ -48,10 +48,7 @@ function App() {
           <Route path="/cart" element={<CartPage />} />
           <Route path="/welcome" element={<SucessRegister />} />
           <Route path="/cart/success" element={<SuccessPayment />} />
-        <Route
-            path="/search"
-            element={<CourseResults searchResults={searchResults} />}
-          />
+        <Route path="/search" element={<CourseResults searchResults={searchResults} />} />
         </Routes>
         <Footer />
       </AuthProvider>
