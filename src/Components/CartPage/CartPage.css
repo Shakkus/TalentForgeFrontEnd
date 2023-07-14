@@ -4,8 +4,14 @@
 
 .cartBuy {
     height: fit-content;
+    margin-top: 88px;
 }
 
 .CarritodeCompras{
     font-family: 'Lato';
+}
+
+.courseImage {
+    object-fit: contain;
+    aspect-ratio: 3/2;
 }

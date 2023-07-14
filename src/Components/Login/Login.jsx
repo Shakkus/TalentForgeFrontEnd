@@ -1,164 +1,164 @@
-
-import { useForm } from 'react-hook-form'
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import "./Login.css";
 import { useAuth } from "../../context/authContext.js";
-import { useEffect } from "react";
-import "./Login.css";
-// import { useFireBase } from "reactfire";
-
+import axios from "axios";
+import "./Login.css"
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { logginWhitGoogle, logginWhitTwitter } = useAuth();
+  const [errors, setErrors] = useState();
+  const [loginInfo, setLoginInfo] = useState({
+    username: "",
+    password: "",
+  });
 
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setLoginInfo({ ...loginInfo, [name]: value });
+  };
 
+  const tokenInfoSetter = (data) => {
+    localStorage.setItem('userAccountType', data.accountType);
+    localStorage.setItem('userCountry', data.country);
+    localStorage.setItem('userDate', data.dateOfBirth);
+    localStorage.setItem('userDesc', data.description);
+    localStorage.setItem('userEmail', data.email);
+    localStorage.setItem('userfullName', data.fullName);
+    localStorage.setItem('userImage', data.profileImage);
+    localStorage.setItem('userId', data.userId);
+    localStorage.setItem('username', data.username);
+  };
 
-  const { register, handleSubmit, formState: { errors } } = useForm();
-
-  const [user, setUser] = useState({
-    nameLastname: "",
-    Email: "",
-    Password: ""
-
-  })
-  //  const firebase = useFireBase();
-  const navigate = useNavigate()
-
-  const [error, setError] = useState()
-
-  const { logIn, logginWhitGoogle, logginWhitTwitter } = useAuth()
-
-  const handleChange = ({ target: { name, value } }) => {
-
-    setUser({ ...user, [name]: value })
-    //console.log(event.target.nameLastname)
-  }
-
-  const handleSubmitAuth = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    setError("")
-    try {
-      await logIn(user.Email, user.Password)
-      navigate("/home")
-    } catch (error) {
-      //  console.log(error.code)
-      setError(error.code)
-      if (error.code === "auth/user-not-found"
-        || error.code === "auth/invalid-email") {
-        setError("Invalid Email")
-      } else if (error.code === "auth/wrong-password") {
-        setError("Invalid password")
-      }
-    }
-
-    console.log(user)
-  }
+    const { data } = await axios.post('https://talent-forge-data.cyclic.app/login/', loginInfo);
+    tokenInfoSetter(data);
+    setLoginInfo({
+      username: "",
+      password: "",
+    });
+    navigate("/home");
+  };
 
   const handleAuthGoogle = async () => {
     try {
-      await logginWhitGoogle()
-      navigate("/home")
-
+      await logginWhitGoogle();
+      navigate("/home");
     } catch (error) {
-      setError(error.code)
-      if (error.code === "auth/popup-closed-by-user"
-        || error.code === "auth/cancelled-popup-request") {
-        setError("Login cancelled")
+      setErrors(error.code);
+      if (error.code === "auth/popup-closed-by-user" || error.code === "auth/cancelled-popup-request") {
+        setErrors("Login cancelled");
       }
     }
-  }
+  };
 
   const handleAuthTwitter = async () => {
     try {
-      await logginWhitTwitter()
-      navigate("/home")
+      await logginWhitTwitter();
+      navigate("/home");
     } catch (error) {
-      setError(error.code)
-      if (error.code === "auth/popup-closed-by-user"
-        || error.code === "auth/cancelled-popup-request") {
-        setError("Login cancelled")
+      setErrors(error.code);
+      if (error.code === "auth/popup-closed-by-user" || error.code === "auth/cancelled-popup-request") {
+        setErrors("Login cancelled");
       }
-
     }
-  }
+  };
 
-
-  /*  useEffect(() => {
-      localStorage.removeItem("loggedUser");
-  
-      const logOut = firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-          navigate("/home");
-        }
-      });
-  
-      return () => logOut();
-    }, []);
-  
-  
-  */
-  /*  const onSubmit = async (data) => {
-      try {
-        const currentUser = firebase.auth().currentUser;
-  
-        if (currentUser) {
-          const idToken = await currentUser.getIdToken();
-          localStorage.setItem("loggedUser", idToken);
-          console.log("Token almacenado en localStorage", idToken);
-          navigate("/home");
-        } else {
-          console.log("No hay usuario autenticado");
-        }
-      } catch (error) {
-        console.log("Hubo un error" + error.message);
-      }
-    };
-  */
   return (
-    <div className="login mt-48">
-      <h1>Account Login</h1>
-      <div className="continueWith">
-        <div className="continueWithGoogle">
-          <button className="text-black" onClick={handleAuthGoogle} >Continue with</button>
-
-          <img src="image 109.png" alt="" />
-        </div>
-        <div className="continueWithGmail">
-          <button className="text-black" onClick={handleAuthGoogle} >Continue with</button>
-          <img src="image 87.png" alt="" />
-        </div>
-
-        <div className="continueWithTwitter">
-          <button onClick={handleAuthTwitter} className="text-black">Continue with</button>
-          <img src="image 88.png" alt="" />
+    <div id="form">
+      <div className="flex flex-col items-center">
+        <h2 className="text-2xl font-bold mb-4 text-[#7c38cd]">
+          Iniciar sesión con:
+        </h2>
+        <div className="flex justify-center space-x-4">
+          <img
+            src="image 109.png"
+            alt="Google"
+            className="h-8 cursor-pointer"
+            onClick={handleAuthGoogle}
+          />
+          <img
+            src="image 88.png"
+            alt="Twitter"
+            className="h-8 cursor-pointer"
+            onClick={handleAuthTwitter}
+          />
+          <img
+            src="image 87.png"
+            alt="Gmail"
+            className="h-8 cursor-pointer"
+            onClick={handleAuthGoogle}
+          />
         </div>
       </div>
 
-      {error && <p>{error}</p>}
-      <form onSubmit={handleSubmitAuth}>
-        <div className="formContainer">
-          <div className="inputName">
-            <label htmlFor="">Email</label>
-            <input type="text" id='email' className='inputText text-black' name="Email"
-              {...register('Email', { required: true })} onChange={handleChange} />
-            {errors.email?.type === 'required' &&
-              (<p className='emailError'>Campo requerido</p>)}
-          </div>
-          <div className="inputPassword">
-            <label htmlFor="">Password</label>
-            <input type="text" id='password' className='inputText text-black' name="Name"
-              {...register('Password', { required: true })} onChange={handleChange} />
-            {errors.password?.type === 'required' &&
-              (<p className='passwordError'>Campo requerido</p>)}
-          </div>
-          <div>
+      {errors && <p className="text-red-500">{errors}</p>}
 
-            <input type="submit" value="Submit" className="buttonSubmit bg-violet-500" />
-
-          </div>
+      <form onSubmit={handleSubmit}>
+        <div className="mb-6" id="login">
+          <label
+            htmlFor="username"
+            className="block mb-2 text-sm font-medium text-[#7c38cd] dark:text-#8244cf"
+          >
+            Your username
+          </label>
+          <input
+            type="text"
+            id="username"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="name@flowbite.com"
+            required
+            name="username"
+            value={loginInfo.username}
+            onChange={handleChange}
+          />
+          {errors && <p className="text-red-500">Campo requerido</p>}
         </div>
+        <div className="mb-6">
+          <label
+            htmlFor="password"
+            className="block mb-2 text-sm font-medium text-[#7c38cd] dark:text-white"
+          >
+            Your password
+          </label>
+          <input
+            placeholder="Password123"
+            type="password"
+            id="password"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            required
+            name="password"
+            value={loginInfo.password}
+            onChange={handleChange}
+          />
+          {errors && <p className="text-red-500">Campo requerido</p>}
+        </div>
+        <div className="flex items-start mb-6">
+          <div className="flex items-center h-5">
+            <input
+              id="remember"
+              type="checkbox"
+              value=""
+              className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+            />
+          </div>
+          <label
+            htmlFor="remember"
+            className="ml-2 text-sm font-medium text-[#7c38cd] dark:text-gray-300"
+          >
+            Remember me
+          </label>
+        </div>
+        <button
+          type="submit"
+          className="text-white bg-[#7c38cd] hover:bg-[#8244cf] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Enviar
+        </button>
       </form>
     </div>
   );
-}
+};
+
 export default Login;

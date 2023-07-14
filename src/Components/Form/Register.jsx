@@ -1,145 +1,71 @@
-import { useEffect, useState, } from "react";
-import "./Register.css";
-import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext.js";
+import { useState } from "react";
+import axios from "axios";
+import { validate } from "./validate";
+import "./Register.css";
 
 
 const Form = () => {
-  const [days, setDays] = useState([]);
-  const [months, setMonths] = useState([]);
-  const [years, setYears] = useState([]);
-  const [user, setUser] = useState({
-    nameLastname: "",
-    Email: "",
-    Password: ""
-
-  })
-
-
   const navigate = useNavigate()
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    getValues,
-  } = useForm();
 
-
-  const countrys = [
-    "Argentina  🇦🇷",
-    "Chile 🇨🇱",
-    "Brasil 🇧🇷",
-    "Venezuela 🇻🇪",
-    "Bolivia 🇧🇴",
-    "Perú 🇵🇪",
-    "Colombia 🇨🇴",
-    "Ecuador 🇪🇨",
-    "México 🇲🇽",
-    "El Salvador 🇸🇻",
-    "Honduras 🇭🇳",
-    "España 🇪🇸",
-    "Panamá 🇵🇦",
-    "Cuba 🇨🇺",
-    "Costa Rica 🇨🇷",
-    "Uruguay 🇺🇾",
-  ];
-
-  const daysInMonth = {
-    Enero: 31,
-    Febrero: 28,
-    Marzo: 31,
-    Abril: 30,
-    Mayo: 31,
-    Junio: 30,
-    Julio: 31,
-    Agosto: 31,
-    Septiembre: 30,
-    Octubre: 31,
-    Noviembre: 30,
-    Diciembre: 31,
-  };
-
-  const [error, setError] = useState()
-
-  useEffect(() => {
-    const monthsArray = Object.keys(daysInMonth);
-    setMonths(monthsArray);
-
-    const currentYear = new Date().getFullYear();
-    const yearsArray = Array.from(
-      { length: currentYear - 1900 + 1 },
-      (_, index) => currentYear - index
-    );
-    setYears(yearsArray);
-
-    const currentMonth = monthsArray[new Date().getMonth()];
-    generateDays(currentMonth); // Agregar esta línea para establecer los días correspondientes al mes actual
-  }, []);
-
-  const { singUp, logginWhitGoogle, logginWhitTwitter } = useAuth()
-
-
-  const generateDays = (selectedMonth) => {
-    const daysCount = daysInMonth[selectedMonth];
-    const daysArray = Array.from(
-      { length: daysCount },
-      (_, index) => index + 1
-    );
-    setDays(daysArray);
-  };
-
-  const handleMonthChange = (event) => {
-    const selectedMonth = event.target.value;
-    generateDays(selectedMonth);
-  };
-
-  const handleChange = ({ target: { name, value } }) => {
-
-    setUser({ ...user, [name]: value })
-    //console.log(event.target.nameLastname)
-  }
-
-
-
-  const onSubmit = (data) => {
-    const { Password, Confirmpassword } = data;
-    if (Password !== Confirmpassword) {
-      return; // No se envía el formulario si la confirmación no coincide
-    }
-
-  };
-  const handleSubmitAuth = async (event) => {
+  const { logginWhitGoogle, logginWhitTwitter} = useAuth()
+  const [errors, setErrors] = useState({});
+  const [input, setInput] = useState({
+    fullName: "",
+    username: "",
+    email: "",
+    country: "",
+    dateOfBirth: "",
+    password: "",
+    confirmPass: "",
+    accountType: "",
+    registerWith: ""
+  });
+  
+  const countrys = ["Argentina", "Chile", "Brasil", "Venezuela", "Bolivia", "Perú",  "Colombia",  "Ecuador",  "México",  "El Salvador",  "Honduras",  "España",  "Panamá",  "Cuba",  "Costa Rica",  "Uruguay",  "Estados Unidos",  "España",  "Alemania",  "Reino Unido",  "Alemania",  "Francia",  "Italia",  "Canadá", "Rusia"];
+  
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    setError("")
-    try {
-      await singUp(user.Email, user.Password)
-      navigate("/welcome")
-    } catch (error) {
-      //  console.log(error.code)
-      setError(error.code)
-      if (error.code === "auth/weak-password") {
-        setError("Invalid password")
-      } else if (error.code === "auth/invalid-email") {
-        setError("Invalid Email")
-      } else if (error.code === "auth/email-already-in-use") {
-        setError("Email already in use")
-      }
+    const formErrors = validate(input);
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+      return;
     }
 
-    console.log(user)
-  }
+    await axios.post('https://talent-forge-data.cyclic.app/user/', input);
+    navigate("/welcome")
+    setInput({
+      fullName: "",
+      username: "",
+      email: "",
+      country: "",
+      dateOfBirth: "",
+      password: "",
+      confirmPass: "",
+      accountType: "",
+      registerWith: ""
+      });
+    };
+
+    const handleChange = (event) => {
+      const { name, value } = event.target;
+      setInput({ ...input, [name]: value });
+      setErrors({
+        ...errors,
+        [name]: validate({ ...input, [name]: value })[name],
+      });
+    };
 
   const handleAuthGoogle = async () => {
     try {
       await logginWhitGoogle()
       navigate("/welcome")
-
     } catch (error) {
-      setError(error.code)
+      setErrors(error.code)
       if (error.code === "auth/popup-closed-by-user"
         || error.code === "auth/cancelled-popup-request") {
-        setError("Login cancelled")
+        setErrors("Login cancelled")
       }
     }
   }
@@ -149,16 +75,13 @@ const Form = () => {
       await logginWhitTwitter()
       navigate("/welcome")
     } catch (error) {
-      setError(error.code)
+      setErrors(error.code)
       if (error.code === "auth/popup-closed-by-user"
         || error.code === "auth/cancelled-popup-request") {
-        setError("Login cancelled")
+        setErrors("Login cancelled")
       }
-
     }
   }
-
-
 
   return (
     <div className="form">
@@ -180,193 +103,67 @@ const Form = () => {
         </div>
       </div>
 
-
-      {error && <p>{error}</p>}
-      <form onSubmit={handleSubmitAuth}>
+      <form  onSubmit={handleSubmit}>
         <div className="formContainer">
+
           <div className="inputNameLastname">
-            <label htmlFor="">Name & lastname</label>
-            <input
-              className="inputText"
-              name="nameLastname"
-              type="text"
-              {...register("nameLastname", {
-                required: true,
-                maxLength: 40,
-                minLength: 8,
-              })}
-              onChange={handleChange}
-            />
-            {errors.nameLastname?.type === "required" && (
-              <p>Este campo es requerido</p>
-            )}
-            {errors.nameLastname?.type === "maxLength" && (
-              <p>El nombre y apellido no puede tener mas de 40 caracteres</p>
-            )}
-            {errors.nameLastname?.type === "minLength" && (
-              <p>El nombre y apellido no puede tener menos de 8 caracteres</p>
-            )}
+            <label htmlFor="">Full Name</label>
+            <input className="inputText" type="text" name="fullName" value={input.fullName} onChange={handleChange} placeholder="type full name..."/>
+            {errors.fullName && (<span style={{ color: "red" }}> {errors.fullName}</span>)}
           </div>
+
           <div className="inputEmail">
             <label htmlFor="">Email</label>
-            <input
-              className="inputText"
-              name="Email"
-              type="text"
-              {...register("Email", {
-                required: true,
-                maxLength: 35,
-                minLength: 10,
-                pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/i,
-              })}
-
-              onChange={handleChange}
-            />
-            {errors.email?.type === "required" && (
-              <p>Este campo es requerido</p>
-            )}
-            {errors.email?.type === "maxLength" && (
-              <p>El email no debe tener menos de 35 caracteres</p>
-            )}
-            {errors.email?.type === "minLength" && (
-              <p>El email debe tener mas de 10 caracteres</p>
-            )}
-            {errors.email?.type === "pattern" && (
-              <p>El formato del email no es válido</p>
-            )}
+            <input className="inputText" type="text" name="email" value={input.email} onChange={handleChange} placeholder="example@gmail.com"/>
+            {errors.email && (<span style={{ color: "red" }}> {errors.email}</span>)}
           </div>
+
+          <div className="inputNameLastname">
+            <label htmlFor="">Username</label>
+            <input className="inputText" type="text" name="username" value={input.username} onChange={handleChange} placeholder="@"/>
+            {errors.username && (<span style={{ color: "red" }}> {errors.username}</span>)}
+          </div>
+
           <div className="inputCountry">
             <label htmlFor="">Country</label>
-            <select
-              name=""
-              className="inputSelect"
-              {...register("Country", {
-                required: true,
-              })}
-            >
-              {countrys.map((country) => (
-                <option className="optionCountry" value={country}>
-                  {country}
-                </option>
-              ))}
+            <select className="inputSelect" name="country" value={input.country} onChange={handleChange}>
+              {countrys.map((country) => ( <option className="optionCountry" value={country}> {country} </option> ))}
             </select>
+            {errors.country && (<span style={{ color: "red" }}> {errors.country}</span>)}
           </div>
-          <label htmlFor="">Date of birth</label> <br />
-          <div className="inputDateOfBorn">
-            <div>
-              <label className="inputDateOfBornLabel" htmlFor="month">
-                Month
-              </label>
-              <select
-                className="inputSelect"
-                name="month"
-                id="month"
-                onChange={handleMonthChange}
-                {...register("Date of birth month", {
-                  required: true,
-                })}
-              >
-                {months.map((month) => (
-                  <option key={month} value={month}>
-                    {month}
-                  </option>
-                ))}
-              </select>
-              {errors.month?.type === "required" && <p>El mes es requerido</p>}
-            </div>
-            <div>
-              <label className="inputDateOfBornLabel" htmlFor="day">
-                Day
-              </label>
-              <select
-                name="day"
-                id="day"
-                className="inputSelect"
-                {...register("Date of birth day", {
-                  required: true,
-                })}
-              >
-                {days.map((day) => (
-                  <option key={day} value={day}>
-                    {day}
-                  </option>
-                ))}
-              </select>
-              {errors.day?.type === "required" && <p>El día es requerido</p>}
-            </div>
-
-            <div>
-              <label className="inputDateOfBornLabel" htmlFor="year">
-                Year
-              </label>
-              <select
-                className="inputSelect"
-                name="year"
-                id="year"
-                {...register("Date of birth year", {
-                  required: true,
-                })}
-              >
-                {years.map((year) => (
-                  <option key={year} value={year}>
-                    {year}
-                  </option>
-                ))}
-              </select>
-              {errors.year?.type === "required" && <p>El año es requerido</p>}
-            </div>
+          
+          <div className="inputPassword">
+            <label htmlFor="">dateOfBirth</label>
+            <input className="inputText" type="dateOfBirth" name="dateOfBirth" value={input.dateOfBirth} onChange={handleChange} placeholder="xx/xx/xxxx"/>
+            {errors.dateOfBirth && (<span style={{ color: "red" }}> {errors.dateOfBirth}</span>)}
           </div>
+          
           <div className="inputPassword">
             <label htmlFor="">Password</label>
-            <input
-              className="inputText"
-              name="Password"
-              type="password"
-              {...register("Password", {
-                required: true,
-                maxLength: 20,
-                minLength: 5,
-                pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{5,20}$/,
-              })}
-              onChange={handleChange}
-            />
-            {errors.Password?.type === "required" && (
-              <p>Este campo es requerido</p>
-            )}
-            {errors.Password?.type === "maxLength" && (
-              <p>La contraseña debe tener menos de 20 caracteres</p>
-            )}
-            {errors.Password?.type === "minLength" && (
-              <p>La contraseña debe tener mas de 5 caracteres</p>
-            )}
-            {errors.Password?.type === "pattern" && (
-              <p>
-                Debe contener al menos una mayúscula, una minúscula y un número
-              </p>
-            )}
+            <input className="inputText" type="password" name="password" value={input.password} onChange={handleChange} placeholder="type password..."/>
+            {errors.title && (<span style={{ color: "red" }}> {errors.title}</span>)}
           </div>
+
           <div className="inputConfirmPassword">
             <label htmlFor="">Confirm Password</label>
-            <input
-              className="inputText"
-              name="Password"
-              type="password"
-              {...register("Confirmpassword", {
-                required: true,
-              })}
-              onChange={handleChange}
-            />
-            {errors.Confirmpassword?.type === "required" && (
-              <p>Este campo es requerido</p>
-            )}
-            {getValues("Password") !== getValues("Confirmpassword") && (
-              <p>La confirmación de contraseña no coincide</p>
-            )}
+            <input className="inputText" type="password" name="confirmPass" value={input.confirmPass} onChange={handleChange} placeholder="type confirmation..."/>
+            {errors.confirmPass && (<span style={{ color: "red" }}> {errors.confirmPass}</span>)}
           </div>
-          <div>
-            <input type="submit" value="Submit" className="buttonSubmit" />
 
+          <div className="inputAccType">
+            <label htmlFor="">Account Type</label>
+            <select className="inputSelect" name="accountType" value={input.accountType} onChange={handleChange}>
+                <option value="">SELECT</option>
+								<option value="user">User</option>
+								<option value="teacher">Teacher</option>
+            </select>
+            {errors.accountType && (<span style={{ color: "red" }}> {errors.accountType}</span>)}
           </div>
+
+          <div>
+              <button type="submit" className="buttonSubmit"/>
+          </div>
+
         </div>
       </form>
     </div>
