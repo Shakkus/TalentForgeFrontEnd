@@ -1,3 +1,49 @@
+/* COMENTARIOS */
+.mainContainer {
+	border: 2px solid red;
+	width: 60vw;
+	padding-bottom: 20px;
+	margin-left: 2vw;
+	margin-bottom: 20px;
+	background-color: #e7e7e7;
+	border-radius: 18px;
+	padding: 20px;
+}
+
+.comment-input {
+	background-color: white;
+	color: black;
+	border-radius: 0.25rem;
+	padding-left: 10px;
+	padding-right: 4px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	width: 50vw;
+  	min-height: 30px; 
+  	max-height: 200px; 
+  }
+
+input[type=radio] {
+	display: none;
+}
+
+.stars {
+    cursor: pointer;
+}
+/* ----------- */
+
+/* RATING */
+
+.rating-container {
+	border: 2px solid red;
+	display: flex;
+	flex-direction: row;
+	width:200px;
+	margin: 0 40px 10px 0;
+}
+/* ------ */
+
+
 .course-viewer {
 	padding-top: 80px;
 	display: flex;
@@ -84,12 +130,14 @@ iframe {
 }
 
 .buttons-container {
-	/* border: 1px solid rgb(15, 90, 37); */
+	border: 1px solid rgb(15, 90, 37);
 	align-items: center;
-	width: 30vw;
+	width: auto;
 	height: 62px;
-	padding-left: 27%;
+	padding-left: 20%;
 	padding-top: 10px;
+	display: flex;
+	flex-direction: row;
 	/* margin-top: 15px; */
 }
 

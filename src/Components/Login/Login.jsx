@@ -42,7 +42,7 @@ const Login = () => {
 			await logIn(userData.Email, userData.Password);
 			const currentUser = user.accessToken;
 
-			if (currentUser) {
+			if (user && currentUser) {
 				const idToken = await currentUser;
 				localStorage.setItem("loggedUser", idToken);
 				console.log("Token almacenado en localStorage", idToken);
@@ -66,7 +66,14 @@ const Login = () => {
 	const handleAuthGoogle = async () => {
 		try {
 			await logginWhitGoogle();
-			navigate("/home");
+			const currentUser = user.accessToken;
+
+			if (user && currentUser) {
+				const idToken = await currentUser;
+				localStorage.setItem("loggedUser", idToken);
+				console.log("Token almacenado en localStorage", idToken);
+                navigate("/home");
+            } 
 		} catch (error) {
 			setError(error.code);
 			if (
@@ -81,7 +88,14 @@ const Login = () => {
 	const handleAuthTwitter = async () => {
 		try {
 			await logginWhitTwitter();
-			navigate("/home");
+			const currentUser = user.accessToken;
+
+			if (user && currentUser) {
+				const idToken = await currentUser;
+				localStorage.setItem("loggedUser", idToken);
+				console.log("Token almacenado en localStorage", idToken);
+                navigate("/home");
+            }
 		} catch (error) {
 			setError(error.code);
 			if (
