@@ -69,7 +69,7 @@ const Login = () => {
     <div id="form">
       <div className="flex flex-col items-center">
         <h2 className="text-2xl font-bold mb-4 text-[#7c38cd]">
-          Iniciar sesión con:
+          Sign in with:
         </h2>
         <div className="flex justify-center space-x-4">
           <img
@@ -99,7 +99,7 @@ const Login = () => {
         <div className="mb-6" id="login">
           <label
             htmlFor="username"
-            className="block mb-2 text-sm font-medium text-[#7c38cd] dark:text-#8244cf"
+            className="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2"
           >
             Your username
           </label>
@@ -107,7 +107,7 @@ const Login = () => {
             type="text"
             id="username"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="name@flowbite.com"
+            placeholder="Username"
             required
             name="username"
             value={loginInfo.username}
@@ -118,7 +118,7 @@ const Login = () => {
         <div className="mb-6">
           <label
             htmlFor="password"
-            className="block mb-2 text-sm font-medium text-[#7c38cd] dark:text-white"
+            className="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2"
           >
             Your password
           </label>
@@ -154,7 +154,7 @@ const Login = () => {
           type="submit"
           className="text-white bg-[#7c38cd] hover:bg-[#8244cf] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
-          Enviar
+          Login
         </button>
       </form>
     </div>
