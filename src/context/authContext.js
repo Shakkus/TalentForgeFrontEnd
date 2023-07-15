@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
     onAuthStateChanged(auth, currentUser => {
       setUser(currentUser)
       setLoading(false)
-      localStorage.setItem('loggedUser', user.accessToken)
+      // {user && localStorage.setItem('loggedUser', user.accessToken)}
     })
   }, [])
 

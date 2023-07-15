@@ -71,7 +71,7 @@ const SearchBar = ({ setSearchResults }) => {
       }
       
       await logOut();
-			localStorage.removeItem("loggedUser", "");
+			localStorage.setItem("loggedUser", "");
 			navigate("/");
 
 		} catch (error) {
@@ -133,7 +133,7 @@ const SearchBar = ({ setSearchResults }) => {
   }, [location]);
 
   useEffect(() => {
-    user  ? console.log(user):console.log('no hay user');
+    // user  ? console.log(user):console.log('no hay user');
     if (userLoggedIn) setIsLoggedIn(true);
     else setIsLoggedIn(false);
   }, [user]);

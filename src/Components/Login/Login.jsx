@@ -45,13 +45,12 @@ const Login = () => {
     try {
       await logginWhitGoogle();
       if (user) {
-        const currentUser = user.accessToken;
-        console.log(currentUser);
-        const idToken = user.accessToken;
+        console.log(user);
+				const idToken = await user.accessToken;
 				localStorage.setItem("loggedUser", idToken);
-				console.log("Token almacenado en localStorage");
-            }
-      navigate("/home"); 
+				// console.log("Token almacenado en localStorage", idToken);
+        navigate("/home");
+      }
 		} catch (error) {
 			setErrors(error.code);
 			if (
@@ -66,14 +65,15 @@ const Login = () => {
 	const handleAuthTwitter = async () => {
 		try {
 			await logginWhitTwitter();
-			const currentUser = user.accessToken;
-
-			if (user && currentUser) {
-				const idToken = await currentUser;
-				localStorage.setItem("loggedUser", idToken);
-				console.log("Token almacenado en localStorage", idToken);
-                navigate("/home");
-            }
+      
+      {user && localStorage.setItem('loggedUser', user.accessToken)}
+			// if (user) {
+			// 	const idToken = await user.accessToken;
+			// 	localStorage.setItem("loggedUser", idToken);
+			// 	console.log("Token almacenado en localStorage", idToken);
+        // navigate("/home");
+      // }
+      console.log('se redirigio');
 		} catch (error) {
 			setErrors(error.code);
 			if (
