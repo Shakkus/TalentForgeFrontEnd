@@ -8,6 +8,7 @@ const Login = () => {
   const navigate = useNavigate();
   const { logginWhitGoogle, logginWhitTwitter, user } = useAuth();
   const [errors, setErrors] = useState();
+  const [inputError, setInputError] = useState("")
   const [loginInfo, setLoginInfo] = useState({
     username: "",
     password: "",
@@ -32,23 +33,26 @@ const Login = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const { data } = await axios.post('https://talent-forge-data.cyclic.app/login/', loginInfo);
-    tokenInfoSetter(data);
-    setLoginInfo({
-      username: "",
-      password: "",
-    });
-    navigate("/home");
+    try{
+      const { data } = await axios.post('https://talent-forge-data.cyclic.app/login/', loginInfo);
+      tokenInfoSetter(data);
+      setLoginInfo({
+        username: "",
+        password: "",
+      });
+      navigate("/home");
+    } catch (error){
+      setInputError('Usuario o contraseña incorrecta')
+    }
+
   };
 
 	const handleAuthGoogle = async () => {
     try {
       await logginWhitGoogle();
       if (user) {
-        console.log(user);
 				const idToken = await user.accessToken;
 				localStorage.setItem("loggedUser", idToken);
-				// console.log("Token almacenado en localStorage", idToken);
         navigate("/home");
       }
 		} catch (error) {
@@ -65,15 +69,11 @@ const Login = () => {
 	const handleAuthTwitter = async () => {
 		try {
 			await logginWhitTwitter();
-      
-      {user && localStorage.setItem('loggedUser', user.accessToken)}
-			// if (user) {
-			// 	const idToken = await user.accessToken;
-			// 	localStorage.setItem("loggedUser", idToken);
-			// 	console.log("Token almacenado en localStorage", idToken);
-        // navigate("/home");
-      // }
-      console.log('se redirigio');
+      if (user) {
+				const idToken = await user.accessToken;
+				localStorage.setItem("loggedUser", idToken);
+        navigate("/home");
+      }
 		} catch (error) {
 			setErrors(error.code);
 			if (
@@ -176,6 +176,7 @@ const Login = () => {
         >
           Login
         </button>
+        {inputError && <p className="text-red-500">{inputError}</p>}
       </form>
     </div>
   );

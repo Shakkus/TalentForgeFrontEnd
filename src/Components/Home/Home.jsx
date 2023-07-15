@@ -22,10 +22,11 @@ const Home = () => {
 
   // VALIDACION DE USUARIO LOGEADO
   useEffect(() => {
-    const loggedUser = localStorage.getItem("loggedUser")
-    const loggedFormUser = localStorage.getItem("username")
-    if (!loggedUser && !loggedFormUser) navigate("/login") 
-  }, [navigate]);
+    if (localStorage.getItem("loggedUser")) navigate('/home')
+    else if (localStorage.getItem("username")) navigate('/home')
+    else if (!localStorage.getItem("username")) navigate('/login')
+    else if (!localStorage.getItem("loggedUser")) navigate('/login')
+  }, [navigate]); 
   // -----------------------------
 
   const getCourses = async () => {
