@@ -120,7 +120,8 @@ const CourseViewer = () => {
 
 	useEffect(() => {
 		const loggedUser = localStorage.getItem("loggedUser");
-		if (!loggedUser) navigate("/login");
+		const userId = localStorage.getItem('userId')
+		if (!userId) navigate("/login");
 	}, []);
 
 	// --------------
