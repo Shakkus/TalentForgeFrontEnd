@@ -4,6 +4,8 @@ import "./CourseViewer.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Comments from "./Comments";
+import Rating from "./Rating";
 
 const CourseViewer = () => {
 	const navigate = useNavigate();
@@ -152,6 +154,7 @@ const CourseViewer = () => {
 							</div>
 						</channel>
 						<div className="buttons-container">
+						<Rating />
 							<button
 								// type="button"
 								className="button"
@@ -172,6 +175,7 @@ const CourseViewer = () => {
 									/>
 								</svg>
 							</button>
+							
 							{/* ------------------ */}
 							<button className="button">
 								<svg
@@ -218,6 +222,7 @@ const CourseViewer = () => {
 						{/* <p>Price: {courseData.prize}</p> */}
 					</div>
 				</div>
+				<Comments />
 				{/* ------- */}
 			</div>
 

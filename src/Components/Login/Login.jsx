@@ -6,7 +6,7 @@ import "./Login.css"
 
 const Login = () => {
   const navigate = useNavigate();
-  const { logginWhitGoogle, logginWhitTwitter } = useAuth();
+  const { logginWhitGoogle, logginWhitTwitter, user } = useAuth();
   const [errors, setErrors] = useState();
   const [loginInfo, setLoginInfo] = useState({
     username: "",
@@ -41,29 +41,49 @@ const Login = () => {
     navigate("/home");
   };
 
-  const handleAuthGoogle = async () => {
+	const handleAuthGoogle = async () => {
     try {
       await logginWhitGoogle();
-      navigate("/home");
-    } catch (error) {
-      setErrors(error.code);
-      if (error.code === "auth/popup-closed-by-user" || error.code === "auth/cancelled-popup-request") {
-        setErrors("Login cancelled");
+      if (user) {
+        console.log(user);
+				const idToken = await user.accessToken;
+				localStorage.setItem("loggedUser", idToken);
+				// console.log("Token almacenado en localStorage", idToken);
+        navigate("/home");
       }
-    }
-  };
+		} catch (error) {
+			setErrors(error.code);
+			if (
+				error.code === "auth/popup-closed-by-user" ||
+				error.code === "auth/cancelled-popup-request"
+			) {
+				setErrors("Login cancelled");
+			}
+		}
+	};
 
-  const handleAuthTwitter = async () => {
-    try {
-      await logginWhitTwitter();
-      navigate("/home");
-    } catch (error) {
-      setErrors(error.code);
-      if (error.code === "auth/popup-closed-by-user" || error.code === "auth/cancelled-popup-request") {
-        setErrors("Login cancelled");
-      }
-    }
-  };
+	const handleAuthTwitter = async () => {
+		try {
+			await logginWhitTwitter();
+      
+      {user && localStorage.setItem('loggedUser', user.accessToken)}
+			// if (user) {
+			// 	const idToken = await user.accessToken;
+			// 	localStorage.setItem("loggedUser", idToken);
+			// 	console.log("Token almacenado en localStorage", idToken);
+        // navigate("/home");
+      // }
+      console.log('se redirigio');
+		} catch (error) {
+			setErrors(error.code);
+			if (
+				error.code === "auth/popup-closed-by-user" ||
+				error.code === "auth/cancelled-popup-request"
+			) {
+				setErrors("Login cancelled");
+			}
+		}
+	};
 
   return (
     <div id="form">

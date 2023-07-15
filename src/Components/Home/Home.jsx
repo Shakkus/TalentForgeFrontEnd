@@ -13,10 +13,11 @@ const Home = () => {
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [getting, setGetting] = useState(true); // Estado para controlar si se están cargando los cursos
 
-  const { logOut, loading } = useAuth();
+  const { logOut, loading, user } = useAuth();
 
   useEffect(() => {
     getCourses();
+    console.log(user)
   }, []);
 
   // VALIDACION DE USUARIO LOGEADO

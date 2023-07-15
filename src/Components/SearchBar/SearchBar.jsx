@@ -71,7 +71,7 @@ const SearchBar = ({ setSearchResults }) => {
       }
       
       await logOut();
-			localStorage.removeItem("loggedUser", "");
+			localStorage.setItem("loggedUser", "");
 			navigate("/");
 
 		} catch (error) {
@@ -88,6 +88,7 @@ const SearchBar = ({ setSearchResults }) => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isFormLoggedIn, setIsFormLoggedIn] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const userLoggedIn = localStorage.getItem('loggedUser')
 
 	//    CursosStates
 	const [showSubMenu, setShowSubMenu] = useState(false);
@@ -132,7 +133,8 @@ const SearchBar = ({ setSearchResults }) => {
   }, [location]);
 
   useEffect(() => {
-    if (user) setIsLoggedIn(true);
+    // user  ? console.log(user):console.log('no hay user');
+    if (userLoggedIn) setIsLoggedIn(true);
     else setIsLoggedIn(false);
   }, [user]);
 
@@ -174,7 +176,7 @@ const SearchBar = ({ setSearchResults }) => {
           </div>
 
           <div className="flex items-center">
-          {isLoggedIn ? (
+          {userLoggedIn ? (
             <>
               <Link to="/wishlist" className="text-white hover:text-gray-300 ml-6" >
                   <img className="h-6 filter-invert" id="icon" src={hearth} alt="hearth" />
@@ -196,7 +198,9 @@ const SearchBar = ({ setSearchResults }) => {
                 </Link>
 
                 <div className="relative">
-                  <img className="h-6 filter-invert cursor-pointer" src={profile} alt="profile" onClick={handleProfileMenuToggle} />
+                  {user ?
+                  <img className="h-6 filter-invert cursor-pointer" src={user.photoURL} alt="profile" onClick={handleProfileMenuToggle} />
+                : <img className="h-6 filter-invert cursor-pointer" src={profile} alt="profile" onClick={handleProfileMenuToggle} />}
 
                   {showProfileMenu && (
                     <div className="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 absolute right-0">
