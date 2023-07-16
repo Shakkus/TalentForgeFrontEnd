@@ -40,7 +40,7 @@ const CartPage = () => {
 
   const handleClick = async () => {
     setIsLoading(true);
-    await fetch("http://localhost:3001/cart/create_preference", {
+    await fetch("https://talent-forge-data.cyclic.app/cart/create_preference", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
