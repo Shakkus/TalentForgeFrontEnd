@@ -13,18 +13,20 @@ const Home = () => {
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [getting, setGetting] = useState(true); // Estado para controlar si se están cargando los cursos
 
-  const { logOut, loading } = useAuth();
+  const { logOut, loading, user } = useAuth();
 
   useEffect(() => {
     getCourses();
+    console.log(user)
   }, []);
 
   // VALIDACION DE USUARIO LOGEADO
   useEffect(() => {
-    const loggedUser = localStorage.getItem("loggedUser")
-    const loggedFormUser = localStorage.getItem("username")
-    if (!loggedUser && !loggedFormUser) navigate("/login") 
-  }, [navigate]);
+    if (localStorage.getItem("loggedUser")) navigate('/home')
+    else if (localStorage.getItem("username")) navigate('/home')
+    else if (!localStorage.getItem("username")) navigate('/login')
+    else if (!localStorage.getItem("loggedUser")) navigate('/login')
+  }, [navigate]); 
   // -----------------------------
 
   const getCourses = async () => {
