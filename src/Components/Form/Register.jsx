@@ -68,10 +68,7 @@ const Form = () => {
       setErrors(formErrors);
       return;
     }
-
-    await axios.post("https://talent-forge-data.cyclic.app/user/", input);
-    registerInfoGetter()
-    navigate("/welcome");
+  
     setInput({
       fullName: "",
       username: "",
@@ -83,7 +80,16 @@ const Form = () => {
       accountType: "",
       registerWith: ""
     });
-  };
+  
+    // Realizar la solicitud POST para registrar al usuario
+    await axios.post("https://talent-forge-data.cyclic.app/user/", input);
+  
+    // Obtener el correo electrónico y guardarlo en el almacenamiento local
+    await registerInfoGetter();
+  
+    // Navegar a la página de registro exitoso
+    navigate("/welcome");
+  };  
 
   const handleChange = (event) => {
     const { name, value } = event.target;
