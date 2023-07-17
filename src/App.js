@@ -1,7 +1,7 @@
 import "./App.css";
 
 import { useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Landing from "./Components/LandingPage/LandingPage";
 import Form from "./Components/Form/Register";
 import DetailCourses from "./Components/DetailCoursesProgramation/DetailCoursesProgramation";
@@ -18,20 +18,24 @@ import CourseDetail from "./Components/Course-Detail/CourseDetail";
 import TeachersDetail from "./Components/TeachersDetail/teachersDetail";
 import SucessRegister from "./Components/SucessRegister/SucessRegister";
 // import FriendList from "./Components/FriendList/FriendList";
-import StudentDetail from "./Components/StudentDetail/StudentDetail"
+import StudentDetail from "./Components/StudentDetail/StudentDetail";
 import { AuthProvider } from "./context/authContext.js";
 
 import CartPage from "./Components/CartPage/CartPage";
 import SuccessPayment from "./Components/CartPage/MercadoPago/SuccessPayment";
 
-
 function App() {
   const [searchResults, setSearchResults] = useState([]);
+  const location = useLocation();
+
+  const shouldRenderSearchBar = location.pathname !== "/cart/success";
 
   return (
     <div className="App">
       <AuthProvider>
-        <SearchBar setSearchResults={setSearchResults} />
+        {shouldRenderSearchBar && (
+          <SearchBar setSearchResults={setSearchResults} />
+        )}
         <Routes>
           <Route path="/view/:id" element={<CourseViewer />} />
           <Route path="/detail" element={<DetailCourses />} />
@@ -49,7 +53,10 @@ function App() {
           <Route path="/welcome" element={<SucessRegister />} />
           <Route path="/cart/success" element={<SuccessPayment />} />
           <Route path="/social/profile" element={<StudentDetail />} />
-        <Route path="/search" element={<CourseResults searchResults={searchResults} />} />
+          <Route
+            path="/search"
+            element={<CourseResults searchResults={searchResults} />}
+          />
         </Routes>
         <Footer />
       </AuthProvider>

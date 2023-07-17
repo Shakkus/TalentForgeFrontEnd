@@ -160,6 +160,7 @@ const CartPage = () => {
 
     window.location.reload();
   };
+
   console.log(courses);
   return (
     <div className="flex">
@@ -200,8 +201,7 @@ const CartPage = () => {
                     <h2 className="m-0 text-xl">{course.prize} US$</h2>
                     <button
                       className="inline p-4"
-                      onClick={() => removeCourse(course._id)}
-                    >
+                      onClick={() => removeCourse(course._id)}>
                       <FontAwesomeIcon
                         icon={faCircleXmark}
                         style={{ color: "", fontSize: "28px" }}
@@ -242,8 +242,7 @@ const CartPage = () => {
               />
               <button
                 className="bg-purple-700 rounded-lg ml-2 hover:bg-[#AA6FFF]"
-                onClick={applyDiscount}
-              >
+                onClick={applyDiscount}>
                 <h1 className="px-4 py-2 text-white font-semibold">Aply</h1>
               </button>
             </div>
@@ -254,18 +253,18 @@ const CartPage = () => {
                   isLoading,
                   orderData,
                   setOrderData,
-                }}
-              >
+                }}>
                 <main>
                   <button
                     className="bg-purple-700 rounded-lg hover:bg-[#AA6FFF]"
-                    onClick={handleClick}
-                  >
+                    onClick={handleClick}>
                     <h1 className="px-4 py-2 text-white font-semibold ">
                       Buy ${Math.max(price).toFixed(2)}
                     </h1>
                   </button>
-                  <div className="flex justify-center py-2">{renderSpinner()}</div>
+                  <div className="flex justify-center py-2">
+                    {renderSpinner()}
+                  </div>
 
                   <Payment />
                 </main>
