@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import CourseFilter from "./Filter";
 import "./Home.css";
-import Loading from "../../Loading/Loading";
+import Loading from "../Loading/Loading";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext.js";
 
@@ -103,8 +103,8 @@ const Home = () => {
                   <p className="text-gray-600 mb-4">${course.prize}</p>
                 </div>
               </div>
-              <NavLink to={`/course/${course._id}`}>Ver Curso</NavLink>
-              <button onClick={() => addCourseToCart(course)}>
+              <NavLink to={`/course/${course._id}`}class="bg-[#7c38cd] hover:bg-[#AA6FFF] text-white font-bold py-2 px-4 rounded m-5">Ver Curso</NavLink>
+              <button onClick={() => addCourseToCart(course)} class="bg-[#7c38cd] hover:bg-[#AA6FFF] text-white font-bold py-2 px-4 rounded m-5">
                 Agregar al carrito
               </button>
             </div>

@@ -1,17 +1,10 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
-
-.cartBuy {
-    height: fit-content;
-    margin-top: 88px;
+.cartContainerBuy{
+    margin-top: 80px;
+    margin-bottom: 80px;
+    margin-right: 20px;
 }
 
-.CarritodeCompras{
-    font-family: 'Lato';
-}
-
-.courseImage {
-    object-fit: contain;
-    aspect-ratio: 3/2;
+.courseImage{
+    height: 130px;
+    object-fit: cover;
 }
