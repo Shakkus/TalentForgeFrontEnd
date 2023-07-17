@@ -1,70 +1,80 @@
-.search-body{
-  height: 100vh;
-}
-
-
-.course-container{
-    margin-top: 50px;
-}
-
-.course{
+#course-container {
+  padding-top: 150px;
+  margin-left: 200px;
+  text-align: left;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
-  background-color: #9f73d4b2;
+  flex-direction: column;
 }
 
-.course-box{
+#course {
+  width: 70%;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-direction: row;
-  padding-right: 20px;
+  margin-bottom: 20px;
 }
 
-.course-form-image{
-  height: 120px;
-  width: 200px;
-  border-radius: 15px;
+#course-thumbnail {
+  flex: 0 0 120px;
+  margin-right: 20px;
 }
 
-.course-form-title{
-  font-size: 25px;
-  font-weight: 500;
+#course-details {
+  flex: 1;
 }
 
-.course-form-category{
-  font-size: 12px;
-}
-
-.course-form-teacher{
-  font-weight: 400;
-  font-size: 20px;
-}
-
-.course-form-duration{
-  font-size: 12px;
-}
-
-.course-form-price{
-  font-size: 12px;
-}
-
-.course-form-rating{
-  font-size: 12px;
-}
-
-.label-text{
-  font-weight: 500;
-  font-size: 13px;
-  text-transform: uppercase;
-}
-
-.course-form-info-box{
+#course-form-info {
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  gap: 20px;
+  flex-direction: column;
+}
+
+#course-form-title,
+#course-form-instructor,
+#course-form-description,
+#course-form-rating {
+  margin: 5px 0;
+}
+
+#course-form-price-text {
+  margin: 5px 0;
+}
+
+.separator {
+  width: 80%;
+  height: 2px;
+  background-color: #ccc;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#pagination {
+  margin-bottom: 15px;
+}
+
+@media (max-width: 800px) {
+  #course-container {
+    margin-left: 0;
+    padding-top: 150px;
+    align-items: center;
+  }
+
+  #course {
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  #course-thumbnail {
+    width: 200px;
+    margin-right: 0;
+    margin-bottom: 20px;
+    flex: 0 0 auto;
+  }
+
+  #course-form-info {
+    margin-left: 0;
+    text-align: center;
+  }
+
+  #course-form-price {
+    text-align: center;
+  }
 }

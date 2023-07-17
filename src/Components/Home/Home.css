@@ -1,23 +1,61 @@
-.home{
-    background-color: #9f73d4b2;
+.home {
     padding-bottom: 50px;
     min-height: 100vh;
 }
 
-.homeCourse{
+.courses{
     display: flex;
+    flex-wrap: wrap;
+}
+
+.courseIndividual{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 10px;
+    background: #ffffffb2;
+    border-radius: 25px;
+    width: 300px;
+    text-overflow: ellipsis;
+}
+
+.courseIndividual img {
+    border-radius: 20px 20px 0 0 ;
+    width: 300px;
+}
+
+.btn-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid black;
+    height: 50px;
+}
+
+.btn-container .courseBtn{
+    border-right: 1px solid black ;
+    background: #f79d9db2;
+    border-radius: 0px 0px 0 25px ;
+    flex-grow: 1;
+    height: 100%;
+}
+
+.btn-container .addCourseCart{
+    flex-grow: 1;
+    height: 100%;
+}
+
+.homeCourse{
     margin: 15px 50px;
     height: 120px;
     border: 2px solid #5b249e;
     border-radius: 15px;
-    justify-content: space-between;
-    background-color: #ffffffb2;
+    background-color: #AA6FFF;
 }
 .homeCourse img{
     width: 220px;
     overflow: hidden;
-    border-radius: 10px 0 0 10px;
-    border-right: 2px solid #7C38CD;
+    border-radius: 10px 10px 0 0px;
 }
 
 .courseBtn{
@@ -27,13 +65,14 @@
     background: #5b249e;
     justify-content: center;
     align-items: center;
-    border-radius:  0 10px 10px 0;
     width: 200px;
     font-size: 17px;
     font-weight: 500;
+    
 }
 
 .info-course{
+    background-color: #7C38CD;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -63,9 +102,9 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-}
-
-.filters{
+  }
+  
+  .filters {
     padding-top: 80px;
     padding-bottom: 20px;
     width: 60%;
@@ -73,32 +112,9 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-}
+  }
 
-.select-box{
-    display: flex;
-    flex-direction: column;
-}
-
-.select-title{
-    font-weight: 600;
-    color: #481488;
-}
-
-.select-filters-courses{
-    border: 1px solid #5b249e;
-    text-align: center;
-    cursor: pointer;
-    background-color: #ffffffb2;
-}
-
-.select-filters-courses option{
-    background-color: #ffffffb2;
-}
-
-.filter-btn{
-    background-color: #481488;
-    color: #fff;
-    width: 80px;
-    height: 30px;
+  
+#filter-button{
+    margin-top: 45px;
 }

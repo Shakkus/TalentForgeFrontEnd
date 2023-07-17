@@ -1,3 +1,49 @@
+/* COMENTARIOS */
+.mainContainer {
+	/* border: 2px solid red; */
+	width: 60vw;
+	padding-bottom: 20px;
+	margin-left: 2vw;
+	margin-bottom: 20px;
+	background-color: #e7e7e7;
+	border-radius: 18px;
+	padding: 20px;
+}
+
+.comment-input {
+	background-color: white;
+	color: black;
+	border-radius: 0.25rem;
+	padding-left: 10px;
+	padding-right: 4px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	width: 50vw;
+  	min-height: 30px; 
+  	max-height: 200px; 
+  }
+
+input[type=radio] {
+	display: none;
+}
+
+.stars {
+    cursor: pointer;
+}
+/* ----------- */
+
+/* RATING */
+
+.rating-container {
+	/* border: 2px solid red; */
+	display: flex;
+	flex-direction: row;
+	width:200px;
+	margin: 0 40px 10px 0;
+}
+/* ------ */
+
+
 .course-viewer {
 	padding-top: 80px;
 	display: flex;
@@ -8,24 +54,21 @@
 	flex: 1;
 	display: flex;
 	flex-direction: column;
-	padding-left: 20px;
-  /* border: 2px solid red */
-}
-
-.video-data{
-  color: red;
+	padding-left: 4vw;
+	/* border: 2px solid red; */
 }
 
 .video-container {
-	width: 70vw;
+	width: 60vw;
 	padding-bottom: 56.25%; /* Aspect ratio 16:9 */
-	/* border: 2px solid red; */
+	/* border: 2px solid green; */
 	position: relative;
 	margin: 4vh 0 0 2vw;
 }
 
 iframe {
-	/* border: 2px solid red; */
+	box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -33,22 +76,35 @@ iframe {
 	height: 100%;
 }
 .course-info {
-	width: 70%;
-	padding: 20px;
+	width: 60vw;
+	padding-bottom: 20px;
+	/* border: 1px solid fuchsia; */
+	margin-left: 2vw;
 }
 
 .instructor-details {
 	display: flex;
 	align-items: center;
 	margin-bottom: 10px;
+	font-weight: bold;
+	/* border: 1px solid fuchsia; */
+	width: 30vw;
+}
+
+.interactions-container {
+	display: flex;
+	flex-direction: row;
+	/* border: 2px solid yellow; */
 }
 
 .video-image {
-	/* border: 5px solid rgb(255, 0, 234); */
-
-	width: 50px;
-	height: 50px;
+	width: 60px;
+	height: 60px;
 	margin-right: 10px;
+	overflow: hidden;
+	border-radius: 100%;
+	object-fit: cover;
+	border: 3px solid #7c3aed;
 }
 
 .instructor-description p {
@@ -59,49 +115,124 @@ iframe {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-top: 10px;
+	margin-top: 10px 0 0 2vw;
+	background-color: #e7e7e7;
+	border-radius: 18px;
+	padding: 20px;
+	width: 60vw;
+	height: auto;
+	display: block;
 }
 
 .course-details p {
 	margin-bottom: 10px;
-}
-
-.course-details p:first-child {
 	font-weight: bold;
 }
 
-.related-video {
+.buttons-container {
+	/* border: 1px solid rgb(15, 90, 37); */
+	align-items: center;
+	width: auto;
+	height: 62px;
+	padding-left: 20%;
+	padding-top: 10px;
+	display: flex;
+	flex-direction: row;
+	/* margin-top: 15px; */
+}
+
+.button {
+	margin-right: 1rem;
+	outline: none;
+	color: #fff;
+	background-color: #7c3aed;
+	padding-left: 1.25rem;
+	padding-right: 1.25rem;
+	padding-top: 0.625rem;
+	padding-bottom: 0.625rem;
+	margin-bottom: 0.5rem;
+	font-weight: 500;
+	border-radius: 0.5rem;
+	font-size: 0.875rem;
+}
+
+.button:hover {
+	background-color: rgb(98, 30, 154);
+}
+
+.button:focus {
+	box-shadow: 0 0 2px rgba(121, 0, 255, 0.3);
+}
+
+.button:focus:focus {
+	box-shadow: 0 0 0 3px rgba(156, 39, 176, 0.5);
+}
+
+/* .button.dark {
+	background-color: #805ad5;
+}
+
+.button.dark:hover {
+	background-color: #6b21a8;
+}
+
+.button.dark:focus {
+	box-shadow: 0 0 0 3px rgba(48, 8, 107, 0.5);
+} */
+
+.video {
 	margin-bottom: 10px;
-	border: 2px solid red;
+	box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
 	height: 200px;
 	width: 300px;
 	object-fit: cover;
 	overflow: hidden;
+	background-color: #d6d6d6;
+	border-radius: 8px;
 }
 
 .related-video-container {
-	margin: 2vw 0 10px 0;
-	/* border: 2px solid green; */
-	height: 80vh;
+	margin: 2vw 2vw 10px 0;
+	justify-content: center;
+	align-items: center;
+	height: 83vh;
 	width: 20vw;
 	overflow: scroll;
+	padding-left: 2vw;
+	border-radius: 8px;
+	font-family: "Lato";
+}
+
+.video-name-container {
+	/* border: 2px solid red; */
+	background-color: #e7e7e7;
+	margin: 15px 0 15px 0;
+	/* height: 25vh; */
+	width: 320px;
+	border-radius: 18px;
+	padding: 10px 13px 5px 13px;
+	justify-content: center;
+	transform: scale(1);
+	transition: transform 0.3s ease;
+}
+
+.video-name-container:hover {
+	transform: scale(1.01);
 }
 
 .related-video-container::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-  background-color: transparent;
+	width: 6px;
+	height: 6px;
+	background-color: transparent;
 }
 
 .related-video-container::-webkit-scrollbar-thumb {
-  background-color: transparent;
+	background-color: transparent;
 }
 
 .video-title {
 	font-size: 24px;
 	font-weight: bold;
-	margin-bottom: 10px;
-}
-
-.relatedVideos {
+	margin: 10px 0 10px 10px;
+	font-family: "Montserrat";
 }

@@ -1,66 +1,61 @@
-import { useEffect, useState } from 'react'
-import axios from 'axios'
-import { useParams } from 'react-router'
-import './teachersDetail.css'
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router';
+import "./teachersDetail.css";
+const defaultProfileImage = "https://img.freepik.com/fotos-premium/lindo-carpincho-sombrero-gafas-listo-viajar-maleta-azul-fondo-azul_498722-912.jpg"
 
 const TeachersDetail = () => {
+  const { id } = useParams();
+  const [teacher, setTeacher] = useState({});
 
-    const { id } = useParams()
-    const [teacher, setTeacher ] = useState({})
-
-    const getTeacherInfo = async () => {
-      try {
-        const { data } = await axios.get(`https://talent-forge-data.cyclic.app/teacher/${id}`)
-        console.log(data)
-        setTeacher(data)
-      } catch (error) {
-        console.error(error)
-      }
+  const getTeacherInfo = async () => {
+    try {
+      const { data } = await axios.get(`https://talent-forge-data.cyclic.app/teacher/${id}`);
+      setTeacher(data);
+    } catch (error) {
+      console.error(error);
     }
-    
-    useEffect(() => {
-        getTeacherInfo()
-    }, [])
+  };
 
-    const country = () => {
-      if (teacher.country === "colombia") return "Colombia 🇨🇴"
-      if (teacher.country === "Argentina") return 'Argentina 🇦🇷'
-    }
+  useEffect(() => {
+    getTeacherInfo();
+  }, []);
 
-    return (
-        <div className="my-24">
-          <h1 className="font-bold text-xl">INFORMACION DEL PROFESOR</h1>
-          <div className="flex justify-center items-center my-24">
-  <img src={teacher.profileImage} alt="" className="mr-6 w-80 rounded-full" />
-  <div>
-    <h1 className="my-5 text-3xl">{teacher.name}</h1>
-    <h1 className="text-2xl">{country()}</h1>
-    <p className="text-xl mt-5">Email: {teacher.email}</p>
-  </div>
-</div>
-<p>{teacher.description}</p>
-
-         <div  className="mt-44">
-      <h1 className="flex ml-7 font-bold text-xl">Cursos a cargo de {teacher.name}</h1>
-      {Array.isArray(teacher.courses) ? (
-  teacher.courses.map((course) => {
-    return (
-      <div key={course.id} className="course-container">
-        <img src={course.image} alt="" className="course-image" />
+  return (
+    <div className="flex" id='instructor-container'>
+      <div className="w-1/3">
+        <img
+          src={teacher.profileImage || defaultProfileImage}
+          alt="Foto de perfil"
+          className="w-full rounded-full"
+          id='instructor-photo'
+        />
+      </div>
+      <div className="w-2/3 px-8">
         <div>
-          <h1 className="course-title">{course.title}</h1>
-          <h6 className="course-details">{course.duration}</h6>
-          <h6 className="course-details">{course.rating}</h6>
-          <p className="course-category">{course.category}</p>
-          <p className="course-description">{course.description}</p>
+          <h2 className="text-2xl font-bold text-[#7c38cd]" id="insctructor-text">Instructor</h2>
+          <h3 className="text-lg font-semibold text-[#aa6fff]" id="insctructor-text">{teacher.name}</h3>
+          <p className="mt-4" id="insctructor-text">{teacher.description}</p>
+        </div>
+        <div className="mt-8">
+          <h2 className="text-2xl font-bold text-[#7c38cd]">Mis cursos</h2>
+          <div className="flex flex-wrap mt-4">
+            {teacher.courses &&
+              teacher.courses.map((course) => (
+                <div key={course.title} className="w-1/2 p-4">
+                  <img src={course.image} alt={course.title} className="w-full rounded-lg" />
+                  <h3 className="mt-2 text-lg font-semibold">{course.title}</h3>
+                  <p>{course.description}</p>
+                  <a href={course.link} className="text-blue-500 hover:underline">
+                    Ver más
+                  </a>
+                </div>
+              ))}
+          </div>
         </div>
       </div>
-    );
-  })
-) : null}
-         </div>
-        </div>
-    )
-}
+    </div>
+  );
+};
 
 export default TeachersDetail;
