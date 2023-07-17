@@ -23,6 +23,7 @@ import { AuthProvider } from "./context/authContext.js";
 
 import CartPage from "./Components/CartPage/CartPage";
 import SuccessPayment from "./Components/CartPage/MercadoPago/SuccessPayment";
+import Editprofile from "./Components/Profile/Edit-profile/Edit-profile";
 
 function App() {
   const [searchResults, setSearchResults] = useState([]);
@@ -60,6 +61,7 @@ function App() {
           <Route path="/welcome" element={<SucessRegister />} />
           <Route path="/cart/success" element={<SuccessPayment />} />
           <Route path="/social/profile" element={<StudentDetail />} />
+          <Route path="/profile/edit" element={<Editprofile />} />
           <Route
             path="/search"
             element={<CourseResults searchResults={searchResults} />}
