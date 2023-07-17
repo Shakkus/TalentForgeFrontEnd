@@ -19,30 +19,103 @@
 	padding-top: 2px;
 	padding-bottom: 2px;
 	width: 50vw;
-  	min-height: 30px; 
-  	max-height: 200px; 
-  }
-
-input[type=radio] {
-	display: none;
-}
-
-.stars {
-    cursor: pointer;
+	min-height: 30px;
+	max-height: 200px;
 }
 /* ----------- */
 
 /* RATING */
+.rating-button {
+	margin-right: 1rem;
+	outline: none;
+	color: #fff;
+	background-color: #7c3aed;
+	padding-left: 1.25rem;
+	padding-right: 1.25rem;
+	padding-top: 0.625rem;
+	padding-bottom: 0.625rem;
+	margin-bottom: 0.5rem;
+	font-weight: 500;
+	border-radius: 0.5rem;
+	font-size: 0.875rem;
+	width: 170px;
+}
 
 .rating-container {
-	/* border: 2px solid red; */
+	top: 0;
+	left: 0;
+	width: 80%;
+	height: 50%;
 	display: flex;
-	flex-direction: row;
-	width:200px;
-	margin: 0 40px 10px 0;
+	justify-content: center;
+	align-items: center;
+	margin-left: 10%;
+	margin-top: 10%;
+	top: 200px;
+	left: 100px;
+	border-radius: 8px;
+	/* border: 2px solid fuchsia; */
+}
+
+.close-button-div {
+	height: 75%;
+	width: 100%;
+	position: relative;
+	/* margin-left: 10px; */
+	/* border: 2px solid red; */
+
+}
+
+.popup-container {
+	position: fixed;
+	border-radius: 18px;
+	background-color: #000000c1;
+	width: 20%;
+	height: 300px;
+	top:31.5vh;
+	left: 40vw;
+	right: 40%;
+	display: block;
+	justify-content: center;
+	align-items: center;
+	/* border: 2px solid greenyellow; */
+	transition: all 0.3s ease;
+  	animation: fadeInAnimation 8s ease-in-out forwards;
+}
+
+.close-popup {
+	color: #fff;
+	margin: 20% 5% 10% 0;
+	/* border: 2px solid red; */
+}
+
+.send-rating {
+	outline: none;
+	color: #fff;
+	background-color: #7c3aed;
+	padding-left: 1.25rem;
+	padding-right: 1.25rem;
+	padding-top: 0.625rem;
+	padding-bottom: 0.625rem;
+	margin-top: 5%;
+	margin-bottom: 5px;
+	margin-left: 25%;
+	margin-right: 25% ;
+	font-weight: 500;
+	border-radius: 0.5rem;
+	font-size: 0.875rem;
+	height: 15%;
+	width: 50%;
+}
+
+input[type="radio"] {
+	display: none;
+}
+
+.stars {
+	cursor: pointer;
 }
 /* ------ */
-
 
 .course-viewer {
 	padding-top: 80px;
@@ -192,11 +265,11 @@ iframe {
 }
 
 .related-video-container {
-	margin: 2vw 2vw 10px 0;
+	margin: 2vw 40px 10px 0;
 	justify-content: center;
 	align-items: center;
 	height: 83vh;
-	width: 20vw;
+	width: 380px;
 	overflow: scroll;
 	padding-left: 2vw;
 	border-radius: 8px;
