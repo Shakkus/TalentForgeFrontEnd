@@ -1,16 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { validate } from "./validation";
 import { useNavigate } from "react-router-dom";
+import { FaWindowClose } from 'react-icons/fa'
 import axios from "axios";
 import "./CourseCreation.css";
 
 const CourseForm = () => {
-  // VALIDACION DE USUARIO LOGEADO
-  useEffect(() => {
-    const loggedUser = localStorage.getItem("loggedUser");
-    if (!loggedUser) navigate("/login");
-  }, []);
-  // -----------------------------
 
   const navigate = useNavigate();
 
@@ -22,6 +17,15 @@ const CourseForm = () => {
   const [selectedImage, setSelectedImage] = useState("");
 
   // ---------------
+
+  // POP UPS
+
+  // EXITO
+  const[successPopUp, setSuccessPopUp] = useState(true)
+
+  // ERROR
+  const[errorPopUp, setErrorPopUp] = useState(false)
+  // -------
 
   const [errors, setErrors] = useState({});
 
@@ -67,10 +71,21 @@ const CourseForm = () => {
       image: selectedImage,
     };
 
-    await axios.post(
-      "https://talent-forge-data.cyclic.app/courses/",
-      inputData
-    );
+    try {
+      const response = await axios.post(
+        "https://talent-forge-data.cyclic.app/courses/",
+        inputData
+      );
+
+      if (response.data) {
+        setSuccessPopUp(true);
+      } else {
+        setErrorPopUp(true);
+      }
+    } catch (error) {
+      setErrorPopUp(true);
+    }
+
     setInput({
       title: "",
       cathegory: "",
@@ -82,6 +97,8 @@ const CourseForm = () => {
       duration: "",
       rating: "",
     });
+    
+    setSelectedImage('')
   };
 
   const handleChange = (event) => {
@@ -107,13 +124,35 @@ const CourseForm = () => {
 
   useEffect(() => {
     const loggedUser = localStorage.getItem("loggedUser");
-    if (!loggedUser) navigate("/login");
-  }, []);
+    const userId = localStorage.getItem("userId");
+    if (!loggedUser && !userId) navigate("/login");
+    
+    return () => {
+      setSuccessPopUp(false);
+      setErrorPopUp(false);
+    };
+}, []);
 
   // --------------
 
   return (
     <div class="course-form-container">
+      {successPopUp && (
+        <div className="popup-container">
+          <div className="popup">
+            <h5>Course created successfully</h5>
+            <button onClick={() => setSuccessPopUp(false)}><FaWindowClose size={20} /></button>
+          </div>
+        </div>
+      )}
+      {errorPopUp && (
+        <div className="popup-container">
+          <div className="popup">
+            <h5>There was an error in the creation of the course, try again</h5>
+            <button onClick={() => setErrorPopUp(false)}><FaWindowClose size={20} /></button>
+          </div>
+        </div>
+      )}
       <form onSubmit={handleSubmit}>
         <div>
           <div class="flex flex-wrap mb-6">
@@ -339,8 +378,7 @@ const CourseForm = () => {
               !input.duration
             }
           >
-            {" "}
-            Create Course{" "}
+            Create Course
           </button>
         </div>
       </form>

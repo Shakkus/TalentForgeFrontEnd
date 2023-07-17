@@ -4,3 +4,26 @@
     margin-top:     20px	;
     margin-bottom: 20px	;
 }
+
+.popup {
+    color: white;
+    font-size: 2rem;
+    height: auto;
+    width: 30vw;
+    border-radius: 8px;
+    background-color: blueviolet;
+    padding-top: 4%;
+    margin-top: 15%;
+    margin-left: 35%;
+    margin-right: 35%;
+    font-family: 'Montserrat';
+}
+
+.popup-container {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    border-radius: 0;
+}
