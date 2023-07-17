@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Landing from "./Components/LandingPage/LandingPage";
 import Form from "./Components/Form/Register";
@@ -27,7 +27,14 @@ import SuccessPayment from "./Components/CartPage/MercadoPago/SuccessPayment";
 
 function App() {
   const [searchResults, setSearchResults] = useState([]);
+  useEffect(() => {
+    // Titulo de ventana
+    document.title = 'Talent Forge'
 
+    // Icono de pagina
+    const favicon = document.querySelector("link[rel='icon']");
+    favicon.href='fiveicon.png'
+  })
   return (
     <div className="App">
       <AuthProvider>
