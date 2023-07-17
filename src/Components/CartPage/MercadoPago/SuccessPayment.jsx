@@ -5,6 +5,10 @@ import "./success.css";
 import { NavLink } from "react-router-dom";
 
 const SuccessPayment = () => {
+  const cleanCart = () => {
+    localStorage.removeItem("cartCourses");
+  };
+
   return (
     <div className="success">
       <div className="mt-24 my-14">
@@ -19,7 +23,9 @@ const SuccessPayment = () => {
       </div>
       <div className="my-14">
         <NavLink to={"/home"}>
-          <button className="bg-purple-600 flex mx-auto text-white text-center justify-center p-3 rounded-xl">
+          <button
+            onClick={cleanCart}
+            className="bg-purple-600 flex mx-auto text-white text-center justify-center p-3 rounded-xl">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               height="1em"
