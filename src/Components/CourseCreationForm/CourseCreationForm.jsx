@@ -21,7 +21,7 @@ const CourseForm = () => {
   // POP UPS
 
   // EXITO
-  const[successPopUp, setSuccessPopUp] = useState(true)
+  const[successPopUp, setSuccessPopUp] = useState(false)
 
   // ERROR
   const[errorPopUp, setErrorPopUp] = useState(false)
@@ -58,6 +58,40 @@ const CourseForm = () => {
     );
   }, []);
 
+  
+
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   const formErrors = validate(input);
+  //   if (Object.keys(formErrors).length > 0) {
+  //     setErrors(formErrors);
+  //     return;
+  //   }
+
+  //   const inputData = {
+  //     ...input,
+  //     image: selectedImage,
+  //   };
+
+  //   await axios.post(
+  //     "https://talent-forge-data.cyclic.app/courses/",
+  //     inputData
+  //   );
+  //   setInput({
+  //     title: "",
+  //     cathegory: "",
+  //     theme: "",
+  //     link: "",
+  //     teacher: "",
+  //     description: "",
+  //     prize: "",
+  //     duration: "",
+  //     rating: "",
+  //   })};
+
+
+
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formErrors = validate(input);
@@ -76,14 +110,16 @@ const CourseForm = () => {
         "https://talent-forge-data.cyclic.app/courses/",
         inputData
       );
-
-      if (response.data) {
-        setSuccessPopUp(true);
+        
+      if (!response) {
+        console.log('no anda');
+        // setSuccessPopUp(true);
       } else {
         setErrorPopUp(true);
       }
     } catch (error) {
       setErrorPopUp(true);
+      console.log(error);
     }
 
     setInput({
@@ -126,6 +162,8 @@ const CourseForm = () => {
     const loggedUser = localStorage.getItem("loggedUser");
     const userId = localStorage.getItem("userId");
     if (!loggedUser && !userId) navigate("/login");
+    // setSuccessPopUp(false);
+    // setErrorPopUp(false);
     
     return () => {
       setSuccessPopUp(false);
