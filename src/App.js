@@ -20,7 +20,7 @@ import SucessRegister from "./Components/SucessRegister/SucessRegister";
 // import FriendList from "./Components/FriendList/FriendList";
 import StudentDetail from "./Components/StudentDetail/StudentDetail"
 import { AuthProvider } from "./context/authContext.js";
-
+import { CartProvider, CartContext } from "./CartContext";
 import CartPage from "./Components/CartPage/CartPage";
 import SuccessPayment from "./Components/CartPage/MercadoPago/SuccessPayment";
 
@@ -31,6 +31,7 @@ function App() {
   return (
     <div className="App">
       <AuthProvider>
+        <CartProvider>
         <SearchBar setSearchResults={setSearchResults} />
         <Routes>
           <Route path="/view/:id" element={<CourseViewer />} />
@@ -52,6 +53,7 @@ function App() {
         <Route path="/search" element={<CourseResults searchResults={searchResults} />} />
         </Routes>
         <Footer />
+        </CartProvider>
       </AuthProvider>
     </div>
   );
