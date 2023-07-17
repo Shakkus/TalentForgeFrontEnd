@@ -6,6 +6,7 @@ import {
   faCartShopping,
 } from "@fortawesome/free-solid-svg-icons";
 import "./CartPage.css";
+import { CartContext } from "../../CartContext";
 import classnames from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
@@ -16,6 +17,7 @@ import InternalProvider, { Context } from "./MercadoPago/ContextProvider";
 import { Payment } from "./MercadoPago/Payment";
 import React from "react";
 initMercadoPago("TEST-3fb05707-886c-4f67-810e-e2d501054a5b");
+
 
 // import { useNavigate } from "react-router-dom";
 
@@ -33,6 +35,7 @@ const CartPage = () => {
   });
   const [isVisible, setIsVisible] = useState(true);
   const [courses, setCourses] = useState([]);
+  const { setCartCount } = useContext(CartContext);
 
   useEffect(() => {
     if (preferenceId) setIsVisible(false);
@@ -156,9 +159,10 @@ const CartPage = () => {
 
       localStorage.setItem("cartCourses", JSON.stringify(updatedCourses));
       setCourses(updatedCourses);
+      setCartCount(updatedCourses.length)
     }
 
-    window.location.reload();
+   // window.location.reload();
   };
   console.log(courses);
   return (
