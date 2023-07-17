@@ -1,11 +1,11 @@
 //IMPORTS
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext.js";
 import axios from "axios";
 import "./SearchBar.css";
-
+import { CartContext } from "../../CartContext";
 //ICONS
 import logo from "../../Recourses/CarpinchoLogo.png";
 import hearth from "../../Recourses/hearth.png";
@@ -20,6 +20,7 @@ const SearchBar = ({ setSearchResults }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const {cartCount,setCartCount} = useContext(CartContext)
   const { logOut, loading, user } = useAuth();
   const [userFormData, setUserFormData] = useState({}) //state para almacenar la informacion de user por form
   const formUserId = localStorage.getItem("userId")
@@ -41,7 +42,7 @@ const SearchBar = ({ setSearchResults }) => {
   }, []);
 
 
-  const [cartCount, setCartCount] = useState(0);
+//  const [cartCount, setCartCount] = useState(0);
 
 	// LOGOUT DEL USUARIO POR AUTH
 	const handleLogOut = async () => {

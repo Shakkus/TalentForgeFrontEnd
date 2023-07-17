@@ -50,6 +50,17 @@ const Form = () => {
     "Rusia"
   ];
 
+  
+
+  const registerInfoGetter = async () => {
+      const logInfo = {
+        username: input.username,
+        password: input.password,
+      };
+      const { data } = await axios.post('https://talent-forge-data.cyclic.app/login/', logInfo);
+      localStorage.setItem('registerEmail', data.email);
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formErrors = validate(input);
@@ -59,6 +70,7 @@ const Form = () => {
     }
 
     await axios.post("https://talent-forge-data.cyclic.app/user/", input);
+    registerInfoGetter()
     navigate("/welcome");
     setInput({
       fullName: "",
