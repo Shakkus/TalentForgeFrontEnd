@@ -4,12 +4,12 @@
 	max-height: 70vh;
 	max-width: 50vw;
 	margin: 8vh 0 0 15vw;
-	align-self: flex-start;
+	/* align-self: flex-start; */
 	justify-content: center;
-	flex-shrink: 0;
+	/* flex-shrink: 0; */
 	border-radius: 12px;
-	display: block;
-    column-count: 2;
+	/* display: block; */
+    /* column-count: 2; */
 	flex-direction: row;
 	padding: 20px 0 0 0.5vw;
     overflow: auto;

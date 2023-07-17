@@ -1,5 +1,5 @@
 .mainContainer{
-    border: 2px solid red;
+    /* border: 2px solid red; */
     height: 90vh;    
 }
 
@@ -26,6 +26,7 @@
     justify-content: center;
     padding-top: 10px;
     color: white;
+    display: flex;
 }
 
 /* .buttonContainer:active{
@@ -41,7 +42,17 @@ width: 20vw;
 .button:active{
     fill: white;
 }
+
 .icon {
     height: 5vh;
-    width: 5vw;
+    width: 5vh;
+}
+
+.selected {
+    background-color: black;
+
+}
+
+.selected .icon {
+    fill: white;
 }
