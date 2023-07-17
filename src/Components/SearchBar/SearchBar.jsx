@@ -108,6 +108,7 @@ const SearchBar = ({ setSearchResults }) => {
     } else {
       setSearchResults([]);
     }
+    setSearchTerm("")
   };
 
   useEffect(() => {
@@ -154,7 +155,7 @@ const SearchBar = ({ setSearchResults }) => {
           <div className="flex items-center">
 
             <Link to="/">
-              <img className="h-8" src={logo} alt="logo" />
+              <img className="h-10" src={logo} alt="logo" />
             </Link>
 
             <Link to="/home" className="ml-4">
@@ -199,8 +200,8 @@ const SearchBar = ({ setSearchResults }) => {
 
                 <div className="relative">
                   {user ?
-                  <img className="h-6 filter-invert cursor-pointer" src={user.photoURL} alt="profile" onClick={handleProfileMenuToggle} />
-                : <img className="h-6 filter-invert cursor-pointer" src={profile} alt="profile" onClick={handleProfileMenuToggle} />}
+                  <img className="ml-2 filter-invert cursor-pointer rounded-full w-10 h-10 rounded-full" src={user.photoURL} alt="profile" onClick={handleProfileMenuToggle} />
+                : <img className="m-2 filter-invert cursor-pointer rounded-full w-10 h-10 rounded-full" src={profile} alt="profile" onClick={handleProfileMenuToggle} />}
 
                   {showProfileMenu && (
                     <div className="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 absolute right-0">
@@ -264,7 +265,7 @@ const SearchBar = ({ setSearchResults }) => {
                 </Link>
 
                 <div className="relative">
-                  <img className="h-6 filter-invert cursor-pointer" src={profile} alt="profile" onClick={handleProfileMenuToggle} />
+                  <img className="h-6 filter-invert cursor-pointer rounded-full p-1" src={profile} alt="profile" onClick={handleProfileMenuToggle} />
 
                   {showProfileMenu && (
                     <div className="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 absolute right-0">
@@ -282,7 +283,7 @@ const SearchBar = ({ setSearchResults }) => {
 
                       <ul className="py-2" aria-labelledby="user-menu-button">
                         <li>
-                          <a href="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" >
+                          <a href="/social/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" >
                             Profile
                           </a>
                         </li>

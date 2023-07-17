@@ -162,109 +162,114 @@ const CartPage = () => {
   };
   console.log(courses);
   return (
-    <div>
-      <h1 className="mt-20 font-semibold text-4xl CarritodeCompras">
-        Carrito de compras <FontAwesomeIcon icon={faCartShopping} />
-      </h1>
-      <div className="flex">
+    <div className="flex">
+      <div className="w-2/3">
         <div className="cartContainer mt-20 font-mono">
           {courses.map((course) => {
             return (
               <div className="cartContainerItem ml-20 mb-20" key={course._id}>
-                <div className="mt-2 rounded-2xl flex items-center justify-between bg-gray-600 text-white ml-32">
-                  <img
-                    src={course.image}
-                    alt=""
-                    className=" mr-4 rounded-tl-2xl rounded-bl-2xl w-48 mr-15 courseImage"
-                  />
-                  <div className="flex py-7">
-                    <div className="text-start">
+                <div className="mt-2 rounded-2xl flex items-center justify-between bg-[#7c38cd] text-white">
+                  <div className="h-full">
+                    <img
+                      src={course.image}
+                      alt=""
+                      className="h-full rounded-tl-2xl rounded-bl-2xl w-48 mr-15 border border-[#AA6FFF] courseImage"
+                    />
+                  </div>
+                  <div className="flex flex-col py-7">
+                    <div>
                       <h1 className="font-bold">{course.title}</h1>
                       <h2 className="text-sm">{course.teacher}</h2>
-                      <div className="flex text-center items-center">
-                        <p className="mr-3">{course.rating}</p>
+                    </div>
+                    <div className="flex items-center">
+                      <div className="flex items-center mr-3">
+                        <p>{course.rating}</p>
                         <FontAwesomeIcon icon={faStar} />
                         <FontAwesomeIcon icon={faStar} />
                         <FontAwesomeIcon icon={faStar} />
                         <FontAwesomeIcon icon={faStar} />
                         <FontAwesomeIcon icon={faStarHalfStroke} />
                       </div>
-                      <div className="flex text-center items-center">
-                        <h2 className="mr-2 text-center items-center flex">
-                          {course.duration}
-                        </h2>
+                      <div className="flex items-center">
+                        <h2 className="mr-2">{course.duration}</h2>
                         <FontAwesomeIcon icon={faClock} />
                       </div>
                     </div>
-                    <div className="ml-20 mr-10">
-                      <h2 className="m-0 text-xl">{course.prize} US$</h2>
-                      <button
-                        className="inline p-4"
-                        onClick={() => removeCourse(course._id)}>
-                        <FontAwesomeIcon
-                          icon={faCircleXmark}
-                          style={{ color: "", fontSize: "28px" }}
-                        />
-                      </button>
-                    </div>
+                  </div>
+                  <div className="ml-20 mr-10">
+                    <h2 className="m-0 text-xl">{course.prize} US$</h2>
+                    <button
+                      className="inline p-4"
+                      onClick={() => removeCourse(course._id)}
+                    >
+                      <FontAwesomeIcon
+                        icon={faCircleXmark}
+                        style={{ color: "", fontSize: "28px" }}
+                      />
+                    </button>
                   </div>
                 </div>
               </div>
             );
           })}
         </div>
-        <div className="cartBuy ml-96">
-          <div className="cartContainerBuy p-7 rounded-3xl mb-20 bg-gray-600 text-white">
-            <div className="">
-              <div className="space-x-20 text-end text-2xl">
-                <h1 onChange={(e) => setOriginalPrice(e.target.value)}>
-                  Precio: ${calculateTotal()}
-                </h1>
-              </div>
-              <hr class="border-t-2 border-purple-700 my-4" />
-              <div className="ml-46 block my-10">
-                <h1 className="text-2xl font-bold">
-                  Precio total: ${Math.max(price)}
-                </h1>
-              </div>
-              <div className="buttonBuy block bottom-7 mx-32">
-                <InternalProvider
-                  context={{
-                    preferenceId,
-                    isLoading,
-                    orderData,
-                    setOrderData,
-                  }}>
-                  <main>
-                    {renderSpinner()}
-                    <button
-                      className="bg-purple-700 rounded-lg"
-                      onClick={handleClick}>
-                      <h1 className="px-8 py-3 text-white font-semibold">
-                        Buy ${Math.max(price)}
-                      </h1>
-                    </button>
-                    <Payment />
-                  </main>
-                </InternalProvider>
-              </div>
-              <div className="flex text-center align-middle mt-10">
-                <label htmlFor="discountCode" className="text-sm mr-4">
-                  Ingresar cupón de descuento
-                </label>
-                <input
-                  type="text"
-                  id="discountCode"
-                  value={discountCode}
-                  onChange={(e) => setDiscountCode(e.target.value)}
-                  className="text-black text-center"
-                />
-              </div>
+      </div>
+
+      <div className="w-1/3 ml-8">
+        <div className="cartContainerBuy p-7 rounded-3xl mb-8 bg-[#7c38cd] text-white">
+          <div className="space-y-4">
+            <div className="text-3xl font-semibold">
+              Shop-car <FontAwesomeIcon icon={faCartShopping} />
+            </div>
+            <div>
+              <div className="text-lg font-semibold">Total:</div>
+              <div className="text-2xl">${calculateTotal().toFixed(2)}</div>
+            </div>
+
+            <div className="w-full h-px bg-gray-300"></div>
+
+            <div>
+              <h2 className="text-white text-lg mt-4">Apply discount coupon</h2>
+            </div>
+            <div className="flex items-center mt-6">
+              <input
+                placeholder="Discount coupon"
+                type="text"
+                id="discountCode"
+                value={discountCode}
+                onChange={(e) => setDiscountCode(e.target.value)}
+                className="px-4 py-2 text-white font-semibold"
+              />
               <button
-                className="bg-purple-700 rounded-lg mt-8"
-                onClick={applyDiscount}>
-                <h1 className="px-8 py-3 font-semibold">Aplicar</h1>
+                className="bg-purple-700 rounded-lg ml-2 hover:bg-[#AA6FFF]"
+                onClick={applyDiscount}
+              >
+                <h1 className="px-4 py-2 text-white font-semibold">Aply</h1>
               </button>
+            </div>
+            <div className="buttonBuy mt-6">
+              <InternalProvider
+                context={{
+                  preferenceId,
+                  isLoading,
+                  orderData,
+                  setOrderData,
+                }}
+              >
+                <main>
+                  <button
+                    className="bg-purple-700 rounded-lg hover:bg-[#AA6FFF]"
+                    onClick={handleClick}
+                  >
+                    <h1 className="px-4 py-2 text-white font-semibold ">
+                      Buy ${Math.max(price).toFixed(2)}
+                    </h1>
+                  </button>
+                  <div className="flex justify-center py-2">{renderSpinner()}</div>
+
+                  <Payment />
+                </main>
+              </InternalProvider>
             </div>
           </div>
         </div>

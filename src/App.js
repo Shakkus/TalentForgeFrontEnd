@@ -17,8 +17,8 @@ import Home from "./Components/Home/Home";
 import CourseDetail from "./Components/Course-Detail/CourseDetail";
 import TeachersDetail from "./Components/TeachersDetail/teachersDetail";
 import SucessRegister from "./Components/SucessRegister/SucessRegister";
-
-
+import FriendList from "./Components/FriendList/FriendList";
+import StudentDetail from "./StudentDetail/StudentDetail";
 import { AuthProvider } from "./context/authContext.js";
 
 import CartPage from "./Components/CartPage/CartPage";
@@ -48,6 +48,7 @@ function App() {
           <Route path="/cart" element={<CartPage />} />
           <Route path="/welcome" element={<SucessRegister />} />
           <Route path="/cart/success" element={<SuccessPayment />} />
+          <Route path="/social/profile" element={<StudentDetail />} />
         <Route path="/search" element={<CourseResults searchResults={searchResults} />} />
         </Routes>
         <Footer />
