@@ -17,8 +17,8 @@ import Home from "./Components/Home/Home";
 import CourseDetail from "./Components/Course-Detail/CourseDetail";
 import TeachersDetail from "./Components/TeachersDetail/teachersDetail";
 import SucessRegister from "./Components/SucessRegister/SucessRegister";
-import FriendList from "./Components/FriendList/FriendList";
-import StudentDetail from "./StudentDetail/StudentDetail";
+// import FriendList from "./Components/FriendList/FriendList";
+import StudentDetail from "./Components/StudentDetail/StudentDetail"
 import { AuthProvider } from "./context/authContext.js";
 
 import CartPage from "./Components/CartPage/CartPage";

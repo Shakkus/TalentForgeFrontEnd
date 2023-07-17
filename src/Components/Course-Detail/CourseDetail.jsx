@@ -2,7 +2,8 @@ import { NavLink, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./CourseDetail.css";
-import Loading from "../../Loading/Loading";
+import Loading from "../Loading/Loading";
+
 
 const CourseDetail = () => {
   const { id } = useParams();
