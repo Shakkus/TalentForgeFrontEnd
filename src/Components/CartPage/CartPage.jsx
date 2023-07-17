@@ -36,6 +36,7 @@ const CartPage = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [courses, setCourses] = useState([]);
   const { setCartCount } = useContext(CartContext);
+  const [totalPrice, setTotalPrice] = useState(0)
 
   useEffect(() => {
     if (preferenceId) setIsVisible(false);
@@ -160,6 +161,11 @@ const CartPage = () => {
       localStorage.setItem("cartCourses", JSON.stringify(updatedCourses));
       setCourses(updatedCourses);
       setCartCount(updatedCourses.length)
+
+      const updatedTotalPrice = updatedCourses.reduce(
+        (total, course) => total + course.prize, 0
+      )
+      setTotalPrice(updatedTotalPrice)
     }
 
    // window.location.reload();
@@ -263,7 +269,7 @@ const CartPage = () => {
                     className="bg-purple-700 rounded-lg hover:bg-[#AA6FFF]"
                     onClick={handleClick}>
                     <h1 className="px-4 py-2 text-white font-semibold ">
-                      Buy ${Math.max(price).toFixed(2)}
+                      Buy ${calculateTotal(price).toFixed(2)}
                     </h1>
                   </button>
                   <div className="flex justify-center py-2">
