@@ -148,6 +148,10 @@ const SearchBar = ({ setSearchResults }) => {
     setShowProfileMenu(!showProfileMenu);
   };
 
+  // ACCOUTN TYPE
+    const accountType = localStorage.getItem('userAccountType')
+  // ------------
+
   return (
     <nav className="bg-[#7c38cd]">
       <div className="container mx-auto px-4">
@@ -288,11 +292,13 @@ const SearchBar = ({ setSearchResults }) => {
                           </a>
                         </li>
 
-                        <li>
-                          <a href="/course/create" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
-                            Create course
-                          </a>
-                        </li>
+                       {accountType === 'teacher' && (
+                         <li>
+                            <a href="/course/create" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                              Create course
+                            </a>
+                          </li>
+                       )}
 
                         <li>
                           <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" onClick={handleLogOut}>
