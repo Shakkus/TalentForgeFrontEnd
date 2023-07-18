@@ -60,6 +60,40 @@ const CourseForm = () => {
 
   
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formErrors = validate(input);
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+      return;
+    }
+    
+    console.log(input, selectedImage);
+    const inputData = {
+      ...input,
+      image: selectedImage,
+    };
+
+      await axios.post(
+        "https://talent-forge-data.cyclic.app/courses/",
+        inputData
+      );
+      setInput({
+        title: "",
+        cathegory: "",
+        theme: "",
+        link: "",
+        teacher: "",
+        description: "",
+        prize: "",
+        duration: "",
+        rating: "",
+      });
+    }
+
+
+
+
   // const handleSubmit = async (event) => {
   //   event.preventDefault();
   //   const formErrors = validate(input);
@@ -67,16 +101,29 @@ const CourseForm = () => {
   //     setErrors(formErrors);
   //     return;
   //   }
-
+    
   //   const inputData = {
   //     ...input,
   //     image: selectedImage,
   //   };
+    
+  //   try {
+  //     const response = await axios.post(
+  //       "https://talent-forge-data.cyclic.app/courses/",
+  //       inputData
+  //       );
+        
+  //     if (!response) {
+  //       console.log('no anda');
+  //       setSuccessPopUp(true);
+  //     } else {
+  //       setErrorPopUp(true);
+  //     }
+  //   } catch (error) {
+  //     setErrorPopUp(true);
+  //     console.log(error);
+  //   }
 
-  //   await axios.post(
-  //     "https://talent-forge-data.cyclic.app/courses/",
-  //     inputData
-  //   );
   //   setInput({
   //     title: "",
   //     cathegory: "",
@@ -87,55 +134,10 @@ const CourseForm = () => {
   //     prize: "",
   //     duration: "",
   //     rating: "",
-  //   })};
-
-
-
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const formErrors = validate(input);
-    if (Object.keys(formErrors).length > 0) {
-      setErrors(formErrors);
-      return;
-    }
-
-    const inputData = {
-      ...input,
-      image: selectedImage,
-    };
-
-    try {
-      const response = await axios.post(
-        "https://talent-forge-data.cyclic.app/courses/",
-        inputData
-      );
-        
-      if (!response) {
-        console.log('no anda');
-        // setSuccessPopUp(true);
-      } else {
-        setErrorPopUp(true);
-      }
-    } catch (error) {
-      setErrorPopUp(true);
-      console.log(error);
-    }
-
-    setInput({
-      title: "",
-      cathegory: "",
-      theme: "",
-      link: "",
-      teacher: "",
-      description: "",
-      prize: "",
-      duration: "",
-      rating: "",
-    });
+  //   });
     
-    setSelectedImage('')
-  };
+  //   setSelectedImage('')
+  // };
 
   const handleChange = (event) => {
     const { name, value } = event.target;

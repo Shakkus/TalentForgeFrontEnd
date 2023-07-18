@@ -120,7 +120,7 @@ const SearchBar = ({ setSearchResults }) => {
         );
         setCourses(data);
       } catch (error) {
-        throw new Error(`Error fetching courses ${error}`);
+        console.log(`Error fetching courses ${error}`);
       }
     };
     fetchData();

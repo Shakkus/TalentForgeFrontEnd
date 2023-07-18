@@ -54,7 +54,6 @@
 	top: 200px;
 	left: 100px;
 	border-radius: 8px;
-	/* border: 2px solid fuchsia; */
 }
 
 .close-button-div {
@@ -68,19 +67,20 @@
 
 .popup-container {
 	position: fixed;
-	border-radius: 18px;
+	border-radius: 18px !important;
 	background-color: #000000c1;
-	width: 20%;
-	height: 300px;
-	top:31.5vh;
+	top:31.5vh !important;
 	left: 40vw;
 	right: 40%;
+	width: 20vw !important;
+	height: 300px !important;
 	display: block;
 	justify-content: center;
-	align-items: center;
+	margin-left: 40vw; 
+	/* align-items: center;
 	/* border: 2px solid greenyellow; */
-	transition: all 0.3s ease;
-  	animation: fadeInAnimation 8s ease-in-out forwards;
+	/* transition: all 0.3s ease; */
+  	/* animation: fadeInAnimation 8s ease-in-out forwards; */
 }
 
 .close-popup {
