@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "./StudentDetail.css";
+import "./StudentDetail.css"
+import { useAuth } from "../../context/authContext"; 
 
 const defaultProfileImage =
   "https://media.lacapital.com.ar/p/6887ba94829db49b2af29709653b4264/adjuntos/203/imagenes/030/516/0030516809/1200x675/smart/carpincho-bebejpg.jpg";
@@ -7,7 +8,7 @@ const defaultProfileImage =
 const StudentDetail = () => {
   const [newPostContent, setNewPostContent] = useState("");
   const [newPostImage, setNewPostImage] = useState(null);
-
+  const { user } = useAuth()
   const handleSubmit = (e) => {
     e.preventDefault();
     // Código para enviar la nueva publicación al servidor, incluyendo el contenido y la imagen si es necesario
@@ -23,12 +24,12 @@ const StudentDetail = () => {
       {
         id: 1,
         name: "Jane Smith",
-        profileImage: "",
+        profileImage: defaultProfileImage,
       },
       {
         id: 2,
         name: "Michael Johnson",
-        profileImage: "",
+        profileImage: defaultProfileImage,
       },
     ],
     posts: [
@@ -36,21 +37,21 @@ const StudentDetail = () => {
         id: 1,
         author: {
           name: "John Doe",
-          profileImage: "",
+          profileImage: defaultProfileImage,
         },
         title: "Post 1",
         content: "This is the first post",
-        image: "https://example.com/post1.jpg",
+        image: "https://res.cloudinary.com/dal385dkc/image/upload/v1689720441/TEST%20IMAGES/make-money-in-instagram_cdjr0w.webp",
       },
       {
         id: 2,
         author: {
           name: "John Doe",
-          profileImage: "https://example.com/profile1.jpg",
+          profileImage: defaultProfileImage,
         },
         title: "Post 2",
         content: "This is the second post",
-        image: "https://example.com/post2.jpg",
+        image: "https://res.cloudinary.com/dal385dkc/image/upload/v1689720441/TEST%20IMAGES/make-money-in-instagram_cdjr0w.webp",
       },
     ],
   };
@@ -58,12 +59,14 @@ const StudentDetail = () => {
   return (
     <div className="flex" id="student-container">
       <div className="w-1/3">
+        {user && 
         <img
-          src={student.profileImage || defaultProfileImage}
+          src={user.photoURL || defaultProfileImage}
           alt="Foto de perfil"
           className="w-full rounded-full"
           id="student-photo"
         />
+        }
         <div className="mt-8">
           <h2 className="text-2xl font-bold text-[#7c38cd]">Amigos</h2>
           <div className="flex flex-wrap mt-1">
