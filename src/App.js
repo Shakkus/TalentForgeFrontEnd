@@ -7,6 +7,7 @@ import Form from "./Components/Form/Register";
 import DetailCourses from "./Components/DetailCoursesProgramation/DetailCoursesProgramation";
 import SearchBar from "./Components/SearchBar/SearchBar";
 import Footer from "./Components/Footer/Footer.jsx";
+import Breadcrumb from "./Components/Breadcrumb/Breadcrumb.jsx"; 
 import CourseResults from "./Components/CourseResults/CourseResults";
 import CourseViewer from "./Components/CourseViewer/CourseViewer.jsx";
 import CourseForm from "./Components/CourseCreationForm/CourseCreationForm";
@@ -17,7 +18,7 @@ import Home from "./Components/Home/Home";
 import CourseDetail from "./Components/Course-Detail/CourseDetail";
 import TeachersDetail from "./Components/TeachersDetail/teachersDetail";
 import SucessRegister from "./Components/SucessRegister/SucessRegister";
-// import FriendList from "./Components/FriendList/FriendList";
+import FriendList from "./Components/FriendList/FriendList";
 import StudentDetail from "./Components/StudentDetail/StudentDetail";
 import { AuthProvider } from "./context/authContext.js";
 import { CartProvider, CartContext } from "./CartContext";
@@ -40,6 +41,8 @@ function App() {
     favicon.href = "fiveicon.png";
   });
 
+  
+
   return (
     <div className="App">
       <AuthProvider>
@@ -47,8 +50,9 @@ function App() {
           {shouldRenderSearchBar && (
             <SearchBar setSearchResults={setSearchResults} />
           )}
-
+          <Breadcrumb />
           <Routes>
+            <Route path="/social/friends" element={<FriendList/>}/>
             <Route path="/view/:id" element={<CourseViewer />} />
             <Route path="/detail" element={<DetailCourses />} />
             <Route path="/login" element={<Login />} />
@@ -66,6 +70,7 @@ function App() {
             <Route path="/cart/success" element={<SuccessPayment />} />
             <Route path="/social/profile" element={<StudentDetail />} />
             <Route path="/profile/edit" element={<Editprofile />} />
+            <Route path="/social/inventory" element={<Editprofile />} />
             <Route
               path="/search"
               element={<CourseResults searchResults={searchResults} />}

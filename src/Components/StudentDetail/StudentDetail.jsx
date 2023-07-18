@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import "./StudentDetail.css";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenSquare } from "@fortawesome/free-solid-svg-icons";
 
 const defaultProfileImage =
   "https://media.lacapital.com.ar/p/6887ba94829db49b2af29709653b4264/adjuntos/203/imagenes/030/516/0030516809/1200x675/smart/carpincho-bebejpg.jpg";
@@ -20,6 +23,36 @@ const StudentDetail = () => {
     id: 1,
     name: "John Doe",
     friends: [
+      {
+        id: 1,
+        name: "Jane Smith",
+        profileImage: "",
+      },
+      {
+        id: 2,
+        name: "Michael Johnson",
+        profileImage: "",
+      },
+      {
+        id: 1,
+        name: "Jane Smith",
+        profileImage: "",
+      },
+      {
+        id: 2,
+        name: "Michael Johnson",
+        profileImage: "",
+      },
+      {
+        id: 1,
+        name: "Jane Smith",
+        profileImage: "",
+      },
+      {
+        id: 2,
+        name: "Michael Johnson",
+        profileImage: "",
+      },
       {
         id: 1,
         name: "Jane Smith",
@@ -58,17 +91,29 @@ const StudentDetail = () => {
   return (
     <div className="flex" id="student-container">
       <div className="w-1/3">
-        <img
-          src={student.profileImage || defaultProfileImage}
-          alt="Foto de perfil"
-          className="w-full rounded-full"
-          id="student-photo"
-        />
+        <div style={{ position: "relative" }}>
+          <img
+            src={student.profileImage || defaultProfileImage}
+            alt="Foto de perfil"
+            className="w-full rounded-full"
+            id="student-photo"
+          />
+          <div className="bg-black w-14 h-15" >
+            <Link to="/social/profile/edit">
+              <FontAwesomeIcon
+                className="w-10 h-10 absolute bottom-6 left-6"
+                icon={faPenSquare}
+              />
+            </Link>
+          </div>
+        </div>
         <div className="mt-8">
+          <Link to="/social/friends">
           <h2 className="text-2xl font-bold text-[#7c38cd]">Amigos</h2>
+          </Link>
           <div className="flex flex-wrap mt-1">
             {student.friends &&
-              student.friends.map((friend) => (
+              student.friends.slice(0, 3).map((friend) => (
                 <div key={friend.id} className="flex items-center p-2 mt-0">
                   <img
                     src={friend.profileImage}
@@ -81,6 +126,9 @@ const StudentDetail = () => {
                 </div>
               ))}
           </div>
+          <Link to="/social/inventory">
+            <h2 className="text-2xl font-bold text-[#7c38cd]">Inventorys</h2>
+          </Link>
         </div>
       </div>
 
@@ -93,7 +141,7 @@ const StudentDetail = () => {
 
           <div className="mt-4">
             <h2 className="text-2xl font-bold text-[#7c38cd]">
-              Agregar Publicación
+              Post publication
             </h2>
             <form onSubmit={handleSubmit}>
               <textarea
@@ -111,7 +159,7 @@ const StudentDetail = () => {
                 type="submit"
                 className="bg-purple-500 text-white px-4 py-2 mt-2 rounded"
               >
-                Publicar
+                Post
               </button>
             </form>
           </div>
@@ -119,7 +167,6 @@ const StudentDetail = () => {
           <div className="mt-4">
             {student.posts &&
               student.posts.map((post) => (
-                
                 <div key={post.id} className="mt-4">
                   <div className="border-t border-gray-300 my-8"></div>
                   <div className="flex items-center">
