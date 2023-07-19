@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import CourseFilter from "./Filter";
 import "./Home.css";
-import Loading from "../Loading/Loading";
+import Loading from "../../Loading/Loading";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext.js";
 
