@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import CourseFilter from "./Filter";
 import "./Home.css";
 import Loading from "../../Loading/Loading";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext.js";
+import { CartContext } from "../../CartContext";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ const Home = () => {
   const [courses, setCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [getting, setGetting] = useState(true); // Estado para controlar si se están cargando los cursos
+  const {setCartCount} = useContext(CartContext)
 
   const { logOut, loading, user } = useAuth();
 
@@ -70,6 +72,7 @@ const Home = () => {
     }
     cartCourses.push(course);
     localStorage.setItem("cartCourses", JSON.stringify(cartCourses));
+    setCartCount(cartCourses.length)
   };
 
   if (loading === true || getting === true) {
