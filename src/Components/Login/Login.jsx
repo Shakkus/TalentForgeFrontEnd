@@ -52,8 +52,8 @@ const Login = () => {
       await logginWhitGoogle();
       if (user) {
 				const idToken = await user.accessToken;
-				localStorage.setItem("loggedUser", idToken);
-        navigate("/home");
+				localStorage.setItem("loggedUser", idToken)
+        navigate('/home');
       }
 		} catch (error) {
 			setErrors(error.code);
@@ -71,8 +71,8 @@ const Login = () => {
 			await logginWhitTwitter();
       if (user) {
 				const idToken = await user.accessToken;
-				localStorage.setItem("loggedUser", idToken);
-        navigate("/home");
+				localStorage.setItem("loggedUser", idToken)
+        navigate('/home');
       }
 		} catch (error) {
 			setErrors(error.code);

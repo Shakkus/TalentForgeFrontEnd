@@ -6,10 +6,11 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Comments from "./Comments";
 import Rating from "./Rating";
-
 const CourseViewer = () => {
 	const navigate = useNavigate();
-
+	// POPUP
+	const [open, setOpen] = useState(false);
+	// -----
 	// ESTADO CON LOS DATOS DEL CURSO TRAIDO DE API
 
 	const [courseData, setCourseData] = useState({
@@ -57,9 +58,7 @@ const CourseViewer = () => {
 
 	useEffect(() => {
 		if (courseData.cathegory === "Programming") {
-			const video = courses.filter(
-				(video) => video.cathegory !== "Idiom"
-			);
+			const video = courses.filter((video) => video.cathegory !== "Idiom");
 			setRelatedVideo(video);
 			console.log(relatedVideo);
 		} else if (courseData.cathegory === "Idiom") {
@@ -120,7 +119,8 @@ const CourseViewer = () => {
 
 	useEffect(() => {
 		const loggedUser = localStorage.getItem("loggedUser");
-		if (!loggedUser) navigate("/login");
+		const userId = localStorage.getItem("userId");
+		if (!loggedUser && !userId) navigate("/login");
 	}, []);
 
 	// --------------
@@ -149,12 +149,10 @@ const CourseViewer = () => {
 								alt="Course Thumbnail"
 								className="video-image"
 							/>
-							<div className="video-instructor">
-								{courseData.teacher}
-							</div>
+							<div className="video-instructor">{courseData.teacher}</div>
 						</channel>
 						<div className="buttons-container">
-						<Rating />
+							<Rating />
 							<button
 								// type="button"
 								className="button"
@@ -175,7 +173,7 @@ const CourseViewer = () => {
 									/>
 								</svg>
 							</button>
-							
+
 							{/* ------------------ */}
 							<button className="button">
 								<svg
@@ -235,11 +233,7 @@ const CourseViewer = () => {
 				{relatedVideo.map((video) => (
 					<Link to={`/view/${video._id}`}>
 						<div key={video.id} className="video-name-container">
-							<img
-								className="video"
-								src={video.image}
-								alt={video.title}
-							/>
+							<img className="video" src={video.image} alt={video.title} />
 							<h4>{video.title}</h4>
 						</div>
 					</Link>
