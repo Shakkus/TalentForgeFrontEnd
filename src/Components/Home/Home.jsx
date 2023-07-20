@@ -66,16 +66,17 @@ const Home = () => {
       const isCourseInCart = cartCourses.some(
         (cartCourse) => cartCourse._id === course._id
       );
-      setShowPopUp(true); //Logica pop up
-
-      setTimeout(()=> {
-        setShowPopUp(false);
-      }, 3000)
+      
       if (isCourseInCart) {
         console.log("Curso ya en carrito");
         return;
       }
     }
+    setShowPopUp(true); //Logica pop up
+
+      setTimeout(()=> {
+        setShowPopUp(false);
+      }, 2000)
     cartCourses.push(course);
     localStorage.setItem("cartCourses", JSON.stringify(cartCourses));
     setCartCount(cartCourses.length)
@@ -123,7 +124,7 @@ const Home = () => {
             <div className="popup">
               <p>¡Curso agregado al carrito!</p>
             </div>
-          )}
+        )}
       </div>
     </div>
   );
