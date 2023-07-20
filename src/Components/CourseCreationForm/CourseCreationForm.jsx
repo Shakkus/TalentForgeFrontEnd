@@ -413,7 +413,6 @@ const CourseForm = () => {
               !input.link ||
               !input.teacher ||
               !input.description ||
-              !input.rating ||
               !input.prize ||
               !input.duration
             }

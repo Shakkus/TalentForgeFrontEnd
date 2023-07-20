@@ -52,6 +52,7 @@ const CartPage = () => {
       body: JSON.stringify(orderData),
     })
       .then((response) => {
+        console.log(response);
         return response.json();
       })
       .then((preference) => {
@@ -171,7 +172,7 @@ const CartPage = () => {
    // window.location.reload();
   };
 
-  console.log(courses);
+  // console.log(courses);
   return (
     <div className="flex">
       <div className="w-2/3">
