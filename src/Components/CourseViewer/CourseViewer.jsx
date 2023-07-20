@@ -58,10 +58,10 @@ const CourseViewer = () => {
 
 	useEffect(() => {
 		if (courseData.cathegory === "Programming") {
-			const video = courses.filter((video) => video.cathegory !== "Idiom");
+			const video = courses.filter((video) => video.cathegory !== "languages");
 			setRelatedVideo(video);
 			console.log(relatedVideo);
-		} else if (courseData.cathegory === "Idiom") {
+		} else if (courseData.cathegory === "languages") {
 			const video = courses.filter(
 				(video) => video.cathegory !== "Programming"
 			);
