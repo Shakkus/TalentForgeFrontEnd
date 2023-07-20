@@ -1,29 +1,32 @@
 .course-form-container{
-    width: 70%;
-    margin: auto;
-    margin-top:     20px	;
-    margin-bottom: 20px	;
+    width: 70% !important;
+    margin: auto !important;
+    margin-top:20px	!important;
+    margin-bottom: 20px	!important;
 }
 
 .popup {
-    color: white;
-    font-size: 2rem;
-    height: auto;
-    width: 30vw;
-    border-radius: 8px;
-    background-color: blueviolet;
-    padding-top: 4%;
-    margin-top: 15%;
-    margin-left: 35%;
-    margin-right: 35%;
-    font-family: 'Montserrat';
+    position: fixed;
+    color: white !important;
+    font-size: 2rem !important;
+    height: auto !important;
+    width: 30vw !important;
+    border-radius: 8px !important;
+    border: none !important;
+    background-color: blueviolet !important;
+    /* padding-top: 4% !important; */
+    /* margin-top: 15% !important; */
+    /* margin-left: 35% !important; */
+    /* margin-right: 35% !important; */
+    font-family: 'Montserrat' !important;
 }
 
 .popup-container {
     position: fixed;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    border-radius: 0;
-}
+    height: 100% !important;
+    width: 100% !important;
+    top: 0 !important;
+    left: 0 !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+} 

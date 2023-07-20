@@ -113,8 +113,7 @@ const CourseForm = () => {
         inputData
         );
         
-      if (!response) {
-        console.log('no anda');
+      if (response.status === 200) {
         setSuccessPopUp(true);
       } else {
         setErrorPopUp(true);
@@ -184,7 +183,7 @@ const CourseForm = () => {
             <button onClick={() => setSuccessPopUp(false)}><FaWindowClose size={20} /></button>
           </div>
         </div>
-      )}
+       )} 
       {errorPopUp && (
         <div className="popup-container">
           <div className="popup">
@@ -192,7 +191,7 @@ const CourseForm = () => {
             <button onClick={() => setErrorPopUp(false)}><FaWindowClose size={20} /></button>
           </div>
         </div>
-      )}
+       )}
       <form onSubmit={handleSubmit}>
         <div>
           <div class="flex flex-wrap mb-6">
@@ -294,8 +293,8 @@ const CourseForm = () => {
                 value={input.description}
                 onChange={handleChange}
               />
-              {errors.tion && (
-                <span descripclass="text-red-500"> {errors.description}</span>
+              {errors.description && (
+                <span className="text-red-500"> {errors.description}</span>
               )}
             </div>
           </div>
