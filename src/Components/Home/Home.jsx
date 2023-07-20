@@ -14,6 +14,7 @@ const Home = () => {
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [getting, setGetting] = useState(true); // Estado para controlar si se están cargando los cursos
   const {setCartCount} = useContext(CartContext)
+  const [showPopup,setShowPopUp] = useState(false); //Logica de Pop Up para carrito
 
   const { logOut, loading, user } = useAuth();
 
@@ -65,6 +66,11 @@ const Home = () => {
       const isCourseInCart = cartCourses.some(
         (cartCourse) => cartCourse._id === course._id
       );
+      setShowPopUp(true); //Logica pop up
+
+      setTimeout(()=> {
+        setShowPopUp(false);
+      }, 3000)
       if (isCourseInCart) {
         console.log("Curso ya en carrito");
         return;
@@ -113,6 +119,11 @@ const Home = () => {
             </div>
           ))}
         </div>
+        {showPopup && (
+            <div className="popup">
+              <p>¡Curso agregado al carrito!</p>
+            </div>
+          )}
       </div>
     </div>
   );
