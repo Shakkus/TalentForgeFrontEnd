@@ -3,7 +3,7 @@ import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavLink } from "react-router-dom";
 import emailjs from "emailjs-com";
-import { useAuth } from "path/to/useAuth";
+import { useAuth } from "../../../context/authContext.js";
 import "./success.css";
 
 const SuccessRegister = () => {
