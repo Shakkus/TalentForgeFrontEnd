@@ -46,7 +46,7 @@ const DetailCourses = () => {
       </div>
       <div className="toCourse">
         <NavLink>
-          <button className="btn #ef4444">Comenzar con el primer video</button>
+          <button className="btn #ef4444">Start the first video</button>
         </NavLink>
         <div className="nameProfessor">
           <p>Lorem, ipsum dolor.</p>

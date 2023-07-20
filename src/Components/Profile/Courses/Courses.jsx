@@ -25,7 +25,7 @@ const Courses = () => {
         {courses.map((friend, index) => (
           <div key={index} className={styles.coursesTest}>
             <h3>{friend.name}</h3>
-            <img src='https://i.pinimg.com/originals/a2/e5/b2/a2e5b22e1a9926986c5f9444d71f703a.jpg' alt="la foto :D" className={styles.testImg}/>
+            <img src='https://i.pinimg.com/originals/a2/e5/b2/a2e5b22e1a9926986c5f9444d71f703a.jpg' alt="la foto >:D" className={styles.testImg}/>
           </div>
         ))}
       </div>

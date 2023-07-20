@@ -42,7 +42,7 @@ const Login = () => {
       });
       navigate("/home");
     } catch (error){
-      setInputError('Usuario o contraseña incorrecta')
+      setInputError('Incorrect user or password')
     }
 
   };
