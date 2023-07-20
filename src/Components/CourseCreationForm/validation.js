@@ -23,9 +23,6 @@ export const validate = (input) => {
     if (!input.description || input.description.length < 10) {
         errors.description = "Description must be at least 10 characters long";
     }
-    if (!input.rating || input.rating > 5) {
-        errors.rating = "The rating must be less than or equal to 5";
-    }
     if (!input.prize || input.prize > 30) {
         errors.prize = "The maximum price is 30";
     }
