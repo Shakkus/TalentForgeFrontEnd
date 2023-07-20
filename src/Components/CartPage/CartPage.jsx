@@ -87,7 +87,7 @@ const CartPage = () => {
 
     const discount = obtainDiscount(discountCode);
     if (discount === null) {
-      alert("Lamentablemente tu cupón no es válido");
+      alert("Unfortunately your coupon is not valid");
       return;
     }
 
@@ -108,7 +108,7 @@ const CartPage = () => {
       gordobarril: -41238,
     };
     if (codes.hasOwnProperty(discountCode)) {
-      alert("¡Ingresaste tu cupón de descuento con éxito!");
+      alert("You have successfully entered your discount coupon!");
       return codes[discountCode];
     }
     return null;

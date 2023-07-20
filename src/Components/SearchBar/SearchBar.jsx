@@ -179,7 +179,7 @@ const SearchBar = ({ setSearchResults }) => {
               <div className="relative">
                 <input
                   type="text"
-                  placeholder="Buscar..."
+                  placeholder="Search..."
                   value={searchTerm}
                   onChange={(event) => setSearchTerm(event.target.value)}
                   className="bg-white text-black rounded-md pl-10 pr-4 py-2"

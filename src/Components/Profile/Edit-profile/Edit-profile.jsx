@@ -57,7 +57,7 @@ const Editprofile = () => {
               <button
                 type="submit"
                 className="bg-slate-700 text-white py-3 px-8 rounded-xl border-none">
-                Listo ✅
+                Done ✅
               </button>
             </form>
           </div>

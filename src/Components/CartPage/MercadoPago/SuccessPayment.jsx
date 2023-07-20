@@ -54,7 +54,7 @@ const SuccessPayment = () => {
         />
       </div>
       <div className="my-14">
-        <h1>¡Tu compra se ha realizado con éxito!</h1>
+        <h1>Your purchase has been successfully completed!</h1>
       </div>
       <div className="my-14">
         <NavLink to={"/home"}>

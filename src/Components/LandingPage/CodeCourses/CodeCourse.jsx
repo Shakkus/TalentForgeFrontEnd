@@ -13,7 +13,7 @@ const CodeCourse = () => {
                 const filteredCourses = response.data.filter(course => course.cathegory === 'Programming');
                 setCourses(filteredCourses);
             } catch (error) {
-                console.error('Error al obtener los cursos: ', error);
+                console.error('Error obtaining the courses: ', error);
             }
         }
         fetchCourses();
