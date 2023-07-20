@@ -32,7 +32,7 @@ const Rating = () => {
 					setShowStars(false);
 				}
 			} catch (error) {
-				console.log("Error al obtener los datos del curso:", error);
+				console.log("Error obtaining course data:", error);
 			}
 		};
 
