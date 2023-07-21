@@ -46,7 +46,9 @@ const Home = () => {
   };
 
   const handleFilter = (filteredCourses) => {
-    setFilteredCourses(filteredCourses);
+    setFilteredCourses(
+      filteredCourses.filter(course => course.disabled === false)
+    );
   };
 
   const handleLogOut = async () => {
