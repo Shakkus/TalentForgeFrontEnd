@@ -78,7 +78,7 @@ const CourseFilter = ({ courses, onFilter }) => {
             value={theme}
             onChange={(event) => setTheme(event.target.value)}
           >
-            <option value="">Todos</option>
+            <option value="">All</option>
             <option value="German">German</option>
             <option value="Italian">Italian</option>
             <option value="Japanese">Japanese</option>
@@ -99,7 +99,7 @@ const CourseFilter = ({ courses, onFilter }) => {
           </select>
         </div>
         <div className="select-box">
-          <label className={"select-title"}>Duración:</label>
+          <label className={"select-title"}>Duration:</label>
           <select
             id="countries"
             className={inputStyles}
@@ -107,20 +107,20 @@ const CourseFilter = ({ courses, onFilter }) => {
             onChange={(event) => setDuration(event.target.value)}
           >
             <option selected>Todas</option>
-            <option value="greaterThan10">Más de 10 minutos</option>
-            <option value="lessThan10">Menos de 10 minutos</option>
+            <option value="greaterThan10">More than 10 minutes</option>
+            <option value="lessThan10">Less than 10 minutes</option>
           </select>
         </div>
         <div className="select-box">
-          <label className={"select-title"}>Precio:</label>
+          <label className={"select-title"}>Price:</label>
           <select
             className={inputStyles}
             value={price}
             onChange={(event) => setPrice(event.target.value)}
           >
-            <option value="">Todos</option>
-            <option value="lessThan15">Menor a $15</option>
-            <option value="greaterThan15">Mayor a $15</option>
+            <option value="">All</option>
+            <option value="lessThan15">More than $15</option>
+            <option value="greaterThan15">Less than $15</option>
           </select>
         </div>
         <div className="select-box">
@@ -130,12 +130,12 @@ const CourseFilter = ({ courses, onFilter }) => {
             value={rating}
             onChange={(event) => setRating(event.target.value)}
           >
-            <option value="">Todos</option>
-            <option value="1">1 punto</option>
-            <option value="2">2 puntos</option>
-            <option value="3">3 puntos</option>
-            <option value="4">4 puntos</option>
-            <option value="5">5 puntos</option>
+            <option value="">All</option>
+            <option value="1">1 star</option>
+            <option value="2">2 stars</option>
+            <option value="3">3 stars</option>
+            <option value="4">4 stars</option>
+            <option value="5">5 stars</option>
           </select>
         </div>
         <button class="bg-[#7c38cd] hover:bg-[#AA6FFF] text-white font-bold py-2 px-4 rounded m-5" onClick={handleFilter} id="filter-button">

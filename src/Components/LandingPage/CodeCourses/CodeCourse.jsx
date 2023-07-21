@@ -5,6 +5,7 @@ import { NavLink, useParams } from "react-router-dom";
 import "../CodeCourses/CodeCourse.css";
 
 const CodeCourse = () => {
+
   const [courses, setCourses] = useState([]);
   useEffect(() => {
     const fetchCourses = async () => {
@@ -31,6 +32,7 @@ const CodeCourse = () => {
       {window.innerWidth <= 1440 ? (
         <div className="courses-container-landing-len overflow-x-scroll">
           <div className="courses-box-landing">
+
             {courses.map((course) => (
               <div className="courseContainer justify-between border-2 hover:border-violet-600 transition-colors">
                 <img src={course.image} alt="Imagen del curso" />

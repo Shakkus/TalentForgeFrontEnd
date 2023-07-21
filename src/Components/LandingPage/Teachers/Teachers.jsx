@@ -15,7 +15,9 @@ const Teachers = () => {
         const teachers = response.data;
         setTeachers(teachers);
       } catch (error) {
+
         console.error("Error al obtener los profesores: ", error);
+
       }
     };
     fetchTeachers();

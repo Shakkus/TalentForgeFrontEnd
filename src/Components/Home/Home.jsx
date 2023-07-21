@@ -14,6 +14,7 @@ const Home = () => {
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [getting, setGetting] = useState(true); // Estado para controlar si se están cargando los cursos
   const {setCartCount} = useContext(CartContext)
+  const [showPopup,setShowPopUp] = useState(false); //Logica de Pop Up para carrito
 
   const { logOut, loading, user } = useAuth();
 
@@ -37,7 +38,7 @@ const Home = () => {
         "https://talent-forge-data.cyclic.app/courses"
       );
       setCourses(data);
-      setFilteredCourses(data);
+      setFilteredCourses(data.filter(course => course.disabled === false));
       setGetting(false); // Se han cargado los cursos, actualizar el estado de getting
     } catch (error) {
       console.log(error);
@@ -45,7 +46,9 @@ const Home = () => {
   };
 
   const handleFilter = (filteredCourses) => {
-    setFilteredCourses(filteredCourses);
+    setFilteredCourses(
+      filteredCourses.filter(course => course.disabled === false)
+    );
   };
 
   const handleLogOut = async () => {
@@ -65,11 +68,24 @@ const Home = () => {
       const isCourseInCart = cartCourses.some(
         (cartCourse) => cartCourse._id === course._id
       );
+
+
+      setShowPopUp(true); //Logica pop up
+  
+      setTimeout(()=> {
+        setShowPopUp(false);
+      }, 3000)
+
       if (isCourseInCart) {
         console.log("Curso ya en carrito");
         return;
       }
     }
+    setShowPopUp(true); //Logica pop up
+    setTimeout(()=> {
+      setShowPopUp(false);
+    }, 2000);
+    
     cartCourses.push(course);
     localStorage.setItem("cartCourses", JSON.stringify(cartCourses));
     setCartCount(cartCourses.length)
@@ -113,6 +129,11 @@ const Home = () => {
             </div>
           ))}
         </div>
+        {showPopup && (
+            <div className="popup">
+              <p>Course added to cart!</p>
+            </div>
+        )}
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import "./CourseViewer.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Comments from "./Comments";
+import Comments from "./Comments/Comments";
 import Rating from "./Rating";
 const CourseViewer = () => {
 	const navigate = useNavigate();
@@ -58,10 +58,10 @@ const CourseViewer = () => {
 
 	useEffect(() => {
 		if (courseData.cathegory === "Programming") {
-			const video = courses.filter((video) => video.cathegory !== "Idiom");
+			const video = courses.filter((video) => video.cathegory !== "languages");
 			setRelatedVideo(video);
 			console.log(relatedVideo);
-		} else if (courseData.cathegory === "Idiom") {
+		} else if (courseData.cathegory === "languages") {
 			const video = courses.filter(
 				(video) => video.cathegory !== "Programming"
 			);
@@ -124,6 +124,40 @@ const CourseViewer = () => {
 	}, []);
 
 	// --------------
+
+	// RATING DEL CURSO
+	const [rating, setRating] = useState([]);
+	const[showSrating, setShowRating] = useState(0)
+
+	useEffect(() => {
+		// const fetchData = async () => {
+		// 	try {
+		// 		const response = axios.get(`rutabackend${id}`);
+		// 		const rating = response.rating;
+		// 		setRating(rating);
+		// 	} catch (error) {
+		// 		error.message;
+		// 	}
+
+		// 	if (rating) {
+		// 		const ratingAverage = () => {
+		// 			let ratingCount = 0;
+
+		// 			rating.map((user) => {
+		// 				const number = user.rating;
+		// 				const add = ratingCount + number;
+		// 				return add;
+		// 			});
+		// 			const result = add / rating.length;
+		// 			setShowRating(result)
+		// 		};
+
+		// 		ratingAverage();
+		// 	}
+		// };
+	}, [courseData]);
+
+	// ----------------
 
 	return (
 		<div className="course-viewer">
@@ -217,7 +251,6 @@ const CourseViewer = () => {
 						<p>{courseData.description}</p>
 						<p>Rating: {courseData.rating}</p>
 						<p>Duration: {courseData.duration}</p>
-						{/* <p>Price: {courseData.prize}</p> */}
 					</div>
 				</div>
 				<Comments />
@@ -225,9 +258,6 @@ const CourseViewer = () => {
 			</div>
 
 			{/* VIDEOS RELACIONADOS */}
-
-			{/* <div className="course-viewer-related-videos">
-					<h3>Related Videos:</h3> */}
 			<div className="related-video-container">
 				<h2>Related Videos</h2>
 				{relatedVideo.map((video) => (
@@ -239,9 +269,6 @@ const CourseViewer = () => {
 					</Link>
 				))}
 			</div>
-			{/* </div> */}
-
-			{/* -------- */}
 		</div>
 	);
 };

@@ -38,7 +38,7 @@ const TeachersDetail = () => {
           <p className="mt-4" id="insctructor-text">{teacher.description}</p>
         </div>
         <div className="mt-8">
-          <h2 className="text-2xl font-bold text-[#7c38cd]">Mis cursos</h2>
+          <h2 className="text-2xl font-bold text-[#7c38cd]">My courses</h2>
           <div className="flex flex-wrap mt-4">
             {teacher.courses &&
               teacher.courses.map((course) => (

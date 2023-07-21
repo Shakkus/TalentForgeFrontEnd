@@ -1,0 +1,30 @@
+.comment-container {
+	width: 100%;
+	padding-bottom: 20px;
+	/* margin-left: 2vw; */
+	margin-bottom: 20px;
+	background-color: #f5f4f4;
+	border-radius: 18px;
+	padding: 20px;
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+}
+
+.comment {
+	/* border: 2px solid rgb(57, 199, 104); */
+	border-radius: 0.25rem;
+	padding-left: 10px;
+	padding-right: 4px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	width: 91.5%;
+    text-align: justify;
+	/* height: 40px !important; */
+	min-height: 40px;
+	max-height: 200px;
+}
+
+.comment-image {
+    border: 2px solid fuchsia;
+}

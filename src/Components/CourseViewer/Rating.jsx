@@ -12,6 +12,9 @@ const Rating = () => {
 	const [showStars, setShowStars] = useState(false);
 	const { user } = useAuth();
 	const { id } = useParams();
+	const [userId, setUserId] = useState("");
+	const localStorageUserId = localStorage.getItem("userId");
+	const googleUserId = user?.uid;
 
 	// VERIFICACION DE RATING
 
@@ -29,7 +32,7 @@ const Rating = () => {
 					setShowStars(false);
 				}
 			} catch (error) {
-				console.log("Error al obtener los datos del curso:", error);
+				console.log("Error obtaining course data:", error);
 			}
 		};
 
@@ -39,9 +42,6 @@ const Rating = () => {
 	// ----------------------
 
 	// INFORMACION DEL USUARIO
-	const [userId, setUserId] = useState("");
-	const localStorageUserId = localStorage.getItem("userId");
-	const googleUserId = user?.uid;
 
 	useEffect(() => {
 		if (localStorageUserId) {
@@ -59,18 +59,18 @@ const Rating = () => {
 	// -----------------------
 
 	const handleRatingSubmit = async () => {
-		// try {
-		// 	const response = await axios.put(`rutabackend/${id}`, userInfo);
-		// 	if (response.status === 200) {
-		// 		setShowStars(true);
-		// 	}
+		try {
+			const response = await axios.put(`https://talent-forge-data.cyclic.app/courses/edit/${id}`, userInfo);
+			if (response.status === 200) {
+				setShowStars(true);
+			}
 
-		// 	if (response.status === 500) {
-		// 		setShowStars(false);
-		// 	}
-		// } catch (error) {
-		// 	setShowStars(false);
-		// }
+			if (response.status === 500) {
+				setShowStars(false);
+			}
+		} catch (error) {
+			setShowStars(false);
+		}
 
 		setShowStars(!showStars);
 		console.log(userInfo.rating);
