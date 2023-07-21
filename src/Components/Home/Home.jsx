@@ -73,10 +73,10 @@ const Home = () => {
       }
     }
     setShowPopUp(true); //Logica pop up
-
-      setTimeout(()=> {
-        setShowPopUp(false);
-      }, 2000)
+    setTimeout(()=> {
+      setShowPopUp(false);
+    }, 2000);
+    
     cartCourses.push(course);
     localStorage.setItem("cartCourses", JSON.stringify(cartCourses));
     setCartCount(cartCourses.length)
