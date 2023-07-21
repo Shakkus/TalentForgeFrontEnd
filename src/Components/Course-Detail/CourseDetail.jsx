@@ -60,7 +60,7 @@ const CourseDetail = () => {
   return (
     <div className="courseDetail">
       <div className="courseDetailContainer">
-        <h1 className="detailInfo">INFORMACION DEL CURSO</h1>
+        <h1 className="detailInfo">COURSE INFORMATION</h1>
         <h2 className="detailTitle">{detailInfo.title}</h2>
         <div className="courseInfo">
           <div className="detailInfo1">
@@ -81,7 +81,7 @@ const CourseDetail = () => {
               style={{ textDecoration: "none" }}
               className="w-5 bg-purple-600 p-3 rounded"
             >
-              <button className="text-white m-3">Comenzar con el curso!</button>
+              <button className="text-white m-3">Start the course!</button>
             </NavLink>
             <p className="detailPrize">
               ${detailInfo.prize} <b style={{ color: "green" }}>USD</b>

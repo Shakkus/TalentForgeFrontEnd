@@ -60,40 +60,6 @@ const CourseForm = () => {
 
   
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const formErrors = validate(input);
-    if (Object.keys(formErrors).length > 0) {
-      setErrors(formErrors);
-      return;
-    }
-    
-    console.log(input, selectedImage);
-    const inputData = {
-      ...input,
-      image: selectedImage,
-    };
-
-      await axios.post(
-        "https://talent-forge-data.cyclic.app/courses/",
-        inputData
-      );
-      setInput({
-        title: "",
-        cathegory: "",
-        theme: "",
-        link: "",
-        teacher: "",
-        description: "",
-        prize: "",
-        duration: "",
-        rating: "",
-      });
-    }
-
-
-
-
   // const handleSubmit = async (event) => {
   //   event.preventDefault();
   //   const formErrors = validate(input);
@@ -102,42 +68,75 @@ const CourseForm = () => {
   //     return;
   //   }
     
+  //   console.log(input, selectedImage);
   //   const inputData = {
   //     ...input,
   //     image: selectedImage,
   //   };
-    
-  //   try {
-  //     const response = await axios.post(
+
+  //     await axios.post(
   //       "https://talent-forge-data.cyclic.app/courses/",
   //       inputData
-  //       );
-        
-  //     if (!response) {
-  //       console.log('no anda');
-  //       setSuccessPopUp(true);
-  //     } else {
-  //       setErrorPopUp(true);
-  //     }
-  //   } catch (error) {
-  //     setErrorPopUp(true);
-  //     console.log(error);
+  //     );
+  //     setInput({
+  //       title: "",
+  //       cathegory: "",
+  //       theme: "",
+  //       link: "",
+  //       teacher: "",
+  //       description: "",
+  //       prize: "",
+  //       duration: "",
+  //       rating: "",
+  //     });
   //   }
 
-  //   setInput({
-  //     title: "",
-  //     cathegory: "",
-  //     theme: "",
-  //     link: "",
-  //     teacher: "",
-  //     description: "",
-  //     prize: "",
-  //     duration: "",
-  //     rating: "",
-  //   });
+
+
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formErrors = validate(input);
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+      return;
+    }
     
-  //   setSelectedImage('')
-  // };
+    const inputData = {
+      ...input,
+      image: selectedImage,
+    };
+    
+    try {
+      const response = await axios.post(
+        "https://talent-forge-data.cyclic.app/courses/",
+        inputData
+        );
+        
+      if (response.status === 200) {
+        setSuccessPopUp(true);
+      } else {
+        setErrorPopUp(true);
+      }
+    } catch (error) {
+      setErrorPopUp(true);
+      console.log(error);
+    }
+
+    setInput({
+      title: "",
+      cathegory: "",
+      theme: "",
+      link: "",
+      teacher: "",
+      description: "",
+      prize: "",
+      duration: "",
+      rating: "",
+    });
+    
+    setSelectedImage('')
+  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -184,7 +183,7 @@ const CourseForm = () => {
             <button onClick={() => setSuccessPopUp(false)}><FaWindowClose size={20} /></button>
           </div>
         </div>
-      )}
+       )} 
       {errorPopUp && (
         <div className="popup-container">
           <div className="popup">
@@ -192,7 +191,7 @@ const CourseForm = () => {
             <button onClick={() => setErrorPopUp(false)}><FaWindowClose size={20} /></button>
           </div>
         </div>
-      )}
+       )}
       <form onSubmit={handleSubmit}>
         <div>
           <div class="flex flex-wrap mb-6">
@@ -294,8 +293,8 @@ const CourseForm = () => {
                 value={input.description}
                 onChange={handleChange}
               />
-              {errors.tion && (
-                <span descripclass="text-red-500"> {errors.description}</span>
+              {errors.description && (
+                <span className="text-red-500"> {errors.description}</span>
               )}
             </div>
           </div>
@@ -343,7 +342,7 @@ const CourseForm = () => {
             </div>
           </div>
           <div class="flex flex-wrap mb-6">
-            <div class="w-full md:w-1/3 px-3">
+            {/* <div class="w-full md:w-1/3 px-3">
               <label
                 class="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2"
                 for="rating"
@@ -361,8 +360,8 @@ const CourseForm = () => {
               {errors.rating && (
                 <span class="text-red-500"> {errors.rating}</span>
               )}
-            </div>
-            <div class="w-full md:w-1/3 px-3">
+            </div> */}
+            <div class="w-full md:w-1/2 px-3">
               <label
                 class="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2"
                 for="prize"
@@ -381,7 +380,7 @@ const CourseForm = () => {
                 <span class="text-red-500"> {errors.prize}</span>
               )}
             </div>
-            <div class="w-full md:w-1/3 px-3">
+            <div class="w-full md:w-1/2 px-3">
               <label
                 class="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2"
                 for="duration"
@@ -413,7 +412,6 @@ const CourseForm = () => {
               !input.link ||
               !input.teacher ||
               !input.description ||
-              !input.rating ||
               !input.prize ||
               !input.duration
             }

@@ -52,6 +52,7 @@ const CartPage = () => {
       body: JSON.stringify(orderData),
     })
       .then((response) => {
+        console.log(response);
         return response.json();
       })
       .then((preference) => {
@@ -87,7 +88,7 @@ const CartPage = () => {
 
     const discount = obtainDiscount(discountCode);
     if (discount === null) {
-      alert("Lamentablemente tu cupón no es válido");
+      alert("Unfortunately your coupon is not valid");
       return;
     }
 
@@ -108,7 +109,7 @@ const CartPage = () => {
       gordobarril: -41238,
     };
     if (codes.hasOwnProperty(discountCode)) {
-      alert("¡Ingresaste tu cupón de descuento con éxito!");
+      alert("You have successfully entered your discount coupon!");
       return codes[discountCode];
     }
     return null;
@@ -171,7 +172,7 @@ const CartPage = () => {
    // window.location.reload();
   };
 
-  console.log(courses);
+  // console.log(courses);
   return (
     <div className="flex">
       <div className="w-2/3">
