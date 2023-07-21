@@ -38,7 +38,7 @@ const Home = () => {
         "https://talent-forge-data.cyclic.app/courses"
       );
       setCourses(data);
-      setFilteredCourses(data);
+      setFilteredCourses(data.filter(course => course.disabled === false));
       setGetting(false); // Se han cargado los cursos, actualizar el estado de getting
     } catch (error) {
       console.log(error);
@@ -67,7 +67,7 @@ const Home = () => {
         (cartCourse) => cartCourse._id === course._id
       );
       setShowPopUp(true); //Logica pop up
-
+  
       setTimeout(()=> {
         setShowPopUp(false);
       }, 3000)
@@ -121,7 +121,7 @@ const Home = () => {
         </div>
         {showPopup && (
             <div className="popup">
-              <p>¡Curso agregado al carrito!</p>
+              <p>Course added to cart!</p>
             </div>
           )}
       </div>
