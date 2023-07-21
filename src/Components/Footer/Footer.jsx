@@ -19,10 +19,10 @@ const Footer = () => {
           <h3 className="footerInfo">Contact</h3>
         </div>
         <Link to="/home">
-        <div className="contact-info p-3">
-          <img className="contact-img" src={home} alt="" />
-          <h3 className="footerInfo">Home</h3>
-        </div>
+          <div className="contact-info p-3">
+            <img className="contact-img" src={home} alt="" />
+            <h3 className="footerInfo">Home</h3>
+          </div>
         </Link>
         <div className="contact-ubication p-3">
           <img className="contact-img" src={dot} alt="" />
@@ -47,9 +47,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="about">
-        <p className="aboutInfo">
-        TALENT FORGE©. Educating since 2023{" "}
-        </p>
+        <p className="aboutInfo">TALENT FORGE©. Educating since 2023 </p>
       </div>
     </div>
   );
