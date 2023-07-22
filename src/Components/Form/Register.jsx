@@ -62,6 +62,7 @@ const Form = () => {
   }
 
   const handleSubmit = async (event) => {
+  try {
     event.preventDefault();
     const formErrors = validate(input);
     if (Object.keys(formErrors).length > 0) {
@@ -89,6 +90,9 @@ const Form = () => {
   
     // Navegar a la página de registro exitoso
     navigate("/welcome");
+  } catch (error) {
+    console.log(error.message);
+  }
   };  
 
   const handleChange = (event) => {

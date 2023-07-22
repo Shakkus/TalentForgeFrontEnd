@@ -66,7 +66,7 @@ const CourseFilter = ({ courses, onFilter }) => {
             onChange={(event) => setCategory(event.target.value)}
           >
             <option value="">Todas</option>
-            <option value="idiom">Idioma</option>
+            <option value="languages">Idioma</option>
             <option value="programming">Programación</option>
           </select>
         </div>
