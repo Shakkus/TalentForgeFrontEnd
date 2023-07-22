@@ -38,7 +38,7 @@ const Home = () => {
         "https://talent-forge-data.cyclic.app/courses"
       );
       setCourses(data);
-      setFilteredCourses(data);
+      setFilteredCourses(data.filter(course => course.disabled === false));
       setGetting(false); // Se han cargado los cursos, actualizar el estado de getting
     } catch (error) {
       console.log(error);
@@ -46,7 +46,9 @@ const Home = () => {
   };
 
   const handleFilter = (filteredCourses) => {
-    setFilteredCourses(filteredCourses);
+    setFilteredCourses(
+      filteredCourses.filter(course => course.disabled === false)
+    );
   };
 
   const calculateAverageRating = (ratings) => {
@@ -73,16 +75,24 @@ const Home = () => {
       const isCourseInCart = cartCourses.some(
         (cartCourse) => cartCourse._id === course._id
       );
-      setShowPopUp(true); //Logica pop up
 
+
+      setShowPopUp(true); //Logica pop up
+  
       setTimeout(()=> {
         setShowPopUp(false);
       }, 3000)
+
       if (isCourseInCart) {
         console.log("Curso ya en carrito");
         return;
       }
     }
+    setShowPopUp(true); //Logica pop up
+    setTimeout(()=> {
+      setShowPopUp(false);
+    }, 2000);
+    
     cartCourses.push(course);
     localStorage.setItem("cartCourses", JSON.stringify(cartCourses));
     setCartCount(cartCourses.length)
@@ -129,9 +139,9 @@ const Home = () => {
         </div>
         {showPopup && (
             <div className="popup">
-              <p>¡Curso agregado al carrito!</p>
+              <p>Course added to cart!</p>
             </div>
-          )}
+        )}
       </div>
     </div>
   );

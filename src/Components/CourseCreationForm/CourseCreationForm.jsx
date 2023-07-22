@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { CloudinaryContext, Video, Image } from '@cloudinary/react'
-import { Cloudinary } from "cloudinary-core";
 import { validate } from "./validation";
 import { useNavigate } from "react-router-dom";
 import { FaWindowClose } from 'react-icons/fa'

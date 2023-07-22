@@ -3,7 +3,7 @@
 @import 'tailwindcss/utilities';
 
 .landing{
-    padding-top: 100px;
+    /* padding-top: 100px; */
     background: #7C38CD;
     width: 100%;
 }
@@ -45,21 +45,45 @@
 
 .presentation{
     color: #AA6FFF;
-    display: flex;
+    /* display: flex; */
     justify-content: space-around;
-    margin: 20px; 
+    margin: 20px 0;
 }
 .presentation img{
-    width: 300px;
+    @media (min-width: 1024px) {
+        margin: 0 10vw;
+        display: flex;
+        /* background-color: red; */
+    }
+    @media (max-width: 1024px) {
+        margin: 0 25vw;
+    }
+
+    @media (max-width: 640px) {
+        margin: 0 10px;
+    }
 }
 
 .presentation .presentationContainer{
-    padding: 10px;
+    /* padding: 10px; */
     background: white;
     border-radius: 50px;
-    width: 500px;
-    border: 20px;
-    padding: 40px;
+    /* width: 100vw; */
+    /* border: 20px; */
+    padding: 80px;
+
+
+    @media (min-width: 900px) {
+        padding-top: 20px;
+        padding-bottom: 0;    
+    }
+
+    @media (max-width: 1024px) {
+        padding: 40px;
+        width: 80vw;
+        margin-left: 9%;
+
+}
 }
 
 .presentation button{
@@ -145,11 +169,26 @@ button.active{
 .empresas img{
     width: 300px;
     /* border-radius: 100px 100px 0 0px; */
+    margin: 0 100px;
+    @media (max-width: 1024px) {
+        display: block;
+        margin: 10% 10%;
+    }
 }
 
 .empresas .infoContainer{
-    /* background: #7C38CD;
-    border-radius:25px; */
+    background: #ddd0ee;
+    border-radius:25px;
+
+    @media (max-width: 1024px) {
+        margin: 10px 20px 0 20px;
+    }
+}
+
+.empresas .infoContainer h3 {
+    @media (max-width: 1024px) {
+        font-size: 18px;
+    }
 }
 
 .empresas h3{
@@ -188,7 +227,19 @@ button.active{
 }
 
 .presentation-title{
-    font-size: 20px;
     color: #650ece;
     font-weight: 500;
+}
+
+/* En tu archivo LandingPage.css o en tu hoja de estilos global */
+.slick-slider {
+    touch-action: pan-y;
+}
+
+/* Asegúrate de incluir el siguiente estilo solo en dispositivos táctiles,
+   ya que el manejo del mouse no requiere esta modificación */
+@media (hover: none) {
+    .slick-slider {
+        touch-action: pan-x;
+    }
 }
