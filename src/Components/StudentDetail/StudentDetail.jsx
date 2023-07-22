@@ -128,12 +128,12 @@ const StudentDetail = () => {
 
           <div className="mt-4">
             <h2 className="text-2xl font-bold text-[#7c38cd]">
-              Post publication
+              Agregar Publicación
             </h2>
             <form onSubmit={handleSubmit}>
               <textarea
                 className="w-full h-20 mt-2 p-2 border border-gray-300 rounded"
-                placeholder="Escribe tu publicación..."
+                placeholder="Write a post..."
                 value={newPostContent}
                 onChange={(e) => setNewPostContent(e.target.value)}
               ></textarea>
