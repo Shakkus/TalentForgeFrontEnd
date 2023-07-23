@@ -111,29 +111,31 @@ const Home = () => {
             <div
               key={course._id}
               className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 px-2 mb-4">
-              <div className="overflow-hidden">
+              <div className="overflow-hidden  ">
                 <div className="aspect-w-16 aspect-h-9">
                   <img
                     src={course.image}
                     alt="Course Image"
-                    className="object-cover w-64 h-36 border border-[#AA6FFF]"
+                    className="object-cover w-64 h-36 border border-[#AA6FFF] my-0 mx-auto"
                   />
                 </div>
                 <div className="bg-py-0.1 px-2 md:px-4 text-left">
-                  <h2 className="text-lg font-semibold mb-2">{course.title}</h2>
+                  <h2 className="text-lg font-semibold mb-2 h-14">{course.title}</h2>
                   <p className="text-gray-600 mb-2">{course.teacher}</p>
                   <div className="flex items-center mb-2">
                     <span className="text-yellow-400 mr-1">&#9733;</span>
                     <span className="text-gray-600 font-medium mr-2">{calculateAverageRating(course.interactions.ratings)}</span>
                     {course.interactions.ratings && course.interactions.ratings.length !== 0 && <span className="text-purple-600 text-sm">({course.interactions.ratings.length} ratings)</span>}
                   </div>
-                  <p className="text-gray-600 mb-4">${course.prize}</p>
+                  <p className="text-gray-600 mb-3">${course.prize}</p>
                 </div>
               </div>
-              <NavLink to={`/course/${course._id}`}class="bg-[#7c38cd] hover:bg-[#AA6FFF] text-white font-bold py-2 px-4 rounded m-5">Ver Curso</NavLink>
+             <div>
+             <NavLink to={`/course/${course._id}`}class="py-2 px-4 rounded m-5">Ver Curso</NavLink>
               <button onClick={() => addCourseToCart(course)} class="bg-[#7c38cd] hover:bg-[#AA6FFF] text-white font-bold py-2 px-4 rounded m-5">
                 Agregar al carrito
               </button>
+             </div>
             </div>
           ))}
         </div>
