@@ -7,6 +7,54 @@
 }
 
 .logo-searchbar {
-  object-fit: contain;
-  aspect-ratio: 3/2;
+    object-fit: contain;
+    aspect-ratio: 3/2;
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
+}
+
+.homeIcon {
+  @media (max-width: 1024px) {
+
+  }
+}
+
+.linkRegister {
+  @media (max-width: 1024px) {
+    width: 4%;
+  }
+}
+
+.searchbarNav {
+  width: 100%;
+  @media (max-width: 1024px) {
+  }
+}
+
+.nonRegister {
+  @media (max-width: 768px) {
+    border: 1px solid white;
+    border-radius: 20px;
+  }
+}
+
+.linkRegister {
+  @media (max-width: 768px) {
+    font-size: 8px;
+  }
+}
+
+.linkLogin {
+  @media (max-width: 768px) {
+    font-size: 8px;
+  }
+}
+
+.cart-count {
+  @media (max-width: 768px) {
+    width: 8px;
+    height: 8px;
+    font-size: 12px;
+  }
 }

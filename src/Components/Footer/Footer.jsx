@@ -37,7 +37,7 @@ const Footer = () => {
         />
         <div className="logo-redes">
           <img src={logo1} alt="" />
-          <div className="redes">
+          <div className="redes max-lg:my-10">
             <img src={instagramImg} alt="" className="footerImg w-9" />
             <img src={facebookImg} alt="" className="footerImg w-9" />
             <img src={ytImg} alt="" className="footerImg w-9" />
