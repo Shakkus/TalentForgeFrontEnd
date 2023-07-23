@@ -51,13 +51,20 @@ const Home = () => {
     );
   };
 
-  const handleLogOut = async () => {
-    try {
-      await logOut();
-      navigate("/");
-    } catch (error) {
-      console.error(error);
+  const calculateAverageRating = (ratings) => {
+    if(!ratings || ratings.length === 0) {
+      return 'No ratings yet'
     }
+
+    const totalRatings = ratings.length
+    const ratingSum = ratings.reduce(
+      (total, userSentRating) => total + userSentRating.rating,
+      0
+    );
+
+    const ratingAverage = ratingSum / totalRatings;
+					const roundedRating = Math.round(ratingAverage);
+					return roundedRating
   };
 
   let cartCourses = [];
@@ -117,7 +124,8 @@ const Home = () => {
                   <p className="text-gray-600 mb-2">{course.teacher}</p>
                   <div className="flex items-center mb-2">
                     <span className="text-yellow-400 mr-1">&#9733;</span>
-                    <span className="text-gray-600">{course.rating}</span>
+                    <span className="text-gray-600 font-medium mr-2">{calculateAverageRating(course.interactions.ratings)}</span>
+                    {course.interactions.ratings && course.interactions.ratings.length !== 0 && <span className="text-purple-600 text-sm">({course.interactions.ratings.length} ratings)</span>}
                   </div>
                   <p className="text-gray-600 mb-4">${course.prize}</p>
                 </div>

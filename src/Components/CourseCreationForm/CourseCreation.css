@@ -30,3 +30,13 @@
     border-radius: 0 !important;
     margin: 0 !important;
 } 
+
+.img-upload {
+    height: 100px;
+    width: auto;
+    object-fit: cover;
+    margin-top: 10px;
+    margin-left: 40%;
+    margin-right: 40%;
+    border-radius: 6px;
+}

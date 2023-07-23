@@ -108,6 +108,14 @@ box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2p
     font-size: 18px;
 }
 
+.detailRating {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 5px;
+}
+
 
 .teacherInfoContainer {
     /* border: 1px solid black; */

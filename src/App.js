@@ -25,6 +25,15 @@ import { CartProvider, CartContext } from "./CartContext";
 import CartPage from "./Components/CartPage/CartPage";
 import SuccessPayment from "./Components/CartPage/MercadoPago/SuccessPayment";
 import Editprofile from "./Components/Profile/Edit-profile/Edit-profile";
+import AdminDash from "./Components/AdminDash/AdminDash";
+//imports de dashboard admin
+import DisableTeachers from './Components/AdminDash/Dashboards/DisableTeachers'
+import EditTeachers from './Components/AdminDash/Dashboards/EditTeachers'
+import DisableCourses from './Components/AdminDash/Dashboards/DisableCourses'
+import EditCourses from './Components/AdminDash/Dashboards/EditCourses'
+import FormTeachersDash from "./Components/AdminDash/Dashboards/FormTeachersDash";
+import FormCourseEdit from "./Components/AdminDash/Dashboards/FormCourseEdit";
+
 
 function App() {
   const [searchResults, setSearchResults] = useState([]);
@@ -70,11 +79,22 @@ function App() {
             <Route path="/cart/success" element={<SuccessPayment />} />
             <Route path="/social/profile" element={<StudentDetail />} />
             <Route path="/profile/edit" element={<Editprofile />} />
+<<<<<<< HEAD
             <Route path="/social/inventory" element={<Editprofile />} />
             <Route
               path="/search"
               element={<CourseResults searchResults={searchResults} />}
             />
+=======
+            <Route path="/search" element={<CourseResults searchResults={searchResults} />} />
+            <Route path="/adminDash" element={<AdminDash />}/>
+            <Route path='/disableTeachers' element={<DisableTeachers />} />
+            <Route path='/editTeachers' element={<EditTeachers />} />
+            <Route path='/editTeachers/edit/:id' element={<FormTeachersDash />} />
+            <Route path='/disableCourses' element={<DisableCourses />} />
+            <Route path='/editCourses' element={<EditCourses />} />
+            <Route path='/editCourses/edit/:id' element={<FormCourseEdit />} />
+>>>>>>> 915150fb845eca02922012069610390d6afb2682
           </Routes>
           <Footer />
         </CartProvider>

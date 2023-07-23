@@ -15,6 +15,7 @@ import social from "../../Recourses/social.png";
 import searchIcon from "../../Recourses/searchIcon.png";
 import profile from "../../Recourses/profile.png";
 import homeIcon from "../../Recourses/homeIcon.png";
+import './SearchBar.css'
 
 //COMPONENT
 const SearchBar = ({ setSearchResults }) => {
@@ -158,21 +159,21 @@ const SearchBar = ({ setSearchResults }) => {
   // ------------
 
   return (
-    <nav className="bg-[#7c38cd]">
+    <nav className="bg-[#7c38cd] searchbarNav">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-4">
           <div className="flex items-center">
-            <Link to="/">
+            <Link to="/" className="max-lg:-mr-3">
               <img
-                className="logo-searchbar h-10 max-lg:h-5 max-md:w-20"
+                className="logo-searchbar h-10"
                 src={logo}
                 alt="logo"
               />
             </Link>
 
-            <Link to="/home" className="ml-4 max-lg:ml-2">
+            <Link to="/home" className="ml-4 max-lg:ml-2 homeIcon">
               <img
-                className="h-6 filter-invert max-lg:h-6 max-lg:w-6 max-md:w-20 max-md:h-5"
+                className=" h-7 filter-invert object-contain max-lg:ml-2"
                 id="icon"
                 src={homeIcon}
                 alt="home"
@@ -227,7 +228,7 @@ const SearchBar = ({ setSearchResults }) => {
                       alt="shopcar"
                     />
                     {cartCount > 0 && (
-                      <div className="bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center absolute -top-1 -right-1">
+                      <div className="cart-count bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center absolute -top-1 -right-1">
                         {cartCount}
                       </div>
                     )}
@@ -248,14 +249,14 @@ const SearchBar = ({ setSearchResults }) => {
                 <div className="relative">
                   {user ? (
                     <img
-                      className="ml-2 filter-invert cursor-pointer rounded-full w-10 h-10 max-md:w-5 max-md:h-5 max-sm:w-3 max-sm:h-3"
+                      className="ml-2 filter-invert cursor-pointer rounded-full w-10 h-10 max-md:w-10 max-md:h-10 max-sm:w-5 max-sm:h-5"
                       src={user.photoURL}
                       alt="profile"
                       onClick={handleProfileMenuToggle}
                     />
                   ) : (
                     <img
-                      className="m-2 filter-invert cursor-pointer rounded-full w-10 h-10 max-md:w-5 max-md:h-5 max-sm:w-3 max-sm:h-3"
+                      className="m-2 filter-invert cursor-pointer rounded-full w-10 h-10 max-md:w-3 max-md:h-3 max-sm:w-3 max-sm:h-3 max-lg:w-4 max-lg:h-4"
                       src={profile}
                       alt="profile"
                       onClick={handleProfileMenuToggle}
@@ -326,7 +327,7 @@ const SearchBar = ({ setSearchResults }) => {
                   className="text-white hover:text-gray-300 ml-6 relative">
                   <div className="flex items-center">
                     <img
-                      className="h-6 filter-invert"
+                      className="h-6 filter-invert shop-car"
                       id="icon"
                       src={shopcar}
                       alt="shopcar"
@@ -404,16 +405,16 @@ const SearchBar = ({ setSearchResults }) => {
                 </div>
               </>
             ) : (
-              <div className="hidden lg:flex items-center">
+              <div className="items-center nonRegister max-md:w-24 max-md:ml-3">
                 <Link
                   to="/register"
-                  className="text-white hover:text-gray-300 px-3 py-2">
+                  className="text-white hover:text-gray-300 px-3 max-md:px-2 max-md:pl-0 linkRegister">
                   Register
                 </Link>
 
                 <Link
                   to="/login"
-                  className="text-white hover:text-gray-300 px-3 py-2">
+                  className="text-white hover:text-gray-300 px-3 max-md:px-2 max-md:pl-0 linkLogin">
                   Log In
                 </Link>
               </div>

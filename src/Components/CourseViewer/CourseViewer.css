@@ -123,8 +123,8 @@
 	border-radius: 18px !important;
 	background-color: #000000c1;
 	top:31.5vh !important;
-	left: 40vw;
-	right: 40%;
+	left: 40vw !important;
+	right: 40% !important;
 	width: 20vw !important;
 	height: 300px !important;
 	display: block;
@@ -164,6 +164,30 @@
 input[type="radio"] {
 	display: none;
 }
+
+.rating-average {
+	width: 20%;
+	height: auto;
+	display: inline-flex;
+	flex-wrap: wrap ;
+	justify-content: center;
+	align-items: center;
+}
+
+.rating-average-container {
+	display: flex;
+	flex-direction: row;
+	/* border: 2px solid red; */
+}
+
+.description-stars {
+	/* cursor: pointer; */
+	margin: 0;
+}
+
+/* .fixed-stars {
+	
+} */
 
 .stars {
 	cursor: pointer;
