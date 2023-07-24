@@ -41,7 +41,10 @@ const AdminDash = () => {
         editCourses
       </NavLink>
 
-      
+      <NavLink to="/accTypeTable" className="max-h-20 min-h-20 bg-[#7c38cd] rounded-lg p-4 shadow-lg my-2 flex items-center justify-between hover:bg-purple-600 transition-colors">
+        Teacher Manager
+      </NavLink>
+
     </div>
   );
 };
