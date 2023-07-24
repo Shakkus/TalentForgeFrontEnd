@@ -93,7 +93,7 @@ const Landing = () => {
               <h3 id="textoVioleta" className="sm:text-2xl text-lg">
                 We can help you
               </h3>
-              <Link to="" className="m-3 w-2">
+              <Link to="companyContact" className="m-3 w-2">
                 <h1 className="relative text-white bg-purple-500 p-3 w-40 mt-0 mx-auto rounded-xl mb-0 customHoverShadow">
                   Contact Us
                 </h1>

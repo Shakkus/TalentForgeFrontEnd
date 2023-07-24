@@ -159,7 +159,7 @@ const SearchBar = ({ setSearchResults }) => {
   // ------------
 
   return (
-    <nav className="bg-[#7c38cd] searchbarNav">
+    <nav className="sticky top-0 z-50  bg-[#7c38cd] searchbarNav">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-4">
           <div className="flex items-center">

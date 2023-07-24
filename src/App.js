@@ -42,6 +42,8 @@ function App() {
 
   const shouldRenderSearchBar = location.pathname !== "/cart/success";
 
+
+
   useEffect(() => {
     // Titulo de ventana
     document.title = "Talent Forge";
@@ -58,7 +60,7 @@ function App() {
           {shouldRenderSearchBar && (
             <SearchBar setSearchResults={setSearchResults} />
           )}
-      <Breadcrumb/>
+      <Breadcrumb />
           <Routes>
             <Route path="/view/:id" element={<CourseViewer />} />
             <Route path="/login" element={<Login />} />
