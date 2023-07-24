@@ -1,8 +1,11 @@
 #form-register {
     padding-top: 50px;
     padding-bottom: 50px;
-    margin: auto;
+    margin: 0 auto;
     width: 500px;
+    @media (max-width: 768px) {
+      margin-left: -50px;
+    }
   }
   
   .text-register{
@@ -11,4 +14,12 @@
 
   .icon{
     margin-bottom: 20px;
+  }
+
+  .input-form {
+    width: 100%;
+    @media (max-width: 768px) {
+      width: 50%;
+      margin: 0 auto;
+    }
   }

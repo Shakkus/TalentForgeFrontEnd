@@ -7,5 +7,9 @@
   
   .image-404 {
     width: 400px;
+
+    @media (max-width: 1024px) {
+      width: 200px
+    }
   }
   
