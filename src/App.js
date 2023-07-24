@@ -19,6 +19,7 @@ import TeachersDetail from "./Components/TeachersDetail/teachersDetail";
 import SucessRegister from "./Components/SucessRegister/SucessRegister";
 // import FriendList from "./Components/FriendList/FriendList";
 import StudentDetail from "./Components/StudentDetail/StudentDetail";
+import Breadcrumb from "./Components/Breadcrumb/Breadcrumb"
 import { AuthProvider } from "./context/authContext.js";
 import { CartProvider, CartContext } from "./CartContext";
 import CartPage from "./Components/CartPage/CartPage";
@@ -56,7 +57,7 @@ function App() {
           {shouldRenderSearchBar && (
             <SearchBar setSearchResults={setSearchResults} />
           )}
-
+      <Breadcrumb/>
           <Routes>
             <Route path="/view/:id" element={<CourseViewer />} />
             <Route path="/detail" element={<DetailCourses />} />

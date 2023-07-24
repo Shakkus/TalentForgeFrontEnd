@@ -1,48 +1,56 @@
-import {useEffect, useState} from 'react'
-import axios from 'axios'
-import { NavLink } from 'react-router-dom'
-
+import React from "react";
+import { NavLink } from "react-router-dom";
+import "./AdminDash.css"; // Import the CSS file you created
 
 const AdminDash = () => {
-
-// const [users, setUsers] = useState([])
-// const [teachers, setTeachers] = useState([])
-// const [courses, setCourses] = useState([])   
-
-// const getUsers = () => {
-//     const { data } = axios.get('https://talent-forge-data.cyclic.app/user')
-//     setUsers(data)
-// }
-// const getCourses = () => {
-//     const { data } = axios.get('https://talent-forge-data.cyclic.app/courses')
-//     setCourses(data)
-// }
-// const getTeachers = () => {
-//     const { data } = axios.get('https://talent-forge-data.cyclic.app/teacher')
-//     setTeachers(data)
-// }
-
-// useEffect(() => {
-//     getCourses()
-//     getTeachers()
-//     getUsers()
-// }, []);  
-
-    
-
   return (
-    <>
-        <NavLink to='/disableUsers'>    <button className="dashboard">disableUsers</button>     </NavLink>
-        <NavLink to='/deleteUsers'>     <button className="dashboard">deleteUsers</button>      </NavLink>
-        <NavLink to='/editUsers'>       <button className="dashboard">editUsers</button>        </NavLink>
-        <NavLink to='/disableTeachers'> <button className="dashboard">disableTeachers</button>  </NavLink>
-        <NavLink to='/deleteTeachers'>  <button className="dashboard">deleteTeachers</button>   </NavLink>
-        <NavLink to='/editTeachers'>    <button className="dashboard">editTeachers</button>     </NavLink>
-        <NavLink to='/disableCourses'>  <button className="dashboard">disableCourses</button>   </NavLink>
-        <NavLink to='/deleteCourses'>   <button className="dashboard">deleteCourses</button>    </NavLink>
-        <NavLink to='/editCourses'>     <button className="dashboard">editCourses</button>      </NavLink>
-    </>
-  )
-}
+    <div className="max-w-[70%] mx-auto py-5 text-left text-white font-bold">
+      {/* Disable Users */}
+      <NavLink to="/disableUsers" className="bg-gray-400 max-h-20 min-h-20 bg-[#7c38cd] rounded-lg p-4 shadow-lg my-2 flex items-center justify-between hover:bg-purple-600 transition-colors">
+        disableUsers
+      </NavLink>
 
-export default AdminDash
+      {/* Delete Users */}
+      <NavLink to="/deleteUsers" className="bg-gray-400 max-h-20 min-h-20 bg-[#7c38cd] rounded-lg p-4 shadow-lg my-2 flex items-center justify-between hover:bg-purple-600 transition-colors">
+        deleteUsers
+      </NavLink>
+
+      {/* Edit Users */}
+      <NavLink to="/editUsers" className="bg-gray-400 max-h-20 min-h-20 bg-[#7c38cd] rounded-lg p-4 shadow-lg my-2 flex items-center justify-between hover:bg-purple-600 transition-colors">
+        editUsers
+      </NavLink>
+
+      {/* Disable Teachers */}
+      <NavLink to="/disableTeachers" className="max-h-20 min-h-20 bg-[#7c38cd] rounded-lg p-4 shadow-lg my-2 flex items-center justify-between hover:bg-purple-600 transition-colors">
+        disableTeachers
+      </NavLink>
+
+      {/* Delete Teachers */}
+      <NavLink to="/deleteTeachers" className="bg-gray-400 max-h-20 min-h-20 bg-[#7c38cd] rounded-lg p-4 shadow-lg my-2 flex items-center justify-between hover:bg-purple-600 transition-colors">
+        deleteTeachers
+      </NavLink>
+
+      {/* Edit Teachers */}
+      <NavLink to="/editTeachers" className="max-h-20 min-h-20 bg-[#7c38cd] rounded-lg p-4 shadow-lg my-2 flex items-center justify-between hover:bg-purple-600 transition-colors">
+        editTeachers
+      </NavLink>
+
+      {/* Disable Courses */}
+      <NavLink to="/disableCourses" className="max-h-20 min-h-20 bg-[#7c38cd] rounded-lg p-4 shadow-lg my-2 flex items-center justify-between hover:bg-purple-600 transition-colors">
+        disableCourses
+      </NavLink>
+
+      {/* Delete Courses */}
+      <NavLink to="/deleteCourses" className="bg-gray-400 max-h-20 min-h-20 bg-[#7c38cd] rounded-lg p-4 shadow-lg my-2 flex items-center justify-between hover:bg-purple-600 transition-colors">
+        deleteCourses
+      </NavLink>
+
+      {/* Edit Courses */}
+      <NavLink to="/editCourses" className="max-h-20 min-h-20 bg-[#7c38cd] rounded-lg p-4 shadow-lg my-2 flex items-center justify-between hover:bg-purple-600 transition-colors">
+        editCourses
+      </NavLink>
+    </div>
+  );
+};
+
+export default AdminDash;
