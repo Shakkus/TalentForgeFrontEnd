@@ -7,7 +7,6 @@ import Form from "./Components/Form/Register";
 import DetailCourses from "./Components/DetailCoursesProgramation/DetailCoursesProgramation";
 import SearchBar from "./Components/SearchBar/SearchBar";
 import Footer from "./Components/Footer/Footer.jsx";
-import Breadcrumb from "./Components/Breadcrumb/Breadcrumb.jsx"; 
 import CourseResults from "./Components/CourseResults/CourseResults";
 import CourseViewer from "./Components/CourseViewer/CourseViewer.jsx";
 import CourseForm from "./Components/CourseCreationForm/CourseCreationForm";
@@ -18,8 +17,9 @@ import Home from "./Components/Home/Home";
 import CourseDetail from "./Components/Course-Detail/CourseDetail";
 import TeachersDetail from "./Components/TeachersDetail/teachersDetail";
 import SucessRegister from "./Components/SucessRegister/SucessRegister";
-import FriendList from "./Components/FriendList/FriendList";
+// import FriendList from "./Components/FriendList/FriendList";
 import StudentDetail from "./Components/StudentDetail/StudentDetail";
+import Breadcrumb from "./Components/Breadcrumb/Breadcrumb"
 import { AuthProvider } from "./context/authContext.js";
 import { CartProvider, CartContext } from "./CartContext";
 import CartPage from "./Components/CartPage/CartPage";
@@ -50,8 +50,6 @@ function App() {
     favicon.href = "fiveicon.png";
   });
 
-  
-
   return (
     <div className="App">
       <AuthProvider>
@@ -59,9 +57,8 @@ function App() {
           {shouldRenderSearchBar && (
             <SearchBar setSearchResults={setSearchResults} />
           )}
-          <Breadcrumb />
+      <Breadcrumb/>
           <Routes>
-            <Route path="/social/friends" element={<FriendList/>}/>
             <Route path="/view/:id" element={<CourseViewer />} />
             <Route path="/detail" element={<DetailCourses />} />
             <Route path="/login" element={<Login />} />
@@ -79,13 +76,6 @@ function App() {
             <Route path="/cart/success" element={<SuccessPayment />} />
             <Route path="/social/profile" element={<StudentDetail />} />
             <Route path="/profile/edit" element={<Editprofile />} />
-<<<<<<< HEAD
-            <Route path="/social/inventory" element={<Editprofile />} />
-            <Route
-              path="/search"
-              element={<CourseResults searchResults={searchResults} />}
-            />
-=======
             <Route path="/search" element={<CourseResults searchResults={searchResults} />} />
             <Route path="/adminDash" element={<AdminDash />}/>
             <Route path='/disableTeachers' element={<DisableTeachers />} />
@@ -94,7 +84,6 @@ function App() {
             <Route path='/disableCourses' element={<DisableCourses />} />
             <Route path='/editCourses' element={<EditCourses />} />
             <Route path='/editCourses/edit/:id' element={<FormCourseEdit />} />
->>>>>>> 915150fb845eca02922012069610390d6afb2682
           </Routes>
           <Footer />
         </CartProvider>

@@ -5,6 +5,12 @@ const Breadcrumb = () => {
   const location = useLocation();
   const pathnames = location.pathname.split("/").filter((x) => x);
 
+  // Check if the last element is "uid" or "id"
+  const lastElement = pathnames[pathnames.length - 1];
+  if (lastElement === "uid" || lastElement === "id") {
+    return null;
+  }
+
   return (
     <nav className="flex pl-5 py-2 bg-[#AA6FFF]" aria-label="Breadcrumb">
       <ol className="inline-flex items-center space-x-1 md:space-x-3">
@@ -29,39 +35,42 @@ const Breadcrumb = () => {
           const routeTo = `/${pathnames.slice(0, index + 1).join("/")}`;
           const isLast = index === pathnames.length - 1;
           return (
-            <li key={name}>
-              <div className="flex items-center">
-                <svg
-                  className="w-3 h-3 text-white mx-1"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 6 10"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="m1 9 4-4-4-4"
-                  />
-                </svg>
-                {isLast ? (
-                  <Link to={name}>
-                    <span className="ml-1 text-sm font-medium text-white md:ml-2 dark:text-white">
-                      {name}
-                    </span>
-                  </Link>
-                ) : (
-                  <Link
-                    to={routeTo}
-                    className="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-white dark:hover:text-white"
+            // Check if the current name is "uid" or "id" and return null to skip rendering
+            (name.length > 20 ) ? null : (
+              <li key={name}>
+                <div className="flex items-center">
+                  <svg
+                    className="w-3 h-3 text-white mx-1"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 6 10"
                   >
-                    {name}
-                  </Link>
-                )}
-              </div>
-            </li>
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="m1 9 4-4-4-4"
+                    />
+                  </svg>
+                  {isLast ? (
+                    <Link to={name}>
+                      <span className="ml-1 text-sm font-medium text-white md:ml-2 dark:text-white">
+                        {name}
+                      </span>
+                    </Link>
+                  ) : (
+                    <Link
+                      to={routeTo}
+                      className="ml-1 text-sm font-medium text-white hover:text-blue-600 md:ml-2 dark:text-white dark:hover:text-white"
+                    >
+                      {name}
+                    </Link>
+                  )}
+                </div>
+              </li>
+            )
           );
         })}
       </ol>

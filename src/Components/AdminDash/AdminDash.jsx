@@ -1,48 +1,81 @@
-import {useEffect, useState} from 'react'
-import axios from 'axios'
-import { NavLink } from 'react-router-dom'
-
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { NavLink } from "react-router-dom";
 
 const AdminDash = () => {
+  // const [users, setUsers] = useState([])
+  // const [teachers, setTeachers] = useState([])
+  // const [courses, setCourses] = useState([])
 
-// const [users, setUsers] = useState([])
-// const [teachers, setTeachers] = useState([])
-// const [courses, setCourses] = useState([])   
+  // const getUsers = () => {
+  //     const { data } = axios.get('https://talent-forge-data.cyclic.app/user')
+  //     setUsers(data)
+  // }
+  // const getCourses = () => {
+  //     const { data } = axios.get('https://talent-forge-data.cyclic.app/courses')
+  //     setCourses(data)
+  // }
+  // const getTeachers = () => {
+  //     const { data } = axios.get('https://talent-forge-data.cyclic.app/teacher')
+  //     setTeachers(data)
+  // }
 
-// const getUsers = () => {
-//     const { data } = axios.get('https://talent-forge-data.cyclic.app/user')
-//     setUsers(data)
-// }
-// const getCourses = () => {
-//     const { data } = axios.get('https://talent-forge-data.cyclic.app/courses')
-//     setCourses(data)
-// }
-// const getTeachers = () => {
-//     const { data } = axios.get('https://talent-forge-data.cyclic.app/teacher')
-//     setTeachers(data)
-// }
+  // useEffect(() => {
+  //     getCourses()
+  //     getTeachers()
+  //     getUsers()
+  // }, []);
 
-// useEffect(() => {
-//     getCourses()
-//     getTeachers()
-//     getUsers()
-// }, []);  
-
-    
+  const buttonStyle = "w-300 h-200 bg-8c56cc";
 
   return (
-    <>
-        <NavLink to='/disableUsers'>    <button className="dashboard">disableUsers</button>     </NavLink>
-        <NavLink to='/deleteUsers'>     <button className="dashboard">deleteUsers</button>      </NavLink>
-        <NavLink to='/editUsers'>       <button className="dashboard">editUsers</button>        </NavLink>
-        <NavLink to='/disableTeachers'> <button className="dashboard">disableTeachers</button>  </NavLink>
-        <NavLink to='/deleteTeachers'>  <button className="dashboard">deleteTeachers</button>   </NavLink>
-        <NavLink to='/editTeachers'>    <button className="dashboard">editTeachers</button>     </NavLink>
-        <NavLink to='/disableCourses'>  <button className="dashboard">disableCourses</button>   </NavLink>
-        <NavLink to='/deleteCourses'>   <button className="dashboard">deleteCourses</button>    </NavLink>
-        <NavLink to='/editCourses'>     <button className="dashboard">editCourses</button>      </NavLink>
-    </>
-  )
-}
+    <div className="grid grid-cols-3 gap-4">
+      {/* Disable Users */}
+      <NavLink to="/disableUsers">
+        <div className={buttonStyle}>disableUsers</div>
+      </NavLink>
 
-export default AdminDash
+      {/* Delete Users */}
+      <div className={buttonStyle}>
+        <NavLink to="/deleteUsers">deleteUsers</NavLink>
+      </div>
+
+      {/* Edit Users */}
+      <div className={buttonStyle}>
+        <NavLink to="/editUsers">editUsers</NavLink>
+      </div>
+
+      {/* Disable Teachers */}
+      <div className={buttonStyle}>
+        <NavLink to="/disableTeachers">disableTeachers</NavLink>
+      </div>
+
+      {/* Delete Teachers */}
+      <div className={buttonStyle}>
+        <NavLink to="/deleteTeachers">deleteTeachers</NavLink>
+      </div>
+
+      {/* Edit Teachers */}
+      <div className={buttonStyle}>
+        <NavLink to="/editTeachers">editTeachers</NavLink>
+      </div>
+
+      {/* Disable Courses */}
+      <div className={buttonStyle}>
+        <NavLink to="/disableCourses">disableCourses</NavLink>
+      </div>
+
+      {/* Delete Courses */}
+      <div className={buttonStyle}>
+        <NavLink to="/deleteCourses">deleteCourses</NavLink>
+      </div>
+
+      {/* Edit Courses */}
+      <div className={buttonStyle}>
+        <NavLink to="/editCourses">editCourses</NavLink>
+      </div>
+    </div>
+  );
+};
+
+export default AdminDash;

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./StudentDetail.css";
+import { useAuth } from "../../context/authContext";
+import { Link } from "react-router-dom";
 
 const defaultProfileImage =
   "https://media.lacapital.com.ar/p/6887ba94829db49b2af29709653b4264/adjuntos/203/imagenes/030/516/0030516809/1200x675/smart/carpincho-bebejpg.jpg";
