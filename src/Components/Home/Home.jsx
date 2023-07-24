@@ -13,23 +13,23 @@ const Home = () => {
   const [courses, setCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [getting, setGetting] = useState(true); // Estado para controlar si se están cargando los cursos
-  const {setCartCount} = useContext(CartContext)
-  const [showPopup,setShowPopUp] = useState(false); //Logica de Pop Up para carrito
+  const { setCartCount } = useContext(CartContext);
+  const [showPopup, setShowPopUp] = useState(false); //Logica de Pop Up para carrito
 
   const { logOut, loading, user } = useAuth();
 
   useEffect(() => {
     getCourses();
-    console.log(user)
+    console.log(user);
   }, []);
 
   // VALIDACION DE USUARIO LOGEADO
   useEffect(() => {
-    if (localStorage.getItem("loggedUser")) navigate('/home')
-    else if (localStorage.getItem("username")) navigate('/home')
-    else if (!localStorage.getItem("username")) navigate('/login')
-    else if (!localStorage.getItem("loggedUser")) navigate('/login')
-  }, [navigate]); 
+    if (localStorage.getItem("loggedUser")) navigate("/home");
+    else if (localStorage.getItem("username")) navigate("/home");
+    else if (!localStorage.getItem("username")) navigate("/login");
+    else if (!localStorage.getItem("loggedUser")) navigate("/login");
+  }, [navigate]);
   // -----------------------------
 
   const getCourses = async () => {
@@ -38,7 +38,7 @@ const Home = () => {
         "https://talent-forge-data.cyclic.app/courses"
       );
       setCourses(data);
-      setFilteredCourses(data.filter(course => course.disabled === false));
+      setFilteredCourses(data.filter((course) => course.disabled === false));
       setGetting(false); // Se han cargado los cursos, actualizar el estado de getting
     } catch (error) {
       console.log(error);
@@ -47,24 +47,24 @@ const Home = () => {
 
   const handleFilter = (filteredCourses) => {
     setFilteredCourses(
-      filteredCourses.filter(course => course.disabled === false)
+      filteredCourses.filter((course) => course.disabled === false)
     );
   };
 
   const calculateAverageRating = (ratings) => {
-    if(!ratings || ratings.length === 0) {
-      return 'No ratings yet'
+    if (!ratings || ratings.length === 0) {
+      return "No ratings yet";
     }
 
-    const totalRatings = ratings.length
+    const totalRatings = ratings.length;
     const ratingSum = ratings.reduce(
       (total, userSentRating) => total + userSentRating.rating,
       0
     );
 
     const ratingAverage = ratingSum / totalRatings;
-					const roundedRating = Math.round(ratingAverage);
-					return roundedRating
+    const roundedRating = Math.round(ratingAverage);
+    return roundedRating;
   };
 
   let cartCourses = [];
@@ -76,12 +76,11 @@ const Home = () => {
         (cartCourse) => cartCourse._id === course._id
       );
 
-
       setShowPopUp(true); //Logica pop up
-  
-      setTimeout(()=> {
+
+      setTimeout(() => {
         setShowPopUp(false);
-      }, 3000)
+      }, 3000);
 
       if (isCourseInCart) {
         console.log("Curso ya en carrito");
@@ -89,13 +88,13 @@ const Home = () => {
       }
     }
     setShowPopUp(true); //Logica pop up
-    setTimeout(()=> {
+    setTimeout(() => {
       setShowPopUp(false);
     }, 2000);
-    
+
     cartCourses.push(course);
     localStorage.setItem("cartCourses", JSON.stringify(cartCourses));
-    setCartCount(cartCourses.length)
+    setCartCount(cartCourses.length);
   };
 
   if (loading === true || getting === true) {
@@ -119,29 +118,44 @@ const Home = () => {
                   />
                 </div>
                 <div className="bg-py-0.1 px-2 md:px-4 text-left">
-                  <h2 className="text-lg font-semibold mb-2 h-14">{course.title}</h2>
+                  <h2 className="text-lg font-semibold mb-2 h-14">
+                    {course.title}
+                  </h2>
                   <p className="text-gray-600 mb-2">{course.teacher}</p>
                   <div className="flex items-center mb-2">
                     <span className="text-yellow-400 mr-1">&#9733;</span>
-                    <span className="text-gray-600 font-medium mr-2">{calculateAverageRating(course.interactions.ratings)}</span>
-                    {course.interactions.ratings && course.interactions.ratings.length !== 0 && <span className="text-purple-600 text-sm">({course.interactions.ratings.length} ratings)</span>}
+                    <span className="text-gray-600 font-medium mr-2">
+                      {calculateAverageRating(course.interactions.ratings)}
+                    </span>
+                    {course.interactions.ratings &&
+                      course.interactions.ratings.length !== 0 && (
+                        <span className="text-purple-600 text-sm">
+                          ({course.interactions.ratings.length} ratings)
+                        </span>
+                      )}
                   </div>
                   <p className="text-gray-600 mb-3">${course.prize}</p>
                 </div>
               </div>
-             <div>
-             <NavLink to={`/course/${course._id}`}class="py-2 px-4 rounded m-5">Ver Curso</NavLink>
-              <button onClick={() => addCourseToCart(course)} class="bg-[#7c38cd] hover:bg-[#AA6FFF] text-white font-bold py-2 px-4 rounded m-5">
-                Agregar al carrito
-              </button>
-             </div>
+              <div>
+                <NavLink
+                  to={`/course/${course._id}`}
+                  class="py-2 px-4 rounded m-5">
+                  Ver Curso
+                </NavLink>
+                <button
+                  onClick={() => addCourseToCart(course)}
+                  class="bg-[#7c38cd] hover:bg-[#AA6FFF] text-white font-bold py-2 px-4 rounded m-5">
+                  Agregar al carrito
+                </button>
+              </div>
             </div>
           ))}
         </div>
         {showPopup && (
-            <div className="popup">
-              <p>Course added to cart!</p>
-            </div>
+          <div className="popup ">
+            <p className="max-lg:text-base">Course added to cart!</p>
+          </div>
         )}
       </div>
     </div>
