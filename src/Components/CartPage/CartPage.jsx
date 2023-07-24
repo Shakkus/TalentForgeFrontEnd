@@ -185,7 +185,7 @@ const CartPage = () => {
         <div className="cartContainer mt-20 font-mono">
           {courses.map((course) => {
             return (
-              <div className="cartContainerItem ml-20 mb-20" key={course._id}>
+              <div className="cartContainerItem ml-20 mb-14" key={course._id}>
                 <div className="mt-2 rounded-2xl flex items-center justify-between bg-[#7c38cd] text-white">
                   <div className="h-full">
                     <img
