@@ -1,8 +1,24 @@
-import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router";
 import axios from "axios";
+import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 const FormCourseEdit = () => {
+
+
+  const navigate = useNavigate();
+	  // VALIDACION DE USUARIO
+	  useEffect(() => {
+    if (localStorage.getItem("userAccountType") !== 'admin') navigate('/')
+    else if (localStorage.getItem("userAccountType") === 'admin') return 
+		else if (localStorage.getItem("loggedUser")) return 
+		else if (localStorage.getItem("username")) return 
+		else if (!localStorage.getItem("username")) navigate('/login')
+		else if (!localStorage.getItem("loggedUser")) navigate('/login')
+	  }, [navigate]); 
+	  // -----------------------------
+
+
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
   const [selectedImage, setSelectedImage] = useState("");
