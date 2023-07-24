@@ -4,13 +4,13 @@ import "./CourseViewer.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Comments from "./Comments";
+import Comments from "./Comments/Comments";
 import Rating from "./Rating";
+import { FaStar } from "react-icons/fa";
+
 const CourseViewer = () => {
 	const navigate = useNavigate();
-	// POPUP
-	const [open, setOpen] = useState(false);
-	// -----
+
 	// ESTADO CON LOS DATOS DEL CURSO TRAIDO DE API
 
 	const [courseData, setCourseData] = useState({
@@ -58,15 +58,15 @@ const CourseViewer = () => {
 
 	useEffect(() => {
 		if (courseData.cathegory === "Programming") {
-			const video = courses.filter((video) => video.cathegory !== "Idiom");
+			const video = courses.filter((video) => video.cathegory !== "languages");
 			setRelatedVideo(video);
-			console.log(relatedVideo);
-		} else if (courseData.cathegory === "Idiom") {
+			// console.log(relatedVideo);
+		} else if (courseData.cathegory === "languages") {
 			const video = courses.filter(
 				(video) => video.cathegory !== "Programming"
 			);
 			setRelatedVideo(video);
-			console.log(relatedVideo);
+			// console.log(relatedVideo);
 		}
 	}, [courseData, courses]);
 
@@ -84,16 +84,33 @@ const CourseViewer = () => {
 	// ------------
 
 	// RESPUESTA API DE CURSO CUANDO SE CARGUE EL COMPONENTE
+	const [ratingLength, setRatingLength] = useState([]);
+	const [showRating, setShowRating] = useState(0);
 
 	useEffect(() => {
 		const course = async () => {
 			try {
-				await axios
-					.get(`https://talent-forge-data.cyclic.app/courses/${id}`)
-					.then((response) => {
-						setCourseData(response.data);
-						console.log(response.data);
-					});
+				const response = await axios.get(
+					`https://talent-forge-data.cyclic.app/courses/${id}`
+				);
+				setCourseData(response.data);
+				console.log(response.data.link);
+
+				const ratingsArray = response.data.interactions.ratings;
+				setRatingLength(ratingsArray);
+
+				if (ratingsArray.length > 0) {
+					// Calcular el promedio del rating
+					const ratingTotal = ratingsArray.reduce(
+						(total, userSentRating) => total + userSentRating.rating,
+						0
+					);
+					const ratingAverage = ratingTotal / ratingsArray.length;
+					const roundedRating = Math.round(ratingAverage);
+					setShowRating(roundedRating);
+				} else {
+					setShowRating("No ratings yet");
+				}
 			} catch (error) {
 				console.log(`Hay error ${error.message}`);
 			}
@@ -101,19 +118,9 @@ const CourseViewer = () => {
 
 		course();
 	}, [id]);
+
 	// ------------------------------------------------------
-
-	// ID DEL VIDEO (GOOGLE DRIVE)
-	const videoUrl = courseData.link;
-
-	const getDriveVideoId = (url) => {
-		const match = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)\//);
-		return match && match[1] ? match[1] : null;
-	};
-
-	const driveVideoId = getDriveVideoId(videoUrl);
-
-	// -----------
+	
 
 	// VERIFICACION SESION INICIADA
 
@@ -130,12 +137,20 @@ const CourseViewer = () => {
 			<div className="course-viewer-video">
 				{/* VIDEO  */}
 				<div className="video-container">
-					<iframe
-						src={`https://drive.google.com/file/d/${driveVideoId}/preview`}
-						title={courseData.title}
-						allow="autoplay; encrypted-media"
-						allowFullScreen
-					></iframe>
+					{courseData.link.includes("drive.google.com") ? (
+						<iframe 
+						title="INVALID VIDEO"
+						sandbox="allow-same-origin allow-scripts"
+						srcDoc="<span>INVALID VIDEO</span>"
+						></iframe>
+					) : (
+						<iframe
+							src={courseData.link}
+							title={courseData.title}
+							allow="autoplay; encrypted-media"
+							allowFullScreen
+						></iframe>
+					)}
 				</div>
 				{/* ---- */}
 
@@ -215,9 +230,44 @@ const CourseViewer = () => {
 					<description className="video-description"></description>
 					<div className="course-details">
 						<p>{courseData.description}</p>
-						<p>Rating: {courseData.rating}</p>
+						<p>
+							<div className="rating-average-container">
+								Rating:
+								<div className="rating-average">
+									{ratingLength &&
+										[...Array(5)].map((star, index) => {
+											const currentRating = index + 1;
+											return (
+												<label>
+													<input
+														className="radio"
+														type="radio"
+														name="rating"
+														value={currentRating}
+													/>
+													<FaStar
+														color={
+															currentRating <= showRating
+																? "#ffc107"
+																: "#d7d7d7"
+														}
+														className="description-stars"
+														size={20}
+													/>
+												</label>
+											);
+										})}
+									{ratingLength ? (
+										<span className="ratings-amount">
+											({ratingLength.length} reviews)
+										</span>
+									) : (
+										<span className="ratings-amount">No reviews yet</span>
+									)}
+								</div>
+							</div>
+						</p>
 						<p>Duration: {courseData.duration}</p>
-						{/* <p>Price: {courseData.prize}</p> */}
 					</div>
 				</div>
 				<Comments />
@@ -225,9 +275,6 @@ const CourseViewer = () => {
 			</div>
 
 			{/* VIDEOS RELACIONADOS */}
-
-			{/* <div className="course-viewer-related-videos">
-					<h3>Related Videos:</h3> */}
 			<div className="related-video-container">
 				<h2>Related Videos</h2>
 				{relatedVideo.map((video) => (
@@ -239,9 +286,6 @@ const CourseViewer = () => {
 					</Link>
 				))}
 			</div>
-			{/* </div> */}
-
-			{/* -------- */}
 		</div>
 	);
 };

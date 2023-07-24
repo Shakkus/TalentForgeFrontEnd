@@ -11,10 +11,13 @@ const CourseForm = () => {
 
   // CONFIG PARA SUBIR FOTOS A CLOUDINARY
 
-  const cloudinaryRef = useRef();
-  const widgetRef = useRef();
-
+  const cloudinaryRefVideo = useRef();
+  const widgetRefVideo = useRef();
+  const cloudinaryRefImage = useRef()
+  const widgetRefImage = useRef()
   const [selectedImage, setSelectedImage] = useState("");
+  const [videoLink, setVideoLink] = useState('');
+  const [videoName, setVideoName] = useState('');
 
   // ---------------
 
@@ -42,23 +45,80 @@ const CourseForm = () => {
     rating: "",
   });
 
-  useEffect(() => {
-    cloudinaryRef.current = window.cloudinary;
-    widgetRef.current = cloudinaryRef.current.createUploadWidget(
-      {
-        cloudName: "dal385dkc",
-        uploadPreset: "q3fewzvu",
-      },
-      function (error, result) {
-        if (result && result.event === "success") {
-          const imageUrl = result.info.secure_url;
-          setSelectedImage(imageUrl);
+  // IMAGES WIDGET
+   useEffect(() => {
+
+    
+      cloudinaryRefImage.current = window.cloudinary;
+      widgetRefImage.current = cloudinaryRefImage.current.createUploadWidget(
+        {
+          cloudName: "dal385dkc",
+          uploadPreset: "q3fewzvu",
+        },
+        function (error, result) {
+          if (result && result.event === "success") {
+            const imageUrl = result.info.secure_url;
+            setSelectedImage(imageUrl);
+            console.log(result.info);
+          }
         }
-      }
-    );
+      );
+
+      cloudinaryRefVideo.current = window.cloudinary;
+      widgetRefVideo.current = cloudinaryRefVideo.current.createUploadWidget(
+        {
+          cloudName: "dal385dkc",
+          uploadPreset: "q3fewzvu",
+        },
+        function (error, result) {
+          if (result && result.event === "success") {
+            const videoURL = result.info.secure_url;
+            const fileName = result.info.original_filename
+            setVideoName(fileName)
+            setVideoLink(videoURL)
+            console.log(result.info);
+            console.log(selectedImage);
+          }
+        }
+      );
+
+
+
+
+
+  //   cloudinaryRefImage.current = new Cloudinary({
+  //     cloud: {
+  //       cloudName: 'dal385dkc'
+  //     }
+  //   });
+  //   console.log(widgetRefImage.current);
+
+  //   widgetRefImage.current = cloudinaryRefImage.current.createUploadWidget(
+  //     {
+  //       cloudName: 'dal385dkc',
+  //       uploadPreset: 'q3fewzvu'
+  //     },
+
+  //     function (error, result) {
+  //       if(result && result.evet === 'success'){
+  //         const imageUrl = result.secure_url
+  //         setSelectedImage(imageUrl)
+  //       }
+  //     }
+  //   )
+
   }, []);
 
-  
+  const handleUploadVideo = () => {
+    widgetRefVideo.current.open()
+  }
+
+  const handleUploadImage = () => {
+    widgetRefImage.current.open()
+  }
+
+
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -67,77 +127,44 @@ const CourseForm = () => {
       setErrors(formErrors);
       return;
     }
-    
-    console.log(input, selectedImage);
+
     const inputData = {
       ...input,
       image: selectedImage,
+      link: videoLink
     };
 
-      await axios.post(
+    try {
+      const response = await axios.post(
         "https://talent-forge-data.cyclic.app/courses/",
         inputData
-      );
-      setInput({
-        title: "",
-        cathegory: "",
-        theme: "",
-        link: "",
-        teacher: "",
-        description: "",
-        prize: "",
-        duration: "",
-        rating: "",
-      });
+        );
+
+      if (response.status === 200) {
+        setSuccessPopUp(true);
+      } else {
+        setErrorPopUp(true);
+      }
+    } catch (error) {
+      setErrorPopUp(true);
+      console.log(error);
     }
 
+    setInput({
+      title: "",
+      cathegory: "",
+      theme: "",
+      link: "",
+      teacher: "",
+      description: "",
+      prize: "",
+      duration: "",
+      rating: "",
+    });
 
-
-
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-  //   const formErrors = validate(input);
-  //   if (Object.keys(formErrors).length > 0) {
-  //     setErrors(formErrors);
-  //     return;
-  //   }
-    
-  //   const inputData = {
-  //     ...input,
-  //     image: selectedImage,
-  //   };
-    
-  //   try {
-  //     const response = await axios.post(
-  //       "https://talent-forge-data.cyclic.app/courses/",
-  //       inputData
-  //       );
-        
-  //     if (!response) {
-  //       console.log('no anda');
-  //       setSuccessPopUp(true);
-  //     } else {
-  //       setErrorPopUp(true);
-  //     }
-  //   } catch (error) {
-  //     setErrorPopUp(true);
-  //     console.log(error);
-  //   }
-
-  //   setInput({
-  //     title: "",
-  //     cathegory: "",
-  //     theme: "",
-  //     link: "",
-  //     teacher: "",
-  //     description: "",
-  //     prize: "",
-  //     duration: "",
-  //     rating: "",
-  //   });
-    
-  //   setSelectedImage('')
-  // };
+    setSelectedImage('')
+    setVideoName('')
+  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -166,7 +193,7 @@ const CourseForm = () => {
     if (!loggedUser && !userId) navigate("/login");
     // setSuccessPopUp(false);
     // setErrorPopUp(false);
-    
+
     return () => {
       setSuccessPopUp(false);
       setErrorPopUp(false);
@@ -184,7 +211,7 @@ const CourseForm = () => {
             <button onClick={() => setSuccessPopUp(false)}><FaWindowClose size={20} /></button>
           </div>
         </div>
-      )}
+       )}
       {errorPopUp && (
         <div className="popup-container">
           <div className="popup">
@@ -192,7 +219,7 @@ const CourseForm = () => {
             <button onClick={() => setErrorPopUp(false)}><FaWindowClose size={20} /></button>
           </div>
         </div>
-      )}
+       )}
       <form onSubmit={handleSubmit}>
         <div>
           <div class="flex flex-wrap mb-6">
@@ -294,8 +321,8 @@ const CourseForm = () => {
                 value={input.description}
                 onChange={handleChange}
               />
-              {errors.tion && (
-                <span descripclass="text-red-500"> {errors.description}</span>
+              {errors.description && (
+                <span className="text-red-500"> {errors.description}</span>
               )}
             </div>
           </div>
@@ -305,17 +332,19 @@ const CourseForm = () => {
                 class="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2"
                 for="link"
               >
-                Link:
+                Video:
               </label>
-              <input
+              <button
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                type="text"
-                id="link"
+                type="button"
                 name="link"
-                value={input.link}
-                onChange={handleChange}
-              />
-              {errors.link && <span class="text-red-500"> {errors.link}</span>}
+                onClick={handleUploadVideo}
+              >
+                Upload Video
+              </button>
+              {videoLink && videoName !== '' && (
+                videoName === 'watch' ? <span class='text-gray-900'>Youtube Video Uploaded </span> : <span class='text-gray-900'>Video selected: {videoName} </span>
+              )}
             </div>
           </div>
           <div class="flex flex-wrap mb-6">
@@ -330,7 +359,7 @@ const CourseForm = () => {
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 type="button"
                 name="image"
-                onClick={() => widgetRef.current.open()}
+                onClick={handleUploadImage}
               >
                 Upload Image
               </button>
@@ -343,26 +372,7 @@ const CourseForm = () => {
             </div>
           </div>
           <div class="flex flex-wrap mb-6">
-            <div class="w-full md:w-1/3 px-3">
-              <label
-                class="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2"
-                for="rating"
-              >
-                Rating:
-              </label>
-              <input
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                type="number"
-                id="rating"
-                name="rating"
-                value={input.rating}
-                onChange={handleChange}
-              />
-              {errors.rating && (
-                <span class="text-red-500"> {errors.rating}</span>
-              )}
-            </div>
-            <div class="w-full md:w-1/3 px-3">
+            <div class="w-full md:w-1/2 px-3">
               <label
                 class="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2"
                 for="prize"
@@ -381,7 +391,7 @@ const CourseForm = () => {
                 <span class="text-red-500"> {errors.prize}</span>
               )}
             </div>
-            <div class="w-full md:w-1/3 px-3">
+            <div class="w-full md:w-1/2 px-3">
               <label
                 class="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2"
                 for="duration"
@@ -410,10 +420,10 @@ const CourseForm = () => {
               !input.title ||
               !input.cathegory ||
               !input.theme ||
-              !input.link ||
               !input.teacher ||
+              !selectedImage ||
+              !videoLink ||
               !input.description ||
-              !input.rating ||
               !input.prize ||
               !input.duration
             }
@@ -427,3 +437,4 @@ const CourseForm = () => {
 };
 
 export default CourseForm;
+

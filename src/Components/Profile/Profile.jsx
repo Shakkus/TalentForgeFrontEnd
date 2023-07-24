@@ -15,8 +15,6 @@ const Profile = () => {
   console.log(user);
   return (
     <div className={styles.mainContainer}>
-      {/* < SideBar/> */}
-
       <div className={styles.block}>
         <NavBar />
       </div>
@@ -30,7 +28,8 @@ const Profile = () => {
           />
           <div
             className="bg-slate-900 w-14 h-14 text-white ml-32 -mt-12 flex items-center justify-center rounded-full"
-            style={{ position: "absolute", zIndex: "20" }}>
+            style={{ position: "absolute", zIndex: "20" }}
+          >
             <NavLink to={`/profile/edit`}>
               <button className="border-none">
                 <FontAwesomeIcon className="m-0 w-6 h-6" icon={faPenToSquare} />
