@@ -10,6 +10,15 @@ import { FaStar } from "react-icons/fa";
 
 const CourseViewer = () => {
 	const navigate = useNavigate();
+	  // VALIDACION DE USUARIO
+	  useEffect(() => {
+		if (localStorage.getItem("loggedUser")) return 
+		else if (localStorage.getItem("username")) return 
+		else if (!localStorage.getItem("username")) navigate('/login')
+		else if (!localStorage.getItem("loggedUser")) navigate('/login')
+	  }, [navigate]); 
+	  // -----------------------------
+
 
 	// ESTADO CON LOS DATOS DEL CURSO TRAIDO DE API
 

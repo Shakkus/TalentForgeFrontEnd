@@ -3,7 +3,19 @@ import axios from "axios";
 import { Navigate, useNavigate } from "react-router";
 
 const EditTeachers = () => {
+
   const navigate = useNavigate();
+	  // VALIDACION DE USUARIO
+	  useEffect(() => {
+    if (localStorage.getItem("userAccountType") !== 'admin') navigate('/')
+    else if (localStorage.getItem("userAccountType") === 'admin') return 
+		else if (localStorage.getItem("loggedUser")) return 
+		else if (localStorage.getItem("username")) return 
+		else if (!localStorage.getItem("username")) navigate('/login')
+		else if (!localStorage.getItem("loggedUser")) navigate('/login')
+	  }, [navigate]); 
+	  // -----------------------------
+
 
   const [teachers, setTeachers] = useState([]);
   const [searchTerm, setSearchTerm] = useState(''); // Nuevo estado para almacenar el término de búsqueda

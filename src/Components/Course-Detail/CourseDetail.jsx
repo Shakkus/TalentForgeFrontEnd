@@ -1,10 +1,23 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { NavLink, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Loading from "../Loading/Loading";
 import { FaStar } from "react-icons/fa";
 
 const CourseDetail = () => {
+
+  const navigate = useNavigate();
+	  // VALIDACION DE USUARIO
+	  useEffect(() => {
+
+		if (localStorage.getItem("loggedUser")) return 
+		else if (localStorage.getItem("username")) return 
+		else if (!localStorage.getItem("username")) navigate('/login')
+		else if (!localStorage.getItem("loggedUser")) navigate('/login')
+	  }, [navigate]); 
+	  // -----------------------------
+
   const { id } = useParams();
 	const [detailInfo, setDetailInfo] = useState([]);
 	const [teacherInfo, setTeacherInfo] = useState([]);

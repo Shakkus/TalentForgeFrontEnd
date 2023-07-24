@@ -36,12 +36,14 @@ export const AuthProvider = ({ children }) => {
   const logginWhitGoogle = async () => {
     const googleProvider = await new GoogleAuthProvider()
     localStorage.setItem("loggedUser", true)
+    localStorage.setItem("userAccountType", 'user')
     return signInWithPopup(auth, googleProvider)
   }
 
   const logginWhitTwitter = async () => {
     const twitterProvider = await new TwitterAuthProvider()
     localStorage.setItem("loggedUser", true)
+    localStorage.setItem("userAccountType", 'user')
     return signInWithPopup(auth, twitterProvider)
   }
 
