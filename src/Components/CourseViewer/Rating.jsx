@@ -7,7 +7,7 @@ import { useAuth } from "../../context/authContext";
 import { useParams } from "react-router";
 
 const Rating = () => {
-	const [rating, setRating] = useState(null);
+	const [newRating, setNewRating] = useState(null);
 	const [hover, setHover] = useState(null);
 	const [showStars, setShowStars] = useState(false);
 	const { user } = useAuth();
@@ -21,13 +21,25 @@ const Rating = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const response = await axios.get(`rutabackend/${id}`);
-				const userRatingId = response.data.rating.userId;
-				const userRating = response.data.rating.rating;
+				const currentId = localStorageUserId || googleUserId;
+				if (!currentId) {
+					// Si no hay userId, no hacemos nada
+					return;
+				}
 
-				if (userRatingId === userId) {
+				setUserId(currentId);
+				const response = await axios.get(
+					`https://talent-forge-data.cyclic.app/courses/${id}`
+				);
+
+				const findUserId = response.data.interactions.ratings;
+				console.log(findUserId);
+				const userRating = findUserId.find(
+					(rating) => rating.userId === currentId
+				);
+				if (userRating) {
+					setNewRating(userRating.rating);
 					setShowStars(true);
-					setRating(userRating);
 				} else {
 					setShowStars(false);
 				}
@@ -37,30 +49,22 @@ const Rating = () => {
 		};
 
 		fetchData();
-	}, [user || localStorageUserId]);
-
-	// ----------------------
-
-	// INFORMACION DEL USUARIO
-
-	useEffect(() => {
-		if (localStorageUserId) {
-			setUserId(localStorageUserId);
-		} else if (googleUserId) {
-			setUserId(googleUserId);
-		}
-	}, [user || localStorageUserId]);
+	}, [user, localStorageUserId, googleUserId, id]);
 
 	const userInfo = {
 		userId: userId,
-		rating: rating,
+		rating: newRating,
 	};
 
-	// -----------------------
+	// ----------------------
 
 	const handleRatingSubmit = async () => {
 		try {
-			const response = await axios.put(`https://talent-forge-data.cyclic.app/courses/edit/${id}`, userInfo);
+			setOpen(false)
+			const response = await axios.put(
+				`https://talent-forge-data.cyclic.app/courses/rating/${id}`,
+				userInfo
+			);
 			if (response.status === 200) {
 				setShowStars(true);
 			}
@@ -101,8 +105,7 @@ const Rating = () => {
 									value={currentRating}
 								/>
 								<FaStar
-									color={currentRating <= rating ? "#ffc107" : "#e7e7e7"}
-									className="stars"
+									color={currentRating <= newRating ? "#ffc107" : "#e7e7e7"}
 									size={40}
 								/>
 							</label>
@@ -130,11 +133,11 @@ const Rating = () => {
 											type="radio"
 											name="rating"
 											value={currentRating}
-											onClick={() => setRating(currentRating)}
+											onClick={() => setNewRating(currentRating)}
 										/>
 										<FaStar
 											color={
-												currentRating <= (hover || rating)
+												currentRating <= (hover || newRating)
 													? "#ffc107"
 													: "#e7e7e7"
 											}

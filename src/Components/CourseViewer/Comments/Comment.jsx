@@ -5,7 +5,7 @@ import { useParams } from "react-router";
 import { useAuth } from "../../../context/authContext";
 
     // { id, content, user}
-const Comment = () => {
+const Comment = (content, commentUser) => {
 	const { id } = useParams();
     const { user } = useAuth
     const[commentContent, setCommentContent] = useState({
@@ -21,13 +21,16 @@ const Comment = () => {
 
 	return (
 		<div className="comment-container">
-            {commentContent ? (
-					<img className='comment-image' src={commentContent.user.photo} alt="si" />
+            {commentUser ? (
+					<img className='comment-image' src={commentUser.photo} alt="si" />
 				) : (
 					<img className='comment-image' src="https://res.cloudinary.com/dal385dkc/image/upload/v1689784018/TEST%20IMAGES/profile_pxiqlp.jpg"></img>
 				)}
-			<div className="comment">
-                <p>{commentContent.content}</p>
+			<div className="comment-reply">
+            <div className="content">
+                <p>{content}</p>
+            </div>
+            <button className="reply-button">reply</button>
             </div>
 		</div>
 	);

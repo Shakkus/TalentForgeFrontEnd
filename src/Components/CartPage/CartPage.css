@@ -8,3 +8,54 @@
     height: 130px;
     object-fit: cover;
 }
+
+@media (max-width: 1024px) {
+    .courseImage {
+        height: 65px;
+        object-fit: contain;
+        width: 130px;
+        margin-right: 0px;
+    }
+    .courseTitle {
+        font-size: 15px;
+    }
+    .courseTeacher {
+        font-size: 10px;
+    }
+
+    .courseRatingNumber {
+        font-size: 10px;
+        margin-right: 10px;
+    }
+
+    .courseDuration {
+        font-size: 12px;
+    }
+    .cartContainerItem {
+        margin-left: 30px;
+    }
+
+    .coursePrize {
+        font-size: 15px;
+    }
+    
+    .cartItems {
+        width: 88%;
+    }
+
+    .cartContainerBuy {
+        margin-left: -20px;
+    }
+
+    .cartBuy {
+        width: 85%;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 640px) {
+    .cartBuy {
+        width: 94%;
+        margin: 0 30px;
+    }
+}
