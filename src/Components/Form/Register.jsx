@@ -18,7 +18,6 @@ const Form = () => {
     dateOfBirth: "",
     password: "",
     confirmPass: "",
-    accountType: "",
     registerWith: ""
   });
 
@@ -78,7 +77,6 @@ const Form = () => {
       dateOfBirth: "",
       password: "",
       confirmPass: "",
-      accountType: "",
       registerWith: ""
     });
   
@@ -323,28 +321,6 @@ const Form = () => {
                 </svg>
               </div>
             </div>
-          </div>
-          <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-            <label
-              class="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2"
-              for="grid-zip"
-            >
-              Account type
-            </label>
-            <select
-              className="input-form bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              id="grid-zip"
-              name="accountType"
-              value={input.accountType}
-              onChange={handleChange}
-            >
-              <option value="">SELECT</option>
-              <option value="user">User</option>
-              <option value="teacher">Teacher</option>
-            </select>
-            {errors.accountType && (
-              <p class="text-red-500 text-xs italic">{errors.accountType}</p>
-            )}
           </div>
         </div>
         <div>

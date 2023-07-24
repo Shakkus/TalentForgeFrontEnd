@@ -296,6 +296,16 @@ const SearchBar = ({ setSearchResults }) => {
                           </li>
                         )}
 
+                        {accountType === "admin" && (
+                          <li>
+                            <a
+                              href="/adminDash"
+                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                              Dashboard
+                            </a>
+                          </li>
+                        )}
+
                         <li>
                           <a
                             href="#"
@@ -387,6 +397,16 @@ const SearchBar = ({ setSearchResults }) => {
                               href="/course/create"
                               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                               Create course
+                            </a>
+                          </li>
+                        )}
+
+                        {accountType === "admin" && (
+                          <li>
+                            <a
+                              href="/adminDash"
+                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                              Dashboard
                             </a>
                           </li>
                         )}

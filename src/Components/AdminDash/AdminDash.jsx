@@ -5,29 +5,10 @@ import "./AdminDash.css"; // Import the CSS file you created
 const AdminDash = () => {
   return (
     <div className="max-w-[70%] mx-auto py-5 text-left text-white font-bold">
-      {/* Disable Users */}
-      <NavLink to="/disableUsers" className="bg-gray-400 max-h-20 min-h-20 bg-[#7c38cd] rounded-lg p-4 shadow-lg my-2 flex items-center justify-between hover:bg-purple-600 transition-colors">
-        disableUsers
-      </NavLink>
-
-      {/* Delete Users */}
-      <NavLink to="/deleteUsers" className="bg-gray-400 max-h-20 min-h-20 bg-[#7c38cd] rounded-lg p-4 shadow-lg my-2 flex items-center justify-between hover:bg-purple-600 transition-colors">
-        deleteUsers
-      </NavLink>
-
-      {/* Edit Users */}
-      <NavLink to="/editUsers" className="bg-gray-400 max-h-20 min-h-20 bg-[#7c38cd] rounded-lg p-4 shadow-lg my-2 flex items-center justify-between hover:bg-purple-600 transition-colors">
-        editUsers
-      </NavLink>
 
       {/* Disable Teachers */}
       <NavLink to="/disableTeachers" className="max-h-20 min-h-20 bg-[#7c38cd] rounded-lg p-4 shadow-lg my-2 flex items-center justify-between hover:bg-purple-600 transition-colors">
         disableTeachers
-      </NavLink>
-
-      {/* Delete Teachers */}
-      <NavLink to="/deleteTeachers" className="bg-gray-400 max-h-20 min-h-20 bg-[#7c38cd] rounded-lg p-4 shadow-lg my-2 flex items-center justify-between hover:bg-purple-600 transition-colors">
-        deleteTeachers
       </NavLink>
 
       {/* Edit Teachers */}
@@ -40,15 +21,12 @@ const AdminDash = () => {
         disableCourses
       </NavLink>
 
-      {/* Delete Courses */}
-      <NavLink to="/deleteCourses" className="bg-gray-400 max-h-20 min-h-20 bg-[#7c38cd] rounded-lg p-4 shadow-lg my-2 flex items-center justify-between hover:bg-purple-600 transition-colors">
-        deleteCourses
-      </NavLink>
-
       {/* Edit Courses */}
       <NavLink to="/editCourses" className="max-h-20 min-h-20 bg-[#7c38cd] rounded-lg p-4 shadow-lg my-2 flex items-center justify-between hover:bg-purple-600 transition-colors">
         editCourses
       </NavLink>
+
+      
     </div>
   );
 };
