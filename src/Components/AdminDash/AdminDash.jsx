@@ -1,79 +1,54 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
 import { NavLink } from "react-router-dom";
+import "./AdminDash.css"; // Import the CSS file you created
 
 const AdminDash = () => {
-  // const [users, setUsers] = useState([])
-  // const [teachers, setTeachers] = useState([])
-  // const [courses, setCourses] = useState([])
-
-  // const getUsers = () => {
-  //     const { data } = axios.get('https://talent-forge-data.cyclic.app/user')
-  //     setUsers(data)
-  // }
-  // const getCourses = () => {
-  //     const { data } = axios.get('https://talent-forge-data.cyclic.app/courses')
-  //     setCourses(data)
-  // }
-  // const getTeachers = () => {
-  //     const { data } = axios.get('https://talent-forge-data.cyclic.app/teacher')
-  //     setTeachers(data)
-  // }
-
-  // useEffect(() => {
-  //     getCourses()
-  //     getTeachers()
-  //     getUsers()
-  // }, []);
-
-  const buttonStyle = "w-300 h-200 bg-8c56cc";
-
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="max-w-[70%] mx-auto py-5 text-left text-white font-bold">
       {/* Disable Users */}
-      <NavLink to="/disableUsers">
-        <div className={buttonStyle}>disableUsers</div>
+      <NavLink to="/disableUsers" className="bg-gray-400 max-h-20 min-h-20 bg-[#7c38cd] rounded-lg p-4 shadow-lg my-2 flex items-center justify-between hover:bg-purple-600 transition-colors">
+        disableUsers
       </NavLink>
 
       {/* Delete Users */}
-      <div className={buttonStyle}>
-        <NavLink to="/deleteUsers">deleteUsers</NavLink>
-      </div>
+      <NavLink to="/deleteUsers" className="bg-gray-400 max-h-20 min-h-20 bg-[#7c38cd] rounded-lg p-4 shadow-lg my-2 flex items-center justify-between hover:bg-purple-600 transition-colors">
+        deleteUsers
+      </NavLink>
 
       {/* Edit Users */}
-      <div className={buttonStyle}>
-        <NavLink to="/editUsers">editUsers</NavLink>
-      </div>
+      <NavLink to="/editUsers" className="bg-gray-400 max-h-20 min-h-20 bg-[#7c38cd] rounded-lg p-4 shadow-lg my-2 flex items-center justify-between hover:bg-purple-600 transition-colors">
+        editUsers
+      </NavLink>
 
       {/* Disable Teachers */}
-      <div className={buttonStyle}>
-        <NavLink to="/disableTeachers">disableTeachers</NavLink>
-      </div>
+      <NavLink to="/disableTeachers" className="max-h-20 min-h-20 bg-[#7c38cd] rounded-lg p-4 shadow-lg my-2 flex items-center justify-between hover:bg-purple-600 transition-colors">
+        disableTeachers
+      </NavLink>
 
       {/* Delete Teachers */}
-      <div className={buttonStyle}>
-        <NavLink to="/deleteTeachers">deleteTeachers</NavLink>
-      </div>
+      <NavLink to="/deleteTeachers" className="bg-gray-400 max-h-20 min-h-20 bg-[#7c38cd] rounded-lg p-4 shadow-lg my-2 flex items-center justify-between hover:bg-purple-600 transition-colors">
+        deleteTeachers
+      </NavLink>
 
       {/* Edit Teachers */}
-      <div className={buttonStyle}>
-        <NavLink to="/editTeachers">editTeachers</NavLink>
-      </div>
+      <NavLink to="/editTeachers" className="max-h-20 min-h-20 bg-[#7c38cd] rounded-lg p-4 shadow-lg my-2 flex items-center justify-between hover:bg-purple-600 transition-colors">
+        editTeachers
+      </NavLink>
 
       {/* Disable Courses */}
-      <div className={buttonStyle}>
-        <NavLink to="/disableCourses">disableCourses</NavLink>
-      </div>
+      <NavLink to="/disableCourses" className="max-h-20 min-h-20 bg-[#7c38cd] rounded-lg p-4 shadow-lg my-2 flex items-center justify-between hover:bg-purple-600 transition-colors">
+        disableCourses
+      </NavLink>
 
       {/* Delete Courses */}
-      <div className={buttonStyle}>
-        <NavLink to="/deleteCourses">deleteCourses</NavLink>
-      </div>
+      <NavLink to="/deleteCourses" className="bg-gray-400 max-h-20 min-h-20 bg-[#7c38cd] rounded-lg p-4 shadow-lg my-2 flex items-center justify-between hover:bg-purple-600 transition-colors">
+        deleteCourses
+      </NavLink>
 
       {/* Edit Courses */}
-      <div className={buttonStyle}>
-        <NavLink to="/editCourses">editCourses</NavLink>
-      </div>
+      <NavLink to="/editCourses" className="max-h-20 min-h-20 bg-[#7c38cd] rounded-lg p-4 shadow-lg my-2 flex items-center justify-between hover:bg-purple-600 transition-colors">
+        editCourses
+      </NavLink>
     </div>
   );
 };
