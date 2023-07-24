@@ -212,7 +212,7 @@ const FormCourseEdit = () => {
                   name="price"
                   value={courseInfo.price}
                   onChange={handleChange}
-                  placeholder={currentCourse.price}
+                  placeholder={currentCourse.prize}
                   className="w-full px-2 py-1 border border-gray-300 rounded"
                 />
               </div>
