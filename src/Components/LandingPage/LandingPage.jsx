@@ -78,6 +78,7 @@ const Landing = () => {
         <div className="mentoresContainer">{<Teachers />}</div>
 
         <div className="empresas">
+
           <h2 className="text-white text-2xl">Talent Forge for companies</h2>
           <div className="info-container block sm:flex items-center justify-center my-20">
             <img

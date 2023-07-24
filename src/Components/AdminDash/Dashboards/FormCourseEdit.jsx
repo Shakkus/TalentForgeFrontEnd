@@ -1,162 +1,288 @@
-import { useEffect, useState, useRef} from 'react'
-import { useParams } from 'react-router'
-import axios from 'axios'
+import { useEffect, useState, useRef } from "react";
+import { useParams } from "react-router";
+import axios from "axios";
 
 const FormCourseEdit = () => {
+  const cloudinaryRef = useRef();
+  const widgetRef = useRef();
+  const [selectedImage, setSelectedImage] = useState("");
 
-    const cloudinaryRef = useRef();
-    const widgetRef = useRef();
-    const [selectedImage, setSelectedImage] = useState("");
+  const handleGoBack = () => {
+    window.history.back();
+  };
 
-    useEffect(() => {
-      cloudinaryRef.current = window.cloudinary;
-      widgetRef.current = cloudinaryRef.current.createUploadWidget(
-        {cloudName: "dal385dkc",uploadPreset: "q3fewzvu",},
-        function (error, result) {
-          if (result && result.event === "success") {
-            const imageUrl = result.info.secure_url;
-            setSelectedImage(imageUrl);
-          }
+  useEffect(() => {
+    cloudinaryRef.current = window.cloudinary;
+    widgetRef.current = cloudinaryRef.current.createUploadWidget(
+      { cloudName: "dal385dkc", uploadPreset: "q3fewzvu" },
+      function (error, result) {
+        if (result && result.event === "success") {
+          const imageUrl = result.info.secure_url;
+          setSelectedImage(imageUrl);
         }
-      )
-    }, []);
+      }
+    );
+  }, []);
 
-    const [currentCourse, setCurrentCourse] = useState({})
-    const [courseInfo, setCourseInfo] = useState({
+  const [currentCourse, setCurrentCourse] = useState({});
+  const [courseInfo, setCourseInfo] = useState({
+    title: "",
+    category: "",
+    theme: "",
+    link: "",
+    teacher: "",
+    description: "",
+    price: "",
+    duration: "",
+    image: "",
+  });
+
+  const { id } = useParams();
+
+  const handleSubmit = async (event) => {
+    const courseEdited = {
+      title: courseInfo.title === "" ? currentCourse.title : courseInfo.title,
+      category:
+        courseInfo.category === ""
+          ? currentCourse.category
+          : courseInfo.category,
+      theme: courseInfo.theme === "" ? currentCourse.theme : courseInfo.theme,
+      link: courseInfo.link === "" ? currentCourse.link : courseInfo.link,
+      teacher:
+        courseInfo.teacher === "" ? currentCourse.teacher : courseInfo.teacher,
+      description:
+        courseInfo.description === ""
+          ? currentCourse.description
+          : courseInfo.description,
+      price: courseInfo.price === "" ? currentCourse.price : courseInfo.price,
+      duration:
+        courseInfo.duration === ""
+          ? currentCourse.duration
+          : courseInfo.duration,
+      image: courseInfo.image === "" ? currentCourse.image : courseInfo.image,
+    };
+    event.preventDefault();
+    axios.put(
+      `https://talent-forge-data.cyclic.app/courses/edit/${id}`,
+      courseEdited
+    );
+    setCourseInfo({
       title: "",
-      cathegory: "",
+      category: "",
       theme: "",
       link: "",
       teacher: "",
       description: "",
-      prize: "",
+      price: "",
       duration: "",
       image: "",
-    })
+    });
+  };
 
-    const { id } = useParams();
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setCourseInfo((prevInfo) => ({
+      ...prevInfo,
+      [name]: value ?? currentCourse[name],
+    }));
+  };
 
-    const handleSubmit = async (event) => {
-        const courseEdited = {
-            title: courseInfo.title === "" ? currentCourse.title : courseInfo.title,
-            cathegory: courseInfo.cathegory === "" ? currentCourse.cathegory : courseInfo.cathegory,
-            theme: courseInfo.theme === "" ? currentCourse.theme : courseInfo.theme,
-            link: courseInfo.link === "" ? currentCourse.link : courseInfo.link,
-            teacher: courseInfo.pteacher=== "" ? currentCourse.teacher : courseInfo.teacher,
-            description: courseInfo.description === "" ? currentCourse.description : courseInfo.description,
-            prize: courseInfo.prize === "" ? currentCourse.prize : courseInfo.prize,
-            duration: courseInfo.duration === "" ? currentCourse.duration : courseInfo.duration,
-            image: courseInfo.image === "" ? currentCourse.image : courseInfo.image
-        };
-        event.preventDefault();
-        axios.put(`https://talent-forge-data.cyclic.app/courses/edit/${id}`, courseEdited)
-        setCourseInfo({
-          title: "",
-          cathegory: "",
-          theme: "",
-          link: "",
-          teacher: "",
-          description: "",
-          prize: "",
-          duration: "",  
-          image: "", 
-        })
-    };  
-
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setCourseInfo((prevInfo) => ({...prevInfo, [name]: value ?? currentCourse[name]}));
+  useEffect(() => {
+    const getCurrentTeacher = async () => {
+      const { data } = await axios.get(
+        `https://talent-forge-data.cyclic.app/courses/${id}`
+      );
+      setCurrentCourse(data);
     };
-
-    useEffect(() => {
-        const getCurrentTeacher = async () => {
-        const { data } = await axios.get( `https://talent-forge-data.cyclic.app/courses/${id}`);
-        setCurrentCourse(data);
-        };
-            getCurrentTeacher()
-      }, []); 
-
-
-
+    getCurrentTeacher();
+  }, []);
   return (
-    <div>
-        <form class="w-full max-w-lg" onSubmit={handleSubmit}>
-          <div>
-            <div class="flex flex-wrap mb-6">
-
-              <div class="w-full md:w-1/2 px-3">
-                <label class="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2" for="title" > Title: </label>
-                <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" type="text" id="title" name="title" value={courseInfo.title} onChange={handleChange} placeholder={currentCourse.title}/>
-              </div>
-
-              <div class="w-full md:w-1/2 px-3">
-                <label class="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2" for="teacher"> Teacher: </label>
-                <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" type="text" id="teacher" name="teacher" value={courseInfo.teacher} onChange={handleChange} placeholder={currentCourse.teacher}/>
-              </div>
-
+    <div className="w-2/3 mx-auto  py-20">
+      <button
+        type="button"
+        onClick={handleGoBack}
+        className="text-white bg-[#7c38cd] hover:bg-[#8244cf] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      >
+        Go Back
+      </button>
+      <form onSubmit={handleSubmit}>
+        <div className="flex flex-col md:flex-row md:space-x-4">
+          {/* Image Section */}
+          <div className="flex flex-col items-center mb-4 w-1/3">
+            <img
+              src={currentCourse.image}
+              alt=""
+              className="w-300 h-300 mb-2"
+            />
+            <input
+              id="grid-profile-image"
+              type="text"
+              name="image"
+              value={courseInfo.image}
+              onChange={handleChange}
+              placeholder="Change image URL"
+              className="px-2 py-1 border border-gray-300 rounded"
+            />
           </div>
 
-          <div class="flex flex-wrap mb-6">
-
-            <div class="w-full md:w-1/2 px-3">
-              <label class="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2" for="cathegory" > Category: </label>
-              <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" id="cathegory" name="cathegory" value={courseInfo.cathegory} onChange={handleChange} placeholder={currentCourse.email} >
+          {/* Inputs Section */}
+          <div className="flex flex-col flex-grow">
+            <div className="mb-4">
+              <label
+                htmlFor="title"
+                className="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2"
+              >
+                Title:
+              </label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                value={courseInfo.title}
+                onChange={handleChange}
+                placeholder={currentCourse.title}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+            </div>
+            <div className="mb-4">
+              <label
+                htmlFor="teacher"
+                className="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2"
+              >
+                Teacher:
+              </label>
+              <input
+                type="text"
+                id="teacher"
+                name="teacher"
+                value={courseInfo.teacher}
+                onChange={handleChange}
+                placeholder={currentCourse.teacher}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+            </div>
+            <div className="mb-4">
+              <label
+                htmlFor="category"
+                className="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2"
+              >
+                Category:
+              </label>
+              <select
+                id="category"
+                name="category"
+                value={courseInfo.category}
+                onChange={handleChange}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
                 <option value="">Select a category</option>
                 <option value="programming">Programming</option>
                 <option value="languages">Languages</option>
               </select>
             </div>
 
-            <div class="w-full md:w-1/2 px-3">
-              <label class="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2" for="theme" > Theme: </label>
-              <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" type="text" id="theme" name="theme" value={courseInfo.theme} onChange={handleChange} placeholder={currentCourse.theme}/>
+            <div className="mb-4">
+              <label
+                htmlFor="theme"
+                className="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2"
+              >
+                Theme:
+              </label>
+              <input
+                type="text"
+                id="theme"
+                name="theme"
+                value={courseInfo.theme}
+                onChange={handleChange}
+                placeholder={currentCourse.theme}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+            </div>
+            <div className="flex flex-col md:flex-row md:space-x-4">
+              <div className="mb-4">
+                <label
+                  htmlFor="price"
+                  className="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2"
+                >
+                  Price:
+                </label>
+                <input
+                  type="number"
+                  id="price"
+                  name="price"
+                  value={courseInfo.price}
+                  onChange={handleChange}
+                  placeholder={currentCourse.price}
+                  className="w-full px-2 py-1 border border-gray-300 rounded"
+                />
+              </div>
+
+              <div className="mb-4">
+                <label
+                  htmlFor="duration"
+                  className="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2 "
+                >
+                  Duration:
+                </label>
+                <input
+                  type="text"
+                  id="duration"
+                  name="duration"
+                  value={courseInfo.duration}
+                  onChange={handleChange}
+                  placeholder={currentCourse.duration}
+                  className="w-full px-2 py-1 border border-gray-300 rounded w-1/2"
+                />
+              </div>
             </div>
 
-          </div>
-
-          <div class="flex flex-wrap mb-6">
-            <div class="w-full px-3">
-              <label class="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2" for="description" > Description: </label>
-              <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" type="text" id="description" name="description" value={courseInfo.description} onChange={handleChange} placeholder={currentCourse.description}/>
-            </div>
-          </div>
-
-          <div class="flex flex-wrap mb-6">
-            <div class="w-full px-3">
-              <label class="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2" for="link" > Link: </label>
-              <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" type="text" id="link" name="link" value={courseInfo.link} onChange={handleChange} placeholder={currentCourse.link}/>
-            </div>
-          </div>
-
-          <div class="flex flex-wrap mb-6">
-            <div class="w-full px-3">
-              <label class="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2" for="image" > Image: </label>
-              <button class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" type="button" name="image" onClick={() => widgetRef.current.open()}> Upload Image </button>
-              <img src={currentCourse.image} alt="" class="img-upload" />
-            </div>
-          </div>
-
-          <div class="flex flex-wrap mb-6">
-
-            <div class="w-full md:w-1/3 px-3">
-              <label class="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2" for="prize"> Price:</label>
-              <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" type="number" id="prize" name="prize" value={courseInfo.prize} onChange={handleChange}placeholder={currentCourse.prize}/>
-            </div>
-            
-            <div class="w-full md:w-1/3 px-3">
-              <label class="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2" for="duration" > Duration: </label>
-              <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" type="text" id="duration" name="duration" value={courseInfo.duration} onChange={handleChange} placeholder={currentCourse.duration}/>
+            <div className="mb-4">
+              <label
+                htmlFor="description"
+                className="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2"
+              >
+                Description:
+              </label>
+              <input
+                type="text"
+                id="description"
+                name="description"
+                value={courseInfo.description}
+                onChange={handleChange}
+                placeholder={currentCourse.description}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
             </div>
 
+            <div className="mb-4">
+              <label
+                htmlFor="link"
+                className="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2"
+              >
+                Link:
+              </label>
+              <input
+                type="text"
+                id="link"
+                name="link"
+                value={courseInfo.link}
+                onChange={handleChange}
+                placeholder={currentCourse.link}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+            </div>
+            <div className="mt-4">
+              <button
+                type="submit"
+                className="mx-auto text-white bg-[#7c38cd] hover:bg-[#8244cf] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                EDIT
+              </button>
+            </div>
           </div>
         </div>
-            
-            <div>
-                <button type="submit" className="text-white bg-[#7c38cd] hover:bg-[#8244cf] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">EDIT</button>
-            </div>
-    </form>
-</div>
-  )
-}
-
-export default FormCourseEdit
+      </form>
+    </div>
+  );
+};
+export default FormCourseEdit;
