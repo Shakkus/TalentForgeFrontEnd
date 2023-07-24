@@ -1,9 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/authContext";
 import profile from "../../../Recourses/profile.png";
 import "./EditProfile.css";
 
 const Editprofile = () => {
+
+  const navigate = useNavigate();
+	  // VALIDACION DE USUARIO
+	  useEffect(() => {
+		if (localStorage.getItem("loggedUser")) return 
+		else if (localStorage.getItem("username")) return 
+		else if (!localStorage.getItem("username")) navigate('/login')
+		else if (!localStorage.getItem("loggedUser")) navigate('/login')
+	  }, [navigate]); 
+	  // -----------------------------
+
   const { user } = useAuth();
   const [selectedImage, setSelectedImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);

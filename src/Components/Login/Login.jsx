@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from "../../context/authContext.js";
 import axios from "axios";
@@ -6,6 +6,16 @@ import "./Login.css"
 
 const Login = () => {
   const navigate = useNavigate();
+	  // VALIDACION DE USUARIO
+	  useEffect(() => { 
+		if (localStorage.getItem("loggedUser")) navigate('/')
+		else if (localStorage.getItem("username")) navigate('/')
+		else if (!localStorage.getItem("username")) return
+		else if (!localStorage.getItem("loggedUser")) return
+	  }, [navigate]); 
+	  // -----------------------------
+
+
   const { logginWhitGoogle, logginWhitTwitter, user } = useAuth();
   const [errors, setErrors] = useState();
   const [inputError, setInputError] = useState("")
@@ -53,8 +63,8 @@ const Login = () => {
       if (user) {
 				const idToken = await user.accessToken;
 				localStorage.setItem("loggedUser", idToken)
-        navigate('/home');
       }
+      navigate('/home')
 		} catch (error) {
 			setErrors(error.code);
 			if (
@@ -72,8 +82,8 @@ const Login = () => {
       if (user) {
 				const idToken = await user.accessToken;
 				localStorage.setItem("loggedUser", idToken)
-        navigate('/home');
       }
+      navigate('/home')
 		} catch (error) {
 			setErrors(error.code);
 			if (

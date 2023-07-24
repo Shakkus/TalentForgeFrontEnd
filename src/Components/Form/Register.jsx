@@ -1,12 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext.js";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { validate } from "./validate";
 import "./Register.css"
 
 const Form = () => {
   const navigate = useNavigate();
+  // VALIDACION DE USUARIO
+  useEffect(() => { 
+  if (localStorage.getItem("loggedUser")) navigate('/')
+  else if (localStorage.getItem("username")) navigate('/')
+  else if (!localStorage.getItem("username")) return
+  else if (!localStorage.getItem("loggedUser")) return
+  }, [navigate]); 
+  // -----------------------------
 
   const { logginWhitGoogle, logginWhitTwitter } = useAuth();
   const [errors, setErrors] = useState({});

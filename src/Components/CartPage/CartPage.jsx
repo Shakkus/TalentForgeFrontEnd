@@ -22,6 +22,17 @@ initMercadoPago("TEST-3fb05707-886c-4f67-810e-e2d501054a5b");
 // import { useNavigate } from "react-router-dom";
 
 const CartPage = () => {
+
+  const navigate = useNavigate();
+  // VALIDACION DE USUARIO
+  useEffect(() => { 
+  if (localStorage.getItem("loggedUser")) return
+  else if (localStorage.getItem("username")) return
+  else if (!localStorage.getItem("username")) navigate('/login')
+  else if (!localStorage.getItem("loggedUser")) navigate('/login')
+  }, [navigate]); 
+  // -----------------------------
+
   const [originalPrice, setOriginalPrice] = useState(1);
   const [price, setPrice] = useState(1);
   const [discountCode, setDiscountCode] = useState("");

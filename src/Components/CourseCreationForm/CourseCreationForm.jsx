@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { validate } from "./validation";
 import { useNavigate } from "react-router-dom";
+import { validate } from "./validation";
 import { FaWindowClose } from 'react-icons/fa'
 import axios from "axios";
 import "./CourseCreation.css";
@@ -8,6 +8,17 @@ import "./CourseCreation.css";
 const CourseForm = () => {
 
   const navigate = useNavigate();
+	  // VALIDACION DE USUARIO
+	  useEffect(() => {
+    if (localStorage.getItem("userAccountType") === 'user') navigate('/')
+    else if (localStorage.getItem("userAccountType") === 'teacher') return 
+    else if (localStorage.getItem("userAccountType") === 'admin') return 
+		else if (localStorage.getItem("loggedUser")) return 
+		else if (localStorage.getItem("username")) return 
+		else if (!localStorage.getItem("username")) navigate('/login')
+		else if (!localStorage.getItem("loggedUser")) navigate('/login')
+	  }, [navigate]); 
+	  // -----------------------------
 
   // CONFIG PARA SUBIR FOTOS A CLOUDINARY
 

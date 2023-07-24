@@ -1,8 +1,23 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+
+import { NavLink } from "react-router-dom";  
+import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import "./AdminDash.css"; // Import the CSS file you created
 
 const AdminDash = () => {
+
+  const navigate = useNavigate();
+	  // VALIDACION DE USUARIO
+	  useEffect(() => {
+    if (localStorage.getItem("userAccountType") !== 'admin') navigate('/')
+    else if (localStorage.getItem("userAccountType") === 'admin') return 
+		else if (localStorage.getItem("loggedUser")) return 
+		else if (localStorage.getItem("username")) return 
+		else if (!localStorage.getItem("username")) navigate('/login')
+		else if (!localStorage.getItem("loggedUser")) navigate('/login')
+	  }, [navigate]); 
+	  // -----------------------------
+
   return (
     <div className="max-w-[70%] mx-auto py-5 text-left text-white font-bold">
 
