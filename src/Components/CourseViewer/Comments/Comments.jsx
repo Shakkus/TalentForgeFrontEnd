@@ -110,26 +110,33 @@ const Comments = () => {
 		console.log(Array.isArray(comments));
 	};
 
-	const handleSubmit = () => {
-		try {
-			setComments((prevComments) => [...prevComments, commentContent]);
-			console.log(comments);
-			const response = axios.put(
-				`https://talent-forge-data.cyclic.app/courses/comment/${id}`,
-				commentContent
-			);
-			if (response.status === 200) {
-				setCommentContent({ comment: "" });
-				setCommentError(false);
-			}
-			if (response.status === 500) {
-				setCommentError(true);
-			}
-		} catch (error) {
-			setCommentError(true);
-		}
-		console.log(commentContent);
-	};
+  const handleSubmit = () => {
+  try {
+    // Crea un nuevo objeto con los mismos contenidos de commentContent
+    const newComment = {
+      id: commentContent.id,
+      image: commentContent.image,
+      name: commentContent.name,
+      comment: commentContent.comment,
+    };
+
+    setComments((prevComments) => [...prevComments, newComment]);
+    setCommentContent({ ...commentContent, comment: "" }); // Borra el contenido del textarea
+    setCommentError(false);
+
+    axios.put(
+      `https://talent-forge-data.cyclic.app/courses/comment/${id}`,
+      newComment
+    );
+  } catch (error) {
+    setCommentError(true);
+  }
+};
+const handleKeyDown = (event) => {
+  if (event.key === "Enter") {
+    handleSubmit();
+  }
+};
 	return (
 		<div>
 			<div className="comments-container">
@@ -145,6 +152,7 @@ const Comments = () => {
 					<textarea
 						name="comment"
 						onChange={handleChange}
+            onKeyDown={handleKeyDown}
 						value={commentContent.comment}
 						ref={textareaRef}
 						id="comment-textarea"
