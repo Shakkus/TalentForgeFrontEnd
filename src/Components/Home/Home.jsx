@@ -2,10 +2,10 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import CourseFilter from "./Filter";
 import "./Home.css";
-import Loading from "../../Loading/Loading";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext.js";
 import { CartContext } from "../../CartContext";
+import Loading from "../Loading/Loading";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -76,7 +76,7 @@ const Home = () => {
   };
 
   if (loading === true || getting === true) {
-    return <Loading />;
+    return < Loading/>;
   }
   return (
     <div className="home">

@@ -24,6 +24,7 @@ import { CartProvider, CartContext } from "./CartContext";
 import CartPage from "./Components/CartPage/CartPage";
 import SuccessPayment from "./Components/CartPage/MercadoPago/SuccessPayment";
 import Editprofile from "./Components/Profile/Edit-profile/Edit-profile";
+import CompanyContact from "./Components/CompanyContact/CompanyContact";
 
 function App() {
   const [searchResults, setSearchResults] = useState([]);
@@ -66,6 +67,7 @@ function App() {
             <Route path="/cart/success" element={<SuccessPayment />} />
             <Route path="/social/profile" element={<StudentDetail />} />
             <Route path="/profile/edit" element={<Editprofile />} />
+            <Route path="/companyContact" element={<CompanyContact/>}/>
             <Route
               path="/search"
               element={<CourseResults searchResults={searchResults} />}
