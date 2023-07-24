@@ -39,6 +39,7 @@
 	min-height: 30px;
 	max-height: 200px;
 	box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+	border: 2px solid fuchsia;
 }
 
 .send-button {
