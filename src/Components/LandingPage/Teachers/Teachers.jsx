@@ -31,11 +31,15 @@ const Teachers = () => {
     }
   };
 
+  const filteredTeachers = teachers.filter((teacher) => {
+    return !teacher.disabled;
+  });
+
   return (
     <div>
       {window.innerWidth <= 1440 ? (
         <div className="courses-container-landing-teacher flex overflow-x-scroll space-x-4 p-4">
-          {teachers.map((teacher) => (
+          {filteredTeachers.map((teacher) => (
             <div
               key={teacher._id}
               className="flex-shrink-0 w-64 bg-gray-200 rounded-lg overflow-hidden teacher-card">
@@ -62,7 +66,7 @@ const Teachers = () => {
         </div>
       ) : (
         <div className="flex space-x-4 p-4 ml-32">
-          {teachers.map((teacher) => (
+          {filteredTeachers.map((teacher) => (
             <div
               key={teacher._id}
               className="flex-shrink-0 w-64 bg-gray-200 rounded-lg overflow-hidden teacher-card">
