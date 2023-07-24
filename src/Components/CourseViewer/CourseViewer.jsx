@@ -112,7 +112,7 @@ const CourseViewer = () => {
 					setShowRating("No ratings yet");
 				}
 			} catch (error) {
-				console.log(`Hay error ${error.message}`);
+				return
 			}
 		};
 
@@ -145,7 +145,7 @@ const CourseViewer = () => {
 						></iframe>
 					) : (
 						<iframe
-							src={courseData.link}
+							// src={courseData.link}
 							title={courseData.title}
 							allow="autoplay; encrypted-media"
 							allowFullScreen
@@ -275,7 +275,7 @@ const CourseViewer = () => {
 			</div>
 
 			{/* VIDEOS RELACIONADOS */}
-			<div className="related-video-container">
+			{/* <div className="related-video-container">
 				<h2>Related Videos</h2>
 				{relatedVideo.map((video) => (
 					<Link to={`/view/${video._id}`}>
@@ -285,7 +285,7 @@ const CourseViewer = () => {
 						</div>
 					</Link>
 				))}
-			</div>
+			</div> */}
 		</div>
 	);
 };

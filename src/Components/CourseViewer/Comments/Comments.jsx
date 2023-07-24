@@ -11,7 +11,6 @@ const Comments = () => {
 	const [comments, setComments] = useState([]);
 	const [commentError, setCommentError] = useState(false);
 	const [getError, setGetError] = useState(false);
-	const { noComments, setNoComments } = useState(false);
 	const { id } = useParams();
 
 	// ID DEL USUARIO
@@ -21,74 +20,85 @@ const Comments = () => {
 
 	// COMENTARIO A ENVIAR
 	const [commentContent, setCommentContent] = useState({
-		commentUser: {
-			id: "",
-			photo: "",
-			name: "",
-		},
-		content: "",
+		id: "",
+		image: "",
+		name: "",
+		comment: "",
 	});
 	// -----------------------------
 
 	// GET USER INFO
 	useEffect(() => {
-		// FOTO DEL USUARIO
-		const firebaseUserImage = user?.photoURL;
-		const localUserImage = localStorage?.getItem("userImage");
-
-		const currentPhoto = firebaseUserImage || localUserImage;
-
-		if (currentPhoto) {
-			setCommentContent((prevCommentContent) => ({
-				...prevCommentContent,
-				commentUser: {
-					...prevCommentContent.commentUser,
-					photo: currentPhoto,
-				},
-			}));
-		}
-
-		// NOMBRE DEL USUARIO
-		const firebaseUserName = user?.displayName;
-		const localUserName = localStorage?.getItem("username");
-
-		const currentUserName = firebaseUserName || localUserName;
-
-		if (currentUserName) {
-			setCommentContent((prevCommentContent) => ({
-				...prevCommentContent,
-				commentUser: {
-					...prevCommentContent.commentUser,
-					name: currentUserName,
-				},
-			}));
-		}
+		// // FOTO DEL USUARIO
+		// const firebaseUserImage = user?.photoURL;
+		// const localUserImage = localStorage?.getItem("userImage");
+		// const currentPhoto = firebaseUserImage || localUserImage;
+		// console.log(currentPhoto);
+		// if (currentPhoto) {
+		// 	setCommentContent({...commentContent, image: currentPhoto});
+		// }
+		// // NOMBRE DEL USUARIO
+		// const firebaseUserName = user?.displayName;
+		// const localUserName = localStorage?.getItem("username");
+		// const currentUserName = firebaseUserName || localUserName;
+		// if (currentUserName) {
+		// 	setCommentContent({...commentContent, name: currentUserName});
+		// }
 	}, [user, localStorageUserId, googleUserId]);
 	// ---------------
 
 	useEffect(() => {
 		try {
 			const currentId = localStorageUserId || googleUserId;
+			const firebaseUserImage = user?.photoURL;
+			const localUserImage = localStorage?.getItem("userImage");
+			const firebaseUserName = user?.displayName;
+			const localUserName = localStorage?.getItem("username");
+
+			const currentUserName = firebaseUserName || localUserName;
+
+			const currentPhoto = firebaseUserImage || localUserImage;
+
 			if (!currentId) {
 				return;
-			}
-			setCommentContent((prevCommentContent) => ({
-				...prevCommentContent,
-				commentUser: {
-					...prevCommentContent.commentUser,
+			} else {
+				setCommentContent({
+					...commentContent,
 					id: currentId,
-				},
-			}));
+					image: currentPhoto,
+					name: currentUserName,
+				});
+			}
 
-			// const fetchData = async () => {
-			// 	const response = await axios.get(`getdeloscomentariosdelcurso${id}`);
-			// 	const fetchedComments = response.data.interactions.comments;
-			// 	if (response.status === 200) {
-			// 		if (fetchedComments.length > 0) setComments(fetchedComments);
-			// 		setNoComments(true);
-			// 	}
-			// 	if (response.status === 500) setGetError(true);
-			// };
+			// FOTO DEL USUARIO
+
+			// console.log(currentPhoto);
+
+			// if (currentPhoto) {
+			// 	setCommentContent({ ...commentContent, image: currentPhoto });
+			// }
+
+			// NOMBRE DEL USUARIO
+
+			// if (currentUserName) {
+			// 	setCommentContent({ ...commentContent, name: currentUserName });
+			// }
+
+			const fetchData = async () => {
+				const response = await axios.get(
+					`https://talent-forge-data.cyclic.app/courses/${id}`
+				);
+				// console.log(response);
+				const fetchedComments = response.data.comments;
+				if (response.status === 200) {
+					if (fetchedComments.length > 0) {
+						setComments(fetchedComments);
+					}
+				}
+				if (response.status === 500) setGetError(true);
+			};
+
+			fetchData();
 		} catch (error) {
 			setGetError(true);
 		}
@@ -96,7 +106,7 @@ const Comments = () => {
 
 	const handleChange = (event) => {
 		const comment = event.target.value;
-		setCommentContent({ ...commentContent, content: comment });
+		setCommentContent({ ...commentContent, comment: comment });
 		console.log(Array.isArray(comments));
 	};
 
@@ -104,41 +114,52 @@ const Comments = () => {
 		try {
 			setComments((prevComments) => [...prevComments, commentContent]);
 			console.log(comments);
-			// const response = axios.put(`rutabackend${id}`, commentContent);
-			// if (response.status === 200) {
-			// 	setCommentError(false);
-			// }
-			// if (response.status === 500) {
-			// 	setCommentError(true);
-			// }
+			const response = axios.put(
+				`https://talent-forge-data.cyclic.app/courses/comment/${id}`,
+				commentContent
+			);
+			if (response.status === 200) {
+				setCommentContent({ comment: "" });
+				setCommentError(false);
+			}
+			if (response.status === 500) {
+				setCommentError(true);
+			}
 		} catch (error) {
 			setCommentError(true);
 		}
+		console.log(commentContent);
 	};
 	return (
-		<div className="comments-container">
-			<div className="mainContainer">
-				{user ? (
-					<img className="user-image" src={user.photoURL} alt="si" />
-				) : (
-					<img
-						className="comment-image"
-						src="https://res.cloudinary.com/dal385dkc/image/upload/v1689784018/TEST%20IMAGES/profile_pxiqlp.jpg"
-					></img>
-				)}
-				<textarea
-					name="content"
-					onChange={handleChange}
-					value={commentContent.content}
-					ref={textareaRef}
-					id="comment-textarea"
-					type="text"
-					placeholder="Write a comment..."
-					className="comment-input"
-				/>
-				<button className="send-button" onClick={handleSubmit}>
-					SEND
-				</button>
+		<div>
+			<div className="comments-container">
+				<div className="mainContainer">
+					{user ? (
+						<img className="user-image" src={user.photoURL} alt="si" />
+					) : (
+						<img
+							className="comment-image"
+							src="https://res.cloudinary.com/dal385dkc/image/upload/v1689784018/TEST%20IMAGES/profile_pxiqlp.jpg"
+						></img>
+					)}
+					<textarea
+						name="comment"
+						onChange={handleChange}
+						value={commentContent.comment}
+						ref={textareaRef}
+						id="comment-textarea"
+						type="text"
+						placeholder="Write a comment..."
+						className="comment-input"
+					/>
+					<button
+						disabled={!commentContent.comment}
+						className="send-button"
+						onClick={handleSubmit}
+					>
+						SEND
+					</button>
+				</div>
 			</div>
 			{commentError && (
 				<span class="text-red-500 text-sm">
@@ -147,22 +168,25 @@ const Comments = () => {
 			)}
 			{comments.length > 0 ? (
 				comments.map((comment) => {
-					<div className="comment-container">
-						{comment.photo ? (
-							<img className="comment-image" src={comment.photo} alt="si" />
-						) : (
-							<img
-								className="comment-image"
-								src="https://res.cloudinary.com/dal385dkc/image/upload/v1689784018/TEST%20IMAGES/profile_pxiqlp.jpg"
-							></img>
-						)}
-						<div className="comment-reply">
-							<div className="content">
-								<p>{comment.content}</p>
+					return (
+						<div className="comment-container">
+							<p>{comment.name}</p>
+							{comment.image ? (
+								<img className="comment-image" src={comment.image} alt="si" />
+							) : (
+								<img
+									className="comment-image"
+									src="https://res.cloudinary.com/dal385dkc/image/upload/v1689784018/TEST%20IMAGES/profile_pxiqlp.jpg"
+								></img>
+							)}
+							<div className="comment-reply">
+								<div className="content">
+									<p>{comment.comment}</p>
+								</div>
+								{/* <button className="reply-button">reply</button> */}
 							</div>
-							<button className="reply-button">reply</button>
 						</div>
-					</div>;
+					);
 				})
 			) : (
 				<div className="no-comments-div">

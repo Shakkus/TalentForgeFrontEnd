@@ -2,29 +2,49 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { NavLink, useParams } from "react-router-dom";
 import Loading from "../Loading/Loading";
+import { FaStar } from "react-icons/fa";
 
 const CourseDetail = () => {
   const { id } = useParams();
-  const [detailInfo, setDetailInfo] = useState({});
-  const [teacherInfo, setTeacherInfo] = useState({});
-  const [gettingCourse, setGettingCourse] = useState(true);
+	const [detailInfo, setDetailInfo] = useState([]);
+	const [teacherInfo, setTeacherInfo] = useState([]);
+	const [gettingCourse, setGettingCourse] = useState(true); // Estado para controlar si se está obteniendo la información del curso
+	const [ratingLength, setRatingLength] = useState([]);
+	const [showRating, setShowRating] = useState(0);
   const [error, setError] = useState(null);
 
   // Fetch course details
   useEffect(() => {
-    const getDetail = async () => {
-      try {
-        const { data } = await axios.get(
-          `https://talent-forge-data.cyclic.app/courses/${id}`
-        );
-        setDetailInfo(data);
-        setGettingCourse(false);
-      } catch (error) {
-        setError("Error fetching course details.");
-      }
-    };
-    getDetail();
-  }, [id]);
+		const getDetail = async () => {
+			try {
+				const { data } = await axios.get(
+					`https://talent-forge-data.cyclic.app/courses/${id}`
+				);
+				setDetailInfo(data);
+				setGettingCourse(false);
+
+				const ratingsArray = data.interactions.ratings;
+				setRatingLength(ratingsArray);
+        console.log(ratingLength);
+				if (ratingsArray.length > 0) {
+					// Calcular el promedio del rating
+					const ratingTotal = ratingsArray.reduce(
+						(total, userSentRating) => total + userSentRating.rating,
+						0
+					);
+					const ratingAverage = ratingTotal / ratingsArray.length;
+					const roundedRating = Math.round(ratingAverage);
+					setShowRating(roundedRating);
+				} else {
+					setShowRating("No ratings yet");
+				}
+			} catch (error) {
+				console.log(error);
+			}
+		};
+
+		getDetail();
+	}, []);
 
   // Fetch teacher information
   useEffect(() => {
@@ -76,27 +96,33 @@ const CourseDetail = () => {
             <h1 className="text-3xl font-bold text-[#7c38cd] py-1">{title}</h1>
             <p className="text-xl py-1">{description}</p>
             <div className="flex items-center mt-2">
-              <div className="flex items-center">
-                {Array.from({ length: 5 }).map((_, index) => (
-                  <svg
-                    key={index}
-                    className={`w-6 h-6 ${
-                      index < Math.round(rating)
-                        ? "text-yellow-500"
-                        : "text-gray-400"
-                    }`}
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 0l2.175 6.63h6.85l-5.52 4.01 2.176 6.64L10 13.25l-5.682 4.03 2.177-6.64-5.52-4.01h6.85L10 0z"
-                    />
-                  </svg>
-                ))}
-              </div>
-              <p className="ml-xl text-lg">{`${rating}`}</p>
+            <div className="flex">
+									{ratingLength &&
+										[...Array(5)].map((star, index) => {
+											const currentRating = index + 1;
+											return (
+												<label>
+													<input
+														className="radio"
+														type="radio"
+														name="rating"
+														value={currentRating}
+													/>
+													<FaStar
+														color={
+															currentRating <= showRating
+																? "#ffc107"
+																: "#e7e7e7"
+														}
+														className="description-stars"
+														size={20}
+													/>
+												</label>
+											);
+										})}
+									{!ratingLength && <span className="ratings-amount">No reviews yet</span> }
+								</div>
+              {/* {ratingLength.length > 0 && <p className="ml-xl text-lg">{`${showRating}`}</p>} */}
             </div>
             <NavLink
               className="text-xl mt-2 py-1 text underline decoration-1"
