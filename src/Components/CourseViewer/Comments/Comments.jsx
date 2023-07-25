@@ -1,17 +1,17 @@
 import "../CourseViewer.css";
-import { useEffect, useRef, useState } from "react";
+import {useEffect, useRef, useState} from "react";
 import Comment from "./Comment";
-import { useAuth } from "../../../context/authContext";
+import {useAuth} from "../../../context/authContext";
 import axios from "axios";
-import { useParams } from "react-router";
+import {useParams} from "react-router";
 
 const Comments = () => {
-	const { user } = useAuth();
+	const {user} = useAuth();
 	const textareaRef = useRef(null);
 	const [comments, setComments] = useState([]);
 	const [commentError, setCommentError] = useState(false);
 	const [getError, setGetError] = useState(false);
-	const { id } = useParams();
+	const {id} = useParams();
 
 	// ID DEL USUARIO
 	const localStorageUserId = localStorage.getItem("userId");
@@ -26,7 +26,6 @@ const Comments = () => {
 		comment: "",
 	});
 	// -----------------------------
-
 
 	useEffect(() => {
 		try {
@@ -72,44 +71,49 @@ const Comments = () => {
 
 	const handleChange = (event) => {
 		const comment = event.target.value;
-		setCommentContent({ ...commentContent, comment: comment });
+		setCommentContent({
+			...commentContent,
+			comment: comment,
+		});
 		console.log(Array.isArray(comments));
 	};
 
-  const isContentValid = (content) =>{
-    const trimmedContent = content.trim()
+	const isContentValid = (content) => {
+		const trimmedContent = content.trim();
 
+		return trimmedContent.length > 0;
+	};
 
-    return trimmedContent.length > 0;
-  }
+	const handleSubmit = () => {
+		try {
+			// Crea un nuevo objeto con los mismos contenidos de commentContent
+			const newComment = {
+				id: commentContent.id,
+				image: commentContent.image,
+				name: commentContent.name,
+				comment: commentContent.comment,
+			};
 
-  const handleSubmit = () => {
-  try {
-    // Crea un nuevo objeto con los mismos contenidos de commentContent
-    const newComment = {
-      id: commentContent.id,
-      image: commentContent.image,
-      name: commentContent.name,
-      comment: commentContent.comment,
-    };
+			setComments((prevComments) => [...prevComments, newComment]);
+			setCommentContent({
+				...commentContent,
+				comment: "",
+			}); // Borra el contenido del textarea
+			setCommentError(false);
 
-    setComments((prevComments) => [...prevComments, newComment]);
-    setCommentContent({ ...commentContent, comment: "" }); // Borra el contenido del textarea
-    setCommentError(false);
-
-    axios.put(
-      `https://talent-forge-data.cyclic.app/courses/comment/${id}`,
-      newComment
-    );
-  } catch (error) {
-    setCommentError(true);
-  }
-};
-const handleKeyDown = (event) => {
-  if (event.key === "Enter") {
-    handleSubmit();
-  }
-};
+			axios.put(
+				`https://talent-forge-data.cyclic.app/courses/comment/${id}`,
+				newComment
+			);
+		} catch (error) {
+			setCommentError(true);
+		}
+	};
+	const handleKeyDown = (event) => {
+		if (event.key === "Enter") {
+			handleSubmit();
+		}
+	};
 	return (
 		<div>
 			<div className="comments-container">
@@ -119,13 +123,12 @@ const handleKeyDown = (event) => {
 					) : (
 						<img
 							className="comment-image"
-							src="https://res.cloudinary.com/dal385dkc/image/upload/v1689784018/TEST%20IMAGES/profile_pxiqlp.jpg"
-						></img>
+							src="https://res.cloudinary.com/dal385dkc/image/upload/v1689784018/TEST%20IMAGES/profile_pxiqlp.jpg"></img>
 					)}
 					<textarea
 						name="comment"
 						onChange={handleChange}
-            onKeyDown={handleKeyDown}
+						onKeyDown={handleKeyDown}
 						value={commentContent.comment}
 						ref={textareaRef}
 						id="comment-textarea"
@@ -136,8 +139,7 @@ const handleKeyDown = (event) => {
 					<button
 						disabled={!isContentValid(commentContent.comment)}
 						className="send-button"
-						onClick={handleSubmit}
-					>
+						onClick={handleSubmit}>
 						SEND
 					</button>
 				</div>
@@ -157,8 +159,7 @@ const handleKeyDown = (event) => {
 							) : (
 								<img
 									className="comment-image"
-									src="https://res.cloudinary.com/dal385dkc/image/upload/v1689784018/TEST%20IMAGES/profile_pxiqlp.jpg"
-								></img>
+									src="https://res.cloudinary.com/dal385dkc/image/upload/v1689784018/TEST%20IMAGES/profile_pxiqlp.jpg"></img>
 							)}
 							<div className="comment-reply">
 								<div className="content">
