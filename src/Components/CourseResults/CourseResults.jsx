@@ -3,14 +3,33 @@ import { NavLink } from "react-router-dom";
 import "./CourseResults.css";
 
 const CourseResults = ({ searchResults }) => {
+  const calculateAverageRating = (ratings) => {
+    if (!ratings || ratings.length === 0) {
+      return "No ratings yet";
+    }
+
+    const totalRatings = ratings.length;
+    const ratingSum = ratings.reduce(
+      (total, userSentRating) => total + userSentRating.rating,
+      0
+    );
+
+    const ratingAverage = ratingSum / totalRatings;
+    const roundedRating = Math.round(ratingAverage);
+    return roundedRating;
+  };
+
+  // Filtrar los resultados que tengan "disabled: false"
+  const filteredResults = searchResults.filter((course) => !course.disabled);
+
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 5;
-  const totalPages = Math.ceil(searchResults.length / resultsPerPage);
+  const totalPages = Math.ceil(filteredResults.length / resultsPerPage);
 
   // Calcula el índice inicial y final de los resultados que se mostrarán en la página actual
   const indexOfLastResult = currentPage * resultsPerPage;
   const indexOfFirstResult = indexOfLastResult - resultsPerPage;
-  const currentResults = searchResults.slice(
+  const currentResults = filteredResults.slice(
     indexOfFirstResult,
     indexOfLastResult
   );
@@ -43,7 +62,9 @@ const CourseResults = ({ searchResults }) => {
   return (
     <div id="search-mapper">
       <div id="course-container">
-        <strong className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Results found: {searchResults.length}</strong>
+        <strong className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+          Results found: {filteredResults.length}
+        </strong>
         {currentResults.map((course) => {
           return (
             <React.Fragment key={course.id}>
@@ -67,9 +88,18 @@ const CourseResults = ({ searchResults }) => {
                       <strong>Instructor:</strong> {course.teacher}
                     </p>
                     <p id="course-form-description">{course.description}</p>
-                    <p id="course-form-rating">
-                      <strong>Rating:</strong> {course.rating}
-                    </p>
+                    <div className="flex items-center mb-2">
+                      <span className="text-yellow-400 mr-1">&#9733;</span>
+                      <span className="text-gray-600 font-medium mr-2">
+                        {calculateAverageRating(course.interactions.ratings)}
+                      </span>
+                      {course.interactions.ratings &&
+                        course.interactions.ratings.length !== 0 && (
+                          <span className="text-purple-600 text-sm">
+                            ({course.interactions.ratings.length} ratings)
+                          </span>
+                        )}
+                    </div>
                   </div>
                 </div>
 
