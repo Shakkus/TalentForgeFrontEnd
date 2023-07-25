@@ -56,11 +56,12 @@
         /* background-color: red; */
     }
     @media (max-width: 1024px) {
-        margin: 0 25vw;
+        display: flex;
+        margin: 0 10%;
     }
 
     @media (max-width: 640px) {
-        margin: 0 10px;
+        /* margin: 0 10px; */
     }
 }
 
@@ -150,6 +151,10 @@ button.active{
     margin-top: 10px;
 }
 
+.titleLanding {
+    font-family: 'Montserrat';
+}
+
 
 
 /* EMPRESAS */
@@ -179,6 +184,7 @@ button.active{
 .empresas .infoContainer{
     background: #ddd0ee;
     border-radius:25px;
+    font-family: 'Lato';
 
     @media (max-width: 1024px) {
         margin: 10px 20px 0 20px;
@@ -242,4 +248,8 @@ button.active{
     .slick-slider {
         touch-action: pan-x;
     }
+}
+
+.contactUsButton {
+    font-family: 'Montserrat';
 }

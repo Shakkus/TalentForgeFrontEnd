@@ -8,21 +8,24 @@ import "./CourseDetail.css";
 
 const CourseDetail = () => {
   const navigate = useNavigate();
+
   // VALIDACION DE USUARIO
   useEffect(() => {
-    if (localStorage.getItem("loggedUser")) return;
-    else if (localStorage.getItem("username")) return;
-    else if (!localStorage.getItem("username")) navigate("/login");
-    else if (!localStorage.getItem("loggedUser")) navigate("/login");
+    const loggedUser = localStorage.getItem("loggedUser");
+    const username = localStorage.getItem("username");
+
+    if (!loggedUser && !username) {
+      navigate("/login");
+    }
   }, [navigate]);
   // -----------------------------
 
   const { id } = useParams();
-  const [detailInfo, setDetailInfo] = useState([]);
-  const [teacherInfo, setTeacherInfo] = useState([]);
+  const [detailInfo, setDetailInfo] = useState({});
+  const [teacherInfo, setTeacherInfo] = useState({});
   const [gettingCourse, setGettingCourse] = useState(true); // Estado para controlar si se está obteniendo la información del curso
   const [ratingLength, setRatingLength] = useState([]);
-  const [showRating, setShowRating] = useState(0);
+  const [showRating, setShowRating] = useState(null);
   const [error, setError] = useState(null);
 
   // Fetch course details
@@ -35,9 +38,9 @@ const CourseDetail = () => {
         setDetailInfo(data);
         setGettingCourse(false);
 
-        const ratingsArray = data.interactions.ratings;
+        const ratingsArray = data.interactions?.ratings || [];
         setRatingLength(ratingsArray);
-        console.log(ratingLength);
+
         if (ratingsArray.length > 0) {
           // Calcular el promedio del rating
           const ratingTotal = ratingsArray.reduce(
@@ -51,12 +54,12 @@ const CourseDetail = () => {
           setShowRating("No ratings yet");
         }
       } catch (error) {
-        console.log(error);
+        setError("Error fetching course information.");
       }
     };
 
     getDetail();
-  }, []);
+  }, [id]);
 
   // Fetch teacher information
   useEffect(() => {
@@ -84,7 +87,6 @@ const CourseDetail = () => {
   const {
     title,
     image,
-    rating,
     duration,
     description,
     cathegory,
@@ -110,34 +112,37 @@ const CourseDetail = () => {
             </h1>
             <p className="text-xl py-1 detailDescription">{description}</p>
             <div className="flex items-center mt-2">
-          <div className="flex">
-            {ratingLength &&
-              [...Array(5)].map((star, index) => {
-                const currentRating = index + 1;
-                return (
-                  <label>
-                    <input
-                      className="radio"
-                      type="radio"
-                      name="rating"
-                      value={currentRating}
-                    />
-                    <FaStar
-                      color={
-                        currentRating <= showRating ? "#ffc107" : "#e7e7e7"
-                      }
-                      className="description-stars"
-                      size={20}
-                    />
-                  </label>
-                );
-              })}
-            {!ratingLength && <span className="ratings-amount">No reviews yet</span>}
-          </div>
-        </div>
+              <div className="flex">
+                {ratingLength && ratingLength.length > 0 ? (
+                  ratingLength.map((userSentRating, index) => (
+                    <label key={index}>
+                      <input
+                        className="radio"
+                        type="radio"
+                        name="rating"
+                        value={index + 1}
+                      />
+                      <FaStar
+                        color={
+                          index < showRating ? "#ffc107" : "#e7e7e7"
+                        }
+                        className="description-stars"
+                        size={20}
+                      />
+                    </label>
+                  ))
+                ) : (
+                  <span className="ratings-amount">No reviews yet</span>
+                )}
+              </div>
+              {ratingLength.length > 0 && (
+                <p className="ml-xl text-lg">{`Rating: ${showRating} (${ratingLength.length})`}</p>
+              )}
+            </div>
             <NavLink
               className="text-xl mt-2 py-1 text underline decoration-1 ownedByDetail"
-              to={`/teacher/${teacherInfo?._id || "64a637218f0d799012be25b2"}`}>
+              to={`/teacher/${teacherInfo?._id || "64a637218f0d799012be25b2"}`}
+            >
               Owned by: {teacherName}
             </NavLink>
             <p className="text-xl mt-2 py-1 detailDuration">{`Duration: ${duration}`}</p>
@@ -145,7 +150,8 @@ const CourseDetail = () => {
           </div>
           <NavLink
             to={`/view/${id}`}
-            className="block bg-[#7c38cd] text-white py-2 px-4 mt-4 detailButton">
+            className="block bg-[#7c38cd] text-white py-2 px-4 mt-4 detailButton"
+          >
             Start the course!
           </NavLink>
         </div>
@@ -155,3 +161,4 @@ const CourseDetail = () => {
 };
 
 export default CourseDetail;
+
