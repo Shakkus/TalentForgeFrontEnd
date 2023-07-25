@@ -151,9 +151,9 @@ const CourseViewer = () => {
               srcDoc="<span>INVALID VIDEO</span>"></iframe>
           ) : (
             <iframe
-              // src={courseData.link}
+              src={courseData.link} 
               title={courseData.title}
-              allow="autoplay; encrypted-media"
+              allow="encrypted-media"
               allowFullScreen></iframe>
           )}
         </div>
@@ -272,21 +272,7 @@ const CourseViewer = () => {
           </div>
         </div>
         <Comments />
-        {/* ------- */}
       </div>
-
-      {/* VIDEOS RELACIONADOS */}
-      {/* <div className="related-video-container">
-				<h2>Related Videos</h2>
-				{relatedVideo.map((video) => (
-					<Link to={`/view/${video._id}`}>
-						<div key={video.id} className="video-name-container">
-							<img className="video" src={video.image} alt={video.title} />
-							<h4>{video.title}</h4>
-						</div>
-					</Link>
-				))}
-			</div> */}
     </div>
   );
 };

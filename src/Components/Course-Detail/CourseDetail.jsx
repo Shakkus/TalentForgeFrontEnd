@@ -110,34 +110,31 @@ const CourseDetail = () => {
             </h1>
             <p className="text-xl py-1 detailDescription">{description}</p>
             <div className="flex items-center mt-2">
-              <div className="flex">
-                {ratingLength &&
-                  [...Array(5)].map((star, index) => {
-                    const currentRating = index + 1;
-                    return (
-                      <label>
-                        <input
-                          className="radio"
-                          type="radio"
-                          name="rating"
-                          value={currentRating}
-                        />
-                        <FaStar
-                          color={
-                            currentRating <= showRating ? "#ffc107" : "#e7e7e7"
-                          }
-                          className="description-stars"
-                          size={20}
-                        />
-                      </label>
-                    );
-                  })}
-                {!ratingLength && (
-                  <span className="ratings-amount">No reviews yet</span>
-                )}
-              </div>
-              {/* {ratingLength.length > 0 && <p className="ml-xl text-lg">{`${showRating}`}</p>} */}
-            </div>
+          <div className="flex">
+            {ratingLength &&
+              [...Array(5)].map((star, index) => {
+                const currentRating = index + 1;
+                return (
+                  <label>
+                    <input
+                      className="radio"
+                      type="radio"
+                      name="rating"
+                      value={currentRating}
+                    />
+                    <FaStar
+                      color={
+                        currentRating <= showRating ? "#ffc107" : "#e7e7e7"
+                      }
+                      className="description-stars"
+                      size={20}
+                    />
+                  </label>
+                );
+              })}
+            {!ratingLength && <span className="ratings-amount">No reviews yet</span>}
+          </div>
+        </div>
             <NavLink
               className="text-xl mt-2 py-1 text underline decoration-1 ownedByDetail"
               to={`/teacher/${teacherInfo?._id || "64a637218f0d799012be25b2"}`}>

@@ -6,7 +6,7 @@ import axios from "axios";
 import {useParams} from "react-router";
 
 const Comments = () => {
-	const {user} = useAuth();
+  	const { user } = useAuth();
 	const textareaRef = useRef(null);
 	const [comments, setComments] = useState([]);
 	const [commentError, setCommentError] = useState(false);
@@ -86,34 +86,39 @@ const Comments = () => {
 
 	const handleSubmit = () => {
 		try {
+		  if (isContentValid(commentContent.comment)) {
 			// Crea un nuevo objeto con los mismos contenidos de commentContent
 			const newComment = {
-				id: commentContent.id,
-				image: commentContent.image,
-				name: commentContent.name,
-				comment: commentContent.comment,
+			  id: commentContent.id,
+			  image: commentContent.image,
+			  name: commentContent.name,
+			  comment: commentContent.comment,
 			};
 
-			setComments((prevComments) => [...prevComments, newComment]);
-			setCommentContent({
-				...commentContent,
-				comment: "",
-			}); // Borra el contenido del textarea
-			setCommentError(false);
+      setComments((prevComments) => [...prevComments, newComment]);
+      setCommentContent({ ...commentContent, comment: "" }); // Borra el contenido del textarea
+      setCommentError(false);
 
-			axios.put(
-				`https://talent-forge-data.cyclic.app/courses/comment/${id}`,
-				newComment
-			);
-		} catch (error) {
-			setCommentError(true);
-		}
-	};
-	const handleKeyDown = (event) => {
-		if (event.key === "Enter") {
-			handleSubmit();
-		}
-	};
+	  axios.put(
+        `https://talent-forge-data.cyclic.app/courses/comment/${id}`,
+        newComment
+      );
+    } else {
+      // Si el comentario no es válido, muestra un mensaje de error
+      setCommentError(true);
+    }
+  } catch (error) {
+    setCommentError(true);
+  }
+};
+const handleKeyDown = (event) => {
+	if (event.key === "Enter") {
+	  // Llama a handleSubmit solo si el contenido del comentario es válido
+	  if (isContentValid(commentContent.comment)) {
+		handleSubmit();
+	  }
+	}
+  };
 	return (
 		<div>
 			<div className="comments-container">
@@ -123,12 +128,13 @@ const Comments = () => {
 					) : (
 						<img
 							className="comment-image"
-							src="https://res.cloudinary.com/dal385dkc/image/upload/v1689784018/TEST%20IMAGES/profile_pxiqlp.jpg"></img>
+							src="https://res.cloudinary.com/dal385dkc/image/upload/v1689784018/TEST%20IMAGES/profile_pxiqlp.jpg"
+						></img>
 					)}
 					<textarea
 						name="comment"
 						onChange={handleChange}
-						onKeyDown={handleKeyDown}
+            			onKeyDown={handleKeyDown}
 						value={commentContent.comment}
 						ref={textareaRef}
 						id="comment-textarea"
@@ -139,7 +145,8 @@ const Comments = () => {
 					<button
 						disabled={!isContentValid(commentContent.comment)}
 						className="send-button"
-						onClick={handleSubmit}>
+						onClick={handleSubmit}
+					>
 						SEND
 					</button>
 				</div>
@@ -159,7 +166,8 @@ const Comments = () => {
 							) : (
 								<img
 									className="comment-image"
-									src="https://res.cloudinary.com/dal385dkc/image/upload/v1689784018/TEST%20IMAGES/profile_pxiqlp.jpg"></img>
+									src="https://res.cloudinary.com/dal385dkc/image/upload/v1689784018/TEST%20IMAGES/profile_pxiqlp.jpg"
+								></img>
 							)}
 							<div className="comment-reply">
 								<div className="content">
