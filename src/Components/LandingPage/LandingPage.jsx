@@ -28,10 +28,10 @@ const Landing = () => {
   return (
     <div className="landing">
       <div className="presentation block w-full lg:flex mt-0">
-        <div className="w-72 max-sm:w-80 ">
-          <img src={imgpres} alt="" className="mx-0 my-auto" />
+        <div className="w-72 max-sm:w-80 pt-10">
+          <img src={imgpres} alt="" className="my-0 mx-auto" />
         </div>
-        <div className="presentationContainer w-full sm:w-2/6 flex-col max-lg:w-80">
+        <div className="presentationContainer w-full sm:w-2/6 flex-col max-lg:w-80 mt-10 mb-20">
           <h3 className="presentation-title sm:text-2xl text-xl mb-3">
             Speak a language in just 10 minutes per day!
           </h3>
@@ -49,7 +49,7 @@ const Landing = () => {
 
       <div className="whiteBack">
         <div className="selector">
-          <h2 className="sm:text-3xl text-lg my-6">
+          <h2 className="sm:text-3xl text-lg my-6 titleLanding">
             Courses just a click away!
           </h2>
           <div className="botones">
@@ -72,13 +72,15 @@ const Landing = () => {
             {activeButton === "programacion" && <CodeCourse />}
           </div>
         </div>
-        <h2 id="titleMentors" className="text-white text-2xl">
+        <h2 id="titleMentors" className="titleLanding text-white text-2xl">
           Mentors
         </h2>
         <div className="mentoresContainer">{<Teachers />}</div>
 
         <div className="empresas">
-          <h2 className="text-white text-2xl">Talent Forge for companies</h2>
+          <h2 className="text-white text-2xl titleLanding">
+            Talent Forge for companies
+          </h2>
           <div className="info-container block sm:flex items-center justify-center my-20">
             <img
               src={empresas}
@@ -93,7 +95,7 @@ const Landing = () => {
                 We can help you
               </h3>
               <Link to="companyContact" className="m-3 w-2">
-                <h1 className="relative text-white bg-purple-500 p-3 w-40 mt-0 mx-auto rounded-xl mb-0 customHoverShadow">
+                <h1 className="contactUsButton relative text-white bg-purple-500 p-3 w-40 mt-0 mx-auto rounded-xl mb-0 customHoverShadow">
                   Contact Us
                 </h1>
               </Link>
