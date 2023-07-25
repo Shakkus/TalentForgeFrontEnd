@@ -6,7 +6,7 @@ import axios from "axios";
 import { useParams } from "react-router";
 
 const Comments = () => {
-	const { user } = useAuth();
+  const { user } = useAuth();
 	const textareaRef = useRef(null);
 	const [comments, setComments] = useState([]);
 	const [commentError, setCommentError] = useState(false);
@@ -27,25 +27,6 @@ const Comments = () => {
 	});
 	// -----------------------------
 
-	// GET USER INFO
-	useEffect(() => {
-		// // FOTO DEL USUARIO
-		// const firebaseUserImage = user?.photoURL;
-		// const localUserImage = localStorage?.getItem("userImage");
-		// const currentPhoto = firebaseUserImage || localUserImage;
-		// console.log(currentPhoto);
-		// if (currentPhoto) {
-		// 	setCommentContent({...commentContent, image: currentPhoto});
-		// }
-		// // NOMBRE DEL USUARIO
-		// const firebaseUserName = user?.displayName;
-		// const localUserName = localStorage?.getItem("username");
-		// const currentUserName = firebaseUserName || localUserName;
-		// if (currentUserName) {
-		// 	setCommentContent({...commentContent, name: currentUserName});
-		// }
-	}, [user, localStorageUserId, googleUserId]);
-	// ---------------
 
 	useEffect(() => {
 		try {
@@ -69,21 +50,6 @@ const Comments = () => {
 					name: currentUserName,
 				});
 			}
-
-			// FOTO DEL USUARIO
-
-			// console.log(currentPhoto);
-
-			// if (currentPhoto) {
-			// 	setCommentContent({ ...commentContent, image: currentPhoto });
-			// }
-
-			// NOMBRE DEL USUARIO
-
-			// if (currentUserName) {
-			// 	setCommentContent({ ...commentContent, name: currentUserName });
-			// }
-
 			const fetchData = async () => {
 				const response = await axios.get(
 					`https://talent-forge-data.cyclic.app/courses/${id}`
@@ -117,99 +83,109 @@ const Comments = () => {
     return trimmedContent.length > 0;
   }
 
-  const handleSubmit = () => {
+const handleSubmit = () => {
   try {
-    // Crea un nuevo objeto con los mismos contenidos de commentContent
-    const newComment = {
-      id: commentContent.id,
-      image: commentContent.image,
-      name: commentContent.name,
-      comment: commentContent.comment,
-    };
+    if (isContentValid(commentContent.comment)) {
+      // Crea un nuevo objeto con los mismos contenidos de commentContent
+      const newComment = {
+        id: commentContent.id,
+        image: commentContent.image,
+        name: commentContent.name,
+        comment: commentContent.comment,
+      };
 
-    setComments((prevComments) => [...prevComments, newComment]);
-    setCommentContent({ ...commentContent, comment: "" }); // Borra el contenido del textarea
-    setCommentError(false);
+      setComments((prevComments) => [...prevComments, newComment]);
+      setCommentContent({ ...commentContent, comment: "" }); // Borra el contenido del textarea
+      setCommentError(false);
 
-    axios.put(
-      `https://talent-forge-data.cyclic.app/courses/comment/${id}`,
-      newComment
-    );
+      axios.put(
+        `https://talent-forge-data.cyclic.app/courses/comment/${id}`,
+        newComment
+      );
+    } else {
+      // Si el comentario no es válido, muestra un mensaje de error
+      setCommentError(true);
+    }
   } catch (error) {
     setCommentError(true);
   }
 };
 const handleKeyDown = (event) => {
   if (event.key === "Enter") {
-    handleSubmit();
+    // Llama a handleSubmit solo si el contenido del comentario es válido
+    if (isContentValid(commentContent.comment)) {
+      handleSubmit();
+    }
   }
 };
-	return (
-		<div>
-			<div className="comments-container">
-				<div className="mainContainer">
-					{user ? (
-						<img className="user-image" src={user.photoURL} alt="si" />
-					) : (
-						<img
-							className="comment-image"
-							src="https://res.cloudinary.com/dal385dkc/image/upload/v1689784018/TEST%20IMAGES/profile_pxiqlp.jpg"
-						></img>
-					)}
-					<textarea
-						name="comment"
-						onChange={handleChange}
+  return (
+    <div>
+      <div className="comments-container">
+        <div className="mainContainer">
+          {user ? (
+            <img
+              className="user-image w-12 h-12 rounded-full"
+              src={user.photoURL}
+              alt="User Profile"
+            />
+          ) : (
+            <img
+              className="comment-image w-12 h-12 rounded-full"
+              src="https://res.cloudinary.com/dal385dkc/image/upload/v1689784018/TEST%20IMAGES/profile_pxiqlp.jpg"
+              alt="Default Profile"
+            />
+          )}
+          <textarea
+            name="comment"
+            onChange={handleChange}
             onKeyDown={handleKeyDown}
-						value={commentContent.comment}
-						ref={textareaRef}
-						id="comment-textarea"
-						type="text"
-						placeholder="Write a comment..."
-						className="comment-input"
-					/>
-					<button
-						disabled={!isContentValid(commentContent.comment)}
-						className="send-button"
-						onClick={handleSubmit}
-					>
-						SEND
-					</button>
-				</div>
-			</div>
-			{commentError && (
-				<span class="text-red-500 text-sm">
-					There was an error posting the comment, try again
-				</span>
-			)}
-			{comments.length > 0 ? (
-				comments.map((comment) => {
-					return (
-						<div className="comment-container">
-							<p>{comment.name}</p>
-							{comment.image ? (
-								<img className="comment-image" src={comment.image} alt="si" />
-							) : (
-								<img
-									className="comment-image"
-									src="https://res.cloudinary.com/dal385dkc/image/upload/v1689784018/TEST%20IMAGES/profile_pxiqlp.jpg"
-								></img>
-							)}
-							<div className="comment-reply">
-								<div className="content">
-									<p>{comment.comment}</p>
-								</div>
-								{/* <button className="reply-button">reply</button> */}
-							</div>
-						</div>
-					);
-				})
-			) : (
-				<div className="no-comments-div">
-					<span class="text-gray-500">No comments yet</span>
-				</div>
-			)}
-		</div>
-	);
+            value={commentContent.comment}
+            ref={textareaRef}
+            id="comment-textarea"
+            type="text"
+            placeholder="Write a comment..."
+            className="comment-input"
+          />
+          <button
+            disabled={!isContentValid(commentContent.comment)}
+            className="send-button bg-blue-500 text-white px-4 py-2 rounded"
+            onClick={handleSubmit}
+          >
+            SEND
+          </button>
+        </div>
+      </div>
+      {commentError && (
+        <span className="text-red-500 text-sm">
+          There was an error posting the comment, try again
+        </span>
+      )}
+      {comments.length > 0 ? (
+        comments.map((comment) => {
+          return (
+            <div className="comment-container flex items-center" key={comment.id}>
+              <img
+                className="comment-image w-12 h-12 rounded-full"
+                src={
+                  comment.image ||
+                  "https://res.cloudinary.com/dal385dkc/image/upload/v1689784018/TEST%20IMAGES/profile_pxiqlp.jpg"
+                }
+                alt="Profile Image"
+              />
+              <div className="comment-content">
+                <p className="font-bold">@{comment.name}</p>
+                <p>{comment.comment}</p>
+              </div>
+            </div>
+          );
+        })
+      ) : (
+        <div className="no-comments-div">
+          <span className="text-gray-500">No comments yet</span>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default Comments;

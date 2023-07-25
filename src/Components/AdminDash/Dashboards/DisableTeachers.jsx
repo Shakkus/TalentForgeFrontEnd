@@ -1,24 +1,24 @@
-
 import axios from 'axios'; 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const DisableTeachers = () => {
-
   const navigate = useNavigate();
-	  // VALIDACION DE USUARIO
-	  useEffect(() => {
+
+  // VALIDACION DE USUARIO
+  useEffect(() => {
     if (localStorage.getItem("userAccountType") !== 'admin') navigate('/')
     else if (localStorage.getItem("userAccountType") === 'admin') return 
-		else if (localStorage.getItem("loggedUser")) return 
-		else if (localStorage.getItem("username")) return 
-		else if (!localStorage.getItem("username")) navigate('/login')
-		else if (!localStorage.getItem("loggedUser")) navigate('/login')
-	  }, [navigate]); 
-	  // -----------------------------
+    else if (localStorage.getItem("loggedUser")) return 
+    else if (localStorage.getItem("username")) return 
+    else if (!localStorage.getItem("username")) navigate('/login')
+    else if (!localStorage.getItem("loggedUser")) navigate('/login')
+  }, [navigate]); 
+  // -----------------------------
 
   const [teachers, setTeachers] = useState([]);
-  const [searchTerm, setSearchTerm] = useState(''); // Nuevo estado para almacenar el término de búsqueda
+  const [searchTerm, setSearchTerm] = useState('');
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     const getTeachers = async () => {
@@ -28,6 +28,18 @@ const DisableTeachers = () => {
       setTeachers(data);
     };
     getTeachers();
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   const teacherToggle = (teacher) => {
@@ -51,7 +63,6 @@ const DisableTeachers = () => {
       );
   };
 
-  // Función para filtrar los profesores basados en el término de búsqueda
   const filteredTeachers = teachers.filter((teacher) =>
     teacher.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -60,7 +71,6 @@ const DisableTeachers = () => {
     <div className="max-w-[600px] mx-auto py-5">
       <h1 className="text-3xl font-bold mb-6 text-center">Disable/Enable Teachers</h1>
 
-      {/* Agregar la barra de búsqueda */}
       <input
         type="text"
         placeholder="Search teachers"
@@ -76,13 +86,15 @@ const DisableTeachers = () => {
             teacher.disabled ? "bg-gray-400" : "bg-purple-700 text-white"
           } rounded-lg p-4 shadow-lg my-2 flex items-center justify-between transition-colors`}
         >
-          <img
-            src={teacher.profileImage}
-            alt={teacher.name}
-            className={`w-14 h-14 rounded-full object-cover mr-4 ${
-              teacher.disabled ? "filter grayscale" : ""
-            } transition-all`}
-          />
+          {windowWidth > 600 && (
+            <img
+              src={teacher.profileImage}
+              alt={teacher.name}
+              className={`w-14 h-14 rounded-full object-cover mr-4 ${
+                teacher.disabled ? "filter grayscale" : ""
+              } transition-all`}
+            />
+          )}
           <div className="flex-1">
             <h2 className={`text-xl font-semibold ${teacher.disabled ? 'text-gray-600' : 'text-white'}`}>
               {teacher.name}

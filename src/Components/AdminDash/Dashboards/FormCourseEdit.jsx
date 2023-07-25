@@ -4,20 +4,18 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 const FormCourseEdit = () => {
-
-
   const navigate = useNavigate();
-	  // VALIDACION DE USUARIO
-	  useEffect(() => {
-    if (localStorage.getItem("userAccountType") !== 'admin') navigate('/')
-    else if (localStorage.getItem("userAccountType") === 'admin') return 
-		else if (localStorage.getItem("loggedUser")) return 
-		else if (localStorage.getItem("username")) return 
-		else if (!localStorage.getItem("username")) navigate('/login')
-		else if (!localStorage.getItem("loggedUser")) navigate('/login')
-	  }, [navigate]); 
-	  // -----------------------------
 
+  // VALIDATION OF USER
+  useEffect(() => {
+    if (localStorage.getItem("userAccountType") !== "admin") navigate("/");
+    else if (
+      localStorage.getItem("loggedUser") &&
+      localStorage.getItem("username")
+    )
+      return;
+    else navigate("/login");
+  }, [navigate]);
 
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
@@ -104,16 +102,17 @@ const FormCourseEdit = () => {
   };
 
   useEffect(() => {
-    const getCurrentTeacher = async () => {
+    const getCurrentCourse = async () => {
       const { data } = await axios.get(
         `https://talent-forge-data.cyclic.app/courses/${id}`
       );
       setCurrentCourse(data);
     };
-    getCurrentTeacher();
-  }, []);
+    getCurrentCourse();
+  }, [id]);
+
   return (
-    <div className="w-2/3 mx-auto  py-20">
+    <div className="w-full mx-auto md:w-2/3 py-20 px-4 md:px-0">
       <button
         type="button"
         onClick={handleGoBack}
@@ -124,7 +123,7 @@ const FormCourseEdit = () => {
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col md:flex-row md:space-x-4">
           {/* Image Section */}
-          <div className="flex flex-col items-center mb-4 w-1/3">
+          <div className="flex flex-col items-center mb-4 md:w-1/3">
             <img
               src={currentCourse.image}
               alt=""
@@ -160,6 +159,7 @@ const FormCourseEdit = () => {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
             </div>
+
             <div className="mb-4">
               <label
                 htmlFor="teacher"
@@ -177,6 +177,7 @@ const FormCourseEdit = () => {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
             </div>
+
             <div className="mb-4">
               <label
                 htmlFor="category"
@@ -214,6 +215,7 @@ const FormCourseEdit = () => {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
             </div>
+
             <div className="flex flex-col md:flex-row md:space-x-4">
               <div className="mb-4">
                 <label
@@ -228,7 +230,7 @@ const FormCourseEdit = () => {
                   name="price"
                   value={courseInfo.price}
                   onChange={handleChange}
-                  placeholder={currentCourse.prize}
+                  placeholder={currentCourse.price}
                   className="w-full px-2 py-1 border border-gray-300 rounded"
                 />
               </div>
@@ -259,14 +261,13 @@ const FormCourseEdit = () => {
               >
                 Description:
               </label>
-              <input
-                type="text"
+              <textarea
                 id="description"
                 name="description"
                 value={courseInfo.description}
                 onChange={handleChange}
                 placeholder={currentCourse.description}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 h-40 resize-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
             </div>
 
@@ -287,6 +288,7 @@ const FormCourseEdit = () => {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
             </div>
+
             <div className="mt-4">
               <button
                 type="submit"
@@ -301,4 +303,5 @@ const FormCourseEdit = () => {
     </div>
   );
 };
+
 export default FormCourseEdit;
