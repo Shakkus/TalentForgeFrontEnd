@@ -92,6 +92,13 @@ const CourseViewer = () => {
 	const { id } = useParams();
 	// ------------
 
+	const [isCoursePurchased, setIsCoursePurchased] = useState(false);
+
+	useEffect(() => {
+		const purchasedCourses = JSON.parse(localStorage.getItem("purchasedCourses")) || [];
+		setIsCoursePurchased(purchasedCourses.includes(id));
+	  }, [id]);
+
 	// RESPUESTA API DE CURSO CUANDO SE CARGUE EL COMPONENTE
 	const [ratingLength, setRatingLength] = useState([]);
 	const [showRating, setShowRating] = useState(0);
@@ -176,7 +183,7 @@ const CourseViewer = () => {
 							<div className="video-instructor">{courseData.teacher}</div>
 						</channel>
 						<div className="buttons-container">
-							<Rating />
+							{isCoursePurchased && <Rating />}
 							<button
 								// type="button"
 								className="button"
