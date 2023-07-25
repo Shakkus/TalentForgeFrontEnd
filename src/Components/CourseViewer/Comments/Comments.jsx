@@ -83,31 +83,39 @@ const Comments = () => {
     return trimmedContent.length > 0;
   }
 
-  const handleSubmit = () => {
+const handleSubmit = () => {
   try {
-    // Crea un nuevo objeto con los mismos contenidos de commentContent
-    const newComment = {
-      id: commentContent.id,
-      image: commentContent.image,
-      name: commentContent.name,
-      comment: commentContent.comment,
-    };
+    if (isContentValid(commentContent.comment)) {
+      // Crea un nuevo objeto con los mismos contenidos de commentContent
+      const newComment = {
+        id: commentContent.id,
+        image: commentContent.image,
+        name: commentContent.name,
+        comment: commentContent.comment,
+      };
 
-    setComments((prevComments) => [...prevComments, newComment]);
-    setCommentContent({ ...commentContent, comment: "" }); // Borra el contenido del textarea
-    setCommentError(false);
+      setComments((prevComments) => [...prevComments, newComment]);
+      setCommentContent({ ...commentContent, comment: "" }); // Borra el contenido del textarea
+      setCommentError(false);
 
-    axios.put(
-      `https://talent-forge-data.cyclic.app/courses/comment/${id}`,
-      newComment
-    );
+      axios.put(
+        `https://talent-forge-data.cyclic.app/courses/comment/${id}`,
+        newComment
+      );
+    } else {
+      // Si el comentario no es válido, muestra un mensaje de error
+      setCommentError(true);
+    }
   } catch (error) {
     setCommentError(true);
   }
 };
 const handleKeyDown = (event) => {
   if (event.key === "Enter") {
-    handleSubmit();
+    // Llama a handleSubmit solo si el contenido del comentario es válido
+    if (isContentValid(commentContent.comment)) {
+      handleSubmit();
+    }
   }
 };
 	return (
