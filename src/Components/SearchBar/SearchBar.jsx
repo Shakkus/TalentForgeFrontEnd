@@ -321,16 +321,6 @@ const SearchBar = ({ setSearchResults }) => {
               </>
             ) : isFormLoggedIn ? (
               <>
-                <Link
-                  to="/wishlist"
-                  className="text-white hover:text-gray-300 ml-6">
-                  <img
-                    className="h-6 filter-invert"
-                    id="icon"
-                    src={hearth}
-                    alt="hearth"
-                  />
-                </Link>
 
                 <Link
                   to="/cart"
@@ -351,7 +341,7 @@ const SearchBar = ({ setSearchResults }) => {
                 </Link>
 
                 <Link
-                  to="/social"
+                  to="/profile"
                   className="text-white hover:text-gray-300 ml-6">
                   <img
                     className="h-6 filter-invert"
@@ -385,7 +375,7 @@ const SearchBar = ({ setSearchResults }) => {
                       <ul className="py-2" aria-labelledby="user-menu-button">
                         <li>
                           <a
-                            href="/social/profile"
+                            href="/profile"
                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                             Profile
                           </a>

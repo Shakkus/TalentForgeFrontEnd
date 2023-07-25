@@ -7,15 +7,16 @@ const FormCourseEdit = () => {
   const navigate = useNavigate();
 
   // VALIDATION OF USER
+  // VALIDACION DE USUARIO
   useEffect(() => {
-    if (localStorage.getItem("userAccountType") !== "admin") navigate("/");
-    else if (
-      localStorage.getItem("loggedUser") &&
-      localStorage.getItem("username")
-    )
-      return;
-    else navigate("/login");
-  }, [navigate]);
+    if (localStorage.getItem("userAccountType") !== 'admin') navigate('/')
+    else if (localStorage.getItem("userAccountType") === 'admin') return 
+        else if (localStorage.getItem("loggedUser")) return 
+        else if (localStorage.getItem("username")) return 
+        else if (!localStorage.getItem("username")) navigate('/login')
+        else if (!localStorage.getItem("loggedUser")) navigate('/login')
+    }, [navigate]); 
+    // -----------------------------
 
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
@@ -228,9 +229,9 @@ const FormCourseEdit = () => {
                   type="number"
                   id="price"
                   name="price"
-                  value={courseInfo.price}
+                  value={courseInfo.prize}
                   onChange={handleChange}
-                  placeholder={currentCourse.price}
+                  placeholder={currentCourse.prize}
                   className="w-full px-2 py-1 border border-gray-300 rounded"
                 />
               </div>
