@@ -76,6 +76,13 @@ const Comments = () => {
 		console.log(Array.isArray(comments));
 	};
 
+  const isContentValid = (content) =>{
+    const trimmedContent = content.trim()
+
+
+    return trimmedContent.length > 0;
+  }
+
   const handleSubmit = () => {
   try {
     // Crea un nuevo objeto con los mismos contenidos de commentContent
@@ -127,7 +134,7 @@ const handleKeyDown = (event) => {
 						className="comment-input"
 					/>
 					<button
-						disabled={!commentContent.comment}
+						disabled={!isContentValid(commentContent.comment)}
 						className="send-button"
 						onClick={handleSubmit}
 					>

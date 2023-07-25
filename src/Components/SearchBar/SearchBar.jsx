@@ -15,7 +15,7 @@ import social from "../../Recourses/social.png";
 import searchIcon from "../../Recourses/searchIcon.png";
 import profile from "../../Recourses/profile.png";
 import homeIcon from "../../Recourses/homeIcon.png";
-import './SearchBar.css'
+import "./SearchBar.css";
 
 //COMPONENT
 const SearchBar = ({ setSearchResults }) => {
@@ -101,8 +101,10 @@ const SearchBar = ({ setSearchResults }) => {
   const [courses, setCourses] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
+  const filteredCourses = courses.filter(course => !course.disabled)
+
   const handleSearch = () => {
-    const foundCourses = courses.filter((course) =>
+    const foundCourses = filteredCourses.filter((course) =>
       course.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
     if (foundCourses.length > 0) {
@@ -154,6 +156,8 @@ const SearchBar = ({ setSearchResults }) => {
     setShowProfileMenu(!showProfileMenu);
   };
 
+
+
   // ACCOUTN TYPE
   const accountType = localStorage.getItem("userAccountType");
   // ------------
@@ -164,11 +168,7 @@ const SearchBar = ({ setSearchResults }) => {
         <div className="flex items-center justify-between py-4">
           <div className="flex items-center">
             <Link to="/" className="max-lg:-mr-3">
-              <img
-                className="logo-searchbar h-10"
-                src={logo}
-                alt="logo"
-              />
+              <img className="logo-searchbar h-10" src={logo} alt="logo" />
             </Link>
 
             <Link to="/home" className="ml-4 max-lg:ml-2 homeIcon">
@@ -228,8 +228,8 @@ const SearchBar = ({ setSearchResults }) => {
                       alt="shopcar"
                     />
                     {cartCount > 0 && (
-                      <div className="cart-count bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center absolute -top-1 -right-1">
-                        {cartCount}
+                      <div className="cart-count bg-red-500 text-white rounded-full w-4 h-4 max-lg:w-2 max-lg:h-2 flex items-center justify-center absolute -top-1 -right-1">
+                        <p className="cartCount">{cartCount}</p>
                       </div>
                     )}
                   </div>

@@ -149,5 +149,5 @@
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     z-index: 9999;
-    transition: 0.4s;
+    /* transition: 0.4s; */
   }
