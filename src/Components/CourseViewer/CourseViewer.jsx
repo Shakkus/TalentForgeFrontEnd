@@ -151,7 +151,7 @@ const CourseViewer = () => {
               srcDoc="<span>INVALID VIDEO</span>"></iframe>
           ) : (
             <iframe
-              // src={courseData.link}
+              src={courseData.link}
               title={courseData.title}
               allow="autoplay; encrypted-media"
               allowFullScreen></iframe>
