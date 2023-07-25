@@ -7,6 +7,8 @@ import "./CourseCreation.css";
 
 const CourseForm = () => {
 	const navigate = useNavigate();
+	const [teacherName, setTeacherName] = useState("");
+	const [dbTeacherId, setDbTeacherId] = useState("");
 	// VALIDACION DE USUARIO
 	useEffect(() => {
 		if (localStorage.getItem("userAccountType") === "user") navigate("/");
@@ -18,6 +20,34 @@ const CourseForm = () => {
 		else if (!localStorage.getItem("loggedUser")) navigate("/login");
 	}, [navigate]);
 	// -----------------------------
+
+	// GET TEACHER NAME AND DB ID
+	const currentTeacher = localStorage.getItem("userfullName");
+
+	useEffect(() => {
+		if (currentTeacher) setTeacherName(currentTeacher);
+	}, [currentTeacher]);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const response = await axios.get(
+					"https://talent-forge-data.cyclic.app/teacher"
+				);
+				if (response.status === 200) {
+					const filteredTeacher = response.data.filter(
+						(teacher) => teacher.name === currentTeacher
+					);
+					const filteredId = filteredTeacher[0]._id;
+					setDbTeacherId(filteredId);
+				}
+			} catch (error) {
+				console.log("error obteniendo id del profesor de la DB");
+			}
+		};
+		fetchData();
+	}, []);
+	// ------------------
 
 	// CONFIG PARA SUBIR FOTOS A CLOUDINARY
 
@@ -67,7 +97,6 @@ const CourseForm = () => {
 				if (result && result.event === "success") {
 					const imageUrl = result.info.secure_url;
 					setSelectedImage(imageUrl);
-					console.log(result.info);
 				}
 			}
 		);
@@ -76,7 +105,7 @@ const CourseForm = () => {
 		widgetRefVideo.current = cloudinaryRefVideo.current.createUploadWidget(
 			{
 				cloudName: "dal385dkc",
-				uploadPreset: "q3fewzvu",
+				uploadPreset: "yxellmcn",
 			},
 			function (error, result) {
 				if (result && result.event === "success") {
@@ -85,8 +114,6 @@ const CourseForm = () => {
 					const fileName = result.info.original_filename;
 					setVideoName(fileName);
 					setVideoLink(videoURL);
-					console.log(result.info);
-					console.log(selectedImage);
 				}
 			}
 		);
@@ -100,6 +127,22 @@ const CourseForm = () => {
 		widgetRefImage.current.open();
 	};
 
+	const handleAsignCourse = async (newCourse) => {
+		try {
+			const response = await axios.put(
+				"https://talent-forge-data.cyclic.app/courses/assign",
+				newCourse
+			);
+			if (response.status === 200) {
+				console.log("El curso se ha asignado correctamente al profesor.");
+			} else {
+				console.log("Hubo un error al asignar el curso al profesor.");
+			}
+		} catch (error) {
+			console.log("Hubo un error en la petición:", error.message);
+		}
+	};
+
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		const formErrors = validate(input);
@@ -108,20 +151,31 @@ const CourseForm = () => {
 			return;
 		}
 
-		const inputData = {
+		const inputDataOriginal = {
 			...input,
 			image: selectedImage,
 			link: videoLink,
+			teacher: teacherName,
 		};
+
+		const inputData = {...inputDataOriginal};
+
+		const newCourse = {
+			inputData,
+			teacherId: dbTeacherId,
+		};
+		console.log(newCourse);
 
 		try {
 			const response = await axios.post(
 				"https://talent-forge-data.cyclic.app/courses/",
-				inputData
+				inputDataOriginal
 			);
 
 			if (response.status === 200) {
 				setSuccessPopUp(true);
+
+				await handleAsignCourse(newCourse);
 			} else {
 				setErrorPopUp(true);
 			}
@@ -147,6 +201,7 @@ const CourseForm = () => {
 	};
 
 	const handleChange = (event) => {
+		console.log(dbTeacherId);
 		const {name, value} = event.target;
 		if (name === "theme") {
 			const themeArray = value.split(",").map((item) => item.trim());
@@ -207,7 +262,7 @@ const CourseForm = () => {
 			<form onSubmit={handleSubmit}>
 				<div>
 					<div class="flex flex-wrap mb-6">
-						<div class="w-full md:w-1/2 px-3">
+						<div class="w-full px-3">
 							<label
 								class="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2"
 								for="title">
@@ -225,7 +280,7 @@ const CourseForm = () => {
 								<span class="text-red-500"> {errors.title}</span>
 							)}
 						</div>
-						<div class="w-full md:w-1/2 px-3">
+						{/* <div class="w-full md:w-1/2 px-3">
 							<label
 								class="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2"
 								for="teacher">
@@ -242,7 +297,7 @@ const CourseForm = () => {
 							{errors.teacher && (
 								<span class="text-red-500"> {errors.teacher}</span>
 							)}
-						</div>
+						</div> */}
 					</div>
 					<div class="flex flex-wrap mb-6">
 						<div class="w-full md:w-1/2 px-3">
@@ -398,7 +453,7 @@ const CourseForm = () => {
 							!input.title ||
 							!input.cathegory ||
 							!input.theme ||
-							!input.teacher ||
+							// !input.teacher ||
 							!selectedImage ||
 							!videoLink ||
 							!input.description ||

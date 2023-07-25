@@ -14,9 +14,9 @@ export const validate = (input) => {
     if (!input.theme || input.theme.length < 1) {
         errors.theme = "Theme must be at least 3 characters long";
     }
-    if (!input.teacher || input.teacher.length < 4) {
-        errors.teacher = "Teacher name must be at least 4 characters long";
-    }
+    // if (!input.teacher || input.teacher.length < 4) {
+    //     errors.teacher = "Teacher name must be at least 4 characters long";
+    // }
     if (!input.description || input.description.length < 10) {
         errors.description = "Description must be at least 10 characters long";
     }
