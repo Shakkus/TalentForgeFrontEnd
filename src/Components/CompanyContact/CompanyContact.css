@@ -1,0 +1,25 @@
+@media (max-width: 1024px) {
+    .formContactContainer {
+        width: 88%;
+    }
+    .inputContactForm {
+        margin-bottom: 20px;
+    }
+    .contact-dir {
+        display: block;
+    }
+    .contact-dir p{
+        font-size: 13px;
+    }
+    .labelFormContact {
+        font-size: 10px;
+    }
+}
+
+.inputContactForm {
+    margin-bottom: 20px;
+}
+
+.formContactContainer {
+    font-family: 'Montserrat';
+}
