@@ -27,25 +27,6 @@ const Comments = () => {
 	});
 	// -----------------------------
 
-	// GET USER INFO
-	useEffect(() => {
-		// // FOTO DEL USUARIO
-		// const firebaseUserImage = user?.photoURL;
-		// const localUserImage = localStorage?.getItem("userImage");
-		// const currentPhoto = firebaseUserImage || localUserImage;
-		// console.log(currentPhoto);
-		// if (currentPhoto) {
-		// 	setCommentContent({...commentContent, image: currentPhoto});
-		// }
-		// // NOMBRE DEL USUARIO
-		// const firebaseUserName = user?.displayName;
-		// const localUserName = localStorage?.getItem("username");
-		// const currentUserName = firebaseUserName || localUserName;
-		// if (currentUserName) {
-		// 	setCommentContent({...commentContent, name: currentUserName});
-		// }
-	}, [user, localStorageUserId, googleUserId]);
-	// ---------------
 
 	useEffect(() => {
 		try {
@@ -69,21 +50,6 @@ const Comments = () => {
 					name: currentUserName,
 				});
 			}
-
-			// FOTO DEL USUARIO
-
-			// console.log(currentPhoto);
-
-			// if (currentPhoto) {
-			// 	setCommentContent({ ...commentContent, image: currentPhoto });
-			// }
-
-			// NOMBRE DEL USUARIO
-
-			// if (currentUserName) {
-			// 	setCommentContent({ ...commentContent, name: currentUserName });
-			// }
-
 			const fetchData = async () => {
 				const response = await axios.get(
 					`https://talent-forge-data.cyclic.app/courses/${id}`

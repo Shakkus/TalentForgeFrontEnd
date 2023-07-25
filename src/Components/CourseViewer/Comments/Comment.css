@@ -68,7 +68,8 @@
 }
 
 .no-comments-div {
-	width: 100%;
+	width: 60vw;
+	margin-left: 2vw;
 	padding-bottom: 20px;
 	/* margin-left: 2vw; */
 	margin-bottom: 20px;
