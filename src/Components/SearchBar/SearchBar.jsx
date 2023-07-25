@@ -101,8 +101,10 @@ const SearchBar = ({ setSearchResults }) => {
   const [courses, setCourses] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
+  const filteredCourses = courses.filter(course => !course.disabled)
+
   const handleSearch = () => {
-    const foundCourses = courses.filter((course) =>
+    const foundCourses = filteredCourses.filter((course) =>
       course.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
     if (foundCourses.length > 0) {
@@ -153,6 +155,8 @@ const SearchBar = ({ setSearchResults }) => {
   const handleProfileMenuToggle = () => {
     setShowProfileMenu(!showProfileMenu);
   };
+
+
 
   // ACCOUTN TYPE
   const accountType = localStorage.getItem("userAccountType");
