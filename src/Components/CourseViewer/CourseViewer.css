@@ -3,13 +3,13 @@
 .comments-container {
 	/* border: 2px solid red; */
 	width: 60vw;
-	padding-bottom: 20px;
 	margin-left: 2vw;
 	margin-bottom: 20px;
 	background-color: #e7e7e7;
 	border-radius: 18px;
 	padding: 20px;
 	display: block;	
+	height: auto;
 }
 
 .mainContainer {
@@ -39,7 +39,6 @@
 	min-height: 30px;
 	max-height: 200px;
 	box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-	border: 2px solid fuchsia;
 }
 
 .send-button {
@@ -198,6 +197,7 @@ input[type="radio"] {
 .course-viewer {
 	padding-top: 80px;
 	display: flex;
+	flex-direction: row;
 	text-align: left;
 }
 
@@ -266,7 +266,7 @@ iframe {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-top: 10px 0 0 2vw;
+	margin-top: 10px ;
 	background-color: #e7e7e7;
 	border-radius: 18px;
 	padding: 20px;

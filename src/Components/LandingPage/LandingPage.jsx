@@ -78,7 +78,6 @@ const Landing = () => {
         <div className="mentoresContainer">{<Teachers />}</div>
 
         <div className="empresas">
-
           <h2 className="text-white text-2xl">Talent Forge for companies</h2>
           <div className="info-container block sm:flex items-center justify-center my-20">
             <img
@@ -93,7 +92,7 @@ const Landing = () => {
               <h3 id="textoVioleta" className="sm:text-2xl text-lg">
                 We can help you
               </h3>
-              <Link to="" className="m-3 w-2">
+              <Link to="companyContact" className="m-3 w-2">
                 <h1 className="relative text-white bg-purple-500 p-3 w-40 mt-0 mx-auto rounded-xl mb-0 customHoverShadow">
                   Contact Us
                 </h1>

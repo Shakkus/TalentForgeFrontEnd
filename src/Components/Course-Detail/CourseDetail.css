@@ -1,19 +1,16 @@
 /* Example of CSS media queries for responsiveness */
+  
+  @media (max-width: 1024px) {
+    .detailTitle,.detailPrice {
+      font-size: 20px;
+    }
+    .detailDescription, .detailDuration, .ownedByDetail {
+      font-size: 15px;
+    }
 
-/* For screens smaller than 640px */
-@media (max-width: 639px) {
-    .max-w-2xl {
-      max-width: 100%;
+    .detailImage, .detailButton {
+      width: 88%;
+      display: flex;
+      margin: 0 auto;
     }
   }
-  
-  /* For screens smaller than 768px */
-  @media (max-width: 767px) {
-    .text-xl {
-      font-size: 16px;
-    }
-    .text-3xl {
-      font-size: 18px;
-    }
-  }
-  

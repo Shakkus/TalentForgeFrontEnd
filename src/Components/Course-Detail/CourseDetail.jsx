@@ -3,24 +3,26 @@ import axios from "axios";
 import { NavLink, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Loading from "../Loading/Loading";
+import { FaStar } from "react-icons/fa";
+import "./CourseDetail.css";
 
 const CourseDetail = () => {
-
   const navigate = useNavigate();
-	  // VALIDACION DE USUARIO
-	  useEffect(() => {
-
-		if (localStorage.getItem("loggedUser")) return 
-		else if (localStorage.getItem("username")) return 
-		else if (!localStorage.getItem("username")) navigate('/login')
-		else if (!localStorage.getItem("loggedUser")) navigate('/login')
-	  }, [navigate]); 
-	  // -----------------------------
+  // VALIDACION DE USUARIO
+  useEffect(() => {
+    if (localStorage.getItem("loggedUser")) return;
+    else if (localStorage.getItem("username")) return;
+    else if (!localStorage.getItem("username")) navigate("/login");
+    else if (!localStorage.getItem("loggedUser")) navigate("/login");
+  }, [navigate]);
+  // -----------------------------
 
   const { id } = useParams();
-  const [detailInfo, setDetailInfo] = useState({});
-  const [teacherInfo, setTeacherInfo] = useState({});
-  const [gettingCourse, setGettingCourse] = useState(true);
+  const [detailInfo, setDetailInfo] = useState([]);
+  const [teacherInfo, setTeacherInfo] = useState([]);
+  const [gettingCourse, setGettingCourse] = useState(true); // Estado para controlar si se está obteniendo la información del curso
+  const [ratingLength, setRatingLength] = useState([]);
+  const [showRating, setShowRating] = useState(0);
   const [error, setError] = useState(null);
 
   // Fetch course details
@@ -32,12 +34,29 @@ const CourseDetail = () => {
         );
         setDetailInfo(data);
         setGettingCourse(false);
+
+        const ratingsArray = data.interactions.ratings;
+        setRatingLength(ratingsArray);
+        console.log(ratingLength);
+        if (ratingsArray.length > 0) {
+          // Calcular el promedio del rating
+          const ratingTotal = ratingsArray.reduce(
+            (total, userSentRating) => total + userSentRating.rating,
+            0
+          );
+          const ratingAverage = ratingTotal / ratingsArray.length;
+          const roundedRating = Math.round(ratingAverage);
+          setShowRating(roundedRating);
+        } else {
+          setShowRating("No ratings yet");
+        }
       } catch (error) {
-        setError("Error fetching course details.");
+        console.log(error);
       }
     };
+
     getDetail();
-  }, [id]);
+  }, []);
 
   // Fetch teacher information
   useEffect(() => {
@@ -84,46 +103,52 @@ const CourseDetail = () => {
             <img
               src={image}
               alt=""
-              className="w-full h-auto object-cover border-2 border-[#7c38cd]"
+              className="w-full h-auto object-cover border-2 border-[#7c38cd] detailImage"
             />
-            <h1 className="text-3xl font-bold text-[#7c38cd] py-1">{title}</h1>
-            <p className="text-xl py-1">{description}</p>
+            <h1 className="text-3xl font-bold text-[#7c38cd] py-1 detailTitle">
+              {title}
+            </h1>
+            <p className="text-xl py-1 detailDescription">{description}</p>
             <div className="flex items-center mt-2">
-              <div className="flex items-center">
-                {Array.from({ length: 5 }).map((_, index) => (
-                  <svg
-                    key={index}
-                    className={`w-6 h-6 ${
-                      index < Math.round(rating)
-                        ? "text-yellow-500"
-                        : "text-gray-400"
-                    }`}
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 0l2.175 6.63h6.85l-5.52 4.01 2.176 6.64L10 13.25l-5.682 4.03 2.177-6.64-5.52-4.01h6.85L10 0z"
-                    />
-                  </svg>
-                ))}
+              <div className="flex">
+                {ratingLength &&
+                  [...Array(5)].map((star, index) => {
+                    const currentRating = index + 1;
+                    return (
+                      <label>
+                        <input
+                          className="radio"
+                          type="radio"
+                          name="rating"
+                          value={currentRating}
+                        />
+                        <FaStar
+                          color={
+                            currentRating <= showRating ? "#ffc107" : "#e7e7e7"
+                          }
+                          className="description-stars"
+                          size={20}
+                        />
+                      </label>
+                    );
+                  })}
+                {!ratingLength && (
+                  <span className="ratings-amount">No reviews yet</span>
+                )}
               </div>
-              <p className="ml-xl text-lg">{`${rating}`}</p>
+              {/* {ratingLength.length > 0 && <p className="ml-xl text-lg">{`${showRating}`}</p>} */}
             </div>
             <NavLink
-              className="text-xl mt-2 py-1 text underline decoration-1"
-              to={`/teacher/${teacherInfo?._id || "64a637218f0d799012be25b2"}`}
-            >
+              className="text-xl mt-2 py-1 text underline decoration-1 ownedByDetail"
+              to={`/teacher/${teacherInfo?._id || "64a637218f0d799012be25b2"}`}>
               Owned by: {teacherName}
             </NavLink>
-            <p className="text-xl mt-2 py-1">{`Duration: ${duration}`}</p>
-            <p className="text-3xl font-bold text-[#7c38cd] py-1">{`Price: $${prize} USD`}</p>
+            <p className="text-xl mt-2 py-1 detailDuration">{`Duration: ${duration}`}</p>
+            <p className="text-3xl font-bold text-[#7c38cd] py-1 detailPrice">{`Price: $${prize} USD`}</p>
           </div>
           <NavLink
             to={`/view/${id}`}
-            className="block bg-[#7c38cd] text-white py-2 px-4 mt-4"
-          >
+            className="block bg-[#7c38cd] text-white py-2 px-4 mt-4 detailButton">
             Start the course!
           </NavLink>
         </div>

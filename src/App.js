@@ -34,6 +34,7 @@ import DisableCourses from './Components/AdminDash/Dashboards/DisableCourses'
 import EditCourses from './Components/AdminDash/Dashboards/EditCourses'
 import FormTeachersDash from "./Components/AdminDash/Dashboards/FormTeachersDash";
 import FormCourseEdit from "./Components/AdminDash/Dashboards/FormCourseEdit";
+import AccountManager from "./Components/AdminDash/Dashboards/AccountManager";
 
 
 function App() {
@@ -41,6 +42,8 @@ function App() {
   const location = useLocation();
 
   const shouldRenderSearchBar = location.pathname !== "/cart/success";
+
+
 
   useEffect(() => {
     // Titulo de ventana
@@ -58,7 +61,7 @@ function App() {
           {shouldRenderSearchBar && (
             <SearchBar setSearchResults={setSearchResults} />
           )}
-      <Breadcrumb/>
+      <Breadcrumb />
           <Routes>
             <Route path="/view/:id" element={<CourseViewer />} />
             <Route path="/login" element={<Login />} />
@@ -87,6 +90,7 @@ function App() {
             <Route path='/disableCourses' element={<DisableCourses />} />
             <Route path='/editCourses' element={<EditCourses />} />
             <Route path='/editCourses/edit/:id' element={<FormCourseEdit />} />
+            <Route path='/accTypeTable' element={<AccountManager />} />
           </Routes>
           <Footer />
         </CartProvider>
