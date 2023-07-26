@@ -170,7 +170,7 @@ if (loanding) {
                   class="py-2 px-4 rounded m-5">
                   Ver Curso
                 </NavLink>
-                {!userCourses.some(ucourse => course._id === ucourse.id) && <button
+                {!userCourses?.some(ucourse => course._id === ucourse.id) && <button
                   onClick={() => addCourseToCart(course)}
                   class="bg-[#7c38cd] hover:bg-[#AA6FFF] text-white font-bold py-2 px-4 rounded m-5">
                   Agregar al carrito

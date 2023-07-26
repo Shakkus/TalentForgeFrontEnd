@@ -56,6 +56,7 @@ const CartPage = () => {
   const addCourseToUser = async(course) => {
     const coursePushed = {
       title: course.title,
+      image: course.image,
       id: course._id,
       teacher: course.teacher
     }

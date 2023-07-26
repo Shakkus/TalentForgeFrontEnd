@@ -101,6 +101,7 @@ const SearchBar = ({ setSearchResults }) => {
   const [courses, setCourses] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
+  console.log(courses)
   const filteredCourses = courses.filter(course => !course.disabled)
 
   const handleSearch = () => {
@@ -207,17 +208,6 @@ const SearchBar = ({ setSearchResults }) => {
             {userLoggedIn ? (
               <>
                 <Link
-                  to="/wishlist"
-                  className="text-white hover:text-gray-300 ml-6 max-lg:ml-3">
-                  <img
-                    className="h-6 filter-invert max-lg:h-3 object-contain"
-                    id="icon"
-                    src={hearth}
-                    alt="hearth"
-                  />
-                </Link>
-
-                <Link
                   to="/cart"
                   className="text-white hover:text-gray-300 ml-6 relative max-lg:ml-3">
                   <div className="flex items-center">
@@ -236,7 +226,7 @@ const SearchBar = ({ setSearchResults }) => {
                 </Link>
 
                 <Link
-                  to="/social"
+                  to="/profile"
                   className="text-white hover:text-gray-300 ml-6 max-lg:ml-3">
                   <img
                     className="h-6 filter-invert max-lg:h-3 max-sm:h-5 object-contain"
@@ -247,22 +237,7 @@ const SearchBar = ({ setSearchResults }) => {
                 </Link>
 
                 <div className="relative">
-                  {user ? (
-                    <img
-                      className="ml-2 filter-invert cursor-pointer rounded-full w-10 h-10 max-md:w-10 max-md:h-10 max-sm:w-5 max-sm:h-5"
-                      src={user.photoURL}
-                      alt="profile"
-                      onClick={handleProfileMenuToggle}
-                    />
-                  ) : (
-                    <img
-                      className="m-2 filter-invert cursor-pointer rounded-full w-10 h-10 max-md:w-3 max-md:h-3 max-sm:w-3 max-sm:h-3 max-lg:w-4 max-lg:h-4"
-                      src={profile}
-                      alt="profile"
-                      onClick={handleProfileMenuToggle}
-                    />
-                  )}
-
+                    <img className="ml-2 filter-invert cursor-pointer rounded-full w-10 h-10 max-md:w-10 max-md:h-10 max-sm:w-5 max-sm:h-5" src={user?.photoURL || localStorage.getItem('userImage')} alt="profile" onClick={handleProfileMenuToggle} />
                   {showProfileMenu && (
                     <div className="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 absolute right-0">
                       {user && (
@@ -280,7 +255,7 @@ const SearchBar = ({ setSearchResults }) => {
                       <ul className="py-2" aria-labelledby="user-menu-button">
                         <li>
                           <a
-                            href="/social/profile"
+                            href="/profile"
                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                             Profile
                           </a>
@@ -354,7 +329,7 @@ const SearchBar = ({ setSearchResults }) => {
                 <div className="relative">
                   <img
                     className="h-6 filter-invert cursor-pointer rounded-full p-1"
-                    src={profile}
+                    src={localStorage.getItem('userImage')}
                     alt="profile"
                     onClick={handleProfileMenuToggle}
                   />

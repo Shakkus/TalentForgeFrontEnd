@@ -16,6 +16,7 @@ import CourseDetail from "./Components/Course-Detail/CourseDetail";
 import TeachersDetail from "./Components/TeachersDetail/teachersDetail";
 import SucessRegister from "./Components/SucessRegister/SucessRegister";
 import StudentDetail from "./Components/StudentDetail/StudentDetail";
+import EditStudent from "./Components/StudentDetail/editStudent/EditStudent"
 import Breadcrumb from "./Components/Breadcrumb/Breadcrumb"
 import { AuthProvider } from "./context/authContext.js";
 import { CartProvider, CartContext } from "./CartContext";
@@ -75,6 +76,7 @@ function App() {
             <Route path="/welcome" element={<SucessRegister />} />
             <Route path="/cart/success" element={<SuccessPayment />} />
             <Route path="/profile" element={<StudentDetail />} />
+            <Route path="/profile/edit/:id" element={<EditStudent />} />
             <Route path="/companyContact" element={<CompanyContact/>}/>
             <Route
               path="/search"

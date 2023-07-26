@@ -13,15 +13,17 @@ const LenCourse = () => {
           "https://talent-forge-data.cyclic.app/courses/"
         );
         const filteredCourses = response.data.filter(
-          (course) => course.cathegory === "Idiom"
+          (course) => course.cathegory === "languages"
         );
-        setCourses(filteredCourses);
+        setCourses(filteredCourses.slice(0, 5));
       } catch (error) {
         console.error("Error al obtener los cursos: ", error);
       }
     };
     fetchCourses();
   }, []);
+
+
 
   return (
     <div>
