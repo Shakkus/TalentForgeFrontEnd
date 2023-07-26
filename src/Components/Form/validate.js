@@ -44,10 +44,5 @@ export const validate = (input) => {
   if (input.confirmPass !== input.password){
     errors.confirmPass = "The passwords are not the same";
   }
-
-  if (!input.accountType || input.accountType === '') {
-    errors.accountType = "You need to select an account type";
-  }
-
   return errors;
 }

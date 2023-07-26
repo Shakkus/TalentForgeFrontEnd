@@ -109,9 +109,26 @@ const Home = () => {
     setCartCount(cartCourses.length);
   };
 
-  if (loading === true || getting === true) {
-    return < Loading/>;
-  }
+
+// Ejemplo de cómo usar el estado 'loading'
+const [loanding, setLoanding] = useState(true);
+
+useEffect(() => {
+  getCourses(); 
+  const timeoutId = setTimeout(() => {
+    if (loanding) {
+      setLoanding(false);
+    }
+  }, 3000);
+
+  return () => clearTimeout(timeoutId);
+
+}, [loanding]);
+
+// En el return del componente 'Home', muestra el componente 'Loading' si 'loading' es verdadero.
+if (loanding) {
+  return <Loading />;
+}
   return (
     <div className="home">
       <CourseFilter courses={courses} onFilter={handleFilter} />
