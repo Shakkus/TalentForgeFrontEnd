@@ -16,6 +16,7 @@ import { SpinnerCircular } from "spinners-react";
 import InternalProvider, { Context } from "./MercadoPago/ContextProvider";
 import { Payment } from "./MercadoPago/Payment";
 import React from "react";
+import axios from "axios";
 initMercadoPago("TEST-3fb05707-886c-4f67-810e-e2d501054a5b");
 
 // import { useNavigate } from "react-router-dom";
@@ -52,8 +53,17 @@ const CartPage = () => {
     if (preferenceId) setIsVisible(false);
   }, [preferenceId]);
 
+  const addCourseToUser = async(course) => {
+    const coursePushed = {
+      title: course.title,
+      id: course._id,
+      teacher: course.teacher
+    }
+    console.log(coursePushed)
+    await axios.put(`https://talent-forge-data.cyclic.app/user/purchase/${localStorage.getItem('userId')}`, coursePushed)
+  }
+
   const handleClick = async () => {
-    console.log(orderData);
     setIsLoading(true);
     await fetch("https://talent-forge-data.cyclic.app/cart/create_preference", {
       method: "POST",
@@ -72,8 +82,9 @@ const CartPage = () => {
       .catch((error) => {
         console.error(error);
       })
-      .finally(() => {
+      .finally(async() => {
         setIsLoading(false);
+        await courses.map(course => addCourseToUser(course))
       });
   };
 
