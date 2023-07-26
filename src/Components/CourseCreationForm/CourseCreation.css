@@ -1,6 +1,44 @@
 .course-form-container{
-    width: 70%;
-    margin: auto;
-    margin-top:     20px	;
-    margin-bottom: 20px	;
+    width: 70% !important;
+    margin: auto !important;
+    margin-top:20px	!important;
+    margin-bottom: 20px	!important;
 }
+
+.popup {
+    position: fixed;
+    color: white !important;
+    font-size: 2rem !important;
+    height: auto !important;
+    width: 30vw !important;
+    border-radius: 8px !important;
+    border: none !important;
+    background-color: blueviolet !important;
+    /* padding-top: 4% !important; */
+    /* margin-top: 15% !important; */
+    /* margin-left: 35% !important; */
+    /* margin-right: 35% !important; */
+    font-family: 'Montserrat' !important;
+}
+
+.popup-container {
+    position: fixed;
+    height: 100% !important;
+    width: 100% !important;
+    top: 0 !important;
+    left: 0 !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+} 
+
+.img-upload {
+    height: 100px;
+    width: auto;
+    object-fit: cover;
+    margin-top: 10px;
+    margin-left: 40%;
+    margin-right: 40%;
+    border-radius: 6px;
+}
+
+

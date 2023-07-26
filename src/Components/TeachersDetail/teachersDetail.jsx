@@ -27,7 +27,7 @@ const TeachersDetail = () => {
         <img
           src={teacher.profileImage || defaultProfileImage}
           alt="Foto de perfil"
-          className="w-full rounded-full"
+          className="teacher-img-detail w-full rounded-full"
           id='instructor-photo'
         />
       </div>
@@ -35,18 +35,18 @@ const TeachersDetail = () => {
         <div>
           <h2 className="text-2xl font-bold text-[#7c38cd]" id="insctructor-text">Instructor</h2>
           <h3 className="text-lg font-semibold text-[#aa6fff]" id="insctructor-text">{teacher.name}</h3>
-          <p className="mt-4" id="insctructor-text">{teacher.description}</p>
+          <p className="teacherDescription mt-4" id="insctructor-text">{teacher.description}</p>
         </div>
         <div className="mt-8">
-          <h2 className="text-2xl font-bold text-[#7c38cd]">Mis cursos</h2>
+          <h2 className="text-2xl font-bold text-[#7c38cd] max-md:text-xl">My courses</h2>
           <div className="flex flex-wrap mt-4">
             {teacher.courses &&
               teacher.courses.map((course) => (
-                <div key={course.title} className="w-1/2 p-4">
-                  <img src={course.image} alt={course.title} className="w-full rounded-lg" />
-                  <h3 className="mt-2 text-lg font-semibold">{course.title}</h3>
-                  <p>{course.description}</p>
-                  <a href={course.link} className="text-blue-500 hover:underline">
+                <div key={course.title} className="teacherCourses">
+                  <img src={course.image} alt={course.title} className="teacherCourseImage" />
+                  <h3 className="teacherCourseTitle mt-2 font-semibold">{course.title}</h3>
+                  <p className="teacherCourseDescription">{course.description}</p>
+                  <a href={course.link} className="teacherCourseLink text-blue-500 hover:underline">
                     Ver más
                   </a>
                 </div>

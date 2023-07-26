@@ -1,12 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext.js";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { validate } from "./validate";
 import "./Register.css"
 
 const Form = () => {
   const navigate = useNavigate();
+  // VALIDACION DE USUARIO
+  useEffect(() => { 
+  if (localStorage.getItem("loggedUser")) navigate('/')
+  else if (localStorage.getItem("username")) navigate('/')
+  else if (!localStorage.getItem("username")) return
+  else if (!localStorage.getItem("loggedUser")) return
+  }, [navigate]); 
+  // -----------------------------
 
   const { logginWhitGoogle, logginWhitTwitter } = useAuth();
   const [errors, setErrors] = useState({});
@@ -18,7 +26,6 @@ const Form = () => {
     dateOfBirth: "",
     password: "",
     confirmPass: "",
-    accountType: "",
     registerWith: ""
   });
 
@@ -50,16 +57,26 @@ const Form = () => {
     "Rusia"
   ];
 
+  
+
+  const registerInfoGetter = async () => {
+      const logInfo = {
+        username: input.username,
+        password: input.password,
+      };
+      const { data } = await axios.post('https://talent-forge-data.cyclic.app/login/', logInfo);
+      localStorage.setItem('registerEmail', data.email);
+  }
+
   const handleSubmit = async (event) => {
+  try {
     event.preventDefault();
     const formErrors = validate(input);
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
       return;
     }
-
-    await axios.post("https://talent-forge-data.cyclic.app/user/", input);
-    navigate("/welcome");
+  
     setInput({
       fullName: "",
       username: "",
@@ -68,10 +85,21 @@ const Form = () => {
       dateOfBirth: "",
       password: "",
       confirmPass: "",
-      accountType: "",
       registerWith: ""
     });
-  };
+  
+    // Realizar la solicitud POST para registrar al usuario
+    await axios.post("https://talent-forge-data.cyclic.app/user/", input);
+  
+    // Obtener el correo electrónico y guardarlo en el almacenamiento local
+    await registerInfoGetter();
+  
+    // Navegar a la página de registro exitoso
+    navigate("/welcome");
+  } catch (error) {
+    console.log(error.message);
+  }
+  };  
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -140,7 +168,7 @@ const Form = () => {
           />
         </div>
       </div>
-      <form class="w-full max-w-lg" onSubmit={handleSubmit}>
+      <form class=" max-w-lg" onSubmit={handleSubmit}>
         <div class="flex flex-wrap -mx-3 mb-6">
           <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label
@@ -150,7 +178,7 @@ const Form = () => {
               Full Name
             </label>
             <input
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="input-form bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               id="grid-first-name"
               type="text"
               name="fullName"
@@ -170,7 +198,7 @@ const Form = () => {
               username
             </label>
             <input
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="input-form bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               id="grid-last-name"
               type="text"
               name="username"
@@ -192,7 +220,7 @@ const Form = () => {
               email adress
             </label>
             <input
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="input-form bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               id="grid-password"
               type="email"
               name="email"
@@ -212,7 +240,7 @@ const Form = () => {
               Password
             </label>
             <input
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="input-form bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               id="grid-password"
               type="password"
               name="password"
@@ -232,7 +260,7 @@ const Form = () => {
               repeat Password
             </label>
             <input
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="input-form bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               id="grid-password"
               type="password"
               name="confirmPass"
@@ -254,7 +282,7 @@ const Form = () => {
               birthdate
             </label>
             <input
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="input-form bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               id="grid-city"
               type="text"
               name="dateOfBirth"
@@ -275,7 +303,7 @@ const Form = () => {
             </label>
             <div class="relative">
               <select
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 appearance-none"
+                className="input-form bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 appearance-none"
                 id="grid-state"
                 name="country"
                 value={input.country}
@@ -302,33 +330,11 @@ const Form = () => {
               </div>
             </div>
           </div>
-          <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-            <label
-              class="block uppercase tracking-wide text-[#7c38cd] text-xs font-bold mb-2"
-              for="grid-zip"
-            >
-              Account type
-            </label>
-            <select
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              id="grid-zip"
-              name="accountType"
-              value={input.accountType}
-              onChange={handleChange}
-            >
-              <option value="">SELECT</option>
-              <option value="user">User</option>
-              <option value="teacher">Teacher</option>
-            </select>
-            {errors.accountType && (
-              <p class="text-red-500 text-xs italic">{errors.accountType}</p>
-            )}
-          </div>
         </div>
         <div>
         <button
           type="submit"
-          className="text-white bg-[#7c38cd] hover:bg-[#8244cf] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          className="input-form text-white bg-[#7c38cd] hover:bg-[#8244cf] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           Register
         </button>

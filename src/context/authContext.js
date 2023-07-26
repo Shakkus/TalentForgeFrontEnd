@@ -5,6 +5,7 @@ import {
   onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup, TwitterAuthProvider
 } from "firebase/auth";
 import { auth } from "../firebase";
+import axios from 'axios'
 
 export const authcontext = createContext();
 
@@ -35,20 +36,60 @@ export const AuthProvider = ({ children }) => {
   const logginWhitGoogle = async () => {
     const googleProvider = await new GoogleAuthProvider()
     localStorage.setItem("loggedUser", true)
+    localStorage.setItem("userAccountType", 'user')
     return signInWithPopup(auth, googleProvider)
   }
 
   const logginWhitTwitter = async () => {
     const twitterProvider = await new TwitterAuthProvider()
     localStorage.setItem("loggedUser", true)
+    localStorage.setItem("userAccountType", 'user')
     return signInWithPopup(auth, twitterProvider)
+  }
+
+  const dbPost = async(user) => {
+    if(user){
+        if(user.email){
+          const userInfo = {
+            fullName: user?.displayName,
+            username: user?.displayName,
+            email: user?.email,
+            country: "unknown",
+            dateOfBirth: "dd/mm/yyyy",
+            password: user?.accessToken,
+            confirmPass: user?.accessToken,
+            profileImage: user.photoURL,
+            accountType: "user",
+            registerWith: "google"
+          }
+          await axios.post("https://talent-forge-data.cyclic.app/user/", userInfo)
+        } else {
+          const userInfo = {
+            fullName: user?.displayName,
+            username: user?.displayName,
+            email: "unknown",
+            country: "unknown",
+            dateOfBirth: "dd/mm/yyyy",
+            password: user?.accessToken,
+            confirmPass: user?.accessToken,
+            profileImage: user.photoURL,
+            accountType: "user",
+            registerWith: "twitter"
+          }
+          await axios.post("https://talent-forge-data.cyclic.app/user/", userInfo)
+        }
+    } else {
+      console.log('saliste del videojuego')
+    }
   }
 
   useEffect(() => {
     onAuthStateChanged(auth, currentUser => {
       setUser(currentUser)
       setLoading(false)
-      // {user && localStorage.setItem('loggedUser', user.accessToken)}
+      if(localStorage.getItem("loggedUser")){
+        dbPost(currentUser)
+      }
     })
   }, [])
 

@@ -4,15 +4,18 @@ import emailjs from 'emailjs-com';
 import background from '../../Recourses/sucefull-background.png';
 import { useAuth } from "../../context/authContext.js";
 
-console.log("Estás en esta página!")
-
 const SucessRegister = () => {
   const { user } = useAuth();
+  const registerEmail = localStorage.getItem("registerEmail");
+
+  console.log(registerEmail);
 
   useEffect(() => {
-    if (user && user.email) { // Check if user and user.email are defined
+    let toEmail = user && user.email ? user.email : registerEmail;
+
+    if (toEmail) {
       const templateParams = {
-        to_email: user.email,
+        to_email: toEmail,
       };
 
       // emailJS configuration.
@@ -29,7 +32,7 @@ const SucessRegister = () => {
           console.error('Failed to send email:', error);
         });
     }
-  }, [user]); // Trigger the effect when the user object changes
+  }, [user, registerEmail]);
 
   return (
     <div className="min-h-screen bg-cover bg-no-repeat bg-center flex flex-col items-center justify-center" style={{ backgroundImage: `url(${background})`, marginTop: '80px' }}>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../Home/Home.css"
 
 const CourseFilter = ({ courses, onFilter }) => {
 
@@ -56,9 +57,12 @@ const CourseFilter = ({ courses, onFilter }) => {
   };
 
   return (
-    <div className="filters-box">
-      <div className="filters">
-        <div className="select-box">
+    <div>
+      {window.innerWidth <= 1024 ? (
+        <div className="filters-boxResponsive">
+      <div className="filtersResponsive">
+        <div className="filtersContainerResponsive">
+          <div className="select-box">
           <label className={"select-title"}>Categoría:</label>
           <select
             className={inputStyles}
@@ -66,7 +70,7 @@ const CourseFilter = ({ courses, onFilter }) => {
             onChange={(event) => setCategory(event.target.value)}
           >
             <option value="">Todas</option>
-            <option value="idiom">Idioma</option>
+            <option value="languages">Idioma</option>
             <option value="programming">Programación</option>
           </select>
         </div>
@@ -78,7 +82,7 @@ const CourseFilter = ({ courses, onFilter }) => {
             value={theme}
             onChange={(event) => setTheme(event.target.value)}
           >
-            <option value="">Todos</option>
+            <option value="">All</option>
             <option value="German">German</option>
             <option value="Italian">Italian</option>
             <option value="Japanese">Japanese</option>
@@ -99,7 +103,7 @@ const CourseFilter = ({ courses, onFilter }) => {
           </select>
         </div>
         <div className="select-box">
-          <label className={"select-title"}>Duración:</label>
+          <label className={"select-title"}>Duration:</label>
           <select
             id="countries"
             className={inputStyles}
@@ -107,20 +111,20 @@ const CourseFilter = ({ courses, onFilter }) => {
             onChange={(event) => setDuration(event.target.value)}
           >
             <option selected>Todas</option>
-            <option value="greaterThan10">Más de 10 minutos</option>
-            <option value="lessThan10">Menos de 10 minutos</option>
+            <option value="greaterThan10">More than 10 minutes</option>
+            <option value="lessThan10">Less than 10 minutes</option>
           </select>
         </div>
         <div className="select-box">
-          <label className={"select-title"}>Precio:</label>
+          <label className={"select-title"}>Price:</label>
           <select
             className={inputStyles}
             value={price}
             onChange={(event) => setPrice(event.target.value)}
           >
-            <option value="">Todos</option>
-            <option value="lessThan15">Menor a $15</option>
-            <option value="greaterThan15">Mayor a $15</option>
+            <option value="">All</option>
+            <option value="lessThan15">More than $15</option>
+            <option value="greaterThan15">Less than $15</option>
           </select>
         </div>
         <div className="select-box">
@@ -130,18 +134,109 @@ const CourseFilter = ({ courses, onFilter }) => {
             value={rating}
             onChange={(event) => setRating(event.target.value)}
           >
-            <option value="">Todos</option>
-            <option value="1">1 punto</option>
-            <option value="2">2 puntos</option>
-            <option value="3">3 puntos</option>
-            <option value="4">4 puntos</option>
-            <option value="5">5 puntos</option>
+            <option value="">All</option>
+            <option value="1">1 star</option>
+            <option value="2">2 stars</option>
+            <option value="3">3 stars</option>
+            <option value="4">4 stars</option>
+            <option value="5">5 stars</option>
           </select>
         </div>
-        <button class="bg-[#7c38cd] hover:bg-[#AA6FFF] text-white font-bold py-2 px-4 rounded m-5" onClick={handleFilter} id="filter-button">
+        </div>
+        <button class="buttonfilterResponsive bg-[#7c38cd] hover:bg-[#AA6FFF] text-white font-bold py-2 px-4 rounded m-5" onClick={handleFilter} id="filter-button">
           Filtrar
         </button>
       </div>
+    </div>
+      ) : (
+        <div className="filters-box">
+      <div className="filters">
+        <div className="select-box">
+          <label className={"select-title"}>Categoría:</label>
+          <select
+            className={inputStyles}
+            value={category}
+            onChange={(event) => setCategory(event.target.value)}
+          >
+            <option value="">Todas</option>
+            <option value="languages">Idioma</option>
+            <option value="programming">Programación</option>
+          </select>
+        </div>
+
+        <div className="select-box">
+          <label className={"select-title"}>Tema:</label>
+          <select
+            className={inputStyles}
+            value={theme}
+            onChange={(event) => setTheme(event.target.value)}
+          >
+            <option value="">All</option>
+            <option value="German">German</option>
+            <option value="Italian">Italian</option>
+            <option value="Japanese">Japanese</option>
+            <option value="Korean">Korean</option>
+            <option value="English">English</option>
+            <option value="Asia">Asia</option>
+            <option value="Europe">Europe</option>
+            <option value="America">America</option>
+            <option value="Backend">Backend</option>
+            <option value="Frontend">Frontend</option>
+            <option value="IA">IA</option>
+            <option value="Machine Learning">Machine Learning</option>
+            <option value="Python">Python</option>
+            <option value="React">React</option>
+            <option value="Typescript">Typescript</option>
+            <option value="Javascript">Javascript</option>
+            <option value="Nodejs">Nodejs</option>
+          </select>
+        </div>
+        <div className="select-box">
+          <label className={"select-title"}>Duration:</label>
+          <select
+            id="countries"
+            className={inputStyles}
+            value={duration}
+            onChange={(event) => setDuration(event.target.value)}
+          >
+            <option selected>Todas</option>
+            <option value="greaterThan10">More than 10 minutes</option>
+            <option value="lessThan10">Less than 10 minutes</option>
+          </select>
+        </div>
+        <div className="select-box">
+          <label className={"select-title"}>Price:</label>
+          <select
+            className={inputStyles}
+            value={price}
+            onChange={(event) => setPrice(event.target.value)}
+          >
+            <option value="">All</option>
+            <option value="lessThan15">More than $15</option>
+            <option value="greaterThan15">Less than $15</option>
+          </select>
+        </div>
+        <div className="select-box">
+          <label className={"select-title"}>Rating:</label>
+          <select
+            className={inputStyles}
+            value={rating}
+            onChange={(event) => setRating(event.target.value)}
+          >
+            <option value="">All</option>
+            <option value="1">1 star</option>
+            <option value="2">2 stars</option>
+            <option value="3">3 stars</option>
+            <option value="4">4 stars</option>
+            <option value="5">5 stars</option>
+          </select>
+        </div>
+        <button class="bg-[#7c38cd] hover:bg-[#AA6FFF] text-white font-bold py-2 px-4 rounded" onClick={handleFilter} id="filter-button">
+          Filtrar
+        </button>
+      </div>
+    </div>
+      )}
     </div>
   );
 };

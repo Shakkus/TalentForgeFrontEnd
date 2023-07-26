@@ -19,10 +19,10 @@ const Footer = () => {
           <h3 className="footerInfo">Contact</h3>
         </div>
         <Link to="/home">
-        <div className="contact-info p-3">
-          <img className="contact-img" src={home} alt="" />
-          <h3 className="footerInfo">Home</h3>
-        </div>
+          <div className="contact-info p-3">
+            <img className="contact-img" src={home} alt="" />
+            <h3 className="footerInfo">Home</h3>
+          </div>
         </Link>
         <div className="contact-ubication p-3">
           <img className="contact-img" src={dot} alt="" />
@@ -37,7 +37,7 @@ const Footer = () => {
         />
         <div className="logo-redes">
           <img src={logo1} alt="" />
-          <div className="redes">
+          <div className="redes max-lg:my-10">
             <img src={instagramImg} alt="" className="footerImg w-9" />
             <img src={facebookImg} alt="" className="footerImg w-9" />
             <img src={ytImg} alt="" className="footerImg w-9" />
@@ -47,9 +47,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="about">
-        <p className="aboutInfo">
-        TALENT FORGE©. Educating since 2023{" "}
-        </p>
+        <p className="aboutInfo">TALENT FORGE©. Educating since 2023 </p>
       </div>
     </div>
   );
