@@ -27,6 +27,20 @@ const CourseDetail = () => {
   const [ratingLength, setRatingLength] = useState([]);
   const [showRating, setShowRating] = useState(null);
   const [error, setError] = useState(null);
+  const [userCourses, setUserCourses] = useState([])
+
+  //course purchase validation
+  useEffect(() => {
+    const purchaseValidator = async () => {
+      if(localStorage.getItem('userId') === null) return
+      
+      else {
+        const { data } = await axios.get(`https://talent-forge-data.cyclic.app/user/${localStorage.getItem('userId')}`);
+        setUserCourses(data.purchasedCourses) ;
+      }
+    };
+      purchaseValidator()
+  }, [])
 
   // Fetch course details
   useEffect(() => {
@@ -89,8 +103,6 @@ const CourseDetail = () => {
     image,
     duration,
     description,
-    cathegory,
-    theme,
     prize,
   } = detailInfo;
   const teacherName = teacherInfo?.name || "Community";
@@ -148,12 +160,12 @@ const CourseDetail = () => {
             <p className="text-xl mt-2 py-1 detailDuration">{`Duration: ${duration}`}</p>
             <p className="text-3xl font-bold text-[#7c38cd] py-1 detailPrice">{`Price: $${prize} USD`}</p>
           </div>
-          <NavLink
+          {userCourses?.some(ucourse => detailInfo._id === ucourse.id) && <NavLink
             to={`/view/${id}`}
             className="block bg-[#7c38cd] text-white py-2 px-4 mt-4 detailButton"
           >
             Start the course!
-          </NavLink>
+          </NavLink> }
         </div>
       )}
     </div>

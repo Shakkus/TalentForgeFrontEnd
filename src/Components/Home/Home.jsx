@@ -15,12 +15,12 @@ const Home = () => {
   const [getting, setGetting] = useState(true); // Estado para controlar si se están cargando los cursos
   const { setCartCount } = useContext(CartContext);
   const [showPopup, setShowPopUp] = useState(false); //Logica de Pop Up para carrito
+  const [userCourses, setUserCourses] = useState([])
 
-  const { logOut, loading, user } = useAuth();
+  const { logOut, loading} = useAuth();
 
   useEffect(() => {
     getCourses();
-    console.log(user);
   }, []);
 
   // VALIDACION DE USUARIO LOGEADO
@@ -31,6 +31,18 @@ const Home = () => {
     else if (!localStorage.getItem("loggedUser")) navigate("/login");
   }, [navigate]);
   // -----------------------------
+
+  //VALIDACION SI POSEE EL CURSO O NO
+  useEffect(() => {
+    const purchaseValidator = async () => {
+      if(localStorage.getItem('userId') === null) return
+      else {
+        const { data } = await axios.get(`https://talent-forge-data.cyclic.app/user/${localStorage.getItem('userId')}`);
+        setUserCourses(data.purchasedCourses) ;
+      }
+    };
+      purchaseValidator()
+  }, [])
 
   const getCourses = async () => {
     try {
@@ -123,9 +135,7 @@ if (loanding) {
       <div className="container mx-auto px-5 py-2 lg:px-32 lg:pt-12">
         <div className="-mx-2 flex flex-wrap">
           {filteredCourses.map((course) => (
-            <div
-              key={course._id}
-              className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 px-2 mb-4">
+            <div key={course._id} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 px-2 mb-4">
               <div className="overflow-hidden  ">
                 <div className="aspect-w-16 aspect-h-9">
                   <img
@@ -160,11 +170,11 @@ if (loanding) {
                   class="py-2 px-4 rounded m-5">
                   Ver Curso
                 </NavLink>
-                <button
+                {!userCourses.some(ucourse => course._id === ucourse.id) && <button
                   onClick={() => addCourseToCart(course)}
                   class="bg-[#7c38cd] hover:bg-[#AA6FFF] text-white font-bold py-2 px-4 rounded m-5">
                   Agregar al carrito
-                </button>
+                </button> }
               </div>
             </div>
           ))}
