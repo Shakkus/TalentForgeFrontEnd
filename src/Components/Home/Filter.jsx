@@ -5,53 +5,69 @@ const CourseFilter = ({ courses, onFilter }) => {
 
   const inputStyles = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500";
 
-  const [theme, setTheme] = useState("");
+
   const [category, setCategory] = useState("");
   const [duration, setDuration] = useState("");
   const [price, setPrice] = useState("");
   const [rating, setRating] = useState("");
 
+  const ratingTotal = (ratings) => {
+    if (!ratings) {
+      return 0; 
+    } else {    
+      let ratingValues = []
+      ratings.map((element) => {
+        ratingValues.push(element.rating)
+      });
+      const totalRatings = ratingValues.length;
+      const totalSum = ratingValues.reduce((acc, rating) => acc + rating, 0);
+      const promedio = totalSum / totalRatings;
+      return promedio
+    }
+  }
+
   const handleFilter = () => {
     let filteredCourses = [...courses];
+    console.log(filteredCourses)
 
-    if (theme)
-      filteredCourses = filteredCourses.filter((course) =>
-        course.theme.includes(theme)
-      );
     if (category)
       filteredCourses = filteredCourses.filter(
         (course) => course.cathegory.toLowerCase() === category.toLowerCase()
       );
     if (duration === "greaterThan10")
       filteredCourses = filteredCourses.filter(
-        (course) => parseFloat(course.duration) > 10
+        (course) => course.duration.length > 4
       );
     if (duration === "lessThan10")
       filteredCourses = filteredCourses.filter(
-        (course) => parseFloat(course.duration) < 10
+        (course) => course.duration.length <= 4
       );
-    if (price === "lessThan15")
-      filteredCourses = filteredCourses.filter((course) => course.prize < 15);
-    if (price === "greaterThan15")
-      filteredCourses = filteredCourses.filter((course) => course.prize > 15);
+    if (price === "1-10")
+      filteredCourses = filteredCourses.filter((course) => course.prize > 1 && course.prize <= 10);
+    if (price === "11-20")
+      filteredCourses = filteredCourses.filter((course) => course.prize > 10 && course.prize <= 20);
+    if (price === "21-30")
+      filteredCourses = filteredCourses.filter((course) => course.prize > 20 && course.prize <= 30);
+
+
+    if (rating === "0")
+      filteredCourses = filteredCourses.filter(
+        (course) => ratingTotal(course.ratings) === 0 
+      );
     if (rating === "1")
       filteredCourses = filteredCourses.filter(
-        (course) => course.rating >= 1 && course.rating < 2
-      );
+        (course) => ratingTotal(course.interactions.ratings) >= 1 && ratingTotal(course.interactions.ratings) < 2);
     if (rating === "2")
       filteredCourses = filteredCourses.filter(
-        (course) => course.rating >= 2 && course.rating < 3
-      );
+        (course) => ratingTotal(course.interactions.ratings) >= 2 && ratingTotal(course.interactions.ratings) < 3);
     if (rating === "3")
       filteredCourses = filteredCourses.filter(
-        (course) => course.rating >= 3 && course.rating < 4
-      );
+        (course) => ratingTotal(course.interactions.ratings) >= 3 && ratingTotal(course.interactions.ratings) < 4);
     if (rating === "4")
       filteredCourses = filteredCourses.filter(
-        (course) => course.rating >= 4 && course.rating < 5
-      );
+        (course) => ratingTotal(course.interactions.ratings) >= 4 && ratingTotal(course.interactions.ratings) < 5);
     if (rating === "5")
-      filteredCourses = filteredCourses.filter((course) => course.rating >= 5);
+      filteredCourses = filteredCourses.filter((course) => ratingTotal(course.interactions.ratings) >= 5);
 
     onFilter(filteredCourses);
   };
@@ -76,33 +92,6 @@ const CourseFilter = ({ courses, onFilter }) => {
         </div>
 
         <div className="select-box">
-          <label className={"select-title"}>Tema:</label>
-          <select
-            className={inputStyles}
-            value={theme}
-            onChange={(event) => setTheme(event.target.value)}
-          >
-            <option value="">All</option>
-            <option value="German">German</option>
-            <option value="Italian">Italian</option>
-            <option value="Japanese">Japanese</option>
-            <option value="Korean">Korean</option>
-            <option value="English">English</option>
-            <option value="Asia">Asia</option>
-            <option value="Europe">Europe</option>
-            <option value="America">America</option>
-            <option value="Backend">Backend</option>
-            <option value="Frontend">Frontend</option>
-            <option value="IA">IA</option>
-            <option value="Machine Learning">Machine Learning</option>
-            <option value="Python">Python</option>
-            <option value="React">React</option>
-            <option value="Typescript">Typescript</option>
-            <option value="Javascript">Javascript</option>
-            <option value="Nodejs">Nodejs</option>
-          </select>
-        </div>
-        <div className="select-box">
           <label className={"select-title"}>Duration:</label>
           <select
             id="countries"
@@ -123,8 +112,9 @@ const CourseFilter = ({ courses, onFilter }) => {
             onChange={(event) => setPrice(event.target.value)}
           >
             <option value="">All</option>
-            <option value="lessThan15">More than $15</option>
-            <option value="greaterThan15">Less than $15</option>
+            <option value="1-10">Less than $10</option>
+            <option value="11-20">Less than $20</option>
+            <option value="21-30">Less than $30</option>
           </select>
         </div>
         <div className="select-box">
@@ -152,7 +142,7 @@ const CourseFilter = ({ courses, onFilter }) => {
         <div className="filters-box">
       <div className="filters">
         <div className="select-box">
-          <label className={"select-title"}>Categoría:</label>
+        <label className={"select-title"}>Categoría:</label>
           <select
             className={inputStyles}
             value={category}
@@ -164,33 +154,6 @@ const CourseFilter = ({ courses, onFilter }) => {
           </select>
         </div>
 
-        <div className="select-box">
-          <label className={"select-title"}>Tema:</label>
-          <select
-            className={inputStyles}
-            value={theme}
-            onChange={(event) => setTheme(event.target.value)}
-          >
-            <option value="">All</option>
-            <option value="German">German</option>
-            <option value="Italian">Italian</option>
-            <option value="Japanese">Japanese</option>
-            <option value="Korean">Korean</option>
-            <option value="English">English</option>
-            <option value="Asia">Asia</option>
-            <option value="Europe">Europe</option>
-            <option value="America">America</option>
-            <option value="Backend">Backend</option>
-            <option value="Frontend">Frontend</option>
-            <option value="IA">IA</option>
-            <option value="Machine Learning">Machine Learning</option>
-            <option value="Python">Python</option>
-            <option value="React">React</option>
-            <option value="Typescript">Typescript</option>
-            <option value="Javascript">Javascript</option>
-            <option value="Nodejs">Nodejs</option>
-          </select>
-        </div>
         <div className="select-box">
           <label className={"select-title"}>Duration:</label>
           <select
@@ -212,8 +175,9 @@ const CourseFilter = ({ courses, onFilter }) => {
             onChange={(event) => setPrice(event.target.value)}
           >
             <option value="">All</option>
-            <option value="lessThan15">More than $15</option>
-            <option value="greaterThan15">Less than $15</option>
+            <option value="1-10">Less than $10</option>
+            <option value="11-20">Less than $20</option>
+            <option value="21-30">Less than $30</option>
           </select>
         </div>
         <div className="select-box">

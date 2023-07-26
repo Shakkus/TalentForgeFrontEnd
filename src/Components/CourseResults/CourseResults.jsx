@@ -18,21 +18,23 @@ const CourseResults = ({ searchResults }) => {
     const roundedRating = Math.round(ratingAverage);
     return roundedRating;
   };
-
   // Filtrar los resultados que tengan "disabled: false"
   const filteredResults = searchResults.filter((course) => !course.disabled);
-
+  
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 5;
   const totalPages = Math.ceil(filteredResults.length / resultsPerPage);
-
+  
   // Calcula el índice inicial y final de los resultados que se mostrarán en la página actual
   const indexOfLastResult = currentPage * resultsPerPage;
   const indexOfFirstResult = indexOfLastResult - resultsPerPage;
   const currentResults = filteredResults.slice(
     indexOfFirstResult,
     indexOfLastResult
-  );
+    );
+
+    const abledCourses = currentResults.filter(course => course.disabled === false);
+    console.log(abledCourses)
 
   // Cambia a la página especificada
   const changePage = (pageNumber) => {
@@ -63,9 +65,9 @@ const CourseResults = ({ searchResults }) => {
     <div id="search-mapper">
       <div id="course-container">
         <strong className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-          Results found: {filteredResults.length}
+          Results found: {abledCourses.length}
         </strong>
-        {currentResults.map((course) => {
+        {abledCourses.map((course) => {
           return (
             <React.Fragment key={course.id}>
               <div id="course">

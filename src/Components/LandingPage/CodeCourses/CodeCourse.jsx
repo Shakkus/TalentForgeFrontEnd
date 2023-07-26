@@ -13,9 +13,9 @@ const CodeCourse = () => {
           "https://talent-forge-data.cyclic.app/courses/"
         );
         const filteredCourses = response.data.filter(
-          (course) => course.cathegory === "Programming"
+          (course) => course.cathegory === "programming"
         );
-        setCourses(filteredCourses);
+        setCourses(filteredCourses.slice(0, 5));
       } catch (error) {
         console.error("Error al obtener los cursos: ", error);
       }
@@ -23,8 +23,14 @@ const CodeCourse = () => {
     fetchCourses();
   }, []);
 
-  courses.pop();
-  courses.pop();
+
+  const truncateDescription = (description, maxLength) => {
+    if (description.length > maxLength) {
+      return `${description.slice(0, maxLength)}...`;
+    } else {
+      return description;
+    }
+  };
 
   return (
     <div>
@@ -36,7 +42,7 @@ const CodeCourse = () => {
                 <img src={course.image} alt="Imagen del curso" />
                 <h2>{course.title}</h2>
                 <p className="justify-center max-lg:h-24">
-                  {course.description}
+                {truncateDescription(course.description, 150)}
                 </p>
                 <p className="bg-gray-300 text-black w-40 mt-2 mx-auto rounded p-2">
                   {course.teacher}
@@ -60,7 +66,7 @@ const CodeCourse = () => {
               <div className="courseContainer w-full justify-between border-2 hover:border-violet-600 transition-colors">
                 <img src={course.image} alt="Imagen del curso" />
                 <h2 className="mb-3 sm:mb-2 mt-0">{course.title}</h2>
-                <p className="justify-center h-20">{course.description}</p>
+                <p className="justify-center h-20">{truncateDescription(course.description, 80)}</p>
                 <p className="course-teacher bg-gray-300 text-black w-40 mt-2 mx-auto rounded p-2 max-lg:w-20">
                   {course.teacher}
                 </p>

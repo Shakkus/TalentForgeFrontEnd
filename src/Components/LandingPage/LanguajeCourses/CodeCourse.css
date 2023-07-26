@@ -1,0 +1,92 @@
+.courses-container-landing-teacher{
+width: 100vw;
+display: flex;
+margin: 0;
+
+@media (max-width: 1024px) {
+    width: 100vw;
+    display: flex;
+    margin: 0 0;
+}
+
+} 
+.courses-container-landing-len{
+width: 100vw;
+display: flex;
+margin: 0;
+
+@media (max-width: 1440px) {
+    width: 90vw;
+    display: flex;
+    margin: 0;
+}
+/* @media (max-width: 1440px) {
+    width: 90vw;
+    display: flex;
+    margin: 0;
+} */
+} 
+.courses-box-landing{
+    display: flex;
+    justify-content: center;
+    margin: 30px 8%;
+}
+
+
+.courseContainer{
+    width: 300px;
+    border-radius: 10px;
+    margin: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+
+    @media (max-width: 1024px) {
+        width: 200px;
+        
+    }
+}
+.courseContainer img{
+    width: 300px;
+    height: 200px;
+    border-radius: 10px;
+    object-fit: contain;
+    margin: 0 auto;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+
+    @media (max-width: 1024px) {
+        width: 150px;
+        height: 100px
+    }
+}
+
+.course-teacher {
+    @media (max-width: 1024px) {
+        font-size: 10px;
+        
+    }
+}
+
+.button-view {
+    @media (max-width: 1024px) {
+        font-size: 12px;
+        }
+}
+
+.navlink-view {
+    @media (max-width: 1024px) {
+    }
+}
+
+.courseContainer * {
+    font-family: 'Lato';
+}
+
+.customHoverShadow:hover {
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  }
+
+.teacherCourse {
+    @media (min-width: 640px) {
+        width: 10px;
+    }
+  }
